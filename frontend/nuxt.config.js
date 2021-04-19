@@ -9,7 +9,7 @@ export default {
   head: {
     title: 'frontend',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'vi',
     },
     meta: [
       { charset: 'utf-8' },
