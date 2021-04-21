@@ -1,5 +1,7 @@
 <template>
-  <div>Hello Đã tới admin</div>
+  <v-container>
+    <v-app> <v-data-table></v-data-table> </v-app>
+  </v-container>
 </template>
 
 <script>

@@ -1,38 +1,31 @@
 <template>
   <div>
-    <Nav />
-    <div class="container-fluid">
-      <div class="row content">
-        <div class="col-sm-3 sidenav hidden-xs">
-          <h2>Logo</h2>
-          <ul class="nav nav-pills nav-stacked">
-            <li class="active"><a href="#section1">Dashboard</a></li>
-            <li><a href="#section2">Age</a></li>
-            <li><a href="#section3">Gender</a></li>
-            <li><a href="#section3">Geo</a></li>
-          </ul>
-          <br />
-        </div>
-        <br />
-        <div class="col-sm-9">
-          <div class="well">
-            <h4>Dashboard</h4>
-            <p>Some text..</p>
-          </div>
-          <div class="row">
-            <Nuxt />
-          </div>
-        </div>
-      </div>
-    </div>
+    <v-app id="inspire">
+      <Navigation :admins="admins" :cruds="cruds" />
+      <v-main>
+        <Nuxt />
+      </v-main>
+    </v-app>
   </div>
 </template>
 
 <script>
-import Nav from '~/components/admin/header/av.vue'
+import Navigation from '~/components/admin/header/Navigation'
 export default {
-  components: { Nav },
+  components: { Navigation },
   middleware: 'authenticated',
+  data: () => ({
+    admins: [
+      ['Management', 'mdi-account-multiple-outline'],
+      ['Settings', 'mdi-cog-outline'],
+    ],
+    cruds: [
+      ['Create', 'mdi-plus-outline'],
+      ['Read', 'mdi-file-outline'],
+      ['Update', 'mdi-update'],
+      ['Delete', 'mdi-delete'],
+    ],
+  }),
 }
 </script>
 
