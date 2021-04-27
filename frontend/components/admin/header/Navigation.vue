@@ -2,86 +2,71 @@
   <div>
     <v-navigation-drawer v-model="drawer" app>
       <!--  -->
-      <v-list>
-        <v-list-item>
+      <v-list shaped>
+        <v-list-item
+          color="deep-orange lighten-1"
+          @click="$router.push({ name: 'admin' })"
+        >
           <v-list-item-icon>
             <v-icon>mdi-home</v-icon>
           </v-list-item-icon>
           <v-list-item-title>Home</v-list-item-title>
         </v-list-item>
 
-        <v-list-group :value="true" prepend-icon="mdi-account-circle">
+        <v-list-group
+          v-for="(item, index) in menu"
+          :key="index"
+          color="deep-orange lighten-1"
+        >
           <template #activator>
-            <v-list-item-title>Users</v-list-item-title>
+            <v-list-item-title>{{ item.name }}</v-list-item-title>
           </template>
 
-          <v-list-group :value="true" no-action sub-group>
+          <v-list-group
+            v-for="(itemFunction, indexFunction) in item.function"
+            :key="indexFunction"
+            no-action
+            sub-group
+            color="deep-orange lighten-2"
+          >
             <template #activator>
               <v-list-item-content>
-                <v-list-item-title>Admin</v-list-item-title>
+                <v-list-item-title>{{ itemFunction.name }}</v-list-item-title>
               </v-list-item-content>
             </template>
 
-            <v-list-item v-for="([title, icon], i) in admins" :key="i" link>
-              <v-list-item-title v-text="title"></v-list-item-title>
-
-              <v-list-item-icon>
-                <v-icon v-text="icon"></v-icon>
-              </v-list-item-icon>
-            </v-list-item>
-          </v-list-group>
-
-          <v-list-group no-action sub-group>
-            <template #activator>
-              <v-list-item-content>
-                <v-list-item-title>Actions</v-list-item-title>
-              </v-list-item-content>
-            </template>
-
-            <v-list-item v-for="([title, icon], i) in cruds" :key="i" link>
-              <v-list-item-title v-text="title"></v-list-item-title>
-              <v-list-item-icon>
-                <v-icon v-text="icon"></v-icon>
-              </v-list-item-icon>
+            <v-list-item
+              v-for="(childFunctions, childIndex) in itemFunction.function"
+              :key="childIndex"
+              link
+              color="deep-orange lighten-3"
+              @click="$router.push({ name: childFunctions.url })"
+            >
+              <v-list-item-title
+                v-text="childFunctions.name"
+              ></v-list-item-title>
             </v-list-item>
           </v-list-group>
         </v-list-group>
       </v-list>
     </v-navigation-drawer>
-    //thanh bar
-    <v-app-bar
-      absolute
-      color="white"
-      elevate-on-scroll
-      scroll-target="#scrolling-techniques-7"
-      app
-    >
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Quản trị viên</v-toolbar-title>
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-    </v-app-bar>
+    <AppBar @action="action"></AppBar>
   </div>
 </template>
 
 <script>
+import AppBar from './AppBar.vue'
 export default {
+  components: { AppBar },
   props: {
-    cruds: { type: Array, default: null },
-    admins: { type: Array, default: null },
+    menu: { type: Array, default: null },
   },
   data: () => ({ drawer: true }),
+  methods: {
+    action() {
+      this.drawer = !this.drawer
+    },
+  },
 }
 </script>
 

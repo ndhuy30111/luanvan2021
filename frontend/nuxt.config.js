@@ -7,7 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'frontend',
+    title: 'Cửa hàng 7755',
     htmlAttrs: {
       lang: 'vi',
     },
@@ -21,6 +21,11 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
+  // Loadding : https://nuxtjs.org/docs/2.x/features/loading
+  loading: {
+    continuous: true,
+    color: 'red',
+  },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
