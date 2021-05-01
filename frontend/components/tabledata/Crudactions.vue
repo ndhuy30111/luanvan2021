@@ -2,6 +2,7 @@
   <v-data-table
     :headers="headers"
     :items="desserts"
+    :search="search"
     sort-by="calories"
     class="elevation-1"
   >
@@ -9,6 +10,13 @@
       <v-toolbar flat>
         <v-toolbar-title>{{ title }}</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template #[`activator`]="{ on, attrs }">
@@ -120,11 +128,11 @@ export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
+    search: '',
     headers: [
       {
-        text: 'Dessert (100g serving)',
+        text: 'Tên sản phẩm',
         align: 'start',
-        sortable: false,
         value: 'name',
       },
       { text: 'Calories', value: 'calories' },
