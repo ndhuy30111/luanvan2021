@@ -2,7 +2,6 @@
   <v-app id="inspire">
     <v-app-bar app color="white" flat>
       <v-spacer></v-spacer>
-
       <ul>
         <li
           v-for="(menu, index) in menus"

@@ -1,5 +1,6 @@
 <template>
   <v-container fluid>
+    <Carousel />
     <v-container>
       <v-row>
         <v-col cols="12" sm="2">
@@ -24,7 +25,12 @@
 </template>
 
 <script>
-export default {}
+import Carousel from '../components/user/Carousel.vue'
+export default {
+  components: {
+    Carousel,
+  },
+}
 </script>
 
 <style scoped></style>
