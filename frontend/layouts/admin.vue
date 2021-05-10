@@ -41,8 +41,8 @@ export default {
           {
             name: 'Quản lý Danh mục',
             function: [
-              { name: 'Xem Danh mục', url: 'index' },
-              { name: 'Thêm Danh mục', url: 'add' },
+              { name: 'Xem Danh mục', url: 'admin-category' },
+              { name: 'Thêm Danh mục', url: 'admin-category-add' },
             ],
           },
           {
