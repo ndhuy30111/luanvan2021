@@ -9,12 +9,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.stu.luanvan.enums.SaveEnum.NEW;
 
 @Service
 public class UserService implements UserServiceIntefaces{
@@ -57,7 +57,13 @@ public class UserService implements UserServiceIntefaces{
     }
 
     @Override
-    public UserModel save(UserRequest userRequest) {
+    @Transactional
+    public UserModel saveNew(UserRequest userRequest) {
+        return null;
+    }
+
+    @Override
+    public UserModel saveEdit(UserRequest userRequest) {
         return null;
     }
 
@@ -68,19 +74,18 @@ public class UserService implements UserServiceIntefaces{
 
     @Override
     public UserModel save(UserRequest userRequest, SaveEnum userEnum) {
+        var user = new UserModel();
         switch (userEnum){
-            case NEW:{
-
+            case NEW:
+                user = saveNew(userRequest);
                 break;
-            }
-            case EDIT: {
+            case EDIT:
+                user = saveEdit(userRequest);
                 break;
-            }
             default:{
-                break;
+                return null;
             }
-
         }
-        return null;
+        return user;
     }
 }

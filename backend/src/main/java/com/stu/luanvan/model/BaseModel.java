@@ -1,32 +1,34 @@
 package com.stu.luanvan.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class BaseModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "10000000")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Integer id;
-    @Column(name = "create_by")
     @CreatedBy
-    private String createBy;
-    @Column(name = "update_by")
+    @OneToOne
+    @JoinColumn(name="create_by")
+    private UserModel createBy;
+    @OneToOne
     @LastModifiedBy
-    private String lastModifiedBy;
+    @JoinColumn(name="update_by")
+    private UserModel lastModifiedBy;
     @Column(name = "create_date")
     @CreatedDate
     private Date create_date;

@@ -6,5 +6,5 @@ import com.stu.luanvan.request.UserRequest;
 import com.stu.luanvan.service.BaseIntefaces;
 
 public interface UserServiceIntefaces extends BaseIntefaces<UserModel, UserRequest> {
-    public UserModel save(UserRequest userRequest, SaveEnum userEnum);
+    UserModel save(UserRequest userRequest, SaveEnum userEnum);
 }
