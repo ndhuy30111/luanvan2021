@@ -17,8 +17,8 @@ export default {
       title: this.title,
       meta: [
         {
-          hid: 'Thêm sản phẩm',
-          name: 'Thêm sản phẩm',
+          hid: 'Danh sách sản phẩm',
+          name: 'Danh sách sản phẩm',
           content: 'Thêm sản phẩm vào cửa hàng 7755',
         },
       ],
