@@ -3,7 +3,7 @@
     <b-carousel
       id="carousel-1"
       v-model="slide"
-      :interval="5000"
+      :interval="4000"
       controls
       indicators
       background="#ababab"
@@ -18,8 +18,8 @@
         id="content-index"
         img-src="https://cdn.shopify.com/s/files/1/2598/7400/files/home-1-3_x1024.jpg?v=1515578976"
       >
-        <div class="content hahaha" id="content-2">
-          <h1>Luxury Handbags</h1>
+        <div class="content">
+          <h6>Luxury Handbags</h6>
           <p>Discount every in orders</p>
           <b-button variant="dark">SHOPPING NOW</b-button>
         </div>
@@ -30,7 +30,7 @@
         img-src="https://cdn.shopify.com/s/files/1/2598/7400/files/home-1-2_x1024.jpg?v=1515579141"
       >
         <div class="content">
-          <h1>Frilled Sleeve Top</h1>
+          <h6>Frilled Sleeve Top</h6>
           <p>Discount every in orders</p>
           <b-button variant="dark">SHOPPING NOW</b-button>
         </div>
@@ -41,7 +41,7 @@
         img-src="https://cdn.shopify.com/s/files/1/2598/7400/files/slider-1_x1024.jpg?v=1513869131"
       >
         <div class="content">
-          <h1>Frilled Sleeve Top</h1>
+          <h6>Frilled Sleeve Top</h6>
           <p>Stock in physical stores</p>
           <b-button variant="dark">SHOPPING NOW</b-button>
         </div>
@@ -72,31 +72,33 @@ export default {
 <style lang="scss" scoped>
 .content {
   width: 50%;
-  margin: 25%;
+  margin-top: -40%;
   color: black;
+  position: relative;
   animation-name: example;
-  animation-duration: 2.5s;
+  animation-duration: 2s;
   animation-fill-mode: forwards;
-}
-.content h1 {
-  font-size: 3em;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-.content p {
-  margin-bottom: 4%;
-}
-.btn-dark {
-  color: white;
-  border-radius: 38px;
-  padding: 10px;
-  font-size: 12px;
-}
-@keyframes example {
-  from {
-    left: 0px;
+  h6 {
+    font-size: 3em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+      sans-serif;
   }
-  to {
-    left: 300px;
+  p {
+    margin-bottom: 4%;
+  }
+  .btn-dark {
+    color: white;
+    border-radius: 38px;
+    padding: 10px;
+    font-size: 12px;
+  }
+  @keyframes example {
+    from {
+      left: 0px;
+    }
+    to {
+      left: 160px;
+    }
   }
 }
 </style>
