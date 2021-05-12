@@ -18,8 +18,10 @@ public class RoleModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
     @Column(name="name")
     private String name;
+
     @ManyToMany(mappedBy = "role")
     private Collection<UserModel> user;
 

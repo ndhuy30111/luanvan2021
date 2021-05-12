@@ -19,19 +19,22 @@ import java.util.Date;
 public class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Integer id;
-    @CreatedBy
+
     @OneToOne
+    @CreatedBy
     @JoinColumn(name="create_by")
     private UserModel createBy;
+
     @OneToOne
     @LastModifiedBy
     @JoinColumn(name="update_by")
     private UserModel lastModifiedBy;
+
     @Column(name = "create_date")
     @CreatedDate
     private Date create_date;
+
     @Column(name = "update_date")
     @LastModifiedDate
     private Date lastModifiedDate;

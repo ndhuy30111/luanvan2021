@@ -8,8 +8,13 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Configuration
-@EnableJpaAuditing
+@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class PersistentConfig {
+    /**
+     * Khai báo bean cho auditor
+     *
+     */
+
     @Bean
     public AuditorAware<UserModel> auditorProvider() {
         return new SecurityAuditorAware();

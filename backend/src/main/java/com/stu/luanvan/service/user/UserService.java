@@ -19,11 +19,14 @@ import java.util.Map;
 public class UserService implements UserServiceIntefaces{
     @Autowired
     UserRepository userRepository;
-    /*
-    *
-    * Lấy danh sách theo danh sách chỉ định
-    * Return Map<String,Object>
-    * */
+    /**
+     *
+     * Lấy danh sách theo danh sách chỉ định
+     * @param page trang sản phẩm
+     * @param size số lượng lây sản phẩm
+     * @param nameSort Sắp xếp theo tên column
+     * @return Map<String, Object>
+     */
     @Override
     public Map<String,Object> findByAll(int page, int size,String nameSort ) {
         Pageable pageable = null;

@@ -19,6 +19,11 @@ public class MyUserDetails implements UserDetails {
     MyUserDetails(UserModel userModel){
         this.userModel = userModel;
     }
+
+    /**
+     * Quyền hạn của user được đưa vào UserDetails
+     */
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
