@@ -1,6 +1,5 @@
 package com.stu.luanvan.filter;
 
-import com.stu.luanvan.security.MyUserDetails;
 import com.stu.luanvan.security.MyUserDetailsService;
 import com.stu.luanvan.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;

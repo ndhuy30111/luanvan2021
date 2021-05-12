@@ -16,8 +16,6 @@ import java.util.Collection;
 public class MyUserDetails implements UserDetails {
     @Autowired
     private final UserModel userModel;
-
-
     MyUserDetails(UserModel userModel){
         this.userModel = userModel;
     }

@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.Collection;
 import java.util.Date;
 
@@ -18,25 +19,28 @@ public class UserModel{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column(name = "username")
+    @Column(name = "username",columnDefinition = "VARCHAR(50) NOT NULL",unique = true)
+    @Pattern(regexp = "^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,48}[a-zA-Z0-9]$",message = "Tài khoản không hợp lệ")
     private String userName;
-    @Column(name="name")
+    @Column
     private String name;
-    @Column(name = "password")
+    @Column
     private String password;
-    @Column( name = "is_enabled")
+    @Column
     private boolean isEnabled;
-    @Column(name = "create_date")
+    @Column
     @CreatedDate
-    private Date create_date;
-    @Column(name = "update_date")
+    private Date createDate;
+    @Column
     @LastModifiedDate
-    private Date lastModifiedDate;
-    @Column(name="numberphone")
+    private Date lastmodifiedDate;
+    @Column
     private Integer numberPhone;
-    @Column(name="address")
+    @Column
     private String address;
-    @Column(name="status")
+    @Column
+    private String accessToken;
+    @Column
     private Integer status;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     @ToString.Exclude
