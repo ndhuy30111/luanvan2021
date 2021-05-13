@@ -35,10 +35,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"/api/dangky").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/Authentication").permitAll()
                 .antMatchers(HttpMethod.GET).permitAll()
-                .antMatchers(HttpMethod.DELETE).authenticated()
-                .antMatchers(HttpMethod.POST).authenticated()
-                .antMatchers(HttpMethod.PATCH).authenticated()
-                .antMatchers(HttpMethod.PUT).authenticated()
+                .antMatchers(HttpMethod.DELETE).permitAll()
+                .antMatchers(HttpMethod.POST).permitAll()
+                .antMatchers(HttpMethod.PATCH).permitAll()
+                .antMatchers(HttpMethod.PUT).permitAll()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().cors().disable();
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
