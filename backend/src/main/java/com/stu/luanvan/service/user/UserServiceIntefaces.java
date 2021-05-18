@@ -4,12 +4,8 @@ import com.stu.luanvan.enums.SaveEnum;
 import com.stu.luanvan.model.UserModel;
 import com.stu.luanvan.request.UserRequest;
 import com.stu.luanvan.service.ServiceIntefaces;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserServiceIntefaces extends ServiceIntefaces<UserModel, UserRequest> {
-    /*
-    *  @param
-    *  @return User
-    *
-    */
-    UserModel save(UserRequest userRequest, SaveEnum userEnum);
+    UserModel findByUserName(String userName);
 }

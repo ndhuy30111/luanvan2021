@@ -17,6 +17,7 @@ public class SecurityAuditorAware implements AuditorAware<UserModel> {
                 .map(SecurityContext::getAuthentication)
                 .filter(Authentication::isAuthenticated)
                 .map(Authentication::getPrincipal)
-                .map(UserModel.class::cast);
+                .map(MyUserDetails.class::cast)
+                .map(MyUserDetails::getUserModel);
     }
 }

@@ -32,13 +32,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/api/dangky").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/Authentication").permitAll()
-                .antMatchers(HttpMethod.GET).permitAll()
-                .antMatchers(HttpMethod.DELETE).permitAll()
-                .antMatchers(HttpMethod.POST).permitAll()
-                .antMatchers(HttpMethod.PATCH).permitAll()
-                .antMatchers(HttpMethod.PUT).permitAll()
+                .antMatchers(HttpMethod.POST,"/api/register").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/login").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/user").authenticated()
+                .antMatchers("/api/admin/**").authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().cors().disable();
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

@@ -1,6 +1,10 @@
 package com.stu.luanvan.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.github.slugify.Slugify;
+import com.stu.luanvan.model.json.Views;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,49 +28,61 @@ public class ProductModel extends BaseModel{
     @Column(columnDefinition = "NVARCHAR(50) NOT NULL UNIQUE COMMENT 'Tên của sản phẩm' ")
     @NotBlank(message = "Bạn không được để trống name")
     @Pattern(regexp = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+$", message = "Tên không hợp lệ")
+    @JsonView(Views.Public.class)
     private String name;
 
     @Column(columnDefinition = "Bigint(19) default 1000000 COMMENT 'Giá tiền sản phẩm không được bé hơn 0 và mặc định là 1000000'")
     @Min(value= 0 ,message = "Số tiền không được < 0")
+    @JsonView(Views.Public.class)
     private Long price;
 
     @Column(columnDefinition = "bit default 0 COMMENT 'Sản phẩm được bán chạy hay không, Nếu có là 1 hoặc không là 0'")
+    @JsonView(Views.Public.class)
     private boolean hot;
 
     @Column(columnDefinition = "bit default 1 COMMENT 'Sản phẩm mới được bán, 1 là hàng mới hoặc 0 là hàng không còn mới'")
+    @JsonView(Views.Public.class)
     private boolean fresh;
 
     @Column(columnDefinition ="tinyint(1) default 0 COMMENT 'Đánh giá sản phẩm theo mức độ từ số 0 đến số 5 tính theo điểm sao ' " )
     @Min(value = 0,message = "Không có đánh giá mức thấp hơn 0")
     @Max(value = 5,message = "Không có đánh giá mức hơn")
+    @JsonView(Views.Public.class)
     private Integer rateLevel;
 
     @Column(columnDefinition = "TEXT COMMENT 'Nội dung chính của sản phẩm để giới thiệu' ")
+    @JsonView(Views.Public.class)
     private String info;
 
     @Column(columnDefinition = "NVARCHAR(255) COMMENT 'Nội dung ngắn của sản phẩm để giới thiệu nhanh'")
+    @JsonView(Views.Public.class)
     private String info_small;
 
     @Column(length = 60,unique = true,nullable = false)
+    @JsonView(Views.Public.class)
     private String url;
 
     @Column(columnDefinition = "tinyint(1) default 1 COMMENT 'Trạng thái của Sản phẩm'")
+    @JsonView(Views.Public.class)
     private Integer status;
 
     @OneToMany(mappedBy = "product")
+    @JsonView(Views.Internal.class)
     private Collection<InvoiceDetailsModel> invoicedetals;
 
     @OneToMany(mappedBy = "product")
+    @JsonManagedReference
     private Collection<ColorModel> colors;
 
     @ManyToOne
     @JoinColumn(name="category_id",columnDefinition = "INT(11) NULL COMMENT 'Danh mục của sản phẩm'")
+    @JsonView(Views.Public.class)
+    @JsonBackReference
     private CategoryModel category;
 
     @OneToMany(mappedBy = "product")
-    private Collection<RateModel> rate;
-
-    @OneToMany(mappedBy = "product")
+    @JsonView(Views.Public.class)
+    @JsonManagedReference
     private Collection<ReviewModel> review;
 
     public void setName(String name) {

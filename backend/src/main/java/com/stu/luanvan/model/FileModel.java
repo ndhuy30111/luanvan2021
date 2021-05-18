@@ -13,10 +13,17 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FIleModel {
+public class FileModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    private String publicId;
     private String name;
     private String url;
+
+    public FileModel(String publicId, String name, String url) {
+        this.publicId = publicId;
+        this.name = name;
+        this.url = url;
+    }
 }

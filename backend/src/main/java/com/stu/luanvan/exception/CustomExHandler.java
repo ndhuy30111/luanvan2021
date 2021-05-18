@@ -27,11 +27,11 @@ public class CustomExHandler {
      * @param req webrequests
      * @return xử lý code lỗi
      */
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(Exception.class)
-    public ResponseError handlerException(Exception ex,WebRequest req){
-        return new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR,ex.getMessage());
-    }
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ExceptionHandler(Exception.class)
+//    public ResponseError handlerException(Exception ex,WebRequest req){
+//        return new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR,ex.getMessage());
+//    }
 
     /**
      *  lỗi code 400

@@ -2,6 +2,7 @@ package com.stu.luanvan.filter;
 
 import com.stu.luanvan.security.MyUserDetailsService;
 import com.stu.luanvan.util.JwtUtil;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,27 +26,31 @@ public class JwtRequestFilter  extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        final String authorizationHeader = request.getHeader("Authorization");
-        String userName = null;
-        String jwt = null;
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            jwt = authorizationHeader.substring(7);
-            userName = jwtUtil.extractUsername(jwt);
-        }
+       try{
+           final String authorizationHeader = request.getHeader("Authorization");
+           String userName = null;
+           String jwt = null;
+           if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+               jwt = authorizationHeader.substring(7);
+               userName = jwtUtil.extractUsername(jwt);
+           }
 
-        if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+           if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            UserDetails userDetails = this.myUserDetailsService.loadUserByUsername(userName);
+               UserDetails userDetails = this.myUserDetailsService.loadUserByUsername(userName);
 
-            if (jwtUtil.validateToken(jwt, userDetails)) {
+               if (jwtUtil.validateToken(jwt, userDetails)) {
 
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                usernamePasswordAuthenticationToken
-                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            }
-        }
+                   UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                           userDetails, null, userDetails.getAuthorities());
+                   usernamePasswordAuthenticationToken
+                           .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                   SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+               }
+           }
+       }catch (Exception e){
+           logger.error("failed on set user authentication", e.getCause());
+       }
         filterChain.doFilter(request, response);
     }
 }

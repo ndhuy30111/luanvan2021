@@ -1,9 +1,10 @@
 package com.stu.luanvan.repository;
 
-import com.stu.luanvan.model.RateModel;
+import com.stu.luanvan.model.FileModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RateRepository extends JpaRepository<RateModel,Integer> {
+public interface FileRepository extends JpaRepository<FileModel,Integer> {
+    FileModel findByName(String name);
 }

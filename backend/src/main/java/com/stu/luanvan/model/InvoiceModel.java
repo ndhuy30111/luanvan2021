@@ -35,7 +35,6 @@ public class InvoiceModel extends BaseModel{
 
     @ManyToOne
     @JoinColumn(name = "createbill_by")
-    @ToString.Exclude
     private UserModel user;
 
     @OneToMany(mappedBy = "invoice")
