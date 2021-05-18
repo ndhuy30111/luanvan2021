@@ -109,5 +109,22 @@ export default {
     margin-bottom: 20px;
     padding-left: 20px;
   }
+  #cart {
+    font-size: larger;
+    span {
+      position: absolute;
+      margin-top: -25px;
+      margin-left: 25px;
+      height: 15px;
+      width: 15px;
+      background: #ec410d;
+      color: #ffffff;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 650;
+      text-align: center;
+      line-height: 15px;
+    }
+  }
 }
 </style>

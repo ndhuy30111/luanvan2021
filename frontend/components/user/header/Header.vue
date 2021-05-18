@@ -54,11 +54,6 @@ export default {
         active: false,
       },
       {
-        content: 'COLLECTIONS',
-        url: 'collections',
-        active: false,
-      },
-      {
         content: 'CONTACT US',
         url: 'contact',
         active: false,

@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-carousel
-      id="carousel-1"
+      id="carousel"
       v-model="slide"
       :interval="4000"
       controls
@@ -20,7 +20,6 @@
       >
         <div class="content">
           <h6>Luxury Handbags</h6>
-          <p>Discount every in orders</p>
           <b-button variant="dark">SHOPPING NOW</b-button>
         </div>
       </b-carousel-slide>
@@ -31,7 +30,6 @@
       >
         <div class="content">
           <h6>Frilled Sleeve Top</h6>
-          <p>Discount every in orders</p>
           <b-button variant="dark">SHOPPING NOW</b-button>
         </div>
       </b-carousel-slide>
@@ -42,7 +40,6 @@
       >
         <div class="content">
           <h6>Frilled Sleeve Top</h6>
-          <p>Stock in physical stores</p>
           <b-button variant="dark">SHOPPING NOW</b-button>
         </div>
       </b-carousel-slide>
@@ -70,34 +67,53 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content {
-  width: 50%;
-  margin-top: -40%;
-  color: black;
-  position: relative;
-  animation-name: example;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  h6 {
-    font-size: 3em;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
-      sans-serif;
+#carousel {
+  margin-bottom: 20px;
+  .content {
+    width: 50%;
+    margin-top: -40%;
+    color: black;
+    position: relative;
+    animation-name: example;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    h6 {
+      font-size: 3em;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+        sans-serif;
+      margin-bottom: 4%;
+    }
+    .btn-dark {
+      color: white;
+      border-radius: 38px;
+      padding: 10px;
+      font-size: 12px;
+    }
+    @keyframes example {
+      from {
+        left: 0px;
+      }
+      to {
+        left: 180px;
+      }
+    }
   }
-  p {
-    margin-bottom: 4%;
+}
+@media screen and (max-width: 600px) {
+  #carousel .content h6 {
+    font-size: 15px;
+    margin-bottom: 2%;
   }
-  .btn-dark {
-    color: white;
-    border-radius: 38px;
-    padding: 10px;
-    font-size: 12px;
+  #carousel .content .btn-dark {
+    padding: 5px;
+    font-size: 6px;
   }
   @keyframes example {
     from {
       left: 0px;
     }
     to {
-      left: 160px;
+      left: 65px;
     }
   }
 }

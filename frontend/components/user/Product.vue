@@ -2,10 +2,7 @@
   <div class="product-grid">
     <div class="product-image">
       <router-link to="productDetail">
-        <img
-          class="pic-1"
-          src="https://cdn.shopify.com/s/files/1/2598/7400/products/011_grande.jpg?v=1514281284"
-        />
+        <img class="pic-1" src="~/assets/product/women-1.jpg" />
       </router-link>
       <ul class="social">
         <li>
