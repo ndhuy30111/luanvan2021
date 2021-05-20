@@ -4,7 +4,7 @@
     <div class="content" :class="{ open: showNav }">
       <div class="top-bar container">
         <div v-if="mobileView" class="w-100 row">
-          <div class="col" id="navigation-icon" @click="showNav = !showNav">
+          <div id="navigation-icon" class="col" @click="showNav = !showNav">
             <v-app-bar-nav-icon></v-app-bar-nav-icon>
           </div>
           <div class="col d-flex justify-content-end">
@@ -12,7 +12,7 @@
               <b-icon icon="cart"></b-icon>
               <span>0</span>
             </v-btn>
-            <v-avatar color="teal" size="29"></v-avatar>
+            <MenuAccount />
           </div>
         </div>
 
@@ -29,8 +29,9 @@
 import Header from '../components/user/header/Header.vue'
 import Footer from '../components/user/Footer.vue'
 import HeaderMobile from '../components/user/header/HeaderMobile.vue'
+import MenuAccount from '~/components/user/MenuAccount.vue'
 export default {
-  components: { Header, Footer, HeaderMobile },
+  components: { Header, Footer, HeaderMobile, MenuAccount },
   data: () => {
     return {
       mobileView: true,

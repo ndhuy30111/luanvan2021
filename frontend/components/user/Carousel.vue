@@ -69,6 +69,7 @@ export default {
 <style lang="scss" scoped>
 #carousel {
   margin-bottom: 20px;
+  margin-top: -10px;
   .content {
     width: 50%;
     margin-top: -40%;
@@ -79,8 +80,7 @@ export default {
     animation-fill-mode: forwards;
     h6 {
       font-size: 3em;
-      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
-        sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin-bottom: 4%;
     }
     .btn-dark {
@@ -88,6 +88,8 @@ export default {
       border-radius: 38px;
       padding: 10px;
       font-size: 12px;
+      border: none;
+      background-image: linear-gradient(to right, #ce785c, #c4826c, #ec997e);
     }
     @keyframes example {
       from {

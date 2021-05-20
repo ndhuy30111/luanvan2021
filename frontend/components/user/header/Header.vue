@@ -35,12 +35,15 @@
       <span>0</span>
     </v-btn>
 
-    <v-avatar color="teal" size="38"></v-avatar>
+    <MenuAccount />
+    <!-- <v-avatar color="teal" size="38"></v-avatar> -->
   </v-app-bar>
 </template>
 
 <script>
+import MenuAccount from '../MenuAccount.vue'
 export default {
+  components: { MenuAccount },
   data: () => ({
     menus: [
       {
