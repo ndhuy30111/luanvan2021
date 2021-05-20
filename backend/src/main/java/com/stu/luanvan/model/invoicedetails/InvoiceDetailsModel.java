@@ -1,6 +1,8 @@
-package com.stu.luanvan.model;
+package com.stu.luanvan.model.invoicedetails;
 
+import com.stu.luanvan.model.invoice.InvoiceModel;
 import com.stu.luanvan.model.key.InvoiceDetailsKey;
+import com.stu.luanvan.model.product.ProductModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

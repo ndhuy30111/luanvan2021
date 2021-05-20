@@ -1,6 +1,6 @@
 package com.stu.luanvan.security;
 
-import com.stu.luanvan.model.UserModel;
+import com.stu.luanvan.model.user.UserModel;
 import com.stu.luanvan.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

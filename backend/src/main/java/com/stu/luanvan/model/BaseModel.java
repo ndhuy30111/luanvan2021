@@ -1,8 +1,8 @@
 package com.stu.luanvan.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.stu.luanvan.model.json.Views;
+import com.stu.luanvan.model.user.UserModel;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -19,7 +19,6 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-
 public class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,13 +27,13 @@ public class BaseModel {
 
     @OneToOne
     @CreatedBy
-    @JoinColumn(name="create_by")
-    @JsonView(Views.Internal.class)
+    @JoinColumn(name="create_by",columnDefinition = "timestamp")
+    @JsonView({Views.Internal.class})
     private UserModel createBy;
 
     @OneToOne
     @LastModifiedBy
-    @JoinColumn(name="update_by")
+    @JoinColumn(name="update_by",columnDefinition = "timestamp")
     @JsonView(Views.Internal.class)
     private UserModel lastModifiedBy;
 

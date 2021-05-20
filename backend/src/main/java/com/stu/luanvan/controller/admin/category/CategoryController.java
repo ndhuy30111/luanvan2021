@@ -27,12 +27,12 @@ public class CategoryController{
      */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> getFindAll(@RequestParam(value = "page",required = false,defaultValue = "0")int page,
-                                        @RequestParam(value = "size",required = false,defaultValue = "0") int size,
-                                        @RequestParam(value = "name",required = false,defaultValue = "id") String name) {
+    public ResponseEntity<?> getFindAll(@RequestParam(name = "page",required = false,defaultValue = "-1")int page,
+                                        @RequestParam(name = "size",required = false,defaultValue = "-1") int size,
+                                        @RequestParam(name = "name",required = false,defaultValue = "id") String name) {
 
         try{
-            if(page!=0&&size!=0){
+            if(page!=-1&&size!=-1){
                 return new ResponseEntity<>(categoryService.findByAll(page,size,name),HttpStatus.OK);
             }else{
                 return new ResponseEntity<>(categoryService.findByAll(),HttpStatus.OK);
@@ -76,11 +76,11 @@ public class CategoryController{
      * @return ResponseEntity
      * @throws Exception //Thông báo lỗi 500 khi sửa thông tin lỗi
      */
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> putSave(@RequestBody CategoryRequest categoryRequest) throws Exception {
+    public ResponseEntity<?> putSave(@RequestBody CategoryRequest categoryRequest,@PathVariable int id) throws Exception {
         try{
-            var category = categoryService.saveEdit(categoryRequest);
+            var category = categoryService.saveEdit(categoryRequest,id);
             return new ResponseEntity<>(category, HttpStatus.OK);
         }catch (Exception ex){
             throw new Exception(ex.getMessage());
@@ -89,16 +89,16 @@ public class CategoryController{
 
     /**
      * Hàm xoá thông tin category
-     * @param categoryRequest Request
+     * @param  id Mã danh mục
      * @return HttpStatus.OK
      * @throws Exception //Lỗi không xoá được và được rollback dữ liệu như cũ
      */
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> delete(@RequestBody CategoryRequest categoryRequest) throws Exception {
+    public ResponseEntity<?> delete(@PathVariable int id) throws Exception {
         try{
-            categoryService.delete(categoryRequest);
-            return new ResponseEntity<>( HttpStatus.OK);
+            categoryService.delete(id);
+            return new ResponseEntity<>( HttpStatus.NO_CONTENT);
         }catch(Exception ex){
             throw new Exception(ex.getMessage());
         }

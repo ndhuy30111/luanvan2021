@@ -1,16 +1,18 @@
-package com.stu.luanvan.model;
+package com.stu.luanvan.model.category;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.github.slugify.Slugify;
+import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.json.Views;
+import com.stu.luanvan.model.product.ProductModel;
 import com.stu.luanvan.request.CategoryRequest;
 import lombok.*;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.Collection;
-import java.util.Date;
 
 @Entity
 @Table(name = "category")
@@ -19,9 +21,10 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryModel extends BaseModel{
+public class CategoryModel extends BaseModel {
     @Column(columnDefinition = "VARCHAR(40) NOT NULL COMMENT 'Tên danh mục' ")
     @JsonView(Views.Public.class)
+    @Pattern(regexp = "^[\\p{L} . '-]+$", message = "Tên không hợp lệ")
     private String name;
     @JsonManagedReference
     @JsonView(Views.Public.class)
@@ -40,14 +43,21 @@ public class CategoryModel extends BaseModel{
     @JsonManagedReference
     private Collection<ProductModel> product;
 
-    public CategoryModel(CategoryRequest cr,CategoryModel category) {
+    public void setName(String name) {
+        this.name = name.trim();
+        this.url = new Slugify().slugify(this.name);
+    }
+
+    public CategoryModel(CategoryRequest cr, CategoryModel category) {
         this.name = cr.getName();
         this.sort = cr.getSort();
         this.category = category;
     }
 
     public void edit (CategoryRequest cr,CategoryModel category){
-        this.name = cr.getName();
+        if(StringUtils.isEmpty(category.getName())){
+            setName(category.getName());
+        }
         this.sort = cr.getSort();
         this.category = category;
     }

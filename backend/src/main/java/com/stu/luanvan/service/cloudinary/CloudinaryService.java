@@ -2,7 +2,10 @@ package com.stu.luanvan.service.cloudinary;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.stu.luanvan.model.FileModel;
+import com.cloudinary.utils.StringUtils;
+import com.github.slugify.Slugify;
+import com.stu.luanvan.exception.BadRequestEx;
+import com.stu.luanvan.model.file.FileModel;
 import com.stu.luanvan.repository.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +18,6 @@ public class CloudinaryService {
     @Autowired
     FileRepository fileRepository;
     public FileModel uploadFile(MultipartFile file, String name) {
-
         try {
             if(name==null){
                 name = file.getOriginalFilename();
@@ -25,6 +27,32 @@ public class CloudinaryService {
                     .upload(uploadedFile, ObjectUtils.asMap(
                     "public_id",name,
                     "unique_filename","true"
+                    ));
+            var fileModel = new FileModel(uploadResult.get("public_id").toString(),
+                    name,
+                    uploadResult.get("url").toString());
+            return  fileRepository.save(fileModel);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     *
+     * @param file Base64
+     * @param name
+     * @return
+     */
+    public FileModel uploadFile(String file, String name) {
+        try {
+            if(StringUtils.isEmpty(name)){
+                throw new BadRequestEx("Không có tên hình");
+            }
+
+            var uploadResult = cloudinaryConfig.uploader()
+                    .upload(file, ObjectUtils.asMap(
+                            "public_id",new Slugify().slugify(name),
+                            "unique_filename","true"
                     ));
             var fileModel = new FileModel(uploadResult.get("public_id").toString(),
                     name,

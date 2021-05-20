@@ -1,6 +1,6 @@
 package com.stu.luanvan.repository;
 
-import com.stu.luanvan.model.InvoiceModel;
+import com.stu.luanvan.model.invoice.InvoiceModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

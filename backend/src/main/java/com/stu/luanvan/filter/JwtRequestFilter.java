@@ -49,7 +49,7 @@ public class JwtRequestFilter  extends OncePerRequestFilter {
                }
            }
        }catch (Exception e){
-           logger.error("failed on set user authentication", e.getCause());
+           logger.warn("failed on set user authentication", e.getCause());
        }
         filterChain.doFilter(request, response);
     }

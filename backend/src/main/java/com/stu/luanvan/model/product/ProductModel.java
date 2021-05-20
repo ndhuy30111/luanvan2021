@@ -1,14 +1,20 @@
-package com.stu.luanvan.model;
+package com.stu.luanvan.model.product;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.*;
 import com.github.slugify.Slugify;
+import com.stu.luanvan.model.*;
+import com.stu.luanvan.model.category.CategoryModel;
+import com.stu.luanvan.model.color.ColorModel;
+import com.stu.luanvan.model.file.FileModel;
+import com.stu.luanvan.model.invoicedetails.InvoiceDetailsModel;
 import com.stu.luanvan.model.json.Views;
+import com.stu.luanvan.model.review.ReviewModel;
+import com.stu.luanvan.request.ProductRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -23,11 +29,14 @@ import java.util.Collection;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductModel extends BaseModel{
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "name")
+public class ProductModel extends BaseModel {
 
     @Column(columnDefinition = "NVARCHAR(50) NOT NULL UNIQUE COMMENT 'Tên của sản phẩm' ")
     @NotBlank(message = "Bạn không được để trống name")
-    @Pattern(regexp = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+$", message = "Tên không hợp lệ")
+    @Pattern(regexp = "^[\\p{L} . '-]+$", message = "Tên không hợp lệ")
     @JsonView(Views.Public.class)
     private String name;
 
@@ -58,6 +67,10 @@ public class ProductModel extends BaseModel{
     @JsonView(Views.Public.class)
     private String info_small;
 
+    @OneToOne
+    @JoinColumn
+    private FileModel image;
+
     @Column(length = 60,unique = true,nullable = false)
     @JsonView(Views.Public.class)
     private String url;
@@ -71,22 +84,20 @@ public class ProductModel extends BaseModel{
     private Collection<InvoiceDetailsModel> invoicedetals;
 
     @OneToMany(mappedBy = "product")
-    @JsonManagedReference
     private Collection<ColorModel> colors;
 
     @ManyToOne
     @JoinColumn(name="category_id",columnDefinition = "INT(11) NULL COMMENT 'Danh mục của sản phẩm'")
     @JsonView(Views.Public.class)
-    @JsonBackReference
     private CategoryModel category;
 
     @OneToMany(mappedBy = "product")
     @JsonView(Views.Public.class)
-    @JsonManagedReference
     private Collection<ReviewModel> review;
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.trim();
+
         this.url = new Slugify().slugify(this.name);
     }
     //Hàm tính điểm rate
@@ -94,4 +105,31 @@ public class ProductModel extends BaseModel{
         this.rateLevel=(this.rateLevel+ rate)/2;
     }
 
+
+    public ProductModel(String name, Long price, String info, String info_small, FileModel image) {
+        setName(name);
+        this.price = price;
+        this.info = info;
+        this.info_small = info_small;
+        this.image = image;
+    }
+
+    public void edit(ProductRequest pr){
+
+        if(StringUtils.isEmpty(pr.getName())){
+            setName(pr.getName());
+        }
+
+        if(pr.getPrice()>1000000){
+            this.price = pr.getPrice();
+        }
+
+        if(StringUtils.isEmpty(pr.getInfo())){
+            this.info = pr.getInfo();
+        }
+
+        if(StringUtils.isEmpty(pr.getInfo_small())){
+            this.info_small = pr.getInfo_small();
+        }
+    }
 }

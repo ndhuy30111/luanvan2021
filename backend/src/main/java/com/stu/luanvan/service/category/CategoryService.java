@@ -1,9 +1,10 @@
 package com.stu.luanvan.service.category;
 
 import com.stu.luanvan.exception.NotFoundEx;
-import com.stu.luanvan.model.CategoryModel;
+import com.stu.luanvan.model.category.CategoryModel;
 import com.stu.luanvan.repository.CategoryRepository;
 import com.stu.luanvan.request.CategoryRequest;
+import com.stu.luanvan.service.ObjectMapDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 @Service
 public class CategoryService implements CategoryServiceInterface{
@@ -27,14 +27,7 @@ public class CategoryService implements CategoryServiceInterface{
         }else{
             pageable = PageRequest.of(page,size);
         }
-        //danh sách được lấy qua Pageable
-        var list = categoryRepository.findAll(pageable);
-        Map<String,Object> map = new HashMap<>();
-        map.put("size",list.getSize());
-        map.put("total",list.getTotalElements());
-        map.put("sumPage",list.getTotalPages());
-        map.put("date",list.getContent());
-        return map;
+        return ObjectMapDto.objectMap(categoryRepository.findAll(pageable));
     }
 
     @Override
@@ -70,10 +63,10 @@ public class CategoryService implements CategoryServiceInterface{
 
     @Override
     @Transactional(rollbackFor = Throwable.class)
-    public CategoryModel saveEdit(CategoryRequest categoryRequest) throws Exception {
+    public CategoryModel saveEdit(CategoryRequest categoryRequest,int id) throws Exception {
         try{
             var category = categoryRepository.
-                    findById(categoryRequest.getId()).
+                    findById(id).
                     orElse(null);
             if(category ==null){
                 throw new NotFoundEx("Không tìm thấy");
@@ -89,10 +82,10 @@ public class CategoryService implements CategoryServiceInterface{
 
     @Override
     @Transactional(rollbackFor = Throwable.class)
-    public void delete(CategoryRequest categoryRequest) throws Exception {
+    public void delete(int id) throws Exception {
         try{
             var category = categoryRepository.
-                    findById(categoryRequest.getId()).
+                    findById(id).
                     orElse(null);
             if(category ==null){
                 throw new NotFoundEx("Không tìm thấy");

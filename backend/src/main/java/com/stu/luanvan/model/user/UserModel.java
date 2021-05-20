@@ -1,23 +1,20 @@
-package com.stu.luanvan.model;
+package com.stu.luanvan.model.user;
 
 import com.fasterxml.jackson.annotation.*;
+import com.stu.luanvan.model.invoice.InvoiceModel;
 import com.stu.luanvan.model.json.Views;
+import com.stu.luanvan.model.review.ReviewModel;
+import com.stu.luanvan.model.role.RoleModel;
 import com.stu.luanvan.request.UserRequest;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -30,7 +27,7 @@ import java.util.List;
         property = "userName")
 public class UserModel{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonView(Views.Internal.class)
     private Integer id;
     @Column(name = "username",columnDefinition = "VARCHAR(50) NOT NULL",unique = true)
@@ -39,7 +36,7 @@ public class UserModel{
     private String userName;
 
     @Column(columnDefinition = "VARCHAR(50) NOT NULL COMMENT 'Tên của khách hàng' ")
-    @Pattern(regexp = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+$", message = "Tên người dùng không hợp lệ")
+    @Pattern(regexp = "^[\\p{L} . '-]+$", message = "Tên không hợp lệ")
     @JsonView(Views.Public.class)
     private String name;
 
@@ -62,6 +59,7 @@ public class UserModel{
     private String numberPhone;
 
     @Column(columnDefinition = "VARCHAR(200) NULL COMMENT 'địa chỉ hiện tại'")
+    @Pattern(regexp = "^[\\p{L} . '-]+$", message = "Tên không hợp lệ")
     @JsonView(Views.Public.class)
     private String address;
 

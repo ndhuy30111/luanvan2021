@@ -1,6 +1,6 @@
 package com.stu.luanvan.config;
 
-import com.stu.luanvan.model.UserModel;
+import com.stu.luanvan.model.user.UserModel;
 import com.stu.luanvan.security.SecurityAuditorAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

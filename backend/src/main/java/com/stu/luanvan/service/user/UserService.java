@@ -1,18 +1,17 @@
 package com.stu.luanvan.service.user;
 
 import com.stu.luanvan.exception.BadRequestEx;
-import com.stu.luanvan.model.UserModel;
+import com.stu.luanvan.model.user.UserModel;
 import com.stu.luanvan.repository.UserRepository;
 import com.stu.luanvan.request.UserRequest;
+import com.stu.luanvan.service.ObjectMapDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -35,15 +34,7 @@ public class UserService implements UserServiceIntefaces{
         }else{
             pageable = PageRequest.of(page,size);
         }
-        //danh sách được lấy qua Pageable
-        var list = userRepository.findAll(pageable);
-
-        Map<String,Object> map = new HashMap<>();
-        map.put("size",list.getSize());
-        map.put("total",list.getTotalElements());
-        map.put("sumPage",list.getTotalPages());
-
-        return map;
+        return ObjectMapDto.objectMap(userRepository.findAll(pageable));
     }
 
     /**
@@ -83,12 +74,12 @@ public class UserService implements UserServiceIntefaces{
     }
 
     @Override
-    public UserModel saveEdit(UserRequest userRequest) {
+    public UserModel saveEdit(UserRequest userRequest,int id) {
         return null;
     }
 
     @Override
-    public void delete(UserRequest userRequest) {
+    public void delete(int id) {
     }
 
     @Override

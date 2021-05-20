@@ -1,6 +1,6 @@
 package com.stu.luanvan.security;
 
-import com.stu.luanvan.model.UserModel;
+import com.stu.luanvan.model.user.UserModel;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;

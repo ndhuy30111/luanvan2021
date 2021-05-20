@@ -1,10 +1,11 @@
-package com.stu.luanvan.model;
+package com.stu.luanvan.model.invoice;
 
+import com.stu.luanvan.model.BaseModel;
+import com.stu.luanvan.model.invoicedetails.InvoiceDetailsModel;
+import com.stu.luanvan.model.user.UserModel;
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import java.util.Collection;
 import java.util.Date;
@@ -15,13 +16,15 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class InvoiceModel extends BaseModel{
+public class InvoiceModel extends BaseModel {
+
 
     @Column(columnDefinition = "VARCHAR(13) NOT NULL COMMENT 'Số điện thoại khi giao hàng' ")
     @Pattern(regexp = "(84|0[3|5|7|8|9])+([0-9]{8})\\b")
     private String numberPhone;
 
     @Column(columnDefinition = "VARCHAR(200) NOT NULL")
+    @Pattern(regexp = "^[\\p{L} . '-]+$", message = "Tên không hợp lệ")
     private String address;
 
     @Column(columnDefinition = "tinyint(1) default 0 COMMENT 'Trạng thái của Hoá đơn'")

@@ -1,6 +1,6 @@
 package com.stu.luanvan.security;
 
-import com.stu.luanvan.model.UserModel;
+import com.stu.luanvan.model.user.UserModel;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;

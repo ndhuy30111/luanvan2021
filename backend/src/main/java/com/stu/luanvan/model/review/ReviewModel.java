@@ -1,6 +1,8 @@
-package com.stu.luanvan.model;
+package com.stu.luanvan.model.review;
 
+import com.stu.luanvan.model.user.UserModel;
 import com.stu.luanvan.model.key.UserProductKey;
+import com.stu.luanvan.model.product.ProductModel;
 
 import javax.persistence.*;
 @Entity
@@ -16,11 +18,11 @@ public class ReviewModel {
 
     @ManyToOne
     @MapsId("userId")
-    @JoinColumn(name="user_id")
+    @JoinColumn()
     private UserModel user;
 
     @ManyToOne
     @MapsId("productId")
-    @JoinColumn(name="product_id")
+    @JoinColumn()
     private ProductModel product;
 }

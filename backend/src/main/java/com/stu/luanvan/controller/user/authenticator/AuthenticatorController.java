@@ -1,9 +1,7 @@
 package com.stu.luanvan.controller.user.authenticator;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.stu.luanvan.exception.BadRequestEx;
 import com.stu.luanvan.exception.NotFoundEx;
-import com.stu.luanvan.model.UserModel;
 import com.stu.luanvan.model.json.Views;
 import com.stu.luanvan.request.LoginRequest;
 import com.stu.luanvan.request.UserRequest;
@@ -23,7 +21,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
