@@ -5,7 +5,7 @@
     </v-row>
     <v-row>
       <v-col class="img_shop" cols="12">
-        <CardCarousel />
+        <CategoryMenu />
       </v-col>
     </v-row>
     <v-row class="list-product">
@@ -21,12 +21,12 @@
 
 <script>
 import Carousel from '../components/user/Carousel.vue'
-import CardCarousel from '../components/user/CardCarousel.vue'
+import CategoryMenu from '../components/user/CategoryMenu.vue'
 import ListProduct from '../components/user/ListProduct'
 import Video from '~/components/user/Video.vue'
 export default {
   components: {
-    CardCarousel,
+    CategoryMenu,
     ListProduct,
     Carousel,
     Video,

@@ -10,6 +10,7 @@
         </div>
       </v-col>
     </v-row>
+    <ProductFilter />
     <v-row class="list-product">
       <ListProduct :menutab="menutab" />
     </v-row>
@@ -17,19 +18,21 @@
 </template>
 
 <script>
-import ListProduct from '../components/user/ListProduct'
+import ProductFilter from '~/components/user/ProductFilter.vue'
+import ListProduct from '~/components/user/ListProduct'
 export default {
-  components: { ListProduct },
+  components: { ListProduct, ProductFilter },
   data: () => {
     return {
       menutab: ['Women', 'Men'],
+      drawer: null,
     }
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.list-product {
-  margin-top: 20px;
+.collection {
+  margin-top: -25px;
 }
 </style>
