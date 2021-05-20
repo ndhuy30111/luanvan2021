@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/admin/category")
-@CrossOrigin //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
+@CrossOrigin
+@RequestMapping("/api/admin/category") //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
 @EnableTransactionManagement
 public class CategoryController{
     @Autowired

@@ -1,5 +1,6 @@
 package com.stu.luanvan.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.stu.luanvan.model.json.Views;
 import com.stu.luanvan.model.user.UserModel;
@@ -27,23 +28,26 @@ public class BaseModel {
 
     @OneToOne
     @CreatedBy
-    @JoinColumn(name="create_by",columnDefinition = "timestamp")
+    @JoinColumn(name="create_by")
     @JsonView({Views.Internal.class})
     private UserModel createBy;
 
     @OneToOne
     @LastModifiedBy
-    @JoinColumn(name="update_by",columnDefinition = "timestamp")
+    @JoinColumn(name="update_by")
     @JsonView(Views.Internal.class)
     private UserModel lastModifiedBy;
 
     @Column(name = "create_date")
     @CreatedDate
     @JsonView(Views.Internal.class)
-    private Date create_date;
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
+    private Date createDate;
 
     @Column(name = "update_date")
     @LastModifiedDate
     @JsonView(Views.Internal.class)
+
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date lastModifiedDate;
 }

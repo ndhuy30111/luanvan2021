@@ -35,9 +35,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"/api/register").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/login").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/user").authenticated()
-                .antMatchers("/api/admin/**").authenticated()
+                .antMatchers("/api/admin/category").authenticated()
                 .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().cors().disable();
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().cors().disable();
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
     @Bean
