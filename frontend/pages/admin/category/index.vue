@@ -2,11 +2,10 @@
   <v-container>
     <Crudactions
       :title="title"
-      url="/admin/product/add"
       :headers="headers"
-      :desserts="category"
-    ></Crudactions
-  ></v-container>
+      :desserts="data"
+    ></Crudactions>
+  </v-container>
 </template>
 
 <script>
@@ -14,6 +13,11 @@ import Crudactions from '~/components/tabledata/Crudactions.vue'
 export default {
   components: { Crudactions },
   layout: 'admin',
+  async asyncData({ $axios, $auth }) {
+    $axios.setToken($auth.strategy.token.get())
+    const data = await $axios.$get('/admin/category')
+    return { data }
+  },
   data: () => ({
     title: 'Danh sách danh mục',
     headers: [
@@ -23,6 +27,11 @@ export default {
         value: 'name',
       },
       { text: 'Đường dẫn', value: 'url' },
+      { text: 'Độ ưu tiên', value: 'sort' },
+      { text: 'Ngày tạo', value: 'createDate' },
+      { text: 'Tài khoản cập nhập', value: 'lastModifiedBy' },
+      { text: 'Ngày cập nhập', value: 'lastModifiedDate' },
+      { text: 'Actions', value: 'actions', sortable: false },
     ],
     category: [
       {
@@ -46,6 +55,8 @@ export default {
       ],
     }
   },
+  created() {},
+  methods: {},
 }
 </script>
 

@@ -11,11 +11,15 @@
               <v-card-text>
                 <v-form>
                   <v-text-field
-                    v-model="username"
+                    v-model="userName"
                     label="Email"
                     type="text"
                   ></v-text-field>
-                  <v-text-field label="Password" type="password"></v-text-field>
+                  <v-text-field
+                    v-model="password"
+                    label="Password"
+                    type="password"
+                  ></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -36,14 +40,26 @@ export default {
   middleware: 'isauthenticated',
   data() {
     return {
-      username: '',
+      userName: '',
+      password: '',
     }
   },
   methods: {
-    submit(e) {
+    async submit(e) {
       e.preventDefault()
-      this.$store.commit('authName', this.username)
-      this.$router.push({ name: 'admin' })
+      try {
+        await this.$auth
+          .loginWith('local', {
+            data: { userName: this.userName, password: this.password },
+          })
+          .then((response) => {
+            this.$auth.strategy.token.set(response.data.jwt)
+            this.$auth.fetchUser()
+            this.$router.push({ name: 'admin' })
+          })
+      } catch (ex) {
+        console.error(ex)
+      }
     },
   },
 }
