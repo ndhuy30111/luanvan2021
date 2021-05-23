@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/admin/category") //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
 @EnableTransactionManagement
 public class CategoryController{
+
     @Autowired
     private CategoryService categoryService;
 
@@ -30,7 +33,6 @@ public class CategoryController{
     public ResponseEntity<?> getFindAll(@RequestParam(name = "page",required = false,defaultValue = "-1")int page,
                                         @RequestParam(name = "size",required = false,defaultValue = "-1") int size,
                                         @RequestParam(name = "name",required = false,defaultValue = "id") String name) {
-
         try{
             if(page!=-1&&size!=-1){
                 return new ResponseEntity<>(categoryService.findByAll(page,size,name),HttpStatus.OK);

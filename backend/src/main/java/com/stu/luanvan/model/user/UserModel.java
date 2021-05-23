@@ -88,6 +88,8 @@ public class UserModel{
                     name="role_id",referencedColumnName = "id")
     )
     @JsonView(Views.Internal.class)
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="name",
+            scope=RoleModel.class)
     private Collection<RoleModel> role;
 
     public void setPassword(String password) {

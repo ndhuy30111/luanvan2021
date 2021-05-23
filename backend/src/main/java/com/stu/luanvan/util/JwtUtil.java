@@ -17,7 +17,7 @@ import java.util.function.Function;
 @Service
 public class JwtUtil {
     SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-    private String SECRET_KEY = Encoders.BASE64.encode(key.getEncoded());
+    private String SECRET_KEY = "JvfzdLF86fJ/k2JYF/fuP59No/AWvbe2F4L14LB1QwuOSnHGOInQkWu3aq2r7b8PTpslOe2zO4de/QDVNqCHXw==";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

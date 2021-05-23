@@ -54,11 +54,10 @@ public class CategoryModel extends BaseModel {
         this.category = category;
     }
 
-    public void edit (CategoryRequest cr,CategoryModel category){
+    public void edit (CategoryRequest cr){
         if(StringUtils.isEmpty(category.getName())){
             setName(category.getName());
         }
         this.sort = cr.getSort();
-        this.category = category;
     }
 }
