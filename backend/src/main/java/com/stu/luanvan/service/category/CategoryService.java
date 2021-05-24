@@ -22,7 +22,6 @@ public class CategoryService implements CategoryServiceInterface{
     public Map<String, Object> findByAll(int page, int size, String nameSort) {
         Pageable pageable;
         if(nameSort != null){
-            //Sắp xếp theo tên column
             pageable = PageRequest.of(page,size, Sort.by(nameSort).descending());
         }else{
             pageable = PageRequest.of(page,size);
@@ -71,8 +70,14 @@ public class CategoryService implements CategoryServiceInterface{
             if(category ==null){
                 throw new NotFoundEx("Không tìm thấy");
             }
-            var categoryFind = findById(categoryRequest.getCategory_id().getId());
-            category.edit(categoryRequest,categoryFind);
+            category.edit(categoryRequest);
+
+            if(categoryRequest.getCategory_id()!=null){
+
+                var categoryFind = findById(categoryRequest.getCategory_id().getId());
+                category.setCategory(categoryFind);
+            }
+
             return categoryRepository.save(category);
         }catch (Exception ex){
             throw new Exception(ex.getMessage());

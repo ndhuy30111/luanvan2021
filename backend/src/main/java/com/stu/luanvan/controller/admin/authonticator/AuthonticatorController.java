@@ -1,8 +1,6 @@
-package com.stu.luanvan.controller.user.authenticator;
+package com.stu.luanvan.controller.admin.authonticator;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.stu.luanvan.exception.NotFoundEx;
-import com.stu.luanvan.model.json.Views;
 import com.stu.luanvan.request.LoginRequest;
 import com.stu.luanvan.request.UserRequest;
 import com.stu.luanvan.response.JwtResponse;
@@ -24,9 +22,9 @@ import javax.validation.Valid;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/api/admin")
 @EnableTransactionManagement
-public class AuthenticatorController {
+public class AuthonticatorController {
     @Autowired
     private UserService userService;
     @Autowired
@@ -39,8 +37,8 @@ public class AuthenticatorController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody UserRequest userRequest) throws Exception {
         try{
-           var user =  userService.saveNew(userRequest);
-           return new ResponseEntity<>(user, HttpStatus.CREATED);
+            var user =  userService.saveNew(userRequest);
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
         }catch(Exception ex){
             throw new Exception(ex.getMessage());
         }
@@ -59,14 +57,13 @@ public class AuthenticatorController {
         return new ResponseEntity<>(new JwtResponse(jwt,date),HttpStatus.OK);
     }
     @GetMapping("/user")
-    @JsonView(Views.Public.class)
     public ResponseEntity<?> profile(){
-        var user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserModel();
-        return new ResponseEntity<>(user,HttpStatus.OK);
+            var user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserModel();
+            return new ResponseEntity<>(user,HttpStatus.OK);
+
     }
     @GetMapping("/user/all")
     public ResponseEntity<?> getAllUser(){
         return new ResponseEntity<>(userService.findByAll(),HttpStatus.OK);
     }
-
 }

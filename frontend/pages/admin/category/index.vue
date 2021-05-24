@@ -4,6 +4,9 @@
       :title="title"
       :headers="headers"
       :desserts="data"
+      @new="saveNew"
+      @edit="saveEdit"
+      @del="deletes"
     ></Crudactions>
   </v-container>
 </template>
@@ -14,8 +17,9 @@ export default {
   components: { Crudactions },
   layout: 'admin',
   async asyncData({ $axios, $auth }) {
-    $axios.setToken($auth.strategy.token.get())
-    const data = await $axios.$get('/admin/category')
+    const data = await $axios.$get('/admin/category', {
+      headers: { Authorization: $auth.strategy.token.get() },
+    })
     return { data }
   },
   data: () => ({
@@ -56,7 +60,17 @@ export default {
     }
   },
   created() {},
-  methods: {},
+  methods: {
+    async saveEdit(item) {
+      const edit = {
+        name: item.name,
+      }
+      const data = await this.$axios.$put('/admin/category/' + item.id, edit)
+      console.log(data)
+    },
+    saveNew: () => {},
+    deletes: () => {},
+  },
 }
 </script>
 

@@ -10,6 +10,6 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 public class JwtResponse {
-    private String jwt;
+    private String token;
     private Date date;
 }

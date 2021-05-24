@@ -18,7 +18,6 @@ public class CustomExHandler {
     @ExceptionHandler(NotFoundEx.class)
     public ResponseError handlerNotFound(NotFoundEx ex, WebRequest req){
         return new ResponseError(HttpStatus.NOT_FOUND,ex.getMessage());
-
     }
 
     /**

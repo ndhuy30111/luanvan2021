@@ -67,26 +67,21 @@ export default {
   auth: {
     strategies: {
       local: {
-        redirect: {
-          login: '/admin/login',
-          logout: '/admin/logout',
-          callback: '/login',
-          home: '/admin',
-        },
         token: {
-          property: 'jwt',
-          required: true,
-          type: 'Bearer',
+          property: 'token',
+          // required: true,
+          // type: 'Bearer'
         },
         user: {
           property: false,
           autoFetch: true,
         },
         endpoints: {
-          login: { url: '/login', method: 'post' },
+          login: { url: '/admin/login', method: 'post', propertName: 'token' },
           logout: false,
-          user: { url: '/user', method: 'get' },
+          user: { url: '/admin/user', method: 'get', propertName: 'user' },
         },
+        autoLogout: true,
       },
     },
   },
