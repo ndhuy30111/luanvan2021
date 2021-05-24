@@ -37,7 +37,8 @@ public class CategoryController{
             if(page!=-1&&size!=-1){
                 return new ResponseEntity<>(categoryService.findByAll(page,size,name),HttpStatus.OK);
             }else{
-                return new ResponseEntity<>(categoryService.findByAll(),HttpStatus.OK);
+                var category = categoryService.findByAll();
+                return new ResponseEntity<>(category,HttpStatus.OK);
             }
         }catch(Exception ex){
             throw new NotFoundEx("Không có dự liệu");

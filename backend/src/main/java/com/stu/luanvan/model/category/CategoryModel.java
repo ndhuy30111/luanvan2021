@@ -1,7 +1,6 @@
 package com.stu.luanvan.model.category;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.*;
 import com.github.slugify.Slugify;
 import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.json.Views;
@@ -12,11 +11,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "category")
-@Data
 @Setter
 @Getter
 @NoArgsConstructor
@@ -26,14 +26,25 @@ public class CategoryModel extends BaseModel {
     @JsonView(Views.Public.class)
     @Pattern(regexp = "^[\\p{L} . '-]+$", message = "Tên không hợp lệ")
     private String name;
+
     @JsonManagedReference
     @JsonView(Views.Public.class)
     private Integer sort;
 
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name = "category_id",columnDefinition = "INT(11) NULL COMMENT 'Danh mục cha'")
     @JsonView(Views.Public.class)
+    @JsonManagedReference
+    private Collection<CategoryModel> childerencategory;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    @JsonView(Views.Public.class)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "name")
     private CategoryModel category;
+
 
     @JsonView(Views.Public.class)
     private String url;
@@ -42,6 +53,7 @@ public class CategoryModel extends BaseModel {
     @JsonView(Views.Public.class)
     @JsonManagedReference
     private Collection<ProductModel> product;
+
 
     public void setName(String name) {
         this.name = name.trim();
@@ -59,5 +71,11 @@ public class CategoryModel extends BaseModel {
             setName(category.getName());
         }
         this.sort = cr.getSort();
+    }
+    public Collection<CategoryModel> categoryChildren(){
+        Collection<CategoryModel> childeren = new ArrayList<>();
+
+
+        return childeren;
     }
 }
