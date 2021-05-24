@@ -8,10 +8,7 @@
             <v-app-bar-nav-icon></v-app-bar-nav-icon>
           </div>
           <div class="col d-flex justify-content-end">
-            <v-btn id="cart" icon>
-              <b-icon icon="cart"></b-icon>
-              <span>0</span>
-            </v-btn>
+            <BtnCart />
             <MenuAccount />
           </div>
         </div>
@@ -26,12 +23,13 @@
   </v-app>
 </template>
 <script>
-import Header from '../components/user/header/Header.vue'
-import Footer from '../components/user/Footer.vue'
-import HeaderMobile from '../components/user/header/HeaderMobile.vue'
+import Header from '~/components/user/header/Header.vue'
+import Footer from '~/components/user/Footer.vue'
+import HeaderMobile from '~/components/user/header/HeaderMobile.vue'
 import MenuAccount from '~/components/user/MenuAccount.vue'
+import BtnCart from '~/components/BtnCart'
 export default {
-  components: { Header, Footer, HeaderMobile, MenuAccount },
+  components: { Header, Footer, HeaderMobile, MenuAccount, BtnCart },
   data: () => {
     return {
       mobileView: true,
@@ -72,23 +70,5 @@ export default {
 }
 .open {
   transform: translateX(255px);
-}
-#cart {
-  font-size: larger;
-  margin-right: 10px;
-  span {
-    position: absolute;
-    margin-top: -25px;
-    margin-left: 25px;
-    height: 15px;
-    width: 15px;
-    background: #ec410d;
-    color: #ffffff;
-    border-radius: 50%;
-    font-size: 11px;
-    font-weight: 650;
-    text-align: center;
-    line-height: 15px;
-  }
 }
 </style>
