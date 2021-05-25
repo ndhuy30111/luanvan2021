@@ -1,15 +1,15 @@
 <template>
-  <div class="text-center">
+  <div class="acc text-center">
     <v-menu offset-y>
       <template #activator="{ on, attrs }">
-        <v-btn depressed v-bind="attrs" v-on="on">
-          <b-icon icon="person-fill"></b-icon> Account
+        <v-btn v-bind="attrs" v-on="on" icon>
+          <b-icon icon="person-check" id="person"></b-icon>
         </v-btn>
       </template>
       <v-list>
         <v-list-item v-for="(item, index) in items" :key="index">
           <v-list-item-title class="text-center">
-            <a :href="item.url">
+            <a :href="item.url" class="text">
               {{ item.title }}
             </a>
           </v-list-item-title>
@@ -31,7 +31,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-a {
+.acc {
+  margin: 0px 10px;
+  #person {
+    font-size: 1.5rem;
+  }
+}
+a.text {
   color: rgb(0, 0, 0);
   text-decoration: none;
 }
