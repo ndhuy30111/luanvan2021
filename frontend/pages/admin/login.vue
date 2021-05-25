@@ -52,13 +52,11 @@ export default {
           .loginWith('local', {
             data: { userName: this.userName, password: this.password },
           })
-          .then((response) => {
-            this.$auth.strategy.token.set(response.data.jwt)
-            this.$auth.fetchUser()
+          .then(() => {
             this.$router.push({ name: 'admin' })
           })
       } catch (ex) {
-        console.error(ex)
+        alert('Bạn không thể truy cập')
       }
     },
   },

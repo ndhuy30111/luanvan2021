@@ -3,7 +3,7 @@
     <Crudactions
       :title="title"
       :headers="headers"
-      :desserts="data"
+      :desserts="category"
       @new="saveNew"
       @edit="saveEdit"
       @del="deletes"
@@ -13,15 +13,10 @@
 
 <script>
 import Crudactions from '~/components/tabledata/Crudactions.vue'
+
 export default {
   components: { Crudactions },
   layout: 'admin',
-  async asyncData({ $axios, $auth }) {
-    const data = await $axios.$get('/admin/category', {
-      headers: { Authorization: $auth.strategy.token.get() },
-    })
-    return { data }
-  },
   data: () => ({
     title: 'Danh sách danh mục',
     headers: [
@@ -32,20 +27,15 @@ export default {
       },
       { text: 'Đường dẫn', value: 'url' },
       { text: 'Độ ưu tiên', value: 'sort' },
+      { text: 'Cha', value: 'category' },
       { text: 'Ngày tạo', value: 'createDate' },
-      { text: 'Tài khoản cập nhập', value: 'lastModifiedBy' },
+      { text: 'Người tạo', value: 'createBy' },
+      { text: 'Người cập nhập', value: 'lastModifiedBy' },
       { text: 'Ngày cập nhập', value: 'lastModifiedDate' },
-      { text: 'Actions', value: 'actions', sortable: false },
+
+      { text: '', value: 'actions', sortable: false },
     ],
-    category: [
-      {
-        id: '1',
-        name: 'Áo',
-        url: 'ao',
-        children: [{ id: '3', name: 'Áo nữ', url: 'ao-nu' }],
-      },
-      { id: '2', name: 'quần', url: 'url' },
-    ],
+    data: [],
   }),
   head() {
     return {
@@ -59,17 +49,24 @@ export default {
       ],
     }
   },
-  created() {},
-  methods: {
-    async saveEdit(item) {
-      const edit = {
-        name: item.name,
-      }
-      const data = await this.$axios.$put('/admin/category/' + item.id, edit)
-      console.log(data)
+  computed: {
+    category() {
+      return this.$store.state.admin.category.contents
     },
-    saveNew: () => {},
-    deletes: () => {},
+  },
+
+  methods: {
+    init() {},
+
+    saveNew(item) {
+      this.$store.dispatch('admin/category/add', item)
+    },
+    saveEdit(item) {
+      this.$store.dispatch('admin/category/edit', item)
+    },
+    deletes(item) {
+      this.$store.dispatch('admin/category/delete', item)
+    },
   },
 }
 </script>

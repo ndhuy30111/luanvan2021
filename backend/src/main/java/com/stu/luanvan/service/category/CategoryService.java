@@ -46,8 +46,8 @@ public class CategoryService implements CategoryServiceInterface{
         try{
             CategoryModel category ;
             CategoryModel categoryFind;
-            if(categoryRequest.getCategory_id()!=null){
-                categoryFind = categoryRepository.findById(categoryRequest.getCategory_id().getId()).orElse(null);
+            if(categoryRequest.getCategory()!=null){
+                categoryFind = categoryRepository.findByName(categoryRequest.getCategory());
                 category = new CategoryModel(categoryRequest,categoryFind);
             }else{
                 category = new CategoryModel(categoryRequest,null);
@@ -72,10 +72,13 @@ public class CategoryService implements CategoryServiceInterface{
             }
             category.edit(categoryRequest);
 
-            if(categoryRequest.getCategory_id()!=null){
+            if(categoryRequest.getCategory()!=null){
 
-                var categoryFind = findById(categoryRequest.getCategory_id().getId());
+                var categoryFind = categoryRepository.findByName(categoryRequest.getCategory());
                 category.setCategory(categoryFind);
+            }
+            else{
+                category.setCategory(null);
             }
 
             return categoryRepository.save(category);

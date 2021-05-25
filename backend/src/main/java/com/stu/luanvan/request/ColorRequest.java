@@ -8,8 +8,6 @@ import javax.validation.constraints.Pattern;
 import java.util.Collection;
 
 @Data
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ColorRequest {

@@ -8,12 +8,10 @@ import com.stu.luanvan.model.product.ProductModel;
 import com.stu.luanvan.request.CategoryRequest;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
-
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Table(name = "category")
@@ -43,6 +41,7 @@ public class CategoryModel extends BaseModel {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "name")
+    @JsonIdentityReference(alwaysAsId = true)
     private CategoryModel category;
 
 
@@ -61,21 +60,22 @@ public class CategoryModel extends BaseModel {
     }
 
     public CategoryModel(CategoryRequest cr, CategoryModel category) {
-        this.name = cr.getName();
+        setName(cr.getName()) ;
         this.sort = cr.getSort();
         this.category = category;
     }
 
     public void edit (CategoryRequest cr){
-        if(StringUtils.isEmpty(category.getName())){
-            setName(category.getName());
+        if(!StringUtils.isEmpty(cr.getName())){
+            setName(cr.getName());
         }
-        this.sort = cr.getSort();
+        if(cr.getSort()!=null){
+            this.sort = cr.getSort();
+        }
+
     }
     public Collection<CategoryModel> categoryChildren(){
         Collection<CategoryModel> childeren = new ArrayList<>();
-
-
         return childeren;
     }
 }

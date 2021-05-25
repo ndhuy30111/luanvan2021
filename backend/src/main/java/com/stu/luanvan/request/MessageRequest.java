@@ -3,8 +3,6 @@ package com.stu.luanvan.request;
 import lombok.*;
 
 @Data
-@Setter
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class MessageRequest {

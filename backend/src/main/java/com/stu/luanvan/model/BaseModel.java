@@ -1,7 +1,6 @@
 package com.stu.luanvan.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.*;
 import com.stu.luanvan.model.json.Views;
 import com.stu.luanvan.model.user.UserModel;
 import lombok.*;
@@ -30,12 +29,20 @@ public class BaseModel {
     @CreatedBy
     @JoinColumn(name="create_by")
     @JsonView({Views.Internal.class})
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "userName")
+    @JsonIdentityReference(alwaysAsId = true)
     private UserModel createBy;
 
     @OneToOne
     @LastModifiedBy
     @JoinColumn(name="update_by")
     @JsonView(Views.Internal.class)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "userName")
+    @JsonIdentityReference(alwaysAsId = true)
     private UserModel lastModifiedBy;
 
     @Column(name = "create_date")
@@ -47,7 +54,6 @@ public class BaseModel {
     @Column(name = "update_date")
     @LastModifiedDate
     @JsonView(Views.Internal.class)
-
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     private Date lastModifiedDate;
 }

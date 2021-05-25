@@ -1,13 +1,11 @@
 package com.stu.luanvan.model.color;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.file.FileModel;
 import com.stu.luanvan.model.size.SizeModel;
 import com.stu.luanvan.model.product.ProductModel;
-import com.stu.luanvan.request.ColorRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

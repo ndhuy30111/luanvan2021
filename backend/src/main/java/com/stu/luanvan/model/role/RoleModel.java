@@ -1,9 +1,7 @@
 package com.stu.luanvan.model.role;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.stu.luanvan.model.json.Views;
 import com.stu.luanvan.model.user.UserModel;
 import lombok.AllArgsConstructor;
@@ -22,7 +20,6 @@ import java.util.Collection;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class RoleModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +28,6 @@ public class RoleModel implements Serializable {
     @Column
     @Pattern(regexp = "^[\\p{L} . '-]+$", message = "Tên không hợp lệ")
     @JsonView(Views.Internal.class)
-
     private String name;
 
     @ManyToMany(mappedBy = "role")

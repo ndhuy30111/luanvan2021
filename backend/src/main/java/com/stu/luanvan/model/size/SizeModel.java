@@ -2,7 +2,6 @@ package com.stu.luanvan.model.size;
 
 import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.color.ColorModel;
-import com.stu.luanvan.request.SizeRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

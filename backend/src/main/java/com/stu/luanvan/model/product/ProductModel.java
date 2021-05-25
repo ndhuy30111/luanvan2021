@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -95,7 +96,7 @@ public class ProductModel extends BaseModel {
     @JsonView(Views.Public.class)
     private Collection<ReviewModel> review;
 
-    public void setName(String name) {
+    public void setName(@NotNull String name) {
         this.name = name.trim();
 
         this.url = new Slugify().slugify(this.name);
@@ -106,7 +107,7 @@ public class ProductModel extends BaseModel {
     }
 
 
-    public ProductModel(String name, Long price, String info, String info_small, FileModel image) {
+    public ProductModel(@NotNull String name, Long price, String info, String info_small, FileModel image) {
         setName(name);
         this.price = price;
         this.info = info;

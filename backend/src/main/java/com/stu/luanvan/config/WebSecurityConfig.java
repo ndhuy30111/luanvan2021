@@ -30,18 +30,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//        hasRole("ADMIN")
         http.csrf().disable()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.GET,"/api/admin/category").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/admin/user").hasAnyRole("ADMIN","EDIT")
+                .antMatchers(HttpMethod.POST,"/api/admin/category").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/admin/category").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/admin/category").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/user").authenticated()
                 .antMatchers(HttpMethod.POST,"/api/register").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/login").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/admin/login").permitAll()
-                .antMatchers(HttpMethod.GET,"/api/admin/user").hasAnyRole("ADMIN","EDIT")
-                .antMatchers(HttpMethod.GET,"/api/user").authenticated()
-                .antMatchers("/api/admin/category").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().cors().disable();
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }

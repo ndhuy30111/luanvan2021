@@ -56,6 +56,9 @@ export default {
       },
     ],
   }),
+  mounted() {
+    this.$store.dispatch('admin/category/init')
+  },
 }
 </script>
 

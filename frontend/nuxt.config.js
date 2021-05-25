@@ -30,7 +30,9 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '~/plugins/vue-fb-customer-chat.js', ssr: false },
-    { src: '~/plugins/vuelidate', ssr: false },
+    { src: '~/plugins/vuelidate.js', ssr: false },
+    { src: '~/plugins/axios.js', ssr: false },
+    '~/plugins/auth.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -65,12 +67,16 @@ export default {
   build: {},
   // Auth Configuration https://auth.nuxtjs.org/guide/setup
   auth: {
+    common: {
+      Accept: 'application/json, text/plain, */*',
+    },
     strategies: {
       local: {
         token: {
           property: 'token',
-          // required: true,
-          // type: 'Bearer'
+          type: 'Bearer',
+          name: 'Authorization',
+          maxAge: 1800,
         },
         user: {
           property: false,
@@ -79,7 +85,7 @@ export default {
         endpoints: {
           login: { url: '/admin/login', method: 'post', propertName: 'token' },
           logout: false,
-          user: { url: '/admin/user', method: 'get', propertName: 'user' },
+          user: { url: '/admin/user', method: 'get' },
         },
         autoLogout: true,
       },

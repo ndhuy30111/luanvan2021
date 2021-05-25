@@ -4,6 +4,7 @@ import com.stu.luanvan.exception.NotFoundEx;
 import com.stu.luanvan.request.CategoryRequest;
 import com.stu.luanvan.service.category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,7 @@ public class CategoryController{
      */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public ResponseEntity<?> getFindAll(@RequestParam(name = "page",required = false,defaultValue = "-1")int page,
                                         @RequestParam(name = "size",required = false,defaultValue = "-1") int size,
                                         @RequestParam(name = "name",required = false,defaultValue = "id") String name) {
@@ -53,6 +55,7 @@ public class CategoryController{
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public ResponseEntity<?> getFindById(@PathVariable int id) {
         return new ResponseEntity<>(categoryService.findById(id),HttpStatus.OK);
     }
@@ -64,6 +67,7 @@ public class CategoryController{
      * @throws Exception  //Thông báo lỗi 500 khi sửa thông tin lỗi
      */
     @PostMapping
+    @ResponseBody
     public ResponseEntity<?> postSave(@RequestBody CategoryRequest categoryRequest) throws Exception {
        try {
            var category = categoryService.saveNew(categoryRequest);
@@ -81,6 +85,7 @@ public class CategoryController{
      */
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public ResponseEntity<?> putSave(@RequestBody CategoryRequest categoryRequest,@PathVariable int id) throws Exception {
         try{
             var category = categoryService.saveEdit(categoryRequest,id);

@@ -42,9 +42,28 @@
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field
                       v-model="editedItem.name"
-                      label="Dessert name"
+                      label="Tên"
+                      required
                     ></v-text-field>
                   </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="editedItem.sort"
+                      min="1"
+                      type="number"
+                      label="Độ ưu tiên"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-select
+                      v-model="editedItem.category"
+                      :items="desserts"
+                      item-value="name"
+                      item-text="name"
+                      label="Cha"
+                      required
+                    ></v-select
+                  ></v-col>
                 </v-row>
               </v-container>
             </v-card-text>
@@ -59,7 +78,7 @@
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="headline"
-              >Are you sure you want to delete this item?</v-card-title
+              >Bạn thật sự muốn xoá không?</v-card-title
             >
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -120,17 +139,8 @@ export default {
     editedIndex: -1,
     editedItem: {
       name: '',
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
-    defaultItem: {
-      name: '',
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
+      sort: 1,
+      category: '',
     },
   }),
 
@@ -163,7 +173,15 @@ export default {
     },
 
     deleteItemConfirm() {
-      // this.desserts.splice(this.editedIndex, 1)
+      if (this.editedIndex > -1) {
+        Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        this.$emit(
+          'del',
+          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        )
+      } else {
+        // this.desserts.push(this.editedItem)
+      }
       this.closeDelete()
     },
 
@@ -186,12 +204,14 @@ export default {
     save() {
       if (this.editedIndex > -1) {
         Object.assign(this.desserts[this.editedIndex], this.editedItem)
+
+        Object.assign(this.desserts[this.editedIndex], this.editedItem)
         this.$emit(
           'edit',
           Object.assign(this.desserts[this.editedIndex], this.editedItem)
         )
       } else {
-        // this.desserts.push(this.editedItem)
+        this.$emit('new', this.editedItem)
       }
       this.close()
     },

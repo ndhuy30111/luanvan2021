@@ -3,11 +3,18 @@ package com.stu.luanvan.model.review;
 import com.stu.luanvan.model.user.UserModel;
 import com.stu.luanvan.model.key.UserProductKey;
 import com.stu.luanvan.model.product.ProductModel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 @Entity
 @Table(name="review")
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReviewModel {
     @EmbeddedId
     private UserProductKey userProductKey;

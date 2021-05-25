@@ -22,9 +22,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @Setter
 @Getter
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "userName")
+
 public class UserModel{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -90,6 +88,7 @@ public class UserModel{
     @JsonView(Views.Internal.class)
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="name",
             scope=RoleModel.class)
+    @JsonIdentityReference(alwaysAsId = true)
     private Collection<RoleModel> role;
 
     public void setPassword(String password) {

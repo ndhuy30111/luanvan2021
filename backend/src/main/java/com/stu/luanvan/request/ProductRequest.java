@@ -9,8 +9,6 @@ import javax.validation.constraints.Pattern;
 import java.util.Collection;
 
 @Data
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductRequest{

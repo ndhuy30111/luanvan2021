@@ -6,8 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -20,6 +18,6 @@ public class CategoryRequest {
         this.name = StringUtils.normalizeSpace(name);
     }
     private Integer sort;
-    private CategoryRequest category_id;
+    private String category;
 
 }
