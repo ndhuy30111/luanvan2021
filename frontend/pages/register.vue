@@ -1,8 +1,14 @@
 <template>
   <b-container class="register">
     <b-row>
-      <b-col md="12">
-        <b-form v-if="show" class="form" @submit="onSubmit" @reset="onReset">
+      <b-col md="3"></b-col>
+      <b-col md="6">
+        <b-form
+          v-if="show"
+          class="form"
+          @submit.prevent="register(form)"
+          @reset="onReset"
+        >
           <b-form-group>
             <b-form-input
               id="email"
@@ -30,9 +36,9 @@
           <b-form-group>
             <b-form-input
               id="uername"
-              v-model="form.uername"
+              v-model="form.userName"
               type="text"
-              :state="form.uername.length >= 5"
+              :state="form.userName.length >= 5"
               placeholder="User name"
               required
             ></b-form-input>
@@ -78,9 +84,7 @@
             </b-form-checkbox-group>
           </b-form-group>
 
-          <div class="d-flex justify-content-center">
-            <Button text="Đăng ký" />
-          </div>
+          <Button text="Đăng ký" />
         </b-form>
       </b-col>
     </b-row>
@@ -99,7 +103,7 @@ export default {
       form: {
         email: '',
         name: '',
-        uername: '',
+        userName: '',
         password: '',
         repeatPassword: '',
       },
@@ -114,15 +118,15 @@ export default {
     },
   },
   methods: {
-    onSubmit(event) {
-      event.preventDefault()
+    register(form) {
+      this.$store.dispatch('user/register', form)
     },
     onReset(event) {
       event.preventDefault()
       // Reset our form values
       this.form.email = ''
       this.form.name = ''
-      this.form.username = ''
+      this.form.userName = ''
       this.form.password = ''
       this.form.repeatPassword = ''
 

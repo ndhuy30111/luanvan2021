@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row>
+    <v-row class="menu">
       <v-col class="collection">
         <div class="collection_img">
           <img
@@ -32,7 +32,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.menu {
+  margin: 0px -47px;
+}
 .collection {
-  margin-top: -25px;
+  margin-top: -40px;
 }
 </style>

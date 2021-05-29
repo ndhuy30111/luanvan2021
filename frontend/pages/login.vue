@@ -2,7 +2,8 @@
   <b-container class="login">
     <b-alert :show="message != ''" variant="danger">{{ message }}</b-alert>
     <b-row>
-      <b-col md="12">
+      <b-col md="3"></b-col>
+      <b-col md="6">
         <b-form v-if="show" @submit="onSubmit" @reset="onReset">
           <b-form-group>
             <b-form-input
@@ -33,9 +34,8 @@
               <b-form-checkbox value="remember">Remenber me</b-form-checkbox>
             </b-form-checkbox-group>
           </b-form-group>
-          <div class="d-flex justify-content-center">
-            <Button text="ĐĂNNG NHẬP" />
-          </div>
+
+          <Button text="ĐĂNNG NHẬP" />
         </b-form>
       </b-col>
     </b-row>

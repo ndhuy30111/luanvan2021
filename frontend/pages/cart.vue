@@ -1,7 +1,7 @@
 <template>
-  <b-container class="shopping-cart spad">
+  <b-container class="shopping-cart">
     <b-row>
-      <b-col class="col-lg-12">
+      <b-col cols="12" md="12">
         <div class="cart-table">
           <table>
             <thead>
@@ -26,7 +26,7 @@
                   </a>
                 </td>
                 <td class="cart-title">
-                  <h5>Tên sp / màu / size</h5>
+                  <h5>product name / color / size</h5>
                 </td>
                 <td class="p-price">{{ price.toLocaleString() }} đ</td>
                 <td class="qua-col">
@@ -53,10 +53,10 @@
         <div class="proceed-checkout">
           <ul>
             <li class="cart-total">
-              Tổng tiền <span>{{ total.toLocaleString() }}</span>
+              Total <span>{{ total.toLocaleString() }}</span>
             </li>
           </ul>
-          <a href="#" class="proceed-btn">Thanh toán</a>
+          <a href="#" class="proceed-btn">Checkout</a>
         </div>
       </b-col>
     </b-row>
@@ -77,18 +77,18 @@ export default {
 
 <style lang="scss" scoped>
 .shopping-cart {
-  padding-top: 80px;
-  padding-bottom: 60px;
+  padding-top: 20px;
+  padding-bottom: 40px;
   .cart-table {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     table {
       width: 100%;
-      min-width: 480px;
       border: 1px solid #ebebeb;
       tr th {
         font-size: 16px;
         color: #252525;
-        font-weight: 700;
+        font-weight: 500;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         border-bottom: 1px solid #ebebeb;
         text-align: center;
         padding: 18px 0 19px;
@@ -124,12 +124,16 @@ export default {
     .proceed-btn {
       font-size: 14px;
       font-weight: 700;
-      color: #ffffff;
-      background: #252525;
+      color: #000000;
+      background: #ce785c;
       text-transform: uppercase;
       padding: 15px 25px 14px 25px;
       display: block;
       text-align: center;
+      text-decoration: none;
+    }
+    .proceed-btn:hover {
+      color: red;
     }
     ul {
       border: 2px solid #ebebeb;
@@ -150,10 +154,34 @@ export default {
         }
         span {
           float: right;
-          color: #f80e0e;
+          color: red;
         }
       }
     }
+  }
+}
+@media screen and (max-width: 600px) {
+  .shopping-cart {
+    .cart-table {
+      table {
+        tr th {
+          font-size: 10px;
+        }
+      }
+    }
+    .proceed-checkout {
+      .proceed-btn {
+        font-size: 10px;
+      }
+      ul {
+        li {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+  * {
+    font-size: 8px;
   }
 }
 </style>
