@@ -1,10 +1,10 @@
 <template>
   <v-container fluid>
-    <v-row>
+    <v-row class="menu">
       <Carousel />
     </v-row>
-    <v-row>
-      <v-col class="img_shop" cols="12">
+    <v-row class="menu">
+      <v-col cols="12">
         <CategoryMenu />
       </v-col>
     </v-row>
@@ -42,5 +42,8 @@ export default {
 <style lang="scss" scoped>
 .list-product {
   margin-top: 20px;
+}
+.menu {
+  margin: 0px -50px;
 }
 </style>

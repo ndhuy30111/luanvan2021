@@ -1,8 +1,10 @@
 <template>
-  <v-btn id="cart" icon>
-    <b-icon icon="handbag"></b-icon>
-    <span>0</span>
-  </v-btn>
+  <router-link to="cart">
+    <v-btn id="cart" icon>
+      <b-icon icon="handbag"></b-icon>
+      <span>0</span>
+    </v-btn>
+  </router-link>
 </template>
 
 <script>

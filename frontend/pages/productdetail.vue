@@ -55,17 +55,8 @@
             </div>
           </div>
         </div>
-        <div>
-          <b-tabs
-            active-nav-item-class="font-weight-bold text-uppercase text-success"
-            active-tab-class="font-weight-bold "
-          >
-            <b-tab title="Mô tả" active><p>Mô tả</p></b-tab>
-            <b-tab title="Đánh giá"><p>0 ĐÁNH GIÁ</p></b-tab>
-            <b-tab title="Bình luận"><p>0 BÌNH LUẬN</p></b-tab>
-          </b-tabs>
-        </div>
       </div>
+      <div></div>
     </b-row>
   </b-container>
 </template>

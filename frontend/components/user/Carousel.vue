@@ -1,78 +1,48 @@
 <template>
   <div>
-    <b-carousel
-      id="carousel"
-      v-model="slide"
-      :interval="4000"
-      controls
-      indicators
-      background="#ababab"
-      img-width="1024"
-      img-height="480"
-      style="text-shadow: 1px 1px 2px #333"
-      @sliding-start="onSlideStart"
-      @sliding-end="onSlideEnd"
-    >
-      <!-- Text slides with image -->
-      <b-carousel-slide
-        id="content-index"
-        img-src="https://cdn.shopify.com/s/files/1/2598/7400/files/home-1-3_x1024.jpg?v=1515578976"
+    <div>
+      <b-carousel
+        id="carousel"
+        style="text-shadow: 0px 0px 2px #000"
+        :interval="4000"
+        fade
+        indicators
+        img-width="1024"
+        img-height="450"
       >
-        <div class="content">
-          <h6>Luxury Handbags</h6>
-          <b-button variant="dark">SHOPPING NOW</b-button>
-        </div>
-      </b-carousel-slide>
-
-      <!-- Slides with custom text -->
-      <b-carousel-slide
-        img-src="https://cdn.shopify.com/s/files/1/2598/7400/files/home-1-2_x1024.jpg?v=1515579141"
-      >
-        <div class="content">
-          <h6>Frilled Sleeve Top</h6>
-          <b-button variant="dark">SHOPPING NOW</b-button>
-        </div>
-      </b-carousel-slide>
-
-      <!-- Slides with image only -->
-      <b-carousel-slide
-        img-src="https://cdn.shopify.com/s/files/1/2598/7400/files/slider-1_x1024.jpg?v=1513869131"
-      >
-        <div class="content">
-          <h6>Frilled Sleeve Top</h6>
-          <b-button variant="dark">SHOPPING NOW</b-button>
-        </div>
-      </b-carousel-slide>
-    </b-carousel>
+        <b-carousel-slide
+          id="content-index"
+          img-src="https://cdn.shopify.com/s/files/1/2598/7400/files/home-2-1_x1024.jpg?v=1516243763"
+        >
+          <div class="content">
+            <h6>Bright-Light Outerwear</h6>
+            <b-button variant="dark">SHOPPING NOW</b-button>
+          </div>
+        </b-carousel-slide>
+        <b-carousel-slide
+          img-src="https://cdn.shopify.com/s/files/1/2598/7400/files/home-2-3_x1024.jpg?v=1516245583"
+        >
+          <div class="content">
+            <h6>Frilled Sleeve Top</h6>
+            <b-button variant="dark">SHOPPING NOW</b-button>
+          </div>
+        </b-carousel-slide>
+      </b-carousel>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      slide: 0,
-      sliding: null,
-    }
-  },
-  methods: {
-    onSlideStart(slide) {
-      this.sliding = true
-    },
-    onSlideEnd(slide) {
-      this.sliding = false
-    },
-  },
-}
+export default {}
 </script>
 
 <style lang="scss" scoped>
 #carousel {
   margin-bottom: 20px;
-  margin-top: -10px;
+  margin-top: -30px;
   .content {
     width: 50%;
-    margin-top: -40%;
+    margin-top: -25%;
     color: black;
     position: relative;
     animation-name: example;
@@ -89,7 +59,7 @@ export default {
       padding: 10px;
       font-size: 12px;
       border: none;
-      background-image: linear-gradient(to right, #ce785c, #c4826c, #ec997e);
+      background: black;
     }
     @keyframes example {
       from {
