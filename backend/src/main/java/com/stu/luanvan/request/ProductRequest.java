@@ -4,7 +4,6 @@ import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Collection;
 
@@ -24,8 +23,9 @@ public class ProductRequest{
     private String info;
     private String info_small;
     private FileRequest file;
-    private CategoryRequest category;
-    private Collection<ColorRequest> color;
+    @NotBlank(message="Ban phai them category")
+    private Integer category;
+    private Collection<DetailsProductRequest> detailsProduct;
 
 
 }

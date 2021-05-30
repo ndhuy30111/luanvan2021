@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import com.github.slugify.Slugify;
 import com.stu.luanvan.model.*;
 import com.stu.luanvan.model.category.CategoryModel;
-import com.stu.luanvan.model.color.ColorModel;
+import com.stu.luanvan.model.detailsproduct.DetailsProductModel;
 import com.stu.luanvan.model.file.FileModel;
 import com.stu.luanvan.model.invoicedetails.InvoiceDetailsModel;
 import com.stu.luanvan.model.json.Views;
@@ -15,8 +15,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
-
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -85,7 +83,7 @@ public class ProductModel extends BaseModel {
     private Collection<InvoiceDetailsModel> invoicedetals;
 
     @OneToMany(mappedBy = "product")
-    private Collection<ColorModel> colors;
+    private Collection<DetailsProductModel> colors;
 
     @ManyToOne
     @JoinColumn(name="category_id",columnDefinition = "INT(11) NULL COMMENT 'Danh mục của sản phẩm'")
@@ -96,7 +94,7 @@ public class ProductModel extends BaseModel {
     @JsonView(Views.Public.class)
     private Collection<ReviewModel> review;
 
-    public void setName(@NotNull String name) {
+    public void setName( String name) {
         this.name = name.trim();
 
         this.url = new Slugify().slugify(this.name);
@@ -107,7 +105,7 @@ public class ProductModel extends BaseModel {
     }
 
 
-    public ProductModel(@NotNull String name, Long price, String info, String info_small, FileModel image) {
+    public ProductModel( String name, Long price, String info, String info_small, FileModel image) {
         setName(name);
         this.price = price;
         this.info = info;

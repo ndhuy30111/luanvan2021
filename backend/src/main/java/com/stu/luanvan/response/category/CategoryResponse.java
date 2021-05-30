@@ -1,4 +1,4 @@
-package com.stu.luanvan.response.user;
+package com.stu.luanvan.response.category;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

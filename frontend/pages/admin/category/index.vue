@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Crudactions from '~/components/tabledata/Crudactions.vue'
+import Crudactions from '~/components/admin/tabledata/Crudactions.vue'
 
 export default {
   components: { Crudactions },
@@ -56,16 +56,14 @@ export default {
   },
 
   methods: {
-    init() {},
-
     saveNew(item) {
-      this.$store.dispatch('admin/category/add', item)
+      this.$store.dispatch('admin/category/addContent', item)
     },
     saveEdit(item) {
-      this.$store.dispatch('admin/category/edit', item)
+      this.$store.dispatch('admin/category/editContent', item)
     },
     deletes(item) {
-      this.$store.dispatch('admin/category/delete', item)
+      this.$store.dispatch('admin/category/deleteContent', item)
     },
   },
 }

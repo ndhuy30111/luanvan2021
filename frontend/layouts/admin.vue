@@ -32,6 +32,10 @@ export default {
         name: 'Quản lý nội dung',
         function: [
           {
+            name: 'Quản lý Danh mục',
+            function: [{ name: 'Xem Danh mục', url: 'admin-category' }],
+          },
+          {
             name: 'Quản lý sản phẩm',
             function: [
               { name: 'Xem danh sách', url: 'admin-product' },
@@ -39,11 +43,8 @@ export default {
             ],
           },
           {
-            name: 'Quản lý Danh mục',
-            function: [
-              { name: 'Xem Danh mục', url: 'admin-category' },
-              { name: 'Thêm Danh mục', url: 'admin-category-add' },
-            ],
+            name: 'Quản lý màu sắc',
+            function: [{ name: 'Xem danh sách màu sắc', url: 'admin-color' }],
           },
           {
             name: 'Quản lý Banner',
@@ -58,6 +59,7 @@ export default {
   }),
   mounted() {
     this.$store.dispatch('admin/category/init')
+    this.$store.dispatch('admin/color/init')
   },
 }
 </script>

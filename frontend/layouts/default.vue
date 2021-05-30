@@ -12,7 +12,6 @@
             <MenuAccount />
           </div>
         </div>
-
         <Header v-if="!mobileView" />
       </div>
       <v-main in>

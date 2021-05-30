@@ -24,7 +24,7 @@ import javax.validation.Valid;
 @CrossOrigin
 @RequestMapping("/api/admin")
 @EnableTransactionManagement
-public class AuthonticatorController {
+public class AuthonticatorController implements AuthonticatorInterfaceController{
     @Autowired
     private UserService userService;
     @Autowired

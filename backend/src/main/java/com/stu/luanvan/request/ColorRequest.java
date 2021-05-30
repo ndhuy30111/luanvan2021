@@ -1,12 +1,12 @@
 package com.stu.luanvan.request;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.util.Collection;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,8 +18,5 @@ public class ColorRequest {
     public void setName(String name) {
         this.name = StringUtils.normalizeSpace(name);
     }
-    private String image;
-    private FileRequest file;
-    private Collection<SizeRequest> size;
-    private Integer productId;
+    private String code;
 }

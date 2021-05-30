@@ -1,15 +1,11 @@
 package com.stu.luanvan.service.product;
 
-import com.cloudinary.utils.StringUtils;
 import com.stu.luanvan.exception.NotFoundEx;
-import com.stu.luanvan.model.color.ColorModel;
+import com.stu.luanvan.model.detailsproduct.DetailsProductModel;
 import com.stu.luanvan.model.file.FileModel;
 import com.stu.luanvan.model.product.ProductModel;
 import com.stu.luanvan.model.size.SizeModel;
-import com.stu.luanvan.repository.ColorRepository;
-import com.stu.luanvan.repository.FileRepository;
-import com.stu.luanvan.repository.ProductRepository;
-import com.stu.luanvan.repository.SizeRepository;
+import com.stu.luanvan.repository.*;
 import com.stu.luanvan.request.ProductRequest;
 import com.stu.luanvan.service.ObjectMapDto;
 import com.stu.luanvan.service.category.CategoryService;
@@ -31,13 +27,15 @@ public class ProductService implements ProductServiceInterface{
     @Autowired
     private CloudinaryService cloudinaryService;
     @Autowired
-    private ColorRepository colorRepository;
+    private ColorReponsitory colorRepository;
     @Autowired
     private SizeRepository sizeRepository;
     @Autowired
     private CategoryService categoryService;
     @Autowired
     private FileRepository fileRepository;
+    @Autowired
+    private DetailsProductReponsitory detailsProductReponsitory;
     @Override
     public Map<String, Object> findByAll(int page, int size, String nameSort) {
         Pageable pageable;
@@ -70,19 +68,26 @@ public class ProductService implements ProductServiceInterface{
             }else{
                 file = fileRepository.findByName(productRequest.getFile().getPublicId());
             }
+
             var product = new ProductModel(productRequest.getName(),productRequest.getPrice(),productRequest.getInfo(),productRequest.getInfo_small(),file);
+            var category = categoryService.findById(productRequest.getCategory());
+            if(category!=null){
+                product.setCategory(category);
+            }
             productRepository.save(product);
-            productRequest.getColor().forEach(c->{
+            productRequest.getDetailsProduct().forEach(c->{
                 FileModel filecolor;
+
+                var color = colorRepository.findById(c.getColor().getId()).get();
                 if(c.getFile()==null){
-                     filecolor = cloudinaryService.uploadFile(c.getImage(),product.getName()+" "+c.getName());
+                     filecolor = cloudinaryService.uploadFile(c.getImage(),product.getName()+" "+color.getName());
                 }else{
                     filecolor = fileRepository.findByName(c.getFile().getPublicId());
                 }
-                var color = new ColorModel(c.getName(),filecolor, product);
-                colorRepository.save(color);
+                var detailsProduct = new DetailsProductModel(color,filecolor, product);
+                detailsProductReponsitory.save(detailsProduct);
                 c.getSize().forEach(s->{
-                    var size = new SizeModel(s.getName(),s.getAmount(),color);
+                    var size = new SizeModel(s.getName(),s.getAmount(),detailsProduct);
                     sizeRepository.save(size);
                 });
             });

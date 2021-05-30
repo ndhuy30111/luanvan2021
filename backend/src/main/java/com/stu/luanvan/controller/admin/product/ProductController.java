@@ -17,7 +17,7 @@ import javax.validation.Valid;
 @RequestMapping("/api/admin/product")
 @CrossOrigin //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
 @EnableTransactionManagement
-public class ProductController {
+public class ProductController implements ProductInterfaceController{
     @Autowired
     private ProductService productService;
     @GetMapping
