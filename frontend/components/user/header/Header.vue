@@ -25,7 +25,7 @@
         rounded
         solo
         append-icon="mdi-magnify"
-        label="Search"
+        :label="$local.vn.sreach"
       >
       </v-text-field>
     </v-responsive>
@@ -43,22 +43,22 @@ export default {
   data: () => ({
     menus: [
       {
-        content: 'HOME',
+        content: 'Trang chủ',
         url: '/',
         active: true,
       },
       {
-        content: 'SHOP',
+        content: 'Sản phẩm',
         url: 'shop',
         active: false,
       },
       {
-        content: 'CONTACT US',
+        content: 'Liên hệ',
         url: 'contact',
         active: false,
       },
       {
-        content: 'NEWS',
+        content: 'Thông tin',
         url: 'news',
         active: false,
       },
