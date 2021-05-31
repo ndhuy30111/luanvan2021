@@ -84,7 +84,7 @@
             </b-form-checkbox-group>
           </b-form-group>
 
-          <Button text="Đăng ký" />
+          <Button :text="$local.vn.register" />
         </b-form>
       </b-col>
     </b-row>
@@ -119,7 +119,7 @@ export default {
   },
   methods: {
     register(form) {
-      this.$store.dispatch('user/register', form)
+      this.$store.dispatch('user/account/register', form)
     },
     onReset(event) {
       event.preventDefault()

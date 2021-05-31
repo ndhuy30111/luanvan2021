@@ -10,7 +10,7 @@
               id="uername"
               v-model="form.uername"
               type="text"
-              placeholder="User name"
+              placeholder="Tên tài khoản"
               required
             ></b-form-input>
           </b-form-group>
@@ -20,7 +20,7 @@
               id="password"
               v-model="form.password"
               type="password"
-              placeholder="Password"
+              placeholder="Mật khẩu"
               required
             ></b-form-input>
           </b-form-group>
@@ -35,7 +35,7 @@
             </b-form-checkbox-group>
           </b-form-group>
 
-          <Button text="ĐĂNNG NHẬP" />
+          <Button :text="$local.vn.login" />
         </b-form>
       </b-col>
     </b-row>

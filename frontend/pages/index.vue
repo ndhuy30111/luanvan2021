@@ -9,7 +9,7 @@
       </v-col>
     </v-row>
     <v-row class="list-product">
-      <ListProduct :menutab="menutab" />
+      <ListProduct :menutab="$local.vn.menuproduct" />
     </v-row>
     <v-row>
       <v-col>
@@ -30,11 +30,6 @@ export default {
     ListProduct,
     Carousel,
     Video,
-  },
-  data: () => {
-    return {
-      menutab: ['New Arrival', 'Top Rated'],
-    }
   },
 }
 </script>
