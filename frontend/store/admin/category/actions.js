@@ -2,8 +2,10 @@ export default {
   async init({ commit }) {
     const category = await this.$axios.$get('/admin/category')
     commit('setContent', category)
+    const select = await this.$axios.$get('/admin/category/categorynull')
+    commit('setSelect', select)
   },
-  async add({ commit }, item) {
+  async addContent({ commit }, item) {
     const newCategory = {
       name: item.name,
       sort: item.sort,
@@ -18,7 +20,7 @@ export default {
         console.log(error)
       })
   },
-  async edit({ commit }, item) {
+  async editContent({ commit }, item) {
     const category = {
       name: item.name,
       sort: item.sort,
@@ -33,7 +35,7 @@ export default {
         console.log(error)
       })
   },
-  async delete({ commit }, item) {
+  async deleteContent({ commit }, item) {
     await this.$axios
       .$delete('/admin/category/' + item.id)
       .then(() => {

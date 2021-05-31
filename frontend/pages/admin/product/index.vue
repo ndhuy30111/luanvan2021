@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Crudactions from '~/components/tabledata/Crudactions.vue'
+import Crudactions from '~/components/admin/tabledata/Crudactions.vue'
 export default {
   components: { Crudactions },
   layout: 'admin',

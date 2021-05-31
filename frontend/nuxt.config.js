@@ -33,6 +33,8 @@ export default {
     { src: '~/plugins/vuelidate.js', ssr: false },
     { src: '~/plugins/axios.js', ssr: false },
     '~/plugins/auth.js',
+    { src: '~/plugins/vue2-editor.js' },
+    '~/plugins/repositories.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -54,6 +56,7 @@ export default {
     '@nuxtjs/axios',
     // Auth
     '@nuxtjs/auth-next',
+    '@nuxtjs/cloudinary',
   ],
   bootstrapVue: {
     icons: true,
@@ -62,7 +65,11 @@ export default {
   axios: {
     baseURL: 'http://localhost:8080/api',
   },
-
+  cloudinary: {
+    cloudName: 'df9s1orh9',
+    apiKey: '965953611862293',
+    apiSecret: 'aL2Ez1PgQZNuGXTCHW01V1-fcbA',
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
   // Auth Configuration https://auth.nuxtjs.org/guide/setup

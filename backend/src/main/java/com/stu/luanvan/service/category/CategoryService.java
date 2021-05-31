@@ -103,4 +103,13 @@ public class CategoryService implements CategoryServiceInterface{
             throw new Exception(ex.getMessage());
         }
     }
+
+    @Override
+    public Collection<CategoryModel> findByCategoryNotNull() {
+        return categoryRepository.findByCategoryNotNull();
+    }
+    @Override
+    public Collection<CategoryModel> findByCategoryNull() {
+        return categoryRepository.findByCategoryNull();
+    }
 }

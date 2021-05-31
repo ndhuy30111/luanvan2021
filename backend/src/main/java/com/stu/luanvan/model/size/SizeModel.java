@@ -1,7 +1,7 @@
 package com.stu.luanvan.model.size;
 
 import com.stu.luanvan.model.BaseModel;
-import com.stu.luanvan.model.color.ColorModel;
+import com.stu.luanvan.model.detailsproduct.DetailsProductModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +29,7 @@ public class SizeModel extends BaseModel {
 
     @ManyToOne
     @JoinColumn(name="color_id")
-    private ColorModel color;
+    private DetailsProductModel color;
 
     public SizeModel(String name, Integer amount) {
         this.name = name;

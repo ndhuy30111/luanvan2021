@@ -1,6 +1,7 @@
 package com.stu.luanvan.model;
 
 import com.fasterxml.jackson.annotation.*;
+import com.stu.luanvan.model.category.CategoryViews;
 import com.stu.luanvan.model.json.Views;
 import com.stu.luanvan.model.user.UserModel;
 import lombok.*;
@@ -22,7 +23,7 @@ import java.util.Date;
 public class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView(Views.Internal.class)
+    @JsonView({Views.Internal.class, CategoryViews.Select.class})
     private Integer id;
 
     @OneToOne

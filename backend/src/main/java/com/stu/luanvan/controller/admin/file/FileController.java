@@ -10,14 +10,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/admin/file")
-public class FileController{
+public class FileController implements FileInterfaceController{
     @Autowired
     private CloudinaryService cloudinaryService;
     @PostMapping
     public ResponseEntity<?> uploadFile(@RequestParam(value = "file") MultipartFile file,@RequestParam(value="name",required = false) String name) {
         try{
             var fileCloudinary = cloudinaryService.uploadFile(file,name);
-            return new ResponseEntity<>(new MessageRequest("Thành công",fileCloudinary),HttpStatus.CREATED);
+            return new ResponseEntity<>(fileCloudinary  ,HttpStatus.CREATED);
         }catch (Exception ex){
             throw new RuntimeException(ex);
         }

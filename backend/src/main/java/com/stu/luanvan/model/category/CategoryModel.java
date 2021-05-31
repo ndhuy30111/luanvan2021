@@ -21,19 +21,20 @@ import java.util.Collection;
 @AllArgsConstructor
 public class CategoryModel extends BaseModel {
     @Column(columnDefinition = "VARCHAR(40) NOT NULL COMMENT 'Tên danh mục' ")
-    @JsonView(Views.Public.class)
+    @JsonView({Views.Public.class,CategoryViews.Select.class})
     @Pattern(regexp = "^[\\p{L} . '-]+$", message = "Tên không hợp lệ")
     private String name;
 
     @JsonManagedReference
-    @JsonView(Views.Public.class)
+    @JsonView({Views.Public.class,CategoryViews.Select.class})
     private Integer sort;
 
     @OneToMany
     @JoinColumn(name = "category_id",columnDefinition = "INT(11) NULL COMMENT 'Danh mục cha'")
-    @JsonView(Views.Public.class)
+    @JsonView({Views.Public.class,CategoryViews.Select.class})
     @JsonManagedReference
-    private Collection<CategoryModel> childerencategory;
+
+    private Collection<CategoryModel> children;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -45,11 +46,11 @@ public class CategoryModel extends BaseModel {
     private CategoryModel category;
 
 
-    @JsonView(Views.Public.class)
+    @JsonView({Views.Public.class,CategoryViews.Select.class})
     private String url;
 
     @OneToMany(mappedBy = "category")
-    @JsonView(Views.Public.class)
+    @JsonView({Views.Public.class})
     @JsonManagedReference
     private Collection<ProductModel> product;
 

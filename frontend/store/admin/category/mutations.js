@@ -17,4 +17,7 @@ export default {
     )
     state.contents.splice(contentIndex, 1)
   },
+  setSelect(state, category) {
+    state.select = category
+  },
 }

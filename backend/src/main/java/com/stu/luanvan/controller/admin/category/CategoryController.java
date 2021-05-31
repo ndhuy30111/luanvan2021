@@ -1,6 +1,8 @@
 package com.stu.luanvan.controller.admin.category;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.stu.luanvan.exception.NotFoundEx;
+import com.stu.luanvan.model.category.CategoryViews;
 import com.stu.luanvan.request.CategoryRequest;
 import com.stu.luanvan.service.category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequestMapping("/api/admin/category") //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
 @EnableTransactionManagement
-public class CategoryController{
+public class CategoryController implements CategoryInterfaceController{
 
     @Autowired
     private CategoryService categoryService;
@@ -47,11 +49,15 @@ public class CategoryController{
         }
     }
 
-    /**
-     * Hàm tìm thông tin category nếu không có trả về null
-     * @param id
-     * @return HttpStatus.OK
-     */
+
+    @GetMapping("/categorynull")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    @JsonView(CategoryViews.Select.class)
+    public ResponseEntity<?> getFindByCategoryNull() {
+        return new ResponseEntity<>(categoryService.findByCategoryNull(),HttpStatus.OK);
+    }
+
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
