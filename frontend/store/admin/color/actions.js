@@ -7,7 +7,6 @@ export default {
     const res = await this.$repositories.colorAdmin.create(item)
     const { status, data } = res
     if (status === 201) {
-      console.log(data)
       commit('addColor', data)
     } else {
       // Handle error here
