@@ -1,10 +1,9 @@
 package com.stu.luanvan.request;
 
-import lombok.*;
-import org.apache.commons.lang3.StringUtils;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import java.util.Collection;
 
 @Data
@@ -12,7 +11,7 @@ import java.util.Collection;
 @AllArgsConstructor
 public class DetailsProductRequest {
     private Integer id;
-    private ColorRequest color;
+    private Integer color;
     private String image;
     private FileRequest file;
     private Collection<SizeRequest> size;

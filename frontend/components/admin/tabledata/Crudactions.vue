@@ -57,7 +57,7 @@
                   <v-col cols="12" sm="6" md="4">
                     <v-select
                       v-model="editedItem.category"
-                      :items="desserts"
+                      :items="select"
                       item-value="name"
                       item-text="name"
                       label="Cha"
@@ -120,6 +120,12 @@ export default {
       default: '',
     },
     headers: {
+      type: Array,
+      default: () => {
+        return []
+      },
+    },
+    select: {
       type: Array,
       default: () => {
         return []

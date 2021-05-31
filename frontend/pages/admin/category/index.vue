@@ -4,6 +4,7 @@
       :title="title"
       :headers="headers"
       :desserts="category"
+      :select="category"
       @new="saveNew"
       @edit="saveEdit"
       @del="deletes"
@@ -52,6 +53,9 @@ export default {
   computed: {
     category() {
       return this.$store.state.admin.category.contents
+    },
+    select() {
+      return this.$store.state.admin.category.select
     },
   },
 

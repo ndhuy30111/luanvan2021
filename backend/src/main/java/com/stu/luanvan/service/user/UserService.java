@@ -26,7 +26,7 @@ public class UserService implements UserServiceIntefaces{
      * @return Map<String, Object>
      */
     @Override
-    public Map<String,Object> findByAll(int page, int size,String nameSort ) {
+    public Map<String,Object> findByAll(Integer page, Integer size,String nameSort ) {
         Pageable pageable ;
         if(nameSort != null){
             //Sắp xếp theo tên column
@@ -79,7 +79,7 @@ public class UserService implements UserServiceIntefaces{
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
     }
 
     @Override

@@ -33,7 +33,6 @@ public class CategoryModel extends BaseModel {
     @JoinColumn(name = "category_id",columnDefinition = "INT(11) NULL COMMENT 'Danh mục cha'")
     @JsonView({Views.Public.class,CategoryViews.Select.class})
     @JsonManagedReference
-
     private Collection<CategoryModel> children;
 
     @ManyToOne

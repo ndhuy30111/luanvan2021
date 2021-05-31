@@ -3,11 +3,8 @@ package com.stu.luanvan.service.color;
 import com.stu.luanvan.model.color.ColorModel;
 import com.stu.luanvan.repository.ColorReponsitory;
 import com.stu.luanvan.request.ColorRequest;
-import com.stu.luanvan.request.DetailsProductRequest;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Map;
@@ -17,7 +14,7 @@ public class ColorService implements ColorSerivceInterface{
     @Autowired
     private ColorReponsitory colorReponsitory;
     @Override
-    public Map<String, Object> findByAll(int page, int size, String nameSort) {
+    public Map<String, Object> findByAll(Integer page, Integer size, String nameSort) {
         return null;
     }
 
@@ -44,7 +41,7 @@ public class ColorService implements ColorSerivceInterface{
     }
 
     @Override
-    public void delete(int id) throws Exception {
+    public void delete(Integer id) throws Exception {
 
     }
 }

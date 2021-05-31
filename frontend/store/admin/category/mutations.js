@@ -1,4 +1,8 @@
 export default {
+  init(state, payload) {
+    state.contents = payload.category
+    state.select = payload.select
+  },
   setContent(state, category) {
     state.contents = category
   },
@@ -16,8 +20,5 @@ export default {
       (content) => content.id === category.id
     )
     state.contents.splice(contentIndex, 1)
-  },
-  setSelect(state, category) {
-    state.select = category
   },
 }

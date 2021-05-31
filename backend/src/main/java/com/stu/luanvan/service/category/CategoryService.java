@@ -19,7 +19,7 @@ public class CategoryService implements CategoryServiceInterface{
     @Autowired
     private CategoryRepository categoryRepository;
     @Override
-    public Map<String, Object> findByAll(int page, int size, String nameSort) {
+    public Map<String, Object> findByAll(Integer page, Integer size, String nameSort) {
         Pageable pageable;
         if(nameSort != null){
             pageable = PageRequest.of(page,size, Sort.by(nameSort).descending());
@@ -90,7 +90,7 @@ public class CategoryService implements CategoryServiceInterface{
 
     @Override
     @Transactional(rollbackFor = Throwable.class)
-    public void delete(int id) throws Exception {
+    public void delete(Integer id) throws Exception {
         try{
             var category = categoryRepository.
                     findById(id).
