@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class SizeService implements SizeServiceIntefaces{
     @Override
-    public Map<String, Object> findByAll(int page, int size, String nameSort) {
+    public Map<String, Object> findByAll(Integer page, Integer size, String nameSort) {
         return null;
     }
 
@@ -33,7 +33,7 @@ public class SizeService implements SizeServiceIntefaces{
     }
 
     @Override
-    public void delete(int id) throws Exception {
+    public void delete(Integer id) throws Exception {
 
     }
 }

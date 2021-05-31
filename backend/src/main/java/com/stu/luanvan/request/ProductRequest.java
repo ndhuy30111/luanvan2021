@@ -1,6 +1,8 @@
 package com.stu.luanvan.request;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.constraints.NotBlank;
@@ -23,7 +25,6 @@ public class ProductRequest{
     private String info;
     private String info_small;
     private FileRequest file;
-    @NotBlank(message="Ban phai them category")
     private Integer category;
     private Collection<DetailsProductRequest> detailsProduct;
 

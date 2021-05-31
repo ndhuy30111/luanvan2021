@@ -53,7 +53,7 @@
                             hide-input
                             accept="image/png, image/jpeg, image/bmp"
                             label="Avatar"
-                            @change="inputFile"
+                            @change="inputFile($event, form)"
                           ></v-file-input>
                           <v-btn text icon @click="form.image = ''"
                             ><v-icon>mdi-close</v-icon></v-btn
@@ -117,7 +117,9 @@
                   <v-divider></v-divider>
 
                   <v-card
-                    v-for="(itemColor, indexColor) in form.detailsProduct"
+                    v-for="(
+                      itemDetailsProduct, indexColor
+                    ) in form.detailsProduct"
                     :key="indexColor"
                     elevation="2"
                     class="mt-2"
@@ -151,15 +153,61 @@
                       <v-row>
                         <v-col sm="6" cols="12">
                           <v-select
-                            v-model="itemDetails.color.id"
-                            item-color="code"
+                            v-model="itemDetailsProduct.color"
                             :items="color"
                             item-text="name"
                             item-value="id"
                             label="Màu"
                             outlined
-                          ></v-select></v-col
-                      ></v-row>
+                          >
+                            <template #selection="{ item }">
+                              <v-chip
+                                :text-color="
+                                  item.code == '#FFFFFF' ? 'black' : 'white'
+                                "
+                                :color="item.code"
+                              >
+                                <span class="mr-2">{{ item.name }}</span>
+                                {{ item.code }}</v-chip
+                              >
+                            </template></v-select
+                          ></v-col
+                        >
+                        <v-col height="auto">
+                          <v-card outlined>
+                            <v-row>
+                              <v-col>
+                                <v-toolbar-bar>Hình ảnh</v-toolbar-bar></v-col
+                              ></v-row
+                            >
+                            <v-row>
+                              <v-col cols="2" sm="2">
+                                <v-file-input
+                                  hide-input
+                                  accept="image/png, image/jpeg, image/bmp"
+                                  @change="
+                                    inputFile($event, itemDetailsProduct)
+                                  "
+                                ></v-file-input>
+                                <v-btn
+                                  text
+                                  icon
+                                  @click="itemDetailsProduct.image = ''"
+                                  ><v-icon>mdi-close</v-icon></v-btn
+                                >
+                              </v-col>
+                              <v-col cols="10" sm="10">
+                                <v-img
+                                  :src="itemDetailsProduct.image"
+                                  max-height="200"
+                                  max-width="200"
+                                  contain
+                                ></v-img>
+                              </v-col>
+                            </v-row>
+                          </v-card>
+                        </v-col>
+                      </v-row>
                       <v-row>
                         <v-col>
                           <v-card-text><p>Kích thước</p> </v-card-text></v-col
@@ -183,7 +231,7 @@
                         >
                       </v-row>
                       <v-row
-                        v-for="(itemSize, indexSize) in itemColor.size"
+                        v-for="(itemSize, indexSize) in itemDetailsProduct.size"
                         :key="indexSize"
                       >
                         <v-col sm="6" cols="12">
@@ -233,9 +281,8 @@ export default {
       category: null,
       detailsProduct: [
         {
-          color: {
-            id: null,
-          },
+          image: '',
+          color: null,
           size: [
             {
               name: '',
@@ -292,12 +339,12 @@ export default {
             Editor.insertEmbed(cursorLocation, 'image', response.url)
             resetUploader()
           })
-      } catch (e) {
-        console.log(e)
+      } catch (event) {
+        alert('Lỗi')
       }
     },
-    async inputFile(files) {
-      this.form.image = await this.createBase64Image(files)
+    async inputFile(event, item) {
+      item.image = await this.createBase64Image(event)
     },
     async createBase64Image(file) {
       const readData = (f) =>
@@ -310,7 +357,7 @@ export default {
       return await readData(file)
     },
     addColor() {
-      const itemColor = {
+      const itemDetailsProduct = {
         name: '',
         image: '',
         code: '#1976D2FF',
@@ -321,22 +368,22 @@ export default {
           },
         ],
       }
-      this.form.color.push(itemColor)
+      this.form.detailsProduct.push(itemDetailsProduct)
     },
     addSize(indexColor) {
       const itemSize = {
         name: '',
         amount: 0,
       }
-      this.form.color[indexColor].size.push(itemSize)
+      this.form.detailsProduct[indexColor].size.push(itemSize)
     },
     deleteColor(indexColor) {
       if (indexColor === 0) return
-      this.form.color.splice(indexColor, 1)
+      this.form.detailsProduct.splice(indexColor, 1)
     },
     deleteSize(indexColor, indexSize) {
       if (indexColor === 0) return
-      this.form.color[indexColor].size.splice(indexSize, 1)
+      this.form.detailsProduct[indexColor].size.splice(indexSize, 1)
     },
     onSubmit(event) {
       event.preventDefault()

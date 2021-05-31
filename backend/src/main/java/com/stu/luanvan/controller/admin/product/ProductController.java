@@ -1,8 +1,6 @@
 package com.stu.luanvan.controller.admin.product;
 
 import com.stu.luanvan.exception.NotFoundEx;
-import com.stu.luanvan.repository.ProductRepository;
-import com.stu.luanvan.request.CategoryRequest;
 import com.stu.luanvan.request.ProductRequest;
 import com.stu.luanvan.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

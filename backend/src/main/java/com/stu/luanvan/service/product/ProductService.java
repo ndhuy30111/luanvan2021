@@ -37,7 +37,7 @@ public class ProductService implements ProductServiceInterface{
     @Autowired
     private DetailsProductReponsitory detailsProductReponsitory;
     @Override
-    public Map<String, Object> findByAll(int page, int size, String nameSort) {
+    public Map<String, Object> findByAll(Integer page, Integer size, String nameSort) {
         Pageable pageable;
         if(nameSort != null){
             //Sắp xếp theo tên column
@@ -78,7 +78,7 @@ public class ProductService implements ProductServiceInterface{
             productRequest.getDetailsProduct().forEach(c->{
                 FileModel filecolor;
 
-                var color = colorRepository.findById(c.getColor().getId()).get();
+                var color = colorRepository.findById(c.getColor()).get();
                 if(c.getFile()==null){
                      filecolor = cloudinaryService.uploadFile(c.getImage(),product.getName()+" "+color.getName());
                 }else{
@@ -118,7 +118,7 @@ public class ProductService implements ProductServiceInterface{
     }
 
     @Override
-    public void delete(int id) throws Exception {
+    public void delete(Integer id) throws Exception {
         try{
             var product = findById(id);
             if(product!=null){
