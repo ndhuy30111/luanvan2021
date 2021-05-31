@@ -54,6 +54,11 @@ export default {
         url: 'contact',
         active: false,
       },
+      {
+        content: 'NEWS',
+        url: 'news',
+        active: false,
+      },
     ],
   }),
   methods: {
