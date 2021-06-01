@@ -1,8 +1,11 @@
 package com.stu.luanvan.model.product;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.github.slugify.Slugify;
-import com.stu.luanvan.model.*;
+import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.category.CategoryModel;
 import com.stu.luanvan.model.detailsproduct.DetailsProductModel;
 import com.stu.luanvan.model.file.FileModel;
@@ -15,6 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -83,10 +87,12 @@ public class ProductModel extends BaseModel {
     private Collection<InvoiceDetailsModel> invoicedetals;
 
     @OneToMany(mappedBy = "product")
-    private Collection<DetailsProductModel> colors;
+    private Collection<DetailsProductModel> detailsProduct;
 
     @ManyToMany(mappedBy = "product")
     @JsonView(Views.Public.class)
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="name")
+    @JsonIdentityReference(alwaysAsId = true)
     private Collection<CategoryModel> category;
 
     @OneToMany(mappedBy = "product")

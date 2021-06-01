@@ -57,9 +57,10 @@ export default {
       },
     ],
   }),
-  mounted() {
+  created() {
     this.$store.dispatch('admin/category/init')
     this.$store.dispatch('admin/color/init')
+    this.$store.dispatch('admin/product/init')
   },
 }
 </script>

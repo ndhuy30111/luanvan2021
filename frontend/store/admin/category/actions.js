@@ -22,7 +22,7 @@ export default {
       // Handle error here
     }
   },
-  async editContent({ commit }, item) {
+  async updateContent({ commit }, item) {
     const category = {
       name: item.name,
       sort: item.sort,
@@ -33,7 +33,7 @@ export default {
     if (status === 200) {
       commit('editContent', data)
     } else {
-      // Handle error here
+      alert('Không thay đổi, vui lòng kiểm tra lại')
     }
   },
   async deleteContent({ commit }, item) {

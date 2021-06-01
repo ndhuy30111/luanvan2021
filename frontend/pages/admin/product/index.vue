@@ -1,16 +1,97 @@
 <template>
-  <v-container>
-    <Crudactions :title="title" url="/admin/product/add"></Crudactions
-  ></v-container>
+  <v-data-table
+    :headers="headers"
+    :items="product"
+    :search="search"
+    sort-by="calories"
+    class="elevation-1"
+  >
+    <template #[`top`]>
+      <v-toolbar flat>
+        <v-toolbar-title>{{ title }}</v-toolbar-title>
+        <v-divider class="mx-4" inset vertical></v-divider>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+        <v-spacer></v-spacer>
+        <v-dialog v-model="dialog" max-width="500px">
+          <v-card>
+            <v-card-title>
+              <span class="headline">{{ formTitle }}</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field label="Tên" required></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogDelete" max-width="500px">
+          <v-card>
+            <v-card-title class="headline"
+              >Bạn thật sự muốn xoá không?</v-card-title
+            >
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="closeDelete"
+                >Cancel</v-btn
+              >
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                >OK</v-btn
+              >
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+    </template>
+    <template #[`item.actions`]="{ item }">
+      <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+      <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+    </template>
+  </v-data-table>
 </template>
 
 <script>
-import Crudactions from '~/components/admin/tabledata/Crudactions.vue'
 export default {
-  components: { Crudactions },
   layout: 'admin',
   data: () => ({
     title: 'Danh sách sản phẩm',
+    dialog: false,
+    dialogDelete: false,
+    search: '',
+    editedIndex: -1,
+    btnNew: 'Thêm',
+    editedItem: {
+      name: '',
+      sort: 1,
+      category: '',
+    },
+    headers: [
+      {
+        text: 'Tên danh mục',
+        align: 'start',
+        value: 'name',
+      },
+      { text: 'Đường dẫn', value: 'url' },
+      { text: 'Danh mục', value: 'category' },
+      { text: 'Ngày tạo', value: 'createDate' },
+      { text: 'Người tạo', value: 'createBy' },
+      { text: 'Người cập nhập', value: 'lastModifiedBy' },
+      { text: 'Ngày cập nhập', value: 'lastModifiedDate' },
+
+      { text: '', value: 'actions', sortable: false },
+    ],
+    data: [],
   }),
   head() {
     return {
@@ -23,6 +104,56 @@ export default {
         },
       ],
     }
+  },
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? 'Thêm dữ liệu' : 'Sửa dữ liệu'
+    },
+    product() {
+      return this.$store.state.admin.product.product
+    },
+  },
+  watch: {
+    dialog(val) {
+      val || this.close()
+    },
+    dialogDelete(val) {
+      val || this.closeDelete()
+    },
+  },
+
+  methods: {
+    editItem(item) {
+      console.log(item)
+    },
+
+    deleteItem(item) {
+      this.editedIndex = this.product.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialogDelete = true
+    },
+
+    deleteItemConfirm() {
+      if (this.editedIndex > -1) {
+        const item = Object.assign(
+          this.product[this.editedIndex],
+          this.editedItem
+        )
+        console.log(item)
+        // this.$store.dispatch('admin/product/deleteContent', item)
+      } else {
+        // this.desserts.push(this.editedItem)
+      }
+      this.closeDelete()
+    },
+
+    closeDelete() {
+      this.dialogDelete = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
   },
 }
 </script>

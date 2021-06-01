@@ -6,7 +6,10 @@ import com.stu.luanvan.model.json.Views;
 import com.stu.luanvan.model.review.ReviewModel;
 import com.stu.luanvan.model.role.RoleModel;
 import com.stu.luanvan.request.UserRequest;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,7 +25,6 @@ import java.util.Collection;
 @NoArgsConstructor
 @Setter
 @Getter
-
 public class UserModel{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

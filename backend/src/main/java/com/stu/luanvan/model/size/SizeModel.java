@@ -1,5 +1,6 @@
 package com.stu.luanvan.model.size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.detailsproduct.DetailsProductModel;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class SizeModel extends BaseModel {
 
     @ManyToOne
     @JoinColumn(name="color_id")
+    @JsonBackReference
     private DetailsProductModel color;
 
     public SizeModel(String name, Integer amount) {
