@@ -1,7 +1,7 @@
 export default {
   async init({ commit }) {
-    const color = await this.$repositories.colorAdmin.all()
-    commit('setColor', color.data)
+    const product = await this.$repositories.productAdmin.all()
+    commit('setProduct', product.data)
   },
   async addProduct({ commit }, item) {
     const res = await this.$repositories.productAdmin.create(item)

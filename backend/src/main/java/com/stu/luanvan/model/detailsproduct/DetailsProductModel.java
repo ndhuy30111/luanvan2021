@@ -1,19 +1,20 @@
 package com.stu.luanvan.model.detailsproduct;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.color.ColorModel;
 import com.stu.luanvan.model.file.FileModel;
-import com.stu.luanvan.model.size.SizeModel;
 import com.stu.luanvan.model.product.ProductModel;
+import com.stu.luanvan.model.size.SizeModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 import java.util.Collection;
 
 @Entity
@@ -22,9 +23,6 @@ import java.util.Collection;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "name")
 public class DetailsProductModel extends BaseModel {
 
     @OneToOne
@@ -33,12 +31,17 @@ public class DetailsProductModel extends BaseModel {
 
     @ManyToOne
     @JoinColumn(name="color_id")
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "name")
+    @JsonIdentityReference(alwaysAsId = true)
     private ColorModel color;
     @ManyToOne
     @JoinColumn(name="product_id")
     private ProductModel product;
 
     @OneToMany(mappedBy = "color")
+    @JsonManagedReference
     private Collection<SizeModel> size;
 
 

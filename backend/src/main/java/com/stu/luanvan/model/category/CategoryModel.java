@@ -6,8 +6,12 @@ import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.json.Views;
 import com.stu.luanvan.model.product.ProductModel;
 import com.stu.luanvan.request.CategoryRequest;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
+
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
@@ -48,7 +52,8 @@ public class CategoryModel extends BaseModel {
     @JsonView({Views.Public.class,CategoryViews.Select.class})
     private String url;
 
-    @OneToMany(mappedBy = "category")
+    @ManyToMany
+    @JoinTable(name="category_product",joinColumns = @JoinColumn(name="category_id"),inverseJoinColumns = @JoinColumn(name="product_id"))
     @JsonView({Views.Public.class})
     @JsonManagedReference
     private Collection<ProductModel> product;
