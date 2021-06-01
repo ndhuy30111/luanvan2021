@@ -78,8 +78,7 @@ export default {
     margin-top: 20px;
     margin-left: 30px;
     a {
-      font-size: 10px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 12px;
       color: black;
       text-decoration: none;
       transition: all 0.3s;

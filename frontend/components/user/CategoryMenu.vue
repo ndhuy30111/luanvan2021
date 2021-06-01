@@ -1,31 +1,47 @@
 <template>
-  <v-sheet id="menu_category" class="mx-auto">
-    <v-slide-group class="pa-4" show-arrows>
-      <v-slide-item v-for="item in img" :key="item">
-        <v-card class="ma-4">
-          <v-row class="fill-height">
-            <img :src="item" />
-          </v-row>
-        </v-card>
-      </v-slide-item>
-    </v-slide-group>
-  </v-sheet>
+  <v-row>
+    <v-col
+      v-for="(item, index) in img"
+      :key="index"
+      cols="12"
+      sm="4"
+      md="4"
+      xs="6"
+    >
+      <div id="image">
+        <img
+          :src="require(`~/assets/category/${item.src}`)"
+          alt="single banner"
+        />
+        <div class="center">
+          <a :href="item.href">{{ item.mes }}</a>
+        </div>
+      </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 export default {
+  name: 'CategoryMenu',
   data() {
     return {
       img: [
-        'https://cdn.shopify.com/s/files/1/2598/7400/files/collection-8.jpg?v=1517147164',
-
-        'https://cdn.shopify.com/s/files/1/2598/7400/files/collection-1_1.jpg?v=1517146849',
-
-        'https://cdn.shopify.com/s/files/1/2598/7400/files/collection-5_a69fcc2f-2f86-4469-a549-161b617ce07f.jpg?v=1517144883',
-
-        'https://cdn.shopify.com/s/files/1/2598/7400/files/collection-1_5293d77e-78ee-4182-bee0-97951ba99ecf.jpg?v=1517144750',
-
-        'https://cdn.shopify.com/s/files/1/2598/7400/files/2_b3c2593a-a26c-435c-a5af-fcde84b12fbd.jpg?v=1515226156',
+        {
+          src: 'man.jpg',
+          mes: 'THỜI TRANG NAM',
+          href: '/shop',
+        },
+        {
+          src: 'women.jpg',
+          mes: 'THỜI TRANG NỮ',
+          href: '/shop',
+        },
+        {
+          src: 'kid.jpg',
+          mes: 'THỜI TRANG TRẺ EM',
+          href: '/shop',
+        },
       ],
     }
   },
@@ -33,29 +49,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#menu_category {
-  margin-top: -15px;
-}
-img {
-  margin-top: 8px;
-  vertical-align: middle;
-  width: 470px;
-  height: 105%;
-  filter: grayscale(0.5) brightness(0.5);
-  cursor: pointer;
-  transition: 0.3s linear;
-}
-img:hover {
-  filter: grayscale(0);
-}
-@media screen and (max-width: 880px) {
+#image {
   img {
-    width: 315px;
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: 0.5s ease;
+    backface-visibility: hidden;
   }
 }
-@media screen and (max-width: 600px) {
-  img {
-    width: 120px;
+#image:hover {
+  z-index: 1;
+  transform: scale(1.15);
+  transition: 0.75s;
+}
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+  background-color: rgb(0, 0, 0);
+  padding: 10px;
+  border-radius: 20px;
+  a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+  }
+}
+@media screen and (max-width: 880px) {
+  .center {
+    font-size: 8px;
+    padding: 6px;
   }
 }
 </style>

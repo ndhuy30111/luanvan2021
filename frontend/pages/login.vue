@@ -2,13 +2,15 @@
   <b-container class="login">
     <b-alert :show="message != ''" variant="danger">{{ message }}</b-alert>
     <b-row>
-      <b-col md="3"></b-col>
+      <b-col id="title">
+        <p>{{ $local.vn.login }}</p>
+      </b-col>
       <b-col md="6">
         <b-form v-if="show" @submit="onSubmit" @reset="onReset">
           <b-form-group>
             <b-form-input
-              id="uername"
-              v-model="form.uername"
+              id="username"
+              v-model="form.username"
               type="text"
               placeholder="Tên tài khoản"
               required
@@ -25,15 +27,24 @@
             ></b-form-input>
           </b-form-group>
 
-          <b-form-group id="input-group-4" v-slot="{ ariaDescribedby }">
-            <b-form-checkbox-group
-              id="checkboxes"
-              v-model="form.checked"
-              :aria-describedby="ariaDescribedby"
-            >
-              <b-form-checkbox value="remember">Remenber me</b-form-checkbox>
-            </b-form-checkbox-group>
-          </b-form-group>
+          <div class="d-flex">
+            <div>
+              <b-form-group id="input-group-4" v-slot="{ ariaDescribedby }">
+                <b-form-checkbox-group
+                  id="checkboxes"
+                  v-model="form.checked"
+                  :aria-describedby="ariaDescribedby"
+                >
+                  <b-form-checkbox value="remember"
+                    >Remenber me</b-form-checkbox
+                  >
+                </b-form-checkbox-group>
+              </b-form-group>
+            </div>
+            <div>
+              <a href="#" class="forget_password">Quên mật khẩu</a>
+            </div>
+          </div>
 
           <Button :text="$local.vn.login" />
         </b-form>
@@ -58,8 +69,22 @@ export default {
     }
   },
   methods: {
-    onSubmit(event) {
+    async onSubmit(event) {
       event.preventDefault()
+      try {
+        await this.$auth
+          .loginWith('local', {
+            data: {
+              userName: this.form.username,
+              password: this.form.password,
+            },
+          })
+          .then(() => {
+            this.$router.push({ name: 'index' })
+          })
+      } catch (ex) {
+        alert('Bạn không thể truy cập')
+      }
     },
     onReset(event) {
       event.preventDefault()
@@ -78,6 +103,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .login {
+  #title {
+    font-size: 60px;
+    margin-top: 40px;
+    justify-content: center;
+  }
   .form {
     position: relative;
     input {
@@ -88,6 +118,17 @@ export default {
       border: solid 1px #f3f3f3;
       background-color: #fff;
       border-radius: 25px !important;
+    }
+  }
+  .forget_password:hover {
+    color: red;
+  }
+}
+@media screen and (max-width: 600px) {
+  .login {
+    #title {
+      margin-top: 0px;
+      font-size: 40px;
     }
   }
 }

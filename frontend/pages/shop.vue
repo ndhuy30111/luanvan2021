@@ -10,24 +10,26 @@
         </div>
       </v-col>
     </v-row>
-    <ProductFilter />
-    <v-row class="list-product">
-      <ListProduct :menutab="menutab" />
+
+    <v-row>
+      <v-col cols="12" sm="3">
+        <FilterLeft />
+      </v-col>
+
+      <v-col cols="12" sm="9" class="list-product">
+        <FilterTop />
+        <ListProduct :menutab="$local.vn.tilte_page_product" />
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import ProductFilter from '~/components/user/ProductFilter.vue'
+import FilterLeft from '~/components/user/Filter.vue'
+import FilterTop from '~/components/user/Filter1.vue'
 import ListProduct from '~/components/user/ListProduct'
 export default {
-  components: { ListProduct, ProductFilter },
-  data: () => {
-    return {
-      menutab: ['Women', 'Men'],
-      drawer: null,
-    }
-  },
+  components: { ListProduct, FilterLeft, FilterTop },
 }
 </script>
 

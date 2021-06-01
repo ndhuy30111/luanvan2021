@@ -35,7 +35,7 @@ export default {
     '~/plugins/auth.js',
     { src: '~/plugins/vue2-editor.js' },
     '~/plugins/repositories.js',
-    '~/plugins/local.js'
+    '~/plugins/local.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -91,9 +91,9 @@ export default {
           autoFetch: true,
         },
         endpoints: {
-          login: { url: '/admin/login', method: 'post', propertName: 'token' },
+          login: { url: '/login', method: 'post', propertName: 'token' },
           logout: false,
-          user: { url: '/admin/user', method: 'get' },
+          user: { url: '/user', method: 'get' },
         },
         autoLogout: true,
       },

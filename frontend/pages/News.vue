@@ -15,12 +15,12 @@
 
         <v-row align="center" justify="center">
           <v-col cols="10" md="6">
-            <h2>Welcome!</h2>
+            <h2>Xin chào!</h2>
             <p
               class="title font-weight-light"
               style="line-height: 1.7 !important"
             >
-              Shop Huy Duyen
+              {{ $local.vn.shop }}
             </p>
             <!-- <base-btn class="mt-4"> Learn More! </base-btn> -->
           </v-col>
@@ -33,7 +33,7 @@
       <v-col class="pa-5" cols="12" md="6">
         <Bubble-1 style="transform: translate(5%, -5%)" />
 
-        <h2>Top sản phẩm bán chạy trong tháng</h2>
+        <h2>{{ $loacl.vn.title_news }}</h2>
 
         <v-alert outlined class="mt-5">
           <v-row v-for="(trend, i) in trends" :key="i">

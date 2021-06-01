@@ -88,7 +88,6 @@ export default {
         font-size: 16px;
         color: #252525;
         font-weight: 500;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         border-bottom: 1px solid #ebebeb;
         text-align: center;
         padding: 18px 0 19px;
@@ -142,6 +141,7 @@ export default {
       padding-right: 25px;
       padding-top: 16px;
       padding-bottom: 20px;
+      font-family: cursive;
       li {
         list-style: none;
         font-size: 16px;

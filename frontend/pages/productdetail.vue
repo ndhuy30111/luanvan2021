@@ -15,10 +15,10 @@
         <div class="wrapper">
           <div class="outer">
             <div class="content">
-              <span class="product__content"> Tên sp</span>
+              <span class="product__content">Tên sp</span>
 
               <div class="colors-wrap">
-                <h6>Color:</h6>
+                <h6>Màu sắc:</h6>
                 <span class="colors" style="background-color: red"></span>
                 <span
                   class="colors selected"
@@ -28,12 +28,12 @@
               </div>
 
               <div class="size-wrap">
-                <h6>Size:</h6>
+                <h6>Kích cỡ:</h6>
                 <span class="size selected">S</span>
                 <span class="size">M</span>
               </div>
               <div class="size-wrap">
-                <h6>Quantity:</h6>
+                <h6>Số lượng:</h6>
                 <b-form-input
                   id="input-amount"
                   v-model="quantity"
@@ -131,16 +131,16 @@ p {
 .button {
   width: fit-content;
   height: fit-content;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 .button a {
   display: inline-block;
   overflow: hidden;
   position: relative;
-  font-size: 15px;
+  font-size: 14px;
   color: #111;
   text-decoration: none;
-  padding: 10px 10px;
+  padding: 8px 8px;
   border: 1px solid #aaa;
   font-weight: bold;
 }
@@ -150,7 +150,7 @@ p {
   top: 0;
   right: -10px;
   width: 0%;
-  background-color: #ce785c;
+  background-color: black;
   height: 100%;
   z-index: -1;
   transition: width 0.3s ease-in-out;
@@ -180,6 +180,9 @@ p {
   padding-right: 8px;
 }
 @media (max-width: 768px) {
+  .wrapper {
+    margin: -125px 0px 0px -35px;
+  }
   .outer {
     width: 95%;
     margin-top: 0;

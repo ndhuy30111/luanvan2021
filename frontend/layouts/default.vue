@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <HeaderMobile />
-    <div class="content" :class="{ open: showNav }">
+    <div class="content_default" :class="{ open: showNav }">
       <div class="top-bar container">
         <div v-if="mobileView" class="w-100 row">
           <div id="navigation-icon" class="col" @click="showNav = !showNav">
@@ -46,7 +46,10 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
+* {
+  font-family: Comic Sans MS;
+}
 .top-bar {
   display: flex;
   width: 100%;
@@ -59,7 +62,7 @@ export default {
     font-size: 2rem;
   }
 }
-.content {
+.content_default {
   position: absolute;
   width: calc(100%);
   height: calc(50vh);

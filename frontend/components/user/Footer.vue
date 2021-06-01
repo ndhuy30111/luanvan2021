@@ -1,5 +1,5 @@
 <template>
-  <v-card height="100px">
+  <v-card height="100px" class="mt-3">
     <v-footer color="white" padless>
       <v-card flat width="100%" class="text-center">
         <v-card-text class="d-flex justify-content-center">
@@ -46,7 +46,6 @@ export default {}
   cursor: pointer;
   height: 50px;
   width: 50px;
-  font-family: 'Titillium Web', sans-serif;
   color: #333;
   border-radius: 10px;
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);

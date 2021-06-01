@@ -1,8 +1,10 @@
 <template>
   <b-container class="register">
     <b-row>
-      <b-col md="3"></b-col>
-      <b-col md="6">
+      <b-col id="title">
+        <p>{{ $local.vn.register }}</p>
+      </b-col>
+      <b-col md="7">
         <b-form
           v-if="show"
           class="form"
@@ -141,6 +143,11 @@ export default {
 </script>
 <style lang="scss" scope>
 .register {
+  #title {
+    font-size: 60px;
+    margin-top: 100px;
+    justify-content: center;
+  }
   .mes_error {
     font-size: 15px;
     color: red;
@@ -156,6 +163,14 @@ export default {
         border: solid 1px #f3f3f3;
         background-color: #fff;
       }
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .register {
+    #title {
+      margin-top: 0px;
+      font-size: 40px;
     }
   }
 }

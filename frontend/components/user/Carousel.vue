@@ -15,16 +15,16 @@
           img-src="https://cdn.shopify.com/s/files/1/2598/7400/files/home-2-1_x1024.jpg?v=1516243763"
         >
           <div class="content">
-            <h6>Bright-Light Outerwear</h6>
-            <b-button variant="dark">SHOPPING NOW</b-button>
+            <h6>{{ $local.vn.title_carousel_woman }}</h6>
+            <b-button variant="dark">{{ $local.vn.shopnow }}</b-button>
           </div>
         </b-carousel-slide>
         <b-carousel-slide
           img-src="https://cdn.shopify.com/s/files/1/2598/7400/files/home-2-3_x1024.jpg?v=1516245583"
         >
           <div class="content">
-            <h6>Frilled Sleeve Top</h6>
-            <b-button variant="dark">SHOPPING NOW</b-button>
+            <h6>{{ $local.vn.title_carousel_man }}</h6>
+            <b-button variant="dark">{{ $local.vn.shopnow }}</b-button>
           </div>
         </b-carousel-slide>
       </b-carousel>
@@ -41,7 +41,7 @@ export default {}
   margin-bottom: 20px;
   margin-top: -30px;
   .content {
-    width: 50%;
+    width: 70%;
     margin-top: -25%;
     color: black;
     position: relative;
@@ -49,17 +49,16 @@ export default {}
     animation-duration: 2s;
     animation-fill-mode: forwards;
     h6 {
-      font-size: 3em;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 2.25em;
       margin-bottom: 4%;
     }
     .btn-dark {
-      color: white;
       border-radius: 38px;
       padding: 10px;
-      font-size: 12px;
+      font-size: 15px;
       border: none;
-      background: black;
+      background: rgb(10, 10, 10);
+      color: white;
     }
     @keyframes example {
       from {

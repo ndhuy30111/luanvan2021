@@ -17,6 +17,7 @@ export default {
 .btn {
   display: block;
   height: 38px;
+  width: 50%;
   border-radius: 20px;
   outline: none;
   border: none;

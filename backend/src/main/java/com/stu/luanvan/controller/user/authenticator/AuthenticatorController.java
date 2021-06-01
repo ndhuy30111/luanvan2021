@@ -1,6 +1,7 @@
 package com.stu.luanvan.controller.user.authenticator;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.stu.luanvan.exception.BadRequestEx;
 import com.stu.luanvan.exception.NotFoundEx;
 import com.stu.luanvan.model.json.Views;
 import com.stu.luanvan.request.LoginRequest;
@@ -39,10 +40,12 @@ public class AuthenticatorController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody UserRequest userRequest) throws Exception {
         try{
-           var user =  userService.saveNew(userRequest);
-           return new ResponseEntity<>(user, HttpStatus.CREATED);
+            userService.saveNew(userRequest);
+           return new ResponseEntity<>(HttpStatus.CREATED);
         }catch(Exception ex){
             throw new Exception(ex.getMessage());
+        }catch (Throwable ex){
+            throw new BadRequestEx(ex.getMessage());
         }
     }
     @PostMapping(value = "/login")

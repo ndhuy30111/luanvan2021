@@ -65,12 +65,18 @@ public class UserService implements UserServiceIntefaces{
      */
     @Override
     public UserModel saveNew(UserRequest userRequest) throws Exception {
-            var find = findByUserName(userRequest.getUserName());
-            if(find != null){
-                throw new BadRequestEx("trung userName");
-            }
-            UserModel user = new UserModel(userRequest);
-            return userRepository.save(user);
+
+           try{
+               var find = findByUserName(userRequest.getUserName());
+               if(find != null){
+                   throw new BadRequestEx("trung userName");
+               }
+               UserModel user = new UserModel(userRequest);
+               return userRepository.save(user);
+           }catch (Exception ex){
+               throw new Exception(ex.getMessage());
+        }
+
     }
 
     @Override
