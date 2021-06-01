@@ -3,21 +3,21 @@ export default {
     state.contents = payload.category
     state.select = payload.select
   },
-  setContent(state, category) {
-    state.contents = category
+  setContent(state, payload) {
+    state.contents = payload
   },
-  addContent(state, category) {
-    state.contents.push(category)
+  addContent(state, payload) {
+    state.contents.push(payload)
   },
-  editContent(state, category) {
+  editContent(state, payload) {
     const contentIndex = state.contents.findIndex(
-      (content) => content.id === category.id
+      (content) => content.id === payload.id
     )
-    state.contents[contentIndex] = category
+    state.contents[contentIndex] = payload
   },
-  deleteContent(state, category) {
+  deleteContent(state, payload) {
     const contentIndex = state.contents.findIndex(
-      (content) => content.id === category.id
+      (content) => content.id === payload.id
     )
     state.contents.splice(contentIndex, 1)
   },

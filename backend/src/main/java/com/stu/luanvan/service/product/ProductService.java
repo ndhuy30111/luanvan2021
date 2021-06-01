@@ -1,6 +1,7 @@
 package com.stu.luanvan.service.product;
 
 import com.stu.luanvan.exception.NotFoundEx;
+import com.stu.luanvan.model.category.CategoryModel;
 import com.stu.luanvan.model.detailsproduct.DetailsProductModel;
 import com.stu.luanvan.model.file.FileModel;
 import com.stu.luanvan.model.product.ProductModel;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
@@ -72,7 +74,16 @@ public class ProductService implements ProductServiceInterface{
             var product = new ProductModel(productRequest.getName(),productRequest.getPrice(),productRequest.getInfo(),productRequest.getInfo_small(),file);
             var category = categoryService.findById(productRequest.getCategory());
             if(category!=null){
-                product.setCategory(category);
+                Collection<CategoryModel> listCategory = new ArrayList<>();
+                listCategory.add(category);
+                while(true){
+                    category = category.getCategory();
+                    if(category==null){
+                        break;
+                    }
+                    listCategory.add(category);
+                }
+                product.setCategory(listCategory);
             }
             productRepository.save(product);
             productRequest.getDetailsProduct().forEach(c->{
@@ -106,7 +117,6 @@ public class ProductService implements ProductServiceInterface{
                 product.edit(productRequest);
                 if(productRequest.getCategory()!=null){
                     var category = categoryService.findById(productRequest.getId());
-                    product.setCategory(category);
                 }
                 productRepository.save(product);
                 return product;

@@ -85,10 +85,9 @@ public class ProductModel extends BaseModel {
     @OneToMany(mappedBy = "product")
     private Collection<DetailsProductModel> colors;
 
-    @ManyToOne
-    @JoinColumn(name="category_id",columnDefinition = "INT(11) NULL COMMENT 'Danh mục của sản phẩm'")
+    @ManyToMany(mappedBy = "product")
     @JsonView(Views.Public.class)
-    private CategoryModel category;
+    private Collection<CategoryModel> category;
 
     @OneToMany(mappedBy = "product")
     @JsonView(Views.Public.class)
