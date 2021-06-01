@@ -124,7 +124,12 @@ export default {
 
   methods: {
     editItem(item) {
-      console.log(item)
+      this.$router.push({
+        name: 'admin-product-id',
+        params: {
+          id: item.id,
+        },
+      })
     },
 
     deleteItem(item) {

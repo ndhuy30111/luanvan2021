@@ -20,6 +20,7 @@
     "core-js": "^3.9.1",
     "nuxt": "^2.15.3",
     "vue-fb-customer-chat": "^0.2.0",
+    "vue-lodash": "^2.1.2",
     "vue2-editor": "^2.10.2",
     "vuelidate": "^0.7.6"
   },

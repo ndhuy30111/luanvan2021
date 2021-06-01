@@ -35,7 +35,8 @@ export default {
     '~/plugins/auth.js',
     { src: '~/plugins/vue2-editor.js' },
     '~/plugins/repositories.js',
-    '~/plugins/local.js'
+    '~/plugins/local.js',
+    '~/plugins/lodash.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

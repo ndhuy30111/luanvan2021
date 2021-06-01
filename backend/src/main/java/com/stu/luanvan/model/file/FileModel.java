@@ -1,11 +1,13 @@
 package com.stu.luanvan.model.file;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,6 +19,8 @@ import javax.persistence.*;
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "url")
+
+@JsonIdentityReference(alwaysAsId = true)
 public class FileModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
