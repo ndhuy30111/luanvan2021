@@ -29,6 +29,11 @@ import MenuAccount from '~/components/user/MenuAccount.vue'
 import BtnCart from '~/components/BtnCart'
 export default {
   components: { Header, Footer, HeaderMobile, MenuAccount, BtnCart },
+  build: {
+    splitChunks: {
+      layouts: true,
+    },
+  },
   data: () => {
     return {
       mobileView: true,
@@ -46,7 +51,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 * {
   font-family: Comic Sans MS;
 }

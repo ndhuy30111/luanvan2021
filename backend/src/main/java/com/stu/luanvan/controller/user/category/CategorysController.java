@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequestMapping("/api/category") //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
 @EnableTransactionManagement
-public class CategoryController {
+public class CategorysController {
     @Autowired
     private CategoryService categoryService;
     /**

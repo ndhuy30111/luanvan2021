@@ -14,6 +14,11 @@ import Navigation from '~/components/admin/header/Navigation'
 export default {
   components: { Navigation },
   middleware: 'authenticated',
+  build: {
+    splitChunks: {
+      layouts: true,
+    },
+  },
   data: () => ({
     menu: [
       {
