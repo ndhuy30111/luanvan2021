@@ -72,6 +72,10 @@ public class ProductModel extends BaseModel {
 
     @OneToOne
     @JoinColumn
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "url")
+    @JsonIdentityReference(alwaysAsId = true)
     private FileModel image;
 
     @Column(length = 60,unique = true,nullable = false)

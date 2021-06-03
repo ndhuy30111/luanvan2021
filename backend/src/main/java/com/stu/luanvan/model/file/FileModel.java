@@ -16,11 +16,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "url")
 
-@JsonIdentityReference(alwaysAsId = true)
 public class FileModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

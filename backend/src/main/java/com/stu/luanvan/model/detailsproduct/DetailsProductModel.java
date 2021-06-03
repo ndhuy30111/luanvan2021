@@ -27,6 +27,10 @@ public class DetailsProductModel extends BaseModel {
 
     @OneToOne
     @JoinColumn
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "url")
+    @JsonIdentityReference(alwaysAsId = true)
     private FileModel image;
 
     @ManyToOne
