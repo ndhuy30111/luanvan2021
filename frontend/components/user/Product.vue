@@ -2,7 +2,7 @@
   <div class="product-grid">
     <div class="product-image">
       <router-link to="productDetail">
-        <img class="pic-1" src="~/assets/product/women-1.jpg" />
+        <img class="pic-1" src="~/assets/product/vay1.jpg" />
       </router-link>
       <ul class="social">
         <li>

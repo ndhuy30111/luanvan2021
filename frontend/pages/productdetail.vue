@@ -1,24 +1,27 @@
 <template>
-  <b-container fluid>
+  <b-container>
     <b-row>
-      <div class="col-lg-6 col-md-12 col-sm-12">
-        <img
+      <b-col cols="12" sm="6" md="8">
+        <image-magnifier
           class="img"
-          src="https://cdn.shopify.com/s/files/1/2598/7400/products/012_grande.jpg?v=1514365627"
+          :src="require('@/assets/product/vay1.jpg')"
+          :zoom-src="require('@/assets/product/vay1.jpg')"
+          alt="img product"
           width="100%"
           height="100%"
-          alt="img product"
+          zoom-width="400"
+          zoom-height="300"
         />
-      </div>
+      </b-col>
 
-      <div class="col-lg-6 col-md-12 col-sm-12">
+      <b-col cols="12" sm="6" md="4">
         <div class="wrapper">
           <div class="outer">
             <div class="content">
               <span class="product__content">Tên sp</span>
 
               <div class="colors-wrap">
-                <h6>Màu sắc:</h6>
+                <h5>Màu sắc:</h5>
                 <span class="colors" style="background-color: red"></span>
                 <span
                   class="colors selected"
@@ -28,12 +31,12 @@
               </div>
 
               <div class="size-wrap">
-                <h6>Kích cỡ:</h6>
+                <h5>Kích cỡ:</h5>
                 <span class="size selected">S</span>
                 <span class="size">M</span>
               </div>
               <div class="size-wrap">
-                <h6>Số lượng:</h6>
+                <h5>Số lượng:</h5>
                 <b-form-input
                   id="input-amount"
                   v-model="quantity"
@@ -55,15 +58,25 @@
             </div>
           </div>
         </div>
-      </div>
-      <div></div>
+      </b-col>
+    </b-row>
+    <b-row class="opinion">
+      <Opinion></Opinion>
+    </b-row>
+    <b-row>
+      <b-col>
+        <Listproduct :menutab="$local.vn.same_product" />
+      </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
+import Opinion from '~/components/user/opinion'
+import Listproduct from '~/components/user/ListProduct'
 export default {
   name: 'Productdetail',
+  components: { Opinion, Listproduct },
   data() {
     return {
       quantity: 1,
@@ -78,19 +91,7 @@ export default {
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  height: 60vh;
-  margin-top: 10%;
-}
-.outer {
-  position: relative;
-  background-color: #fff;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  border-radius: 10px;
-  margin-top: -40px;
+  margin-top: 20px;
 }
 p {
   width: 280px;
@@ -100,16 +101,17 @@ p {
   margin: 20px 0;
 }
 .img {
-  /* position: absolute; */
   top: 0px;
   right: 0px;
-  width: 100%;
+  width: 80%;
   margin-top: -15px;
-  height: 85%;
+  height: 70%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
 }
 .content {
   position: relative;
-  left: 20px;
   z-index: 3;
   margin-top: -20%;
   text-align: left;
@@ -131,16 +133,16 @@ p {
 .button {
   width: fit-content;
   height: fit-content;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 .button a {
   display: inline-block;
   overflow: hidden;
   position: relative;
-  font-size: 14px;
+  font-size: 15px;
   color: #111;
   text-decoration: none;
-  padding: 8px 8px;
+  padding: 10px 10px;
   border: 1px solid #aaa;
   font-weight: bold;
 }
@@ -150,7 +152,7 @@ p {
   top: 0;
   right: -10px;
   width: 0%;
-  background-color: black;
+  background-color: #111;
   height: 100%;
   z-index: -1;
   transition: width 0.3s ease-in-out;
@@ -178,28 +180,6 @@ p {
 }
 .cart-icon {
   padding-right: 8px;
-}
-@media (max-width: 768px) {
-  .wrapper {
-    margin: -125px 0px 0px -35px;
-  }
-  .outer {
-    width: 95%;
-    margin-top: 0;
-  }
-  .content {
-    left: 50%;
-    transform: translateX(-40%);
-  }
-
-  .img {
-    /* display: none; */
-    width: 100%;
-    margin-top: 0px !important;
-  }
-  .product__content {
-    font-size: 1em;
-  }
 }
 .colors {
   width: 20px;
@@ -247,5 +227,33 @@ p {
 }
 .sameproduct {
   margin-top: -10%;
+}
+.opinion {
+  margin-top: -20%;
+}
+@media (max-width: 700px) {
+  .wrapper {
+    margin: -100px 0px 0px -35px;
+  }
+  .outer {
+    width: 95%;
+    margin-top: 0;
+  }
+  .content {
+    left: 50%;
+    transform: translateX(-40%);
+  }
+
+  .img {
+    /* display: none; */
+    width: 100%;
+    margin-top: 0px !important;
+  }
+  .product__content {
+    font-size: 2em;
+  }
+  .opinion {
+    margin-top: 10px;
+  }
 }
 </style>

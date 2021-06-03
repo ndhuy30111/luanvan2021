@@ -1,5 +1,5 @@
 <template>
-  <v-card height="100px" class="mt-3">
+  <v-card height="100px" class="mt-5">
     <v-footer color="white" padless>
       <v-card flat width="100%" class="text-center">
         <v-card-text class="d-flex justify-content-center">
