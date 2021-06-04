@@ -1,3 +1,4 @@
 export default () => ({
   categorys: [],
+  select: [],
 })

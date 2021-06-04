@@ -1,13 +1,18 @@
 <template>
   <v-container fluid>
     <v-row class="menu">
-      <Carousel />
-    </v-row>
-    <v-row class="menu">
       <v-col cols="12">
-        <CategoryMenu />
+        <a href="/shop">
+          <img
+            class="banner"
+            :src="require(`~/assets/banner.jpg`)"
+            alt="new banner"
+            width="100%"
+            style="cursor: pointer"
+        /></a>
       </v-col>
     </v-row>
+
     <v-row>
       <v-col cols="12" sm="3" md="3">
         <img
@@ -23,16 +28,19 @@
         <ListProduct :menutab="$local.vn.menuproduct" />
       </v-col>
     </v-row>
-    <v-row>
+
+    <v-row class="mt-10">
       <v-col cols="12">
         <img
-          class="sale"
-          :src="require(`~/assets/sale.jpg`)"
-          alt="sale banner"
+          class="banner"
+          :src="require(`~/assets/banner1.jpg`)"
+          alt="new banner"
           width="100%"
+          style="cursor: pointer"
         />
       </v-col>
     </v-row>
+
     <v-row>
       <v-col cols="12" sm="9">
         <ListProduct :menutab="$local.vn.menuproduct" />
@@ -51,7 +59,7 @@
     <v-row>
       <v-col cols="12">
         <img
-          class="sale"
+          class="banner"
           :src="require(`~/assets/fashion.jpg`)"
           alt="sale banner"
           width="100%"
@@ -59,28 +67,33 @@
         />
       </v-col>
     </v-row>
-    <Service />
+    <v-row>
+      <v-col cols="12" sm="3" md="3">
+        <img
+          :src="require(`~/assets/category/flashsale.gif`)"
+          alt="single banner"
+          width="100%"
+        />
+      </v-col>
+      <v-col cols="12" sm="9">
+        <ListProduct :menutab="$local.vn.menuproduct" />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
-import Carousel from '../components/user/Carousel.vue'
-import CategoryMenu from '../components/user/CategoryMenu.vue'
 import ListProduct from '../components/user/ListProduct'
-import Service from '../components/user/service'
 export default {
   components: {
-    CategoryMenu,
     ListProduct,
-    Carousel,
-    Service,
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .menu {
-  margin: 0px -50px;
+  margin-top: -40px;
 }
 .center {
   position: absolute;
@@ -93,8 +106,11 @@ export default {
     color: white;
   }
 }
+.banner {
+  margin-top: -40px;
+}
 @media screen and (max-width: 880px) {
-  .sale {
+  .banner {
     width: 100%;
   }
   .center {

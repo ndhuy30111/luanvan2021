@@ -49,7 +49,7 @@
 
               <div class="button">
                 <span>
-                  <a href="#"> 10000000 đ</a>
+                  <a href="#"> {{ price.toLocaleString() }} đ</a>
                   <a class="cart-btn">
                     <b-icon icon="cart"></b-icon> Thêm vào giỏ</a
                   >
@@ -80,6 +80,7 @@ export default {
   data() {
     return {
       quantity: 1,
+      price: 315000,
     }
   },
 }

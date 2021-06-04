@@ -1,78 +1,80 @@
 <template>
-  <v-card height="100px" class="mt-5">
-    <v-footer color="white" padless>
-      <v-card flat width="100%" class="text-center">
-        <v-card-text class="d-flex justify-content-center">
-          <link
-            href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@1,600&display=swap"
-            rel="stylesheet"
-          />
-          <div id="github" class="social-btn flex-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-              /></svg
-            ><span>https://github.com/ndhuy30111/luanvan2021.git</span>
-          </div>
-        </v-card-text>
-        <v-card-text class="black--text">
-          {{ new Date().getFullYear() }} — <strong>Huy and Duyên</strong>
-        </v-card-text>
-      </v-card>
-    </v-footer>
-  </v-card>
+  <v-footer padless>
+    <v-card class="flex" flat tile>
+      <v-card-title>
+        <v-row>
+          <v-col cols="12" md="3" sm="3">
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title class="tit">{{
+                  $local.vn.support_title
+                }}</v-list-item-title>
+                <v-list-item-subtitle
+                  v-for="item in $local.vn.support"
+                  :key="item"
+                  class="select"
+                  >{{ item }}</v-list-item-subtitle
+                >
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
+          <v-col cols="12" md="5" sm="5">
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title class="tit">{{
+                  $local.vn.service_tille
+                }}</v-list-item-title>
+                <v-list-item-subtitle
+                  v-for="item in $local.vn.service"
+                  :key="item"
+                  class="select"
+                  >{{ item }}</v-list-item-subtitle
+                >
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
+          <v-col cols="12" md="4" sm="4">
+            <v-btn v-for="icon in icons" :key="icon" class="mx-4 social" icon>
+              <v-icon size="24px">
+                {{ icon }}
+              </v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card-title>
+
+      <v-card-text class="py-2 black--text text-center">
+        {{ new Date().getFullYear() }} —
+        <strong>{{ $local.vn.shop }} — {{ $local.vn.nation }}</strong>
+      </v-card-text>
+    </v-card>
+  </v-footer>
 </template>
 
 <script>
-export default {}
+export default {
+  data: () => ({
+    icons: ['mdi-facebook', 'mdi-twitter', 'mdi-instagram'],
+  }),
+}
 </script>
 
 <style lang="scss" scoped>
-.flex-center {
-  display: flex;
-  padding: 15px;
+.tit {
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
 }
-
-.social-links {
-  display: flex;
-}
-
-.social-btn {
+.select {
   cursor: pointer;
-  height: 50px;
-  width: 50px;
-  color: #333;
-  border-radius: 10px;
-  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
-  background: white;
-  margin: 5px;
-  transition: 1s;
+  font-size: 15px;
+  margin-left: 10px;
 }
-
-.social-btn span {
-  width: 0px;
-  overflow: hidden;
-  transition: 1s;
-  text-align: center;
+.select:hover {
+  color: rgb(0, 132, 255);
 }
-
-.social-btn:hover {
-  width: 400px;
-  height: 54px;
-  border-radius: 5px;
-}
-
-.social-btn:hover span {
-  padding: 2px;
-  width: max-content;
-}
-
-#github {
-  fill: #333;
+.social {
+  cursor: pointer;
+  color: black;
 }
 </style>

@@ -4,6 +4,7 @@
       <v-col>
         <h5>Danh mục</h5>
         <hr />
+        <v-treeview selectable :items="categorys"></v-treeview>
       </v-col>
     </v-row>
     <v-row>
@@ -66,6 +67,7 @@
 
 <script>
 export default {
+  name: 'Filter',
   data: () => ({
     size: '',
     price: '',
@@ -74,7 +76,7 @@ export default {
   }),
   computed: {
     categorys() {
-      return this.$store.state.user.categorys.categorys
+      return this.$store.state.user.categorys.select
     },
   },
   methods: {
