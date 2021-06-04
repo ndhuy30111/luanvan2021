@@ -3,7 +3,7 @@
     <b-alert :show="message != ''" variant="danger">{{ message }}</b-alert>
     <b-row>
       <b-col id="title">
-        <p>{{ $local.vn.login }}</p>
+        <p>{{ $local.vn.login_title }}</p>
       </b-col>
       <b-col md="6">
         <b-form v-if="show" @submit="onSubmit" @reset="onReset">
@@ -12,7 +12,7 @@
               id="username"
               v-model="form.username"
               type="text"
-              placeholder="Tên tài khoản"
+              :placeholder="$local.vn.account_name"
               required
             ></b-form-input>
           </b-form-group>
@@ -22,7 +22,7 @@
               id="password"
               v-model="form.password"
               type="password"
-              placeholder="Mật khẩu"
+              :placeholder="$local.vn.password"
               required
             ></b-form-input>
           </b-form-group>
@@ -42,11 +42,13 @@
               </b-form-group>
             </div>
             <div>
-              <a href="#" class="forget_password">Quên mật khẩu</a>
+              <a href="#" class="forget_password">{{
+                $local.vn.forget_password
+              }}</a>
             </div>
           </div>
 
-          <Button :text="$local.vn.login" />
+          <Button :text="$local.vn.login_title" />
         </b-form>
       </b-col>
     </b-row>
@@ -105,7 +107,6 @@ export default {
 .login {
   #title {
     font-size: 60px;
-    margin-top: 40px;
     justify-content: center;
   }
   .form {

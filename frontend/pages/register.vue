@@ -2,7 +2,7 @@
   <b-container class="register">
     <b-row>
       <b-col id="title">
-        <p>{{ $local.vn.register }}</p>
+        <p>{{ $local.vn.register_title }}</p>
       </b-col>
       <b-col md="7">
         <b-form
@@ -31,7 +31,7 @@
               v-model="form.name"
               type="text"
               :state="form.name.length >= 5"
-              placeholder="Name"
+              :placeholder="$local.vn.user_name"
               required
             ></b-form-input>
           </b-form-group>
@@ -40,8 +40,8 @@
               id="uername"
               v-model="form.userName"
               type="text"
-              :state="form.userName.length >= 5"
-              placeholder="User name"
+              :state="form.userName.length >= 3"
+              :placeholder="$local.vn.account_name"
               required
             ></b-form-input>
           </b-form-group>
@@ -52,14 +52,15 @@
               v-model.trim="$v.form.password.$model"
               :state="form.password.length >= 6"
               type="password"
-              placeholder="Password"
+              :placeholder="$local.vn.password"
               required
             ></b-form-input>
           </b-form-group>
 
           <div v-if="!$v.form.password.minLength" class="mes_error">
-            Password phai it nhat
-            {{ $v.form.password.$params.minLength.min }} ky tu.
+            {{ $local.vn.err_password[0] }}
+            {{ $v.form.password.$params.minLength.min }}
+            {{ $local.vn.err_password[1] }}
           </div>
 
           <b-form-group>
@@ -68,13 +69,13 @@
               v-model.trim="$v.form.repeatPassword.$model"
               :state="form.repeatPassword === form.password"
               type="password"
-              placeholder="Repeat Password"
+              :placeholder="$local.vn.repeatPassword"
               required
             ></b-form-input>
           </b-form-group>
 
           <div v-if="!$v.form.repeatPassword.sameAsPassword" class="mes_error">
-            Passwords phai trung nhau.
+            {{ $local.vn.err_password[2] }}
           </div>
           <b-form-group id="checkboxes" v-slot="{ ariaDescribedby }">
             <b-form-checkbox-group
@@ -86,7 +87,7 @@
             </b-form-checkbox-group>
           </b-form-group>
 
-          <Button :text="$local.vn.register" />
+          <Button :text="$local.vn.register_title" />
         </b-form>
       </b-col>
     </b-row>
@@ -145,7 +146,6 @@ export default {
 .register {
   #title {
     font-size: 60px;
-    margin-top: 100px;
     justify-content: center;
   }
   .mes_error {

@@ -2,7 +2,7 @@
   <div class="product-grid">
     <div class="product-image">
       <router-link to="productDetail">
-        <img class="pic-1" src="~/assets/product/women-1.jpg" />
+        <img class="pic-1" src="~/assets/product/vay1.jpg" />
       </router-link>
       <ul class="social">
         <li>
@@ -30,14 +30,20 @@
       <h6 class="title">
         <a href="#">Tên SP</a>
       </h6>
-      <div class="price">1000000 đ</div>
+      <div class="price">{{ price.toLocaleString() }} đ</div>
       <a class="add-to-cart">+ Thêm vào giỏ</a>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      price: 315000,
+    }
+  },
+}
 </script>
 
 <style lang="scss" scoped>

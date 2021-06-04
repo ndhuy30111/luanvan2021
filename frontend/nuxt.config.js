@@ -37,6 +37,7 @@ export default {
     '~/plugins/repositories.js',
     '~/plugins/local.js',
     '~/plugins/lodash.js',
+    '~/plugins/vue-image-magnifier.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

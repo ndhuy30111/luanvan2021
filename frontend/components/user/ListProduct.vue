@@ -8,7 +8,7 @@
       <v-tab-item v-for="n in 3" :key="n">
         <v-container fluid>
           <v-row>
-            <v-col v-for="i in 8" :key="i" cols="6" md="4" lg="3" sm="6" xs="6">
+            <v-col v-for="i in 4" :key="i" cols="6" md="4" lg="3" sm="6" xs="6">
               <Product />
             </v-col>
           </v-row>

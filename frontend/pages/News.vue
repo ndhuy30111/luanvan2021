@@ -33,10 +33,10 @@
       <v-col class="pa-5" cols="12" md="6">
         <Bubble-1 style="transform: translate(5%, -5%)" />
 
-        <h2>{{ $loacl.vn.title_news }}</h2>
+        <h2>{{ $local.vn.title_news }}</h2>
 
         <v-alert outlined class="mt-5">
-          <v-row v-for="(trend, i) in trends" :key="i">
+          <v-row v-for="(trend, i) in $local.vn.trends" :key="i">
             <v-col class="text-uppercase" cols="6" v-text="trend.name" />
 
             <v-col class="text-right" cols="6" v-text="`${trend.value}%`" />
@@ -61,21 +61,6 @@ import Bubble2 from '../components/Bubble2'
 import Bubble1 from '../components/Bubble1'
 export default {
   components: { Bubble1, Bubble2 },
-  data: () => ({
-    trends: [
-      {
-        name: 'ÁO THUN',
-        value: 100,
-      },
-      {
-        name: 'ÁO SƠ MI',
-        value: 75,
-      },
-      {
-        name: 'VÁY',
-        value: 90,
-      },
-    ],
-  }),
+  data: () => ({}),
 }
 </script>
