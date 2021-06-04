@@ -29,7 +29,11 @@ import FilterLeft from '~/components/user/Filter.vue'
 import FilterTop from '~/components/user/Filter1.vue'
 import ListProduct from '~/components/user/ListProduct'
 export default {
+  name: 'Shop',
   components: { ListProduct, FilterLeft, FilterTop },
+  created() {
+    this.$store.dispatch('user/categorys/getAll')
+  },
 }
 </script>
 

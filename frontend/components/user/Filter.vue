@@ -4,10 +4,8 @@
       <v-col>
         <h5>Danh mục</h5>
         <hr />
-        <v-treeview :items="items"></v-treeview>
       </v-col>
     </v-row>
-
     <v-row>
       <v-col>
         <h5>Giá</h5>
@@ -72,42 +70,13 @@ export default {
     size: '',
     price: '',
     colorActive: {},
-    items: [
-      {
-        id: 1,
-        name: 'Nam',
-        children: [
-          { id: 2, name: 'Áo thun' },
-          { id: 3, name: 'Áo sơ mi' },
-          { id: 4, name: 'Thể thao' },
-        ],
-      },
-      {
-        id: 5,
-        name: 'Nữ',
-        children: [
-          {
-            id: 6,
-            name: 'Áo',
-            children: [
-              { id: 7, name: 'Áo sơ mi' },
-              { id: 8, name: 'Áo cổ lọ' },
-              { id: 8, name: 'Áo thun' },
-            ],
-          },
-          {
-            id: 10,
-            name: 'Váy',
-            children: [
-              { id: 7, name: 'Váy jean' },
-              { id: 8, name: 'Váy dài' },
-              { id: 8, name: 'Váy ngắn' },
-            ],
-          },
-        ],
-      },
-    ],
+    category: null,
   }),
+  computed: {
+    categorys() {
+      return this.$store.state.user.categorys.categorys
+    },
+  },
   methods: {
     ColorActive(colorItem) {
       this.colorActive = colorItem

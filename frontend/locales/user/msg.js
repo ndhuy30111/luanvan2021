@@ -35,4 +35,18 @@ export default () => ({
     'Bán chạy nhất',
     'Cũ nhất',
   ],
+  trends: [
+    {
+      name: 'ÁO THUN',
+      value: 100,
+    },
+    {
+      name: 'ÁO SƠ MI',
+      value: 75,
+    },
+    {
+      name: 'VÁY',
+      value: 90,
+    },
+  ],
 })
