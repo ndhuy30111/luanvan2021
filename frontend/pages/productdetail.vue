@@ -18,7 +18,7 @@
         <div class="wrapper">
           <div class="outer">
             <div class="content">
-              <span class="product__content">Tên sp</span>
+              <span class="product__content">{{ product.name }}</span>
 
               <div class="colors-wrap">
                 <h5>{{ $local.vn.color }}:</h5>
@@ -58,8 +58,8 @@
 
               <div class="button">
                 <span>
-                  <a href="#"> {{ price.toLocaleString() }} đ</a>
-                  <a class="cart-btn">
+                  <a href="#"> {{ product.price.toLocaleString() }} đ</a>
+                  <a class="cart-btn" @click="addCart()">
                     <b-icon icon="cart"></b-icon>{{ $local.vn.add_cart }}</a
                   >
                 </span>
@@ -89,39 +89,59 @@ export default {
   data() {
     return {
       quantity: 1,
-      price: 315000,
       colorActive: {},
       sizeActive: {},
       imgActive: '',
+      product: {
+        id: 1,
+        name: 'Chân váy AH',
+        price: 315000,
+      },
       colors: [
         {
           name: 'black',
           value: '#000',
           img:
             'https://storage.googleapis.com/cdn.nhanh.vn/store/7136/ps/20210109/9452021114552_IMG_1913.JPG',
+          size: [{ name: 'S' }, { name: 'M' }],
         },
         {
           name: 'blue',
           value: 'blue',
           img:
             'https://storage.googleapis.com/cdn.nhanh.vn/store/7136/ps/20210109/9452021114532_IMG_1912.JPG',
+          size: [{ name: 'M' }, { name: 'L' }, { name: 'XL' }],
         },
       ],
-      sizes: [{ name: 'S' }, { name: 'M' }, { name: 'L' }],
+      sizes: [],
     }
   },
   created() {
     this.colorActive = this.colors[0]
     this.imgActive = this.colors[0].img
+    this.sizes = this.colors[0].size
   },
   methods: {
     ColorActive(colorItem, index) {
       this.colorActive = colorItem
       this.imgActive = this.colors[index].img
-      this.sizeAcive = this.sizes[0]
+      this.sizeActive = this.colors[index].size[0]
+      this.sizes = this.colors[index].size
     },
     SizeActive(sizeItem) {
       this.sizeActive = sizeItem
+    },
+    addCart() {
+      const cartItem = {
+        id: this.product.id,
+        name: this.product.name,
+        size: this.sizeActive,
+        color: this.colorActive,
+        img: this.imgActive,
+        price: this.product.price,
+        quantity: parseInt(this.quantity),
+      }
+      this.$store.dispatch('user/cart/addProdcutToCart', cartItem)
     },
   },
 }
@@ -134,6 +154,15 @@ export default {
   justify-content: space-around;
   width: 100%;
   margin-top: 20px;
+}
+.outer {
+  position: relative;
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
 }
 p {
   width: 280px;
