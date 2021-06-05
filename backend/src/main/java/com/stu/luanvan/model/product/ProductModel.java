@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.github.slugify.Slugify;
+import com.stu.luanvan.locales.ValidataLocales;
+import com.stu.luanvan.locales.ValidataPattern;
 import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.category.CategoryModel;
 import com.stu.luanvan.model.detailsproduct.DetailsProductModel;
 import com.stu.luanvan.model.file.FileModel;
 import com.stu.luanvan.model.invoicedetails.InvoiceDetailsModel;
-import com.stu.luanvan.model.json.Views;
+import com.stu.luanvan.model.BaseViews;
 import com.stu.luanvan.model.review.ReviewModel;
 import com.stu.luanvan.request.ProductRequest;
 import lombok.AllArgsConstructor;
@@ -38,36 +40,36 @@ import java.util.Collection;
 public class ProductModel extends BaseModel {
 
     @Column(columnDefinition = "NVARCHAR(50) NOT NULL UNIQUE COMMENT 'Tên của sản phẩm' ")
-    @NotBlank(message = "Bạn không được để trống name")
-    @Pattern(regexp = "^[\\p{L} . '-]+$", message = "Tên không hợp lệ")
-    @JsonView(Views.Public.class)
+    @NotBlank(message = ValidataLocales.NAME_NOTBLANK)
+    @Pattern(regexp = ValidataPattern.NAME_PATTERN, message = ValidataLocales.NAME_PATTERN)
+    @JsonView(BaseViews.Public.class)
     private String name;
 
     @Column(columnDefinition = "Bigint(19) default 1000000 COMMENT 'Giá tiền sản phẩm không được bé hơn 0 và mặc định là 1000000'")
     @Min(value= 0 ,message = "Số tiền không được < 0")
-    @JsonView(Views.Public.class)
+    @JsonView(BaseViews.Public.class)
     private Long price;
 
     @Column(columnDefinition = "bit default 0 COMMENT 'Sản phẩm được bán chạy hay không, Nếu có là 1 hoặc không là 0'")
-    @JsonView(Views.Public.class)
+    @JsonView(BaseViews.Public.class)
     private boolean hot;
 
     @Column(columnDefinition = "bit default 1 COMMENT 'Sản phẩm mới được bán, 1 là hàng mới hoặc 0 là hàng không còn mới'")
-    @JsonView(Views.Public.class)
+    @JsonView(BaseViews.Public.class)
     private boolean fresh;
 
     @Column(columnDefinition ="tinyint(1) default 0 COMMENT 'Đánh giá sản phẩm theo mức độ từ số 0 đến số 5 tính theo điểm sao ' " )
     @Min(value = 0,message = "Không có đánh giá mức thấp hơn 0")
     @Max(value = 5,message = "Không có đánh giá mức hơn")
-    @JsonView(Views.Public.class)
+    @JsonView(BaseViews.Public.class)
     private Integer rateLevel;
 
     @Column(columnDefinition = "TEXT COMMENT 'Nội dung chính của sản phẩm để giới thiệu' ")
-    @JsonView(Views.Public.class)
+    @JsonView(BaseViews.Public.class)
     private String info;
 
     @Column(columnDefinition = "NVARCHAR(255) COMMENT 'Nội dung ngắn của sản phẩm để giới thiệu nhanh'")
-    @JsonView(Views.Public.class)
+    @JsonView(BaseViews.Public.class)
     private String info_small;
 
     @OneToOne
@@ -79,33 +81,32 @@ public class ProductModel extends BaseModel {
     private FileModel image;
 
     @Column(length = 60,unique = true,nullable = false)
-    @JsonView(Views.Public.class)
+    @JsonView(BaseViews.Public.class)
     private String url;
 
     @Column(columnDefinition = "tinyint(1) default 1 COMMENT 'Trạng thái của Sản phẩm'")
-    @JsonView(Views.Public.class)
+    @JsonView(BaseViews.Public.class)
     private Integer status;
 
     @OneToMany(mappedBy = "product")
-    @JsonView(Views.Internal.class)
+    @JsonView(BaseViews.Internal.class)
     private Collection<InvoiceDetailsModel> invoicedetals;
 
     @OneToMany(mappedBy = "product")
     private Collection<DetailsProductModel> detailsProduct;
 
     @ManyToMany(mappedBy = "product")
-    @JsonView(Views.Public.class)
+    @JsonView(BaseViews.Public.class)
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="name")
     @JsonIdentityReference(alwaysAsId = true)
     private Collection<CategoryModel> category;
 
     @OneToMany(mappedBy = "product")
-    @JsonView(Views.Public.class)
+    @JsonView(BaseViews.Public.class)
     private Collection<ReviewModel> review;
 
     public void setName( String name) {
         this.name = name.trim();
-
         this.url = new Slugify().slugify(this.name);
     }
     //Hàm tính điểm rate

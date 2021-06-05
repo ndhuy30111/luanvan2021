@@ -1,8 +1,8 @@
 package com.stu.luanvan.model;
 
 import com.fasterxml.jackson.annotation.*;
+import com.stu.luanvan.locales.ValidataFormat;
 import com.stu.luanvan.model.category.CategoryViews;
-import com.stu.luanvan.model.json.Views;
 import com.stu.luanvan.model.user.UserModel;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
@@ -23,13 +23,13 @@ import java.util.Date;
 public class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView({Views.Internal.class, CategoryViews.Select.class})
+    @JsonView({BaseViews.Internal.class, CategoryViews.Select.class})
     private Integer id;
 
     @OneToOne
     @CreatedBy
     @JoinColumn(name="create_by")
-    @JsonView({Views.Internal.class})
+    @JsonView({BaseViews.Internal.class})
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "userName")
@@ -39,7 +39,7 @@ public class BaseModel {
     @OneToOne
     @LastModifiedBy
     @JoinColumn(name="update_by")
-    @JsonView(Views.Internal.class)
+    @JsonView(BaseViews.Internal.class)
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "userName")
@@ -48,13 +48,13 @@ public class BaseModel {
 
     @Column(name = "create_date")
     @CreatedDate
-    @JsonView(Views.Internal.class)
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
+    @JsonView(BaseViews.Internal.class)
+    @JsonFormat(pattern= ValidataFormat.DATE_FORMAT)
     private Date createDate;
 
     @Column(name = "update_date")
     @LastModifiedDate
-    @JsonView(Views.Internal.class)
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
+    @JsonView(BaseViews.Internal.class)
+    @JsonFormat(pattern=ValidataFormat.DATE_FORMAT)
     private Date lastModifiedDate;
 }

@@ -3,7 +3,7 @@ package com.stu.luanvan.controller.user.authenticator;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.stu.luanvan.exception.BadRequestEx;
 import com.stu.luanvan.exception.NotFoundEx;
-import com.stu.luanvan.model.json.Views;
+import com.stu.luanvan.model.BaseViews;
 import com.stu.luanvan.request.LoginRequest;
 import com.stu.luanvan.request.UserRequest;
 import com.stu.luanvan.response.JwtResponse;
@@ -62,7 +62,7 @@ public class AuthenticatorController {
         return new ResponseEntity<>(new JwtResponse(jwt,date),HttpStatus.OK);
     }
     @GetMapping("/user")
-    @JsonView(Views.Public.class)
+    @JsonView(BaseViews.Public.class)
     public ResponseEntity<?> profile(){
         var user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserModel();
         return new ResponseEntity<>(user,HttpStatus.OK);

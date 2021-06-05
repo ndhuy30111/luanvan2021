@@ -35,10 +35,6 @@ public class DetailsProductModel extends BaseModel {
 
     @ManyToOne
     @JoinColumn(name="color_id")
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "name")
-    @JsonIdentityReference(alwaysAsId = true)
     private ColorModel color;
     @ManyToOne
     @JoinColumn(name="product_id")

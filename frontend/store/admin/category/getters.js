@@ -1,8 +1,8 @@
 export default {
-  getFindContent: (state) => {
+  getAllContent: (state) => {
     return state.contents
   },
-  getSelect: (state) => {
+  getAllSelect: (state) => {
     return state.contents
   },
 }

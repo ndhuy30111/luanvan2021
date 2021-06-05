@@ -98,7 +98,7 @@ public class ProductService implements ProductServiceInterface{
                 var detailsProduct = new DetailsProductModel(color,filecolor, product);
                 detailsProductReponsitory.save(detailsProduct);
                 c.getSize().forEach(s->{
-                    var size = new SizeModel(s.getName(),s.getAmount(),detailsProduct);
+                    var size = new SizeModel(s.getName(),detailsProduct);
                     sizeRepository.save(size);
                 });
             });

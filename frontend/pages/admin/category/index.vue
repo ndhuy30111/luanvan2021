@@ -98,6 +98,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   layout: 'admin',
   data: () => ({
@@ -146,11 +147,16 @@ export default {
     formTitle() {
       return this.editedIndex === -1 ? 'Thêm dữ liệu' : 'Sửa dữ liệu'
     },
+    ...mapGetters({
+      // map `this.doneCount` to `this.$store.getters.doneTodosCount`
+      categorys: 'admin/category/getAllContent',
+      selects: 'admin/category/getAllSelect',
+    }),
     category() {
-      return this.$store.state.admin.category.contents
+      return this.categorys
     },
     select() {
-      return this.$store.state.admin.category.select
+      return this.selects
     },
   },
 
@@ -207,11 +213,15 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        const item = Object.assign(
-          this.category[this.editedIndex],
-          this.editedItem
-        )
-        this.$store.dispatch('admin/category/updateContent', item)
+        try {
+          const item = Object.assign(
+            this.category[this.editedIndex],
+            this.editedItem
+          )
+          this.$store.dispatch('admin/category/updateContent', item)
+        } catch (ex) {
+          console.log(ex)
+        }
       } else {
         this.$store.dispatch('admin/category/addContent', this.editedItem)
       }

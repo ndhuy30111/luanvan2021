@@ -2,9 +2,11 @@ package com.stu.luanvan.model.category;
 
 import com.fasterxml.jackson.annotation.*;
 import com.github.slugify.Slugify;
+import com.stu.luanvan.locales.ValidataLocales;
 import com.stu.luanvan.model.BaseModel;
-import com.stu.luanvan.model.json.Views;
+import com.stu.luanvan.model.BaseViews;
 import com.stu.luanvan.model.product.ProductModel;
+import com.stu.luanvan.locales.ValidataPattern;
 import com.stu.luanvan.request.CategoryRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,23 +27,23 @@ import java.util.Collection;
 @AllArgsConstructor
 public class CategoryModel extends BaseModel {
     @Column(columnDefinition = "VARCHAR(40) NOT NULL COMMENT 'Tên danh mục' ")
-    @JsonView({Views.Public.class,CategoryViews.Select.class})
-    @Pattern(regexp = "^[\\p{L} . '-]+$", message = "Tên không hợp lệ")
+    @JsonView({BaseViews.Public.class,CategoryViews.Select.class})
+    @Pattern(regexp = ValidataPattern.NAME_PATTERN, message = ValidataLocales.NAME_PATTERN)
     private String name;
 
     @JsonManagedReference
-    @JsonView({Views.Public.class,CategoryViews.Select.class})
+    @JsonView({BaseViews.Public.class,CategoryViews.Select.class})
     private Integer sort;
 
     @OneToMany
     @JoinColumn(name = "category_id",columnDefinition = "INT(11) NULL COMMENT 'Danh mục cha'")
-    @JsonView({Views.Public.class,CategoryViews.Select.class})
+    @JsonView({BaseViews.Public.class,CategoryViews.Select.class})
     @JsonManagedReference
     private Collection<CategoryModel> children;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonView(Views.Public.class)
+    @JsonView(BaseViews.Public.class)
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "name")
@@ -49,12 +51,12 @@ public class CategoryModel extends BaseModel {
     private CategoryModel category;
 
 
-    @JsonView({Views.Public.class,CategoryViews.Select.class})
+    @JsonView({BaseViews.Public.class,CategoryViews.Select.class})
     private String url;
 
     @ManyToMany
     @JoinTable(name="category_product",joinColumns = @JoinColumn(name="category_id"),inverseJoinColumns = @JoinColumn(name="product_id"))
-    @JsonView({Views.Public.class})
+    @JsonView({BaseViews.Public.class})
     @JsonManagedReference
     private Collection<ProductModel> product;
 

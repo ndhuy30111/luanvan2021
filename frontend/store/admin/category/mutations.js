@@ -11,13 +11,13 @@ export default {
   },
   editContent(state, payload) {
     const contentIndex = state.contents.findIndex(
-      (content) => content.id === payload.id
+      (content) => parseInt(content.id) === parseInt(payload.id)
     )
     state.contents[contentIndex] = payload
   },
   deleteContent(state, payload) {
     const contentIndex = state.contents.findIndex(
-      (content) => content.id === payload.id
+      (content) => parseInt(content.id) === parseInt(payload.id)
     )
     state.contents.splice(contentIndex, 1)
   },

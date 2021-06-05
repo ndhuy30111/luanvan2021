@@ -7,7 +7,7 @@ export default {
   },
   editProduct(state, product) {
     const contentIndex = state.color.findIndex(
-      (content) => content.id === product.id
+      (content) => parseInt(content.id) === parseInt(product.id)
     )
     state.product[contentIndex] = product
   },

@@ -1,5 +1,7 @@
 package com.stu.luanvan.request;
 
+import com.stu.luanvan.locales.ValidataLocales;
+import com.stu.luanvan.locales.ValidataPattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,24 +15,24 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRequest {
-    @NotBlank(message = "Bạn không được bỏ trống userName")
-    @Pattern(regexp = "^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,48}[a-zA-Z0-9]$",message = "Tài khoản không hợp lệ")
+    @NotBlank(message = ValidataLocales.USERNAME_NOTBLANK)
+    @Pattern(regexp = ValidataPattern.USERNAME_PATTERN,message = ValidataLocales.USERNAME_PATTERN)
     private String userName;
 
-    @NotBlank(message = "Bạn không được để trống name")
-    @Pattern(regexp = "^[\\p{L} . '-]+$",message = "Tên không hợp lệ")
+    @NotBlank(message = ValidataLocales.NAME_NOTBLANK)
+    @Pattern(regexp = ValidataPattern.NAME_PATTERN,message = ValidataLocales.NAME_PATTERN)
     private String name;
     public void setName(String name) {
         this.name = StringUtils.normalizeSpace(name);
     }
 
-    @Email(message = "Không phải email")
-    @NotBlank(message = "Bạn không được bỏ trống email")
+    @Email(message = ValidataLocales.EMAIL_PATTERN)
+    @NotBlank(message = ValidataLocales.EMAIL_BLANK)
     private String email;
     public void setEmail(String email) {
         this.email = StringUtils.normalizeSpace(email);
     }
-    @NotBlank(message = "Bạn không được bỏ trống password")
+    @NotBlank(message = ValidataLocales.PASSWORD_NOTBLANK)
 //    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$\n",message = "Password không hợp lệ")
     private String password;
 }

@@ -2,7 +2,9 @@ package com.stu.luanvan.model.role;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.stu.luanvan.model.json.Views;
+import com.stu.luanvan.locales.ValidataLocales;
+import com.stu.luanvan.locales.ValidataPattern;
+import com.stu.luanvan.model.BaseViews;
 import com.stu.luanvan.model.user.UserModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,8 +28,8 @@ public class RoleModel implements Serializable {
     private Integer id;
 
     @Column
-    @Pattern(regexp = "^[\\p{L} . '-]+$", message = "Tên không hợp lệ")
-    @JsonView(Views.Internal.class)
+    @Pattern(regexp = ValidataPattern.NAME_PATTERN, message = ValidataLocales.NAME_PATTERN)
+    @JsonView(BaseViews.Internal.class)
     private String name;
 
     @ManyToMany(mappedBy = "role")
