@@ -7,7 +7,7 @@
     app
   >
     <v-app-bar-nav-icon @click="$emit('action')"></v-app-bar-nav-icon>
-    <v-toolbar-title>Quản trị viên</v-toolbar-title>
+    <v-toolbar-title>{{ $local.vn_admin.admin }}</v-toolbar-title>
     <v-spacer></v-spacer>
 
     <v-btn icon>

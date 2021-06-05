@@ -1,3 +1,3 @@
 export default {
-  ACTIONS_USER_REGISTER: 'ACTIONS_USER_REGISTER',
+  ACTIONS_USER_REGISTER: 'user/account/register',
 }

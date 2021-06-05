@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <Navigation :menu="menu" />
+      <Navigation :menu="$local.vn_admin.menu" />
       <v-main>
         <Nuxt />
       </v-main>
@@ -19,49 +19,6 @@ export default {
       layouts: true,
     },
   },
-  data: () => ({
-    menu: [
-      {
-        name: 'Chủ cửa hàng',
-        function: [
-          {
-            name: 'Quản lý khuyến mãi',
-            function: [
-              { name: 'Xem Khuyến mã', url: 'index' },
-              { name: 'Thêm Khuyến mã', url: 'add' },
-            ],
-          },
-        ],
-      },
-      {
-        name: 'Quản lý nội dung',
-        function: [
-          {
-            name: 'Quản lý Danh mục',
-            function: [{ name: 'Xem Danh mục', url: 'admin-category' }],
-          },
-          {
-            name: 'Quản lý sản phẩm',
-            function: [
-              { name: 'Xem danh sách', url: 'admin-product' },
-              { name: 'Thêm sản phẩm', url: 'admin-product-add' },
-            ],
-          },
-          {
-            name: 'Quản lý màu sắc',
-            function: [{ name: 'Xem danh sách màu sắc', url: 'admin-color' }],
-          },
-          {
-            name: 'Quản lý Banner',
-            function: [
-              { name: 'Xem Banner', url: 'index' },
-              { name: 'Thêm Banner', url: 'add' },
-            ],
-          },
-        ],
-      },
-    ],
-  }),
   created() {
     this.$store.dispatch('admin/category/init')
     this.$store.dispatch('admin/color/init')

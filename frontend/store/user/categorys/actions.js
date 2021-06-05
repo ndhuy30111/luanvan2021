@@ -8,6 +8,6 @@ export default {
       categorys: categorys.data,
       select: select.data,
     }
-    commit(constants.ACTIONS_CATEGORYS_GETALL, payload)
+    commit(constants.MUTATIONS_CATEGORYS_GETALL, payload)
   },
 }

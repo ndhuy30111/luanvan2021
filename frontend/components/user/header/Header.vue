@@ -2,7 +2,7 @@
   <v-app-bar app color="white" flat>
     <ul>
       <li
-        v-for="(menu, index) in menus"
+        v-for="(menu, index) in $local.vn.menu_header"
         :key="index"
         @click="activeMemu(index)"
       >
@@ -40,30 +40,6 @@ import MenuAccount from '../MenuAccount.vue'
 import BtnCart from '../../BtnCart'
 export default {
   components: { MenuAccount, BtnCart },
-  data: () => ({
-    menus: [
-      {
-        content: 'Trang chủ',
-        url: '/',
-        active: true,
-      },
-      {
-        content: 'Sản phẩm',
-        url: 'shop',
-        active: false,
-      },
-      {
-        content: 'Liên hệ',
-        url: 'contact',
-        active: false,
-      },
-      {
-        content: 'Thông tin',
-        url: 'news',
-        active: false,
-      },
-    ],
-  }),
   methods: {
     activeMemu(i) {
       this.menus.forEach((item, index) => {

@@ -10,7 +10,7 @@
           <v-list-item-icon>
             <v-icon>mdi-home</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>Home</v-list-item-title>
+          <v-list-item-title>{{ $local.vn_admin.home }}</v-list-item-title>
         </v-list-item>
 
         <v-list-group

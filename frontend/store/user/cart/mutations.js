@@ -1,5 +1,5 @@
 export default {
-  ACTIONS_CART_ADDTOCART(state, cartItem) {
+  MUTATIONS_CART_ADDTOCART(state, cartItem) {
     const index = state.cart.find((item) => {
       return (
         item.id === cartItem.id &&

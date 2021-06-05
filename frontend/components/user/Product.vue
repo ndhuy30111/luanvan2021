@@ -30,7 +30,9 @@
       <h6 class="title">
         <a href="#">{{ product.name }}</a>
       </h6>
-      <div class="price">{{ product.price.toLocaleString() }} đ</div>
+      <div class="price">
+        {{ product.price.toLocaleString() }} {{ $local.vn.currency }}
+      </div>
       <a class="add-to-cart">+ {{ $local.vn.add_cart }}</a>
     </div>
   </div>

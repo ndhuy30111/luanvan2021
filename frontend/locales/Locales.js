@@ -1,5 +1,7 @@
 import UserMsg from '~/locales/user/msg'
+import AdminMsg from '~/locales/admin/msg'
+
 export default () => ({
-  // admin
   vn: UserMsg(),
+  vn_admin: AdminMsg(),
 })

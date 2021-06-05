@@ -1,6 +1,6 @@
 <template>
   <v-data-table
-    :headers="headers"
+    :headers="$local.vn_admin.category_headers"
     :items="category"
     :search="search"
     sort-by="calories"
@@ -8,7 +8,7 @@
   >
     <template #[`top`]>
       <v-toolbar flat>
-        <v-toolbar-title>{{ title }}</v-toolbar-title>
+        <v-toolbar-title>{{ $local.vn_admin.category_title }}</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-text-field
           v-model="search"
@@ -21,7 +21,7 @@
         <v-dialog v-model="dialog" max-width="500px">
           <template #[`activator`]="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-              {{ btnNew }}
+              {{ $local.vn_admin.add_category }}
             </v-btn>
           </template>
           <v-card>
@@ -70,9 +70,9 @@
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="headline"
-              >Bạn thật sự muốn xoá không?</v-card-title
-            >
+            <v-card-title class="headline">{{
+              $local.vn_admin.delete_msg
+            }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="closeDelete"
@@ -106,29 +106,11 @@ export default {
     dialogDelete: false,
     search: '',
     editedIndex: -1,
-    btnNew: 'Thêm',
     editedItem: {
       name: '',
       sort: 1,
       category: '',
     },
-    title: 'Danh sách danh mục',
-    headers: [
-      {
-        text: 'Tên danh mục',
-        align: 'start',
-        value: 'name',
-      },
-      { text: 'Đường dẫn', value: 'url' },
-      { text: 'Độ ưu tiên', value: 'sort' },
-      { text: 'Cha', value: 'category' },
-      { text: 'Ngày tạo', value: 'createDate' },
-      { text: 'Người tạo', value: 'createBy' },
-      { text: 'Người cập nhập', value: 'lastModifiedBy' },
-      { text: 'Ngày cập nhập', value: 'lastModifiedDate' },
-
-      { text: '', value: 'actions', sortable: false },
-    ],
     data: [],
   }),
   head() {

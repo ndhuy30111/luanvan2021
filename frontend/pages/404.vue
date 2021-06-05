@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Sorry, we don't seem to be able to find that mountain</p>
-    <NuxtLink to="/">Back to Mountains</NuxtLink>
+    <p>{{ $local.vn_admin.notfound[0] }}</p>
+    <NuxtLink to="/">{{ $local.vn_admin.notfound[1] }}</NuxtLink>
   </div>
 </template>

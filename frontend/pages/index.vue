@@ -12,8 +12,34 @@
         /></a>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="12" sm="3" md="3">
+        <img
+          :src="require(`~/assets/category/flashsale.gif`)"
+          alt="single banner"
+          width="100%"
+        />
+      </v-col>
+      <v-col cols="12" sm="9">
+        <ListProduct :menutab="$local.vn.menuproduct" />
+      </v-col>
+    </v-row>
 
     <v-row>
+      <v-col cols="12">
+        <img
+          class="banner"
+          :src="require(`~/assets/fashion.jpg`)"
+          alt="sale banner"
+          width="100%"
+          style="cursor: pointer"
+        />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12" sm="9">
+        <ListProduct :menutab="$local.vn.menuproduct" />
+      </v-col>
       <v-col cols="12" sm="3" md="3">
         <img
           :src="require(`~/assets/category/women1.jpg`)"
@@ -23,9 +49,6 @@
         <div class="center">
           <p>WOMEN'S</p>
         </div>
-      </v-col>
-      <v-col cols="12" sm="9">
-        <ListProduct :menutab="$local.vn.menuproduct" />
       </v-col>
     </v-row>
 
@@ -42,9 +65,6 @@
     </v-row>
 
     <v-row>
-      <v-col cols="12" sm="9">
-        <ListProduct :menutab="$local.vn.menuproduct" />
-      </v-col>
       <v-col cols="12" sm="3" md="3">
         <img
           :src="require(`~/assets/category/man1.jpg`)"
@@ -54,26 +74,6 @@
         <div class="center">
           <p>MAN'S</p>
         </div>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <img
-          class="banner"
-          :src="require(`~/assets/fashion.jpg`)"
-          alt="sale banner"
-          width="100%"
-          style="cursor: pointer"
-        />
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12" sm="3" md="3">
-        <img
-          :src="require(`~/assets/category/flashsale.gif`)"
-          alt="single banner"
-          width="100%"
-        />
       </v-col>
       <v-col cols="12" sm="9">
         <ListProduct :menutab="$local.vn.menuproduct" />

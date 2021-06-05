@@ -58,7 +58,10 @@
 
               <div class="button">
                 <span>
-                  <a href="#"> {{ product.price.toLocaleString() }} đ</a>
+                  <a href="#">
+                    {{ product.price.toLocaleString() }}
+                    {{ $local.vn.currency }}</a
+                  >
                   <a class="cart-btn" @click="addCart()">
                     <b-icon icon="cart"></b-icon>{{ $local.vn.add_cart }}</a
                   >

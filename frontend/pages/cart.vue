@@ -6,12 +6,9 @@
           <table>
             <thead>
               <tr>
-                <th>Image</th>
-                <th class="p-name">Product Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Delete</th>
+                <th v-for="item in $local.vn.cart_tille" :key="item">
+                  {{ item }}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -28,7 +25,9 @@
                 <td class="cart-title">
                   <h5>product name / color / size</h5>
                 </td>
-                <td class="p-price">{{ price.toLocaleString() }} đ</td>
+                <td class="p-price">
+                  {{ price.toLocaleString() }} {{ $local.vn.currency }}
+                </td>
                 <td class="qua-col">
                   <div class="quantity">
                     <div class="pro-qty">
@@ -37,7 +36,8 @@
                   </div>
                 </td>
                 <td class="total-price">
-                  {{ (price * quantity).toLocaleString() }} đ
+                  {{ (price * quantity).toLocaleString() }}
+                  {{ $local.vn.currency }}
                 </td>
                 <td class="close-td">
                   <b-icon icon="trash" style="cursor: pointer"></b-icon>
@@ -53,10 +53,10 @@
         <div class="proceed-checkout">
           <ul>
             <li class="cart-total">
-              Total <span>{{ total.toLocaleString() }}</span>
+              {{ $local.vn.total }} <span>{{ total.toLocaleString() }}</span>
             </li>
           </ul>
-          <a href="#" class="proceed-btn">Checkout</a>
+          <a href="#" class="proceed-btn">{{ $local.vn.checkout }} </a>
         </div>
       </b-col>
     </b-row>
