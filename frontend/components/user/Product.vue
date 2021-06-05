@@ -28,9 +28,9 @@
     </ul>
     <div class="product-content">
       <h6 class="title">
-        <a href="#">Tên SP</a>
+        <a href="#">{{ product.name }}</a>
       </h6>
-      <div class="price">{{ price.toLocaleString() }} đ</div>
+      <div class="price">{{ product.price.toLocaleString() }} đ</div>
       <a class="add-to-cart">+ {{ $local.vn.add_cart }}</a>
     </div>
   </div>
@@ -40,7 +40,10 @@
 export default {
   data() {
     return {
-      price: 315000,
+      product: {
+        name: 'Chân váy AH',
+        price: 315000,
+      },
     }
   },
 }

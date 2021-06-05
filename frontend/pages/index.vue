@@ -93,7 +93,7 @@ export default {
 
 <style lang="scss" scoped>
 .menu {
-  margin-top: -40px;
+  margin-top: -30px;
 }
 .center {
   position: absolute;
@@ -110,6 +110,9 @@ export default {
   margin-top: -40px;
 }
 @media screen and (max-width: 880px) {
+  .menu {
+    margin-top: 0px;
+  }
   .banner {
     width: 100%;
   }

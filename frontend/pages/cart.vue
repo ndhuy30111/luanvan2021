@@ -72,6 +72,14 @@ export default {
       quantity: 2,
     }
   },
+  // computed: {
+  //   cart() {
+  //     return this.$store.state.cart
+  //   },
+  //   total() {
+  //     return this.$store.getters.total
+  //   },
+  // },
 }
 </script>
 

@@ -1,0 +1,3 @@
+export default {
+  ACTIONS_CART_ADDTOCART: 'ACTIONS_CART_ADDTOCART',
+}
