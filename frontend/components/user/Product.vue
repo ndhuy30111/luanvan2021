@@ -31,7 +31,7 @@
         <a href="#">Tên SP</a>
       </h6>
       <div class="price">{{ price.toLocaleString() }} đ</div>
-      <a class="add-to-cart">+ Thêm vào giỏ</a>
+      <a class="add-to-cart">+ {{ $local.vn.add_cart }}</a>
     </div>
   </div>
 </template>

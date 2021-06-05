@@ -26,6 +26,10 @@ export default () => ({
   comments: 'Đăng',
   facebook_mes: 'Plugin bình luận trên facebook',
   same_product: ['Sản phẩm cùng loại'],
+  color: 'Màu sắc',
+  size: 'Kích cỡ',
+  quantity: 'Số lượng',
+  add_cart: 'Thêm vào giỏ',
   colors: [
     { name: 'black', value: '#000' },
     { name: 'white', value: '#FFF' },

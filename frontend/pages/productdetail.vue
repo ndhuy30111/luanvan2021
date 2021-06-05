@@ -4,8 +4,8 @@
       <b-col cols="12" sm="6" md="8">
         <image-magnifier
           class="img"
-          :src="require('@/assets/product/vay1.jpg')"
-          :zoom-src="require('@/assets/product/vay1.jpg')"
+          :src="imgActive"
+          :zoom-src="imgActive"
           alt="img product"
           width="100%"
           height="100%"
@@ -21,22 +21,31 @@
               <span class="product__content">Tên sp</span>
 
               <div class="colors-wrap">
-                <h5>Màu sắc:</h5>
-                <span class="colors" style="background-color: red"></span>
+                <h5>{{ $local.vn.color }}:</h5>
                 <span
-                  class="colors selected"
-                  style="background-color: black"
+                  v-for="(color, index) in colors"
+                  :key="index"
+                  class="colors"
+                  :style="{ background: color.value }"
+                  :class="colorActive.value === color.value ? 'selected' : ''"
+                  @click="ColorActive(color, index)"
                 ></span>
-                <span class="colors" style="background-color: blue"></span>
               </div>
 
               <div class="size-wrap">
-                <h5>Kích cỡ:</h5>
-                <span class="size selected">S</span>
-                <span class="size">M</span>
+                <h5>{{ $local.vn.size }}:</h5>
+                <span
+                  v-for="(size, index) in sizes"
+                  :key="index"
+                  class="size"
+                  :value="size"
+                  :class="sizeActive.name == size.name ? 'selected' : ''"
+                  @click="SizeActive(size)"
+                  >{{ size.name }}</span
+                >
               </div>
               <div class="size-wrap">
-                <h5>Số lượng:</h5>
+                <h5>{{ $local.vn.quantity }}:</h5>
                 <b-form-input
                   id="input-amount"
                   v-model="quantity"
@@ -51,7 +60,7 @@
                 <span>
                   <a href="#"> {{ price.toLocaleString() }} đ</a>
                   <a class="cart-btn">
-                    <b-icon icon="cart"></b-icon> Thêm vào giỏ</a
+                    <b-icon icon="cart"></b-icon>{{ $local.vn.add_cart }}</a
                   >
                 </span>
               </div>
@@ -81,7 +90,39 @@ export default {
     return {
       quantity: 1,
       price: 315000,
+      colorActive: {},
+      sizeActive: {},
+      imgActive: '',
+      colors: [
+        {
+          name: 'black',
+          value: '#000',
+          img:
+            'https://storage.googleapis.com/cdn.nhanh.vn/store/7136/ps/20210109/9452021114552_IMG_1913.JPG',
+        },
+        {
+          name: 'blue',
+          value: 'blue',
+          img:
+            'https://storage.googleapis.com/cdn.nhanh.vn/store/7136/ps/20210109/9452021114532_IMG_1912.JPG',
+        },
+      ],
+      sizes: [{ name: 'S' }, { name: 'M' }, { name: 'L' }],
     }
+  },
+  created() {
+    this.colorActive = this.colors[0]
+    this.imgActive = this.colors[0].img
+  },
+  methods: {
+    ColorActive(colorItem, index) {
+      this.colorActive = colorItem
+      this.imgActive = this.colors[index].img
+      this.sizeAcive = this.sizes[0]
+    },
+    SizeActive(sizeItem) {
+      this.sizeActive = sizeItem
+    },
   },
 }
 </script>
