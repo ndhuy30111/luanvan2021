@@ -115,12 +115,12 @@ export default {
   }),
   head() {
     return {
-      title: this.title,
+      title: this.$local.vn_admin.category_title,
       meta: [
         {
-          hid: 'Danh sách danh mục',
-          name: 'Danh sách danh mục',
-          content: 'Danh sách danh mục vào cửa hàng 7755',
+          hid: this.$local.vn_admin.category_title,
+          name: this.$local.vn_admin.category_title,
+          content: this.$local.vn_admin.content_category,
         },
       ],
     }

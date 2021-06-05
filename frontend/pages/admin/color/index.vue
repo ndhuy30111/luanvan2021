@@ -133,12 +133,12 @@ export default {
   }),
   head() {
     return {
-      title: this.title,
+      title: this.$local.vn_admin.color_title,
       meta: [
         {
-          hid: 'Danh sách màu sắc',
-          name: 'Danh sách màu sắc',
-          content: 'Danh sách màu sắc vào cửa hàng 7755',
+          hid: this.$local.vn_admin.color_title,
+          name: this.$local.vn_admin.color_title,
+          content: this.$local.vn_admin.content_color,
         },
       ],
     }

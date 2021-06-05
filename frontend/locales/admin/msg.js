@@ -46,6 +46,7 @@ export default () => ({
 
   // Category
   category_title: 'Danh sách danh mục',
+  content_category: 'Danh sách danh mục vào cửa hàng 7755',
   add_category: 'Thêm danh mục',
   category_headers: [
     {
@@ -67,6 +68,7 @@ export default () => ({
   // Color
   color_title: 'Danh sách màu sắc',
   add_color: 'Thêm màu sắc',
+  content_color: 'Danh sách màu sắc vào cửa hàng 7755',
   color_headers: [
     {
       text: 'Tên màu',
