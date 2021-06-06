@@ -1,7 +1,7 @@
 package com.stu.luanvan.request;
 
-import com.stu.luanvan.locales.ValidataLocales;
-import com.stu.luanvan.locales.ValidataPattern;
+import com.stu.luanvan.locales.MessageLocales;
+import com.stu.luanvan.locales.PatternLocales;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,24 +15,24 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRequest {
-    @NotBlank(message = ValidataLocales.USERNAME_NOTBLANK)
-    @Pattern(regexp = ValidataPattern.USERNAME_PATTERN,message = ValidataLocales.USERNAME_PATTERN)
+    @NotBlank(message = MessageLocales.USERNAME_NOTBLANK)
+    @Pattern(regexp = PatternLocales.USERNAME_PATTERN,message = MessageLocales.USERNAME_PATTERN)
     private String userName;
 
-    @NotBlank(message = ValidataLocales.NAME_NOTBLANK)
-    @Pattern(regexp = ValidataPattern.NAME_PATTERN,message = ValidataLocales.NAME_PATTERN)
+    @NotBlank(message = MessageLocales.NAME_NOTBLANK)
+    @Pattern(regexp = PatternLocales.NAME_PATTERN,message = MessageLocales.NAME_PATTERN)
     private String name;
     public void setName(String name) {
         this.name = StringUtils.normalizeSpace(name);
     }
 
-    @Email(message = ValidataLocales.EMAIL_PATTERN)
-    @NotBlank(message = ValidataLocales.EMAIL_BLANK)
+    @Email(message = MessageLocales.EMAIL_PATTERN)
+    @NotBlank(message = MessageLocales.EMAIL_BLANK)
     private String email;
     public void setEmail(String email) {
         this.email = StringUtils.normalizeSpace(email);
     }
-    @NotBlank(message = ValidataLocales.PASSWORD_NOTBLANK)
+    @NotBlank(message = MessageLocales.PASSWORD_NOTBLANK)
 //    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$\n",message = "Password không hợp lệ")
     private String password;
 }

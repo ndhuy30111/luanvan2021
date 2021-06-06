@@ -1,8 +1,8 @@
 package com.stu.luanvan.model.color;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.stu.luanvan.locales.ValidataLocales;
-import com.stu.luanvan.locales.ValidataPattern;
+import com.stu.luanvan.locales.MessageLocales;
+import com.stu.luanvan.locales.PatternLocales;
 import com.stu.luanvan.model.category.CategoryViews;
 import com.stu.luanvan.model.BaseViews;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ public class ColorModel {
     @JsonView({BaseViews.Internal.class, CategoryViews.Select.class})
     private Integer id;
     @Column(columnDefinition = "VARCHAR(15) NOT NULL COMMENT 'Tên màu'")
-    @Pattern(regexp = ValidataPattern.NAME_PATTERN, message = ValidataLocales.NAME_PATTERN)
+    @Pattern(regexp = PatternLocales.NAME_PATTERN, message = MessageLocales.NAME_PATTERN)
     private String name;
 
     @Column(columnDefinition = "VARCHAR(10) NULL COMMENT 'Mã Màu'")

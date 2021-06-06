@@ -1,7 +1,7 @@
 package com.stu.luanvan.model.invoice;
 
-import com.stu.luanvan.locales.ValidataLocales;
-import com.stu.luanvan.locales.ValidataPattern;
+import com.stu.luanvan.locales.MessageLocales;
+import com.stu.luanvan.locales.PatternLocales;
 import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.invoicedetails.InvoiceDetailsModel;
 import com.stu.luanvan.model.user.UserModel;
@@ -25,11 +25,11 @@ public class InvoiceModel extends BaseModel {
 
 
     @Column(columnDefinition = "VARCHAR(13) NOT NULL COMMENT 'Số điện thoại khi giao hàng' ")
-    @Pattern(regexp = ValidataPattern.ADDRESS_PATTERN,message = ValidataLocales.NUMBERPHONE_PATTERN)
+    @Pattern(regexp = PatternLocales.ADDRESS_PATTERN,message = MessageLocales.NUMBERPHONE_PATTERN)
     private String numberPhone;
 
     @Column(columnDefinition = "VARCHAR(200) NOT NULL")
-    @Pattern(regexp = ValidataPattern.NAME_PATTERN, message = ValidataLocales.ADDRESS_NOTBLANK)
+    @Pattern(regexp = PatternLocales.NAME_PATTERN, message = MessageLocales.ADDRESS_NOTBLANK)
     private String address;
 
     @Column(columnDefinition = "tinyint(1) default 0 COMMENT 'Trạng thái của Hoá đơn'")

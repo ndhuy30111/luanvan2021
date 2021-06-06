@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.Map;
 
 @Service
-public class UserService implements UserServiceIntefaces{
+public class UserService implements UserServiceInterfaces {
     @Autowired
     UserRepository userRepository;
     /**

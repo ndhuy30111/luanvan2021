@@ -1,6 +1,6 @@
 package com.stu.luanvan.locales;
 
-public class ValidataLocales {
+public class MessageLocales {
     //NOTBLANK_REQUEST
     public final static String NAME_NOTBLANK = "Vui lòng bạn nhập tên";
     public final static String USERNAME_NOTBLANK = "Vui lòng bạn nhập tài khoản";

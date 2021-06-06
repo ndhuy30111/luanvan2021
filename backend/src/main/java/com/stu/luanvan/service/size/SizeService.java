@@ -6,7 +6,7 @@ import com.stu.luanvan.request.SizeRequest;
 import java.util.Collection;
 import java.util.Map;
 
-public class SizeService implements SizeServiceIntefaces{
+public class SizeService implements SizeServiceInterfaces {
     @Override
     public Map<String, Object> findByAll(Integer page, Integer size, String nameSort) {
         return null;

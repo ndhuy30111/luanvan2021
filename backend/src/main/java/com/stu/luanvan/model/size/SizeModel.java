@@ -1,8 +1,8 @@
 package com.stu.luanvan.model.size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.stu.luanvan.locales.ValidataLocales;
-import com.stu.luanvan.locales.ValidataPattern;
+import com.stu.luanvan.locales.MessageLocales;
+import com.stu.luanvan.locales.PatternLocales;
 import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.coupon.CouponModel;
 import com.stu.luanvan.model.detailsproduct.DetailsProductModel;
@@ -25,11 +25,11 @@ import java.util.Collection;
 public class SizeModel extends BaseModel {
 
     @Column(columnDefinition = "VARCHAR(3) NOT NULL COMMENT 'Tên kích thước'")
-    @Pattern(regexp = ValidataPattern.NAME_PATTERN, message = ValidataLocales.NAME_PATTERN)
+    @Pattern(regexp = PatternLocales.NAME_PATTERN, message = MessageLocales.NAME_PATTERN)
     private String name;
 
     @Column(columnDefinition = "int(5) default 0 COMMENT 'Số lượng sản phẩm'")
-    @Min(value = 0,message = ValidataLocales.MIN + "0")
+    @Min(value = 0,message = MessageLocales.MIN + "0")
     private Integer amount;
 
     @ManyToOne

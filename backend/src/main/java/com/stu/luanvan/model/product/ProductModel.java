@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.github.slugify.Slugify;
-import com.stu.luanvan.locales.ValidataLocales;
-import com.stu.luanvan.locales.ValidataPattern;
+import com.stu.luanvan.locales.MessageLocales;
+import com.stu.luanvan.locales.PatternLocales;
 import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.category.CategoryModel;
 import com.stu.luanvan.model.detailsproduct.DetailsProductModel;
@@ -34,14 +34,11 @@ import java.util.Collection;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "name")
 public class ProductModel extends BaseModel {
 
     @Column(columnDefinition = "NVARCHAR(50) NOT NULL UNIQUE COMMENT 'Tên của sản phẩm' ")
-    @NotBlank(message = ValidataLocales.NAME_NOTBLANK)
-    @Pattern(regexp = ValidataPattern.NAME_PATTERN, message = ValidataLocales.NAME_PATTERN)
+    @NotBlank(message = MessageLocales.NAME_NOTBLANK)
+    @Pattern(regexp = PatternLocales.NAME_PATTERN, message = MessageLocales.NAME_PATTERN)
     @JsonView(BaseViews.Public.class)
     private String name;
 

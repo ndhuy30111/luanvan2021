@@ -1,8 +1,8 @@
 package com.stu.luanvan.model.user;
 
 import com.fasterxml.jackson.annotation.*;
-import com.stu.luanvan.locales.ValidataLocales;
-import com.stu.luanvan.locales.ValidataPattern;
+import com.stu.luanvan.locales.MessageLocales;
+import com.stu.luanvan.locales.PatternLocales;
 import com.stu.luanvan.model.invoice.InvoiceModel;
 import com.stu.luanvan.model.BaseViews;
 import com.stu.luanvan.model.review.ReviewModel;
@@ -35,23 +35,23 @@ public class UserModel{
     private Integer id;
 
     @Column(name = "username",columnDefinition = "VARCHAR(50) NOT NULL",unique = true)
-    @Pattern(regexp = ValidataPattern.USERNAME_PATTERN,message = ValidataLocales.USERNAME_PATTERN)
+    @Pattern(regexp = PatternLocales.USERNAME_PATTERN,message = MessageLocales.USERNAME_PATTERN)
     @JsonView(BaseViews.Public.class)
     private String userName;
 
     @Column(columnDefinition = "VARCHAR(50) NOT NULL COMMENT 'Tên của khách hàng' ")
-    @Pattern(regexp = ValidataPattern.NAME_PATTERN, message = ValidataLocales.NAME_PATTERN)
+    @Pattern(regexp = PatternLocales.NAME_PATTERN, message = MessageLocales.NAME_PATTERN)
     @JsonView(BaseViews.Public.class)
     private String name;
 
     @Column(columnDefinition = "VARCHAR(50) NOT NULL COMMENT 'email'")
-    @Email(message = ValidataLocales.EMAIL_PATTERN)
+    @Email(message = MessageLocales.EMAIL_PATTERN)
     @JsonView(BaseViews.Public.class)
     private String email;
 
     @Column
     @JsonIgnore
-    @NotBlank(message = ValidataLocales.PASSWORD_NOTBLANK)
+    @NotBlank(message = MessageLocales.PASSWORD_NOTBLANK)
     private String password;
 
     @Column
@@ -59,12 +59,12 @@ public class UserModel{
     private boolean isEnabled;
 
     @Column(columnDefinition = "VARCHAR(13) default 0  COMMENT 'Số điện thoại khách hàng' ")
-    @Pattern(regexp = ValidataPattern.NUMBERPHONE_PATTERN,message = ValidataLocales.NUMBERPHONE_PATTERN)
+    @Pattern(regexp = PatternLocales.NUMBERPHONE_PATTERN,message = MessageLocales.NUMBERPHONE_PATTERN)
     @JsonView(BaseViews.Public.class)
     private String numberPhone;
 
     @Column(columnDefinition = "VARCHAR(200) NULL COMMENT 'địa chỉ hiện tại'")
-    @Pattern(regexp = ValidataPattern.NAME_PATTERN, message = ValidataLocales.ADDRESS_PATTERN)
+    @Pattern(regexp = PatternLocales.NAME_PATTERN, message = MessageLocales.ADDRESS_PATTERN)
     @JsonView(BaseViews.Public.class)
     private String address;
 

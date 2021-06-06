@@ -1,7 +1,7 @@
 package com.stu.luanvan.request;
 
-import com.stu.luanvan.locales.ValidataLocales;
-import com.stu.luanvan.locales.ValidataPattern;
+import com.stu.luanvan.locales.MessageLocales;
+import com.stu.luanvan.locales.PatternLocales;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,8 +14,8 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 public class ColorRequest {
     private Integer id;
-    @NotBlank(message = ValidataLocales.NAME_NOTBLANK)
-    @Pattern(regexp = ValidataPattern.NAME_PATTERN,message = ValidataLocales.NAME_PATTERN)
+    @NotBlank(message = MessageLocales.NAME_NOTBLANK)
+    @Pattern(regexp = PatternLocales.NAME_PATTERN,message = MessageLocales.NAME_PATTERN)
     private String name;
     public void setName(String name) {
         this.name = StringUtils.normalizeSpace(name);

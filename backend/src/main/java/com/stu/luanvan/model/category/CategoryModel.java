@@ -2,11 +2,11 @@ package com.stu.luanvan.model.category;
 
 import com.fasterxml.jackson.annotation.*;
 import com.github.slugify.Slugify;
-import com.stu.luanvan.locales.ValidataLocales;
+import com.stu.luanvan.locales.MessageLocales;
 import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.BaseViews;
 import com.stu.luanvan.model.product.ProductModel;
-import com.stu.luanvan.locales.ValidataPattern;
+import com.stu.luanvan.locales.PatternLocales;
 import com.stu.luanvan.request.CategoryRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,7 +28,7 @@ import java.util.Collection;
 public class CategoryModel extends BaseModel {
     @Column(columnDefinition = "VARCHAR(40) NOT NULL COMMENT 'Tên danh mục' ")
     @JsonView({BaseViews.Public.class,CategoryViews.Select.class})
-    @Pattern(regexp = ValidataPattern.NAME_PATTERN, message = ValidataLocales.NAME_PATTERN)
+    @Pattern(regexp = PatternLocales.NAME_PATTERN, message = MessageLocales.NAME_PATTERN)
     private String name;
 
     @JsonManagedReference

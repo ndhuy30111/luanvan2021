@@ -1,7 +1,7 @@
 package com.stu.luanvan.model;
 
 import com.fasterxml.jackson.annotation.*;
-import com.stu.luanvan.locales.ValidataFormat;
+import com.stu.luanvan.locales.FormatLocales;
 import com.stu.luanvan.model.category.CategoryViews;
 import com.stu.luanvan.model.user.UserModel;
 import lombok.*;
@@ -49,12 +49,12 @@ public class BaseModel {
     @Column(name = "create_date")
     @CreatedDate
     @JsonView(BaseViews.Internal.class)
-    @JsonFormat(pattern= ValidataFormat.DATE_FORMAT)
+    @JsonFormat(pattern= FormatLocales.DATE_FORMAT)
     private Date createDate;
 
     @Column(name = "update_date")
     @LastModifiedDate
     @JsonView(BaseViews.Internal.class)
-    @JsonFormat(pattern=ValidataFormat.DATE_FORMAT)
+    @JsonFormat(pattern= FormatLocales.DATE_FORMAT)
     private Date lastModifiedDate;
 }
