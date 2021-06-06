@@ -12,34 +12,33 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr v-for="(item, index) in cart" :key="index">
                 <td class="cart-pic" style="width: 21%">
-                  <a href="productdetail">
-                    <img
-                      src="https://cdn.shopify.com/s/files/1/2598/7400/products/012_grande.jpg?v=1514365627"
-                      alt=""
-                      style="width: 50%"
-                    />
+                  <a href="/productdetail">
+                    <img :src="item.img" alt="" style="width: 50%" />
                   </a>
                 </td>
                 <td class="cart-title">
-                  <h5>product name / color / size</h5>
+                  <h5>
+                    {{ item.name }} / {{ item.color.name }} /
+                    {{ item.size.name }}
+                  </h5>
                 </td>
                 <td class="p-price">
-                  {{ price.toLocaleString() }} {{ $local.vn.currency }}
+                  {{ item.price.toLocaleString() }} {{ $local.vn.currency }}
                 </td>
                 <td class="qua-col">
                   <div class="quantity">
                     <div class="pro-qty">
-                      {{ quantity }}
+                      {{ item.quantity }}
                     </div>
                   </div>
                 </td>
                 <td class="total-price">
-                  {{ (price * quantity).toLocaleString() }}
+                  {{ item.price * item.quantity.toLocaleString() }}
                   {{ $local.vn.currency }}
                 </td>
-                <td class="close-td">
+                <td class="close-td" @click="removeProductCart(index)">
                   <b-icon icon="trash" style="cursor: pointer"></b-icon>
                 </td>
               </tr>
@@ -53,10 +52,11 @@
         <div class="proceed-checkout">
           <ul>
             <li class="cart-total">
-              {{ $local.vn.total }} <span>{{ total.toLocaleString() }}</span>
+              {{ $local.vn.total }}
+              <span>{{ total.toLocaleString() }} {{ $local.vn.currency }}</span>
             </li>
           </ul>
-          <a href="#" class="proceed-btn">{{ $local.vn.checkout }} </a>
+          <a href="#" class="proceed-btn">{{ $local.vn.checkout }}</a>
         </div>
       </b-col>
     </b-row>
@@ -64,22 +64,23 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import Constants from '~/store/user/cart/constants'
 export default {
-  data() {
-    return {
-      total: 2000000,
-      price: 1000000,
-      quantity: 2,
-    }
+  name: 'Cart',
+  computed: {
+    cart() {
+      return this.$store.state.user.cart.cart
+    },
+    ...mapGetters({
+      total: 'user/cart/total',
+    }),
   },
-  // computed: {
-  //   cart() {
-  //     return this.$store.state.cart
-  //   },
-  //   total() {
-  //     return this.$store.getters.total
-  //   },
-  // },
+  methods: {
+    removeProductCart(indexRemove) {
+      this.$store.dispatch(Constants.ACTION_REMOVE_PRODUCTCART, indexRemove)
+    },
+  },
 }
 </script>
 

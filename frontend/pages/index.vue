@@ -109,6 +109,11 @@ export default {
 .banner {
   margin-top: -40px;
 }
+@media screen and (max-width: 990px) {
+  .menu {
+    margin-top: 10px;
+  }
+}
 @media screen and (max-width: 880px) {
   .menu {
     margin-top: 0px;

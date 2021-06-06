@@ -2,13 +2,21 @@
   <router-link to="cart">
     <v-btn id="cart" icon>
       <b-icon icon="handbag"></b-icon>
-      <span>0</span>
+      <span>{{ amount }}</span>
     </v-btn>
   </router-link>
 </template>
 
 <script>
-export default {}
+import { mapGetters } from 'vuex'
+export default {
+  name: 'ButtonCart',
+  computed: {
+    ...mapGetters({
+      amount: 'user/cart/amount',
+    }),
+  },
+}
 </script>
 
 <style lang="scss" scoped>

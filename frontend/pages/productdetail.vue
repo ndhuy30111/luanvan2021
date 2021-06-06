@@ -86,6 +86,7 @@
 <script>
 import Opinion from '~/components/user/opinion'
 import Listproduct from '~/components/user/ListProduct'
+import Constants from '~/store/user/cart/constants'
 export default {
   name: 'Productdetail',
   components: { Opinion, Listproduct },
@@ -123,6 +124,7 @@ export default {
     this.colorActive = this.colors[0]
     this.imgActive = this.colors[0].img
     this.sizes = this.colors[0].size
+    this.sizeActive = this.colors[0].size[0]
   },
   methods: {
     ColorActive(colorItem, index) {
@@ -144,7 +146,7 @@ export default {
         price: this.product.price,
         quantity: parseInt(this.quantity),
       }
-      this.$store.dispatch('user/cart/addProdcutToCart', cartItem)
+      this.$store.dispatch(Constants.ACTION_CART_ADDTOCART, cartItem)
     },
   },
 }

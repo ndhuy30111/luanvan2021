@@ -3,4 +3,10 @@ export default {
     state.categorys = payload.categorys
     state.select = payload.select
   },
+
+  removeProductCart(state, indexremove){
+    state.cart = state.cart.filter((item, index) =>{
+      return index !== indexremove;
+    })
+  },
 }
