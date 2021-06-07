@@ -54,8 +54,8 @@ public class CategoryModel extends BaseModel {
     @JsonView({BaseViews.Public.class,CategoryViews.Select.class})
     private String url;
 
-    @ManyToMany
-    @JoinTable(name="category_product",joinColumns = @JoinColumn(name="category_id"),inverseJoinColumns = @JoinColumn(name="product_id"))
+
+    @ManyToMany(mappedBy = "category")
     @JsonView({BaseViews.Public.class})
     @JsonManagedReference
     private Collection<ProductModel> product;

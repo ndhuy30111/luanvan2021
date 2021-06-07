@@ -85,7 +85,7 @@ public class ProductService implements ProductServiceInterface{
                 }
                 product.setCategory(listCategory);
             }
-            productRepository.save(product);
+            productRepository.saveAndFlush(product);
             productRequest.getDetailsProduct().forEach(c->{
                 FileModel filecolor;
 
@@ -96,10 +96,10 @@ public class ProductService implements ProductServiceInterface{
                     filecolor = fileRepository.findByName(c.getFile().getPublicId());
                 }
                 var detailsProduct = new DetailsProductModel(color,filecolor, product);
-                detailsProductReponsitory.save(detailsProduct);
+                detailsProductReponsitory.saveAndFlush(detailsProduct);
                 c.getSize().forEach(s->{
                     var size = new SizeModel(s.getName(),detailsProduct);
-                    sizeRepository.save(size);
+                    sizeRepository.saveAndFlush(size);
                 });
             });
             return product;
