@@ -40,6 +40,10 @@ export default () => ({
             { name: 'Thêm Banner', url: 'add' },
           ],
         },
+        {
+          name: 'Quản lý phiếu nhập',
+          function: [{ name: 'Xem sản phẩm', url: 'admin-coupon' }],
+        },
       ],
     },
   ],

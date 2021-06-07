@@ -105,15 +105,13 @@ export default {
         {
           name: 'black',
           value: '#000',
-          img:
-            'https://storage.googleapis.com/cdn.nhanh.vn/store/7136/ps/20210109/9452021114552_IMG_1913.JPG',
+          img: 'https://storage.googleapis.com/cdn.nhanh.vn/store/7136/ps/20210109/9452021114552_IMG_1913.JPG',
           size: [{ name: 'S' }, { name: 'M' }],
         },
         {
           name: 'blue',
           value: 'blue',
-          img:
-            'https://storage.googleapis.com/cdn.nhanh.vn/store/7136/ps/20210109/9452021114532_IMG_1912.JPG',
+          img: 'https://storage.googleapis.com/cdn.nhanh.vn/store/7136/ps/20210109/9452021114532_IMG_1912.JPG',
           size: [{ name: 'M' }, { name: 'L' }, { name: 'XL' }],
         },
       ],

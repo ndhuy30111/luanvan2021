@@ -154,7 +154,7 @@ export default {
   methods: {
     editItem(item) {
       this.editedIndex = this.category.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+      this.editedItem = this.$_.cloneDeep(Object.assign({}, item))
       this.dialog = true
     },
 
@@ -196,9 +196,8 @@ export default {
     save() {
       if (this.editedIndex > -1) {
         try {
-          const item = Object.assign(
-            this.category[this.editedIndex],
-            this.editedItem
+          const item = this.$_.cloneDeep(
+            Object.assign(this.category[this.editedIndex], this.editedItem)
           )
           this.$store.dispatch('admin/category/updateContent', item)
         } catch (ex) {

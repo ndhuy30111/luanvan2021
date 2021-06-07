@@ -243,8 +243,7 @@
                           v-model="itemSize.amount"
                           label="Số lượng"
                           outlined
-                          clearable
-                          required
+                          readonly
                         ></v-text-field>
                       </v-col>
                     </v-row>

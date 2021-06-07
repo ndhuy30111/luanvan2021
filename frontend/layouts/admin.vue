@@ -14,15 +14,15 @@ import Navigation from '~/components/admin/header/Navigation'
 export default {
   components: { Navigation },
   middleware: 'authenticated',
-  build: {
-    splitChunks: {
-      layouts: true,
-    },
-  },
   created() {
-    this.$store.dispatch('admin/category/init')
-    this.$store.dispatch('admin/color/init')
-    this.$store.dispatch('admin/product/init')
+    this.init()
+  },
+  methods: {
+    init() {
+      this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_CATEGORY_INIT)
+      this.$store.dispatch('admin/color/init')
+      this.$store.dispatch('admin/product/init')
+    },
   },
 }
 </script>
