@@ -7,6 +7,10 @@ export default {
     return total
   },
   amount(state) {
-    return state.cart.length
+    let amount = 0
+    state.cart.forEach((item) => {
+      amount += item.quantity
+    })
+    return amount
   },
 }

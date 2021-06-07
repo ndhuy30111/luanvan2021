@@ -65,7 +65,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Constants from '~/store/user/cart/constants'
 export default {
   name: 'Cart',
   computed: {
@@ -78,7 +77,10 @@ export default {
   },
   methods: {
     removeProductCart(indexRemove) {
-      this.$store.dispatch(Constants.ACTION_REMOVE_PRODUCTCART, indexRemove)
+      this.$store.dispatch(
+        this.$constant.user.ACTION_REMOVE_PRODUCTCART,
+        indexRemove
+      )
     },
   },
 }

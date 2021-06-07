@@ -97,7 +97,6 @@
 <script>
 import { sameAs, minLength } from 'vuelidate/lib/validators'
 import Button from '../components/Button'
-import Contants from '../store/user/account/constants'
 export default {
   name: 'Register',
   components: { Button },
@@ -122,7 +121,7 @@ export default {
   },
   methods: {
     register(form) {
-      this.$store.dispatch(Contants.ACTIONS_USER_REGISTER, form)
+      this.$store.dispatch(this.$constant.user.ACTIONS_USER_REGISTER, form)
     },
     onReset(event) {
       event.preventDefault()

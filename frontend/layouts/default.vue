@@ -27,7 +27,6 @@ import Footer from '~/components/user/Footer.vue'
 import HeaderMobile from '~/components/user/header/HeaderMobile.vue'
 import MenuAccount from '~/components/user/MenuAccount.vue'
 import BtnCart from '~/components/BtnCart'
-import Constants from '~/store/user/cart/constants'
 export default {
   components: { Header, Footer, HeaderMobile, MenuAccount, BtnCart },
   build: {
@@ -44,7 +43,7 @@ export default {
   created() {
     this.handleView()
     addEventListener('resize', this.handleView)
-    this.$store.dispatch(Constants.ACTION_LOAD_CART)
+    this.$store.dispatch(this.$constant.user.ACTION_LOAD_CART)
   },
   methods: {
     handleView() {
