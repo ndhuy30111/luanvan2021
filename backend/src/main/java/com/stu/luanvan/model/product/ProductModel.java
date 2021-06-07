@@ -92,7 +92,8 @@ public class ProductModel extends BaseModel {
     @OneToMany(mappedBy = "product")
     private Collection<DetailsProductModel> detailsProduct;
 
-    @ManyToMany(mappedBy = "product")
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name="product_category",joinColumns = @JoinColumn(name="product_id"),inverseJoinColumns = @JoinColumn(name="category_id"))
     @JsonView(BaseViews.Public.class)
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="name")
     @JsonIdentityReference(alwaysAsId = true)
