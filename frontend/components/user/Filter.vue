@@ -67,7 +67,6 @@
 
 <script>
 export default {
-  name: 'Filter',
   data: () => ({
     size: '',
     price: '',

@@ -17,4 +17,22 @@ export default {
       state.cart = JSON.parse(cart)
     }
   },
+  MUTATIONS_PLUS_ITEMCART(state, i) {
+    state.cart.forEach((item, index) => {
+      if (index === i) {
+        item.quantity++
+        localStorage.setItem('cart', JSON.stringify(state.cart))
+      }
+    })
+  },
+  MUTATIONS_MINUS_ITEMCART(state, i) {
+    state.cart.forEach((item, index) => {
+      if (index === i) {
+        if (item.quantity > 1) {
+          item.quantity--
+          localStorage.setItem('cart', JSON.stringify(state.cart))
+        }
+      }
+    })
+  },
 }

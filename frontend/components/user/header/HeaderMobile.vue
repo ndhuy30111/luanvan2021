@@ -15,7 +15,7 @@
     </v-responsive>
     <ul>
       <li
-        v-for="(menu, index) in $local.vn.menu_header"
+        v-for="(menu, index) in menu_header"
         :key="index"
         @click="activeMemu(index)"
       >
@@ -32,9 +32,35 @@
 
 <script>
 export default {
+  data() {
+    return {
+      menu_header: [
+        {
+          content: 'Trang chủ',
+          url: '/',
+          active: true,
+        },
+        {
+          content: 'Sản phẩm',
+          url: 'shop',
+          active: false,
+        },
+        {
+          content: 'Liên hệ',
+          url: 'contact',
+          active: false,
+        },
+        {
+          content: 'Thông tin',
+          url: 'news',
+          active: false,
+        },
+      ],
+    }
+  },
   methods: {
     activeMemu(i) {
-      this.menus.forEach((item, index) => {
+      this.menu_header.forEach((item, index) => {
         if (i === index) {
           item.active = true
         } else {

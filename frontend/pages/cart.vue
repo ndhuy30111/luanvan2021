@@ -24,18 +24,46 @@
                     {{ item.size.name }}
                   </h5>
                 </td>
-                <td class="p-price">
-                  {{ item.price.toLocaleString() }} {{ $local.vn.currency }}
+                <td class="p-price" aria-readonly="readonly">
+                  <!-- <input
+                    class="input_price"
+                    type="text"
+                    readonly
+                    :value="item.price.toLocaleString()"
+                  /> -->
+                  {{ item.price.toLocaleString() }}{{ $local.vn.currency }}
                 </td>
                 <td class="qua-col">
                   <div class="quantity">
                     <div class="pro-qty">
-                      {{ item.quantity }}
+                      <v-icon
+                        slot="prepend"
+                        color="green"
+                        class="minus"
+                        @click="minus(index)"
+                      >
+                        mdi-minus
+                      </v-icon>
+                      <input
+                        class="count"
+                        type="number"
+                        min="1"
+                        readonly
+                        :value="item.quantity"
+                      />
+                      <v-icon
+                        slot="append"
+                        color="red"
+                        class="plus"
+                        @click="plus(index)"
+                      >
+                        mdi-plus
+                      </v-icon>
                     </div>
                   </div>
                 </td>
                 <td class="total-price">
-                  {{ item.price * item.quantity.toLocaleString() }}
+                  {{ (item.price * item.quantity).toLocaleString() }}
                   {{ $local.vn.currency }}
                 </td>
                 <td class="close-td" @click="removeProductCart(index)">
@@ -67,6 +95,11 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'Cart',
+  data() {
+    return {
+      quantity: '',
+    }
+  },
   computed: {
     cart() {
       return this.$store.state.user.cart.cart
@@ -81,6 +114,12 @@ export default {
         this.$constant.user.ACTION_REMOVE_PRODUCTCART,
         indexRemove
       )
+    },
+    plus(i) {
+      this.$store.dispatch(this.$constant.user.ACTION_PLUS_ITEMCART, i)
+    },
+    minus(i) {
+      this.$store.dispatch(this.$constant.user.ACTION_MINUS_ITEMCART, i)
     },
   },
 }
@@ -152,13 +191,11 @@ export default {
       padding-right: 25px;
       padding-top: 16px;
       padding-bottom: 20px;
-      font-family: cursive;
       li {
         list-style: none;
         font-size: 16px;
         font-weight: 700;
         color: #252525;
-        text-transform: uppercase;
         overflow: hidden;
         .cart-total {
           padding-top: 10px;
@@ -170,6 +207,17 @@ export default {
       }
     }
   }
+}
+.count {
+  width: 35px;
+}
+.minus {
+  margin-right: 10px;
+  cursor: pointer;
+}
+.plus {
+  margin-left: -7px;
+  cursor: pointer;
 }
 @media screen and (max-width: 600px) {
   .shopping-cart {
@@ -193,6 +241,17 @@ export default {
   }
   * {
     font-size: 8px;
+  }
+  .input_price {
+    font-size: 8px;
+  }
+  .minus {
+    font-size: 10px;
+    margin-right: 0px;
+  }
+  .plus {
+    font-size: 10px;
+    margin-left: -25px;
   }
 }
 </style>

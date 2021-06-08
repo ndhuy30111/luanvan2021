@@ -54,7 +54,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 * {
-  font-family: Comic Sans MS;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .top-bar {
   display: flex;

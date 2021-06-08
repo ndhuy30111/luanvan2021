@@ -46,14 +46,27 @@
               </div>
               <div class="size-wrap">
                 <h5>{{ $local.vn.quantity }}:</h5>
+                <v-icon
+                  slot="prepend"
+                  color="green"
+                  class="minus"
+                  @click="minus()"
+                >
+                  mdi-minus
+                </v-icon>
                 <b-form-input
                   id="input-amount"
                   v-model="quantity"
                   type="number"
                   min="1"
-                  style="width: 70px; margin-left: 20px"
+                  class="count"
+                  readonly
+                  style="background-color: white; border: none"
                   >{{ quantity }}</b-form-input
                 >
+                <v-icon slot="append" color="red" class="plus" @click="plus()">
+                  mdi-plus
+                </v-icon>
               </div>
 
               <div class="button">
@@ -146,6 +159,14 @@ export default {
         quantity: parseInt(this.quantity),
       }
       this.$store.dispatch(this.$constant.user.ACTION_CART_ADDTOCART, cartItem)
+    },
+    plus() {
+      this.quantity++
+    },
+    minus() {
+      if (this.quantity > 1) {
+        this.quantity--
+      }
     },
   },
 }
@@ -305,6 +326,17 @@ p {
 }
 .opinion {
   margin-top: -20%;
+}
+.count {
+  width: 70px;
+}
+.minus {
+  margin-right: 15px;
+  cursor: pointer;
+}
+.plus {
+  margin-left: 0px;
+  cursor: pointer;
 }
 @media (max-width: 700px) {
   .wrapper {
