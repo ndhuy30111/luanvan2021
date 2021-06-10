@@ -30,4 +30,9 @@ public class ProductsController {
             throw new NotFoundEx("Không có dự liệu");
         }
     }
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> getFindById(@PathVariable int id) {
+        return new ResponseEntity<>(productService.findById(id),HttpStatus.OK);
+    }
 }

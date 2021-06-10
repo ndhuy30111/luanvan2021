@@ -18,32 +18,34 @@
         <div class="wrapper">
           <div class="outer">
             <div class="content">
-              <span class="product__content">{{ product.name }}</span>
-
+              <span class="product__content">{{ products.name }}</span>
               <div class="colors-wrap">
                 <h5>{{ $local.vn.color }}:</h5>
                 <span
-                  v-for="(color, index) in colors"
-                  :key="index"
+                  v-for="(item, indexColor) in products.detailsProduct"
+                  :key="indexColor"
                   class="colors"
-                  :style="{ background: color.value }"
-                  :class="colorActive.value === color.value ? 'selected' : ''"
-                  @click="ColorActive(color, index)"
+                  :style="{ background: item.color.code }"
+                  :class="
+                    colorActive.code === item.color.code ? 'selected' : ''
+                  "
+                  @click="ColorActive(item)"
                 ></span>
               </div>
 
               <div class="size-wrap">
                 <h5>{{ $local.vn.size }}:</h5>
                 <span
-                  v-for="(size, index) in sizes"
-                  :key="index"
+                  v-for="(size, indexSize) in size"
+                  :key="indexSize"
                   class="size"
-                  :value="size"
-                  :class="sizeActive.name == size.name ? 'selected' : ''"
+                  :value="size.name"
+                  :class="sizeActive.id === size.id ? 'selected' : ''"
                   @click="SizeActive(size)"
                   >{{ size.name }}</span
                 >
               </div>
+
               <div class="size-wrap">
                 <h5>{{ $local.vn.quantity }}:</h5>
                 <v-icon
@@ -72,11 +74,11 @@
               <div class="button">
                 <span>
                   <a href="#">
-                    {{ product.price.toLocaleString() }}
+                    {{ parseInt(products.price).toLocaleString() }}
                     {{ $local.vn.currency }}</a
                   >
                   <a class="cart-btn" @click="addCart()">
-                    <b-icon icon="cart"></b-icon>{{ $local.vn.add_cart }}</a
+                    <b-icon icon="cart"></b-icon> {{ $local.vn.add_cart }}</a
                   >
                 </span>
               </div>
@@ -86,76 +88,102 @@
       </b-col>
     </b-row>
     <b-row class="opinion">
-      <Opinion></Opinion>
-    </b-row>
-    <b-row>
-      <b-col>
-        <Listproduct :menutab="$local.vn.same_product" />
-      </b-col>
+      <div>
+        <v-tabs color="accent-4">
+          <v-tab
+            v-for="item in $local.vn.menuoption"
+            id="menu_title"
+            :key="item"
+            >{{ item }}</v-tab
+          >
+
+          <v-tab-item>
+            <v-container fluid>
+              <v-row>
+                <v-col cols="12">
+                  <div class="info_img" v-html="products.info"></div>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-tab-item>
+
+          <v-tab-item>
+            <v-container fluid>
+              <v-row>
+                <v-col> </v-col>
+              </v-row>
+            </v-container>
+          </v-tab-item>
+        </v-tabs>
+      </div>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import Opinion from '~/components/user/opinion'
-import Listproduct from '~/components/user/ListProduct'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Productdetail',
-  components: { Opinion, Listproduct },
   data() {
     return {
       quantity: 1,
+      imgActive: '',
+      size: [],
       colorActive: {},
       sizeActive: {},
-      imgActive: '',
-      product: {
-        id: 1,
-        name: 'Chân váy AH',
-        price: 315000,
-      },
-      colors: [
-        {
-          name: 'black',
-          value: '#000',
-          img:
-            'https://storage.googleapis.com/cdn.nhanh.vn/store/7136/ps/20210109/9452021114552_IMG_1913.JPG',
-          size: [{ name: 'S' }, { name: 'M' }],
-        },
-        {
-          name: 'blue',
-          value: 'blue',
-          img:
-            'https://storage.googleapis.com/cdn.nhanh.vn/store/7136/ps/20210109/9452021114532_IMG_1912.JPG',
-          size: [{ name: 'M' }, { name: 'L' }, { name: 'XL' }],
-        },
-      ],
-      sizes: [],
     }
   },
-  created() {
-    this.colorActive = this.colors[0]
-    this.imgActive = this.colors[0].img
-    this.sizes = this.colors[0].size
-    this.sizeActive = this.colors[0].size[0]
+  computed: {
+    ...mapGetters({
+      // map `this.doneCount` to `this.$store.getters.doneTodosCount`
+      product: 'user/product/getFindProduct',
+    }),
+    products: {
+      get() {
+        const item = this.product({ id: parseInt(this.$route.params.id) })
+        if (item) {
+          return this.cloneProduct(item)
+        }
+        return {}
+      },
+      set(value) {
+        this.products = value
+      },
+    },
+  },
+  watch: {
+    ColorActive(item) {
+      this.colorActive = item.color
+      this.imgActive = item.image
+      this.size = item.size
+      this.sizeActive = this.size[0]
+    },
   },
   methods: {
-    ColorActive(colorItem, index) {
-      this.colorActive = colorItem
-      this.imgActive = this.colors[index].img
-      this.sizeActive = this.colors[index].size[0]
-      this.sizes = this.colors[index].size
+    cloneProduct(item) {
+      this.imgActive = item.image
+      this.colorActive = item.detailsProduct[0].color
+      this.size = item.detailsProduct[0].size
+      this.sizeActive = item.detailsProduct[0].size[0]
+      return this.$_.cloneDeep(item)
     },
-    SizeActive(sizeItem) {
-      this.sizeActive = sizeItem
+    ColorActive(item) {
+      this.colorActive = item.color
+      this.imgActive = item.image
+      this.size = item.size
+      this.sizeActive = this.size[0]
+    },
+    SizeActive(item) {
+      this.sizeActive = item
     },
     addCart() {
       const cartItem = {
-        id: this.product.id,
-        name: this.product.name,
+        id: this.products.id,
+        name: this.products.name,
         size: this.sizeActive,
         color: this.colorActive,
         img: this.imgActive,
-        price: this.product.price,
+        price: this.products.price,
         quantity: parseInt(this.quantity),
       }
       this.$store.dispatch(this.$constant.user.ACTION_CART_ADDTOCART, cartItem)
@@ -172,7 +200,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .wrapper {
   display: flex;
   align-items: center;
@@ -211,6 +239,7 @@ p {
   z-index: 3;
   margin-top: -20%;
   text-align: left;
+  margin-bottom: 60px;
 }
 .bg {
   display: inline-block;
@@ -338,6 +367,10 @@ p {
   margin-left: 0px;
   cursor: pointer;
 }
+#menu_title {
+  font-size: 18px;
+  font-weight: bold;
+}
 @media (max-width: 700px) {
   .wrapper {
     margin: -100px 0px 0px -35px;
@@ -359,8 +392,11 @@ p {
   .product__content {
     font-size: 2em;
   }
-  .opinion {
-    margin-top: 10px;
+  #menu_title {
+    font-size: 14px;
   }
+}
+div.info_img ::v-deep p > img {
+  width: 100%;
 }
 </style>

@@ -14,7 +14,7 @@
             <tbody>
               <tr v-for="(item, index) in cart" :key="index">
                 <td class="cart-pic" style="width: 21%">
-                  <a href="/productdetail">
+                  <a data-tip="Xem chi tiết" @click="productdetail(item)">
                     <img :src="item.img" alt="" style="width: 50%" />
                   </a>
                 </td>
@@ -25,13 +25,8 @@
                   </h5>
                 </td>
                 <td class="p-price" aria-readonly="readonly">
-                  <!-- <input
-                    class="input_price"
-                    type="text"
-                    readonly
-                    :value="item.price.toLocaleString()"
-                  /> -->
-                  {{ item.price.toLocaleString() }}{{ $local.vn.currency }}
+                  {{ parseInt(item.price).toLocaleString()
+                  }}{{ $local.vn.currency }}
                 </td>
                 <td class="qua-col">
                   <div class="quantity">
@@ -63,7 +58,7 @@
                   </div>
                 </td>
                 <td class="total-price">
-                  {{ (item.price * item.quantity).toLocaleString() }}
+                  {{ parseInt(item.price * item.quantity).toLocaleString() }}
                   {{ $local.vn.currency }}
                 </td>
                 <td class="close-td" @click="removeProductCart(index)">
@@ -81,7 +76,10 @@
           <ul>
             <li class="cart-total">
               {{ $local.vn.total }}
-              <span>{{ total.toLocaleString() }} {{ $local.vn.currency }}</span>
+              <span
+                >{{ parseInt(total).toLocaleString() }}
+                {{ $local.vn.currency }}</span
+              >
             </li>
           </ul>
           <a href="#" class="proceed-btn">{{ $local.vn.checkout }}</a>
@@ -105,10 +103,19 @@ export default {
       return this.$store.state.user.cart.cart
     },
     ...mapGetters({
+      // map `this.doneCount` to `this.$store.getters.doneTodosCount`
       total: 'user/cart/total',
     }),
   },
   methods: {
+    productdetail(product) {
+      this.$router.push({
+        name: 'productdetail-id',
+        params: {
+          id: product.id,
+        },
+      })
+    },
     removeProductCart(indexRemove) {
       this.$store.dispatch(
         this.$constant.user.ACTION_REMOVE_PRODUCTCART,

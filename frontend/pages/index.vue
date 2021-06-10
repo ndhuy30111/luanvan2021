@@ -21,7 +21,7 @@
         />
       </v-col>
       <v-col cols="12" sm="9">
-        <ListProduct :menutab="$local.vn.menuproduct" />
+        <ListProduct :categorys="sale" />
       </v-col>
     </v-row>
 
@@ -38,7 +38,7 @@
     </v-row>
     <v-row>
       <v-col cols="12" sm="9">
-        <ListProduct :menutab="$local.vn.menuproduct" />
+        <ListProduct :categorys="category_women" />
       </v-col>
       <v-col cols="12" sm="3" md="3">
         <img
@@ -76,7 +76,7 @@
         </div>
       </v-col>
       <v-col cols="12" sm="9">
-        <ListProduct :menutab="$local.vn.menuproduct" />
+        <ListProduct :categorys="category_men" />
       </v-col>
     </v-row>
   </v-container>
@@ -87,6 +87,17 @@ import ListProduct from '../components/user/ListProduct'
 export default {
   components: {
     ListProduct,
+  },
+  computed: {
+    category_women() {
+      return this.$store.state.user.categorys.category_women
+    },
+    category_men() {
+      return this.$store.state.user.categorys.category_men
+    },
+    sale() {
+      return this.$store.state.user.categorys.sale
+    },
   },
 }
 </script>

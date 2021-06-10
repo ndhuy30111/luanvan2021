@@ -44,6 +44,8 @@ export default {
     this.handleView()
     addEventListener('resize', this.handleView)
     this.$store.dispatch(this.$constant.user.ACTION_LOAD_CART)
+    this.$store.dispatch(this.$constant.user.ACTIONS_CATEGORYS_GETALL)
+    this.$store.dispatch(this.$constant.user.ACTIONS_PRODUCT_GETALL)
   },
   methods: {
     handleView() {

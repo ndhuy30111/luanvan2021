@@ -2,7 +2,6 @@ export default () => ({
   nation: 'Việt Nam',
   shop: 'Shop 7755',
   sreach: 'Tìm kiếm',
-  menuproduct: ['ÁO THUN', 'VÁY', 'QUẦN JEAN'],
   title_news: 'Top sản phẩm bán chạy trong tháng',
   tilte_page_product: ['TẤT CẢ SẢN PHẨM'],
   shopnow: 'Mua sắm ngay',
@@ -99,4 +98,5 @@ export default () => ({
   total: 'TỔNG TIỀN',
   checkout: 'Thanh toán',
   currency: 'đ',
+  category_vuex: ['Nữ', 'Nam', 'Sale'],
 })
