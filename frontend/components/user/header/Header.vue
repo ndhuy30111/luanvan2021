@@ -8,7 +8,7 @@
       >
         <router-link
           :id="menu.active ? 'active' : ''"
-          :to="menu.url"
+          :to="{ name: menu.url }"
           class="link"
           >{{ menu.content }}</router-link
         >
@@ -45,7 +45,7 @@ export default {
       menu_header: [
         {
           content: 'Trang chủ',
-          url: '/',
+          url: 'index',
           active: true,
         },
         {

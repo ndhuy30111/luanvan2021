@@ -13,9 +13,9 @@
           :key="index"
         >
           <v-list-item-title class="text-center">
-            <a :href="item.url" class="text">
+            <router-link :to="{ name: item.url }" class="text">
               {{ item.title }}
-            </a>
+            </router-link>
           </v-list-item-title>
         </v-list-item>
       </v-list>

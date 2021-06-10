@@ -1,5 +1,5 @@
 <template>
-  <router-link to="cart">
+  <router-link :to="{ name: 'cart' }">
     <v-btn id="cart" icon>
       <b-icon icon="handbag"></b-icon>
       <span>{{ amount }}</span>
