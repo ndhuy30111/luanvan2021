@@ -2,7 +2,7 @@
   <v-container>
     <v-row align="center">
       <v-col cols="12">
-        <TreeSelect :select="items" :input="select"></TreeSelect>
+        <v-btn @click="toast">Test</v-btn>
       </v-col>
     </v-row>
     <hr />
@@ -11,9 +11,7 @@
 </template>
 
 <script>
-import TreeSelect from '../components/admin/TreeSelect'
 export default {
-  components: { TreeSelect },
   data: () => ({
     value: undefined,
 
@@ -90,6 +88,10 @@ export default {
   methods: {
     select(item) {
       this.value = item
+    },
+
+    toast() {
+      this.$toast.global.loading_image()
     },
   },
 }

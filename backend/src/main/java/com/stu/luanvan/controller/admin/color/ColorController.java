@@ -32,17 +32,31 @@ public class ColorController implements ColorInterfaceController{
     @Override
     @PostMapping
     @ResponseBody
-    public ResponseEntity<?> postSave(ColorRequest colorRequest) throws Exception {
+    public ResponseEntity<?> postSave(@RequestBody ColorRequest colorRequest) throws Exception {
         return new ResponseEntity<>(colorService.saveNew(colorRequest),HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<?> putSave(ColorRequest colorRequest, int id) throws Exception {
-        return null;
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<?> putSave(@RequestBody ColorRequest colorRequest,@PathVariable int id) throws Exception {
+        try{
+            return new ResponseEntity<>(colorService.saveEdit(colorRequest,id),HttpStatus.OK);
+        }catch(Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+
     }
 
     @Override
-    public ResponseEntity<?> delete(int id) throws Exception {
-        return null;
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable int id) throws Exception {
+        try{
+            colorService.delete(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch(Exception ex){
+            throw new Exception(ex.getMessage());
+        }
     }
 }

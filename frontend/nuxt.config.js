@@ -50,6 +50,7 @@ export default {
     '@nuxtjs/eslint-module',
     // Simple usage
     '@nuxtjs/vuetify',
+    '@nuxtjs/toast',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -61,6 +62,7 @@ export default {
     // Auth
     '@nuxtjs/auth-next',
     '@nuxtjs/cloudinary',
+    'nuxt-material-design-icons',
   ],
   bootstrapVue: {
     icons: true,
@@ -101,5 +103,45 @@ export default {
         autoLogout: true,
       },
     },
+  },
+  toast: {
+    register: [
+      // Register custom toasts
+
+      {
+        name: 'error',
+        message: 'Không thành công',
+        options: {
+          position: 'top-right',
+          type: 'error',
+          duration: 5000,
+          theme: 'outline',
+          icon: 'error',
+        },
+      },
+      {
+        name: 'loading',
+        message: 'Vui lòng bạn chờ ...',
+
+        options: {
+          position: 'top-right',
+          type: 'show',
+          duration: 5000,
+          theme: 'outline',
+          icon: 'hourglass_empty',
+        },
+      },
+      {
+        name: 'success',
+        message: 'Thành công',
+        options: {
+          position: 'top-right',
+          type: 'success',
+          duration: 5000,
+          theme: 'outline',
+          icon: 'check',
+        },
+      },
+    ],
   },
 }

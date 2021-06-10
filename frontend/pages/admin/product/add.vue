@@ -243,15 +243,6 @@
                             required
                           ></v-text-field>
                         </v-col>
-                        <v-col sm="6" cols="12">
-                          <v-text-field
-                            v-model.number="itemSize.amount"
-                            label="Số lượng"
-                            outlined
-                            clearable
-                            required
-                          ></v-text-field>
-                        </v-col>
                       </v-row>
                     </v-container>
                   </v-card>

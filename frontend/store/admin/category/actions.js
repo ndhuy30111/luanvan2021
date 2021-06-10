@@ -6,9 +6,10 @@ export default {
       category: category.data,
       select: select.data,
     }
-    commit('init', payload)
+    commit(this.$constant.admin.MUTATION_ADMIN_INIT, payload)
   },
-  async addContent({ commit }, item) {
+  async addCategory({ commit }, item) {
+    this.$toast.global.loading()
     const newCategory = {
       name: item.name,
       sort: item.sort,
@@ -17,12 +18,14 @@ export default {
     const res = await this.$repositories.categoryAdmin.create(newCategory)
     const { status, data } = res
     if (status === 201) {
-      commit('addContent', data)
+      commit(this.$constant.admin.MUTATION_ADMIN_CATEGORY_ADD_CONTENT, data)
+      this.$toast.global.success()
     } else {
-      // Handle error here
+      this.$toast.global.error()
     }
   },
-  async updateContent({ commit }, item) {
+  async updataCategory({ commit }, item) {
+    this.$toast.global.loading()
     const category = {
       name: item.name,
       sort: item.sort,
@@ -31,18 +34,21 @@ export default {
     const res = await this.$repositories.categoryAdmin.update(item.id, category)
     const { status, data } = res
     if (status === 200) {
-      commit('editContent', data)
+      this.$toast.global.success()
+      commit(this.$constant.admin.MUTATION_ADMIN_CATEGORY_UPDATE_CONTENT, data)
     } else {
-      alert('Không thay đổi, vui lòng kiểm tra lại')
+      this.$toast.global.error()
     }
   },
-  async deleteContent({ commit }, item) {
+  async deleteCategory({ commit }, item) {
+    this.$toast.global.loading()
     const res = await this.$repositories.categoryAdmin.delete(item.id)
     const { status } = res
     if (status === 204) {
-      commit('deleteContent', item)
+      this.$toast.global.success()
+      commit(this.$constant.admin.MUTATION_ADMIN_CATEGORY_DELETE_CONTENT, item)
     } else {
-      alert('Không thay đổi, vui lòng kiểm tra lại')
+      this.$toast.global.error()
     }
   },
 }

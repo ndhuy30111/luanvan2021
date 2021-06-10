@@ -1,21 +1,24 @@
 export default {
-  init(state, payload) {
+  INIT(state, payload) {
     state.contents = payload.category
     state.select = payload.select
   },
-  setContent(state, payload) {
+  MUTATION_ADMIN_CATEGORY_SET_CONTENT(state, payload) {
     state.contents = payload
   },
-  addContent(state, payload) {
+  MUTATION_ADMIN_CATEGORY_ADD_CONTENT(state, payload) {
     state.contents.push(payload)
   },
-  editContent(state, payload) {
+  MUTATION_ADMIN_CATEGORY_UPDATE_CONTENT(state, payload) {
     const contentIndex = state.contents.findIndex(
-      (content) => parseInt(content.id) === parseInt(payload.id)
+      (content) => content.id === parseInt(payload.id)
     )
+    if (contentIndex === -1) {
+      return
+    }
     state.contents[contentIndex] = payload
   },
-  deleteContent(state, payload) {
+  MUTATION_ADMIN_CATEGORY_DELETE_CONTENT(state, payload) {
     const contentIndex = state.contents.findIndex(
       (content) => parseInt(content.id) === parseInt(payload.id)
     )

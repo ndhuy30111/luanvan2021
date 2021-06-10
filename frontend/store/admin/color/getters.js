@@ -1,5 +1,5 @@
 export default {
-  getColor: (state) => {
+  getAll: (state) => {
     return state.color
   },
 }

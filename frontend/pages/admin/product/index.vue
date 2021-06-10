@@ -1,6 +1,6 @@
 <template>
   <v-data-table
-    :headers="headers"
+    :headers="$local.vn_admin_headerTable.PRODUCT_HEADER"
     :items="product"
     :search="search"
     sort-by="calories"
@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   layout: 'admin',
   data: () => ({
@@ -76,21 +77,6 @@ export default {
       sort: 1,
       category: '',
     },
-    headers: [
-      {
-        text: 'Tên danh mục',
-        align: 'start',
-        value: 'name',
-      },
-      { text: 'Đường dẫn', value: 'url' },
-      { text: 'Danh mục', value: 'category' },
-      { text: 'Ngày tạo', value: 'createDate' },
-      { text: 'Người tạo', value: 'createBy' },
-      { text: 'Người cập nhập', value: 'lastModifiedBy' },
-      { text: 'Ngày cập nhập', value: 'lastModifiedDate' },
-
-      { text: '', value: 'actions', sortable: false },
-    ],
     data: [],
   }),
   head() {
@@ -109,9 +95,10 @@ export default {
     formTitle() {
       return this.editedIndex === -1 ? 'Thêm dữ liệu' : 'Sửa dữ liệu'
     },
-    product() {
-      return this.$store.state.admin.product.product
-    },
+    ...mapGetters({
+      // map `this.doneCount` to `this.$store.getters.doneTodosCount`
+      product: 'admin/product/getAll',
+    }),
   },
   watch: {
     dialog(val) {
@@ -144,8 +131,10 @@ export default {
           this.product[this.editedIndex],
           this.editedItem
         )
-        console.log(item)
-        // this.$store.dispatch('admin/product/deleteContent', item)
+        this.$store.dispatch(
+          this.$constant.admin.ACTION_ADMIN_PRODUCT_DELETE,
+          item
+        )
       } else {
         // this.desserts.push(this.editedItem)
       }

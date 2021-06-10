@@ -1,6 +1,7 @@
 package com.stu.luanvan.service.category;
 
 import com.stu.luanvan.exception.NotFoundEx;
+import com.stu.luanvan.locales.ExceptionLocales;
 import com.stu.luanvan.model.category.CategoryModel;
 import com.stu.luanvan.repository.CategoryRepository;
 import com.stu.luanvan.request.CategoryRequest;
@@ -68,7 +69,7 @@ public class CategoryService implements CategoryServiceInterface{
                     findById(id).
                     orElse(null);
             if(category ==null){
-                throw new NotFoundEx("Không tìm thấy");
+                throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
             }
             category.edit(categoryRequest);
 
@@ -96,7 +97,7 @@ public class CategoryService implements CategoryServiceInterface{
                     findById(id).
                     orElse(null);
             if(category ==null){
-                throw new NotFoundEx("Không tìm thấy");
+                throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
             }
             categoryRepository.delete(category);
         }catch (Exception ex){

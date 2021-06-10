@@ -1,6 +1,7 @@
 package com.stu.luanvan.service.product;
 
 import com.stu.luanvan.exception.NotFoundEx;
+import com.stu.luanvan.locales.ExceptionLocales;
 import com.stu.luanvan.model.category.CategoryModel;
 import com.stu.luanvan.model.detailsproduct.DetailsProductModel;
 import com.stu.luanvan.model.file.FileModel;
@@ -121,20 +122,28 @@ public class ProductService implements ProductServiceInterface{
                 productRepository.save(product);
                 return product;
             }
-            throw new NotFoundEx("Không tìm thấy sản phẩm");
+            throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
         }catch(Exception ex){
             throw new Exception(ex.getMessage());
         }
     }
 
     @Override
+    @Transactional(rollbackFor = Throwable.class)
     public void delete(Integer id) throws Exception {
         try{
             var product = findById(id);
-            if(product!=null){
-                productRepository.delete(product);
+            if(product==null){
+                throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
             }
-            throw new NotFoundEx("Không tìm thấy sản phẩm");
+            if(!product.getInvoicedetals().isEmpty()){
+                throw new Exception(ExceptionLocales.CAN_NOT_DELETE_PRODUCT);
+            }
+            if(!product.getCategory().isEmpty()){
+                productRepository.deleteCategoryById(id);
+            }
+            productRepository.delete(product);
+
         }catch(Exception ex){
             throw new Exception(ex.getMessage());
         }

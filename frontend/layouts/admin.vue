@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <Navigation :menu="$local.vn_admin.menu" />
+      <Navigation :menu="menu" />
       <v-main>
         <Nuxt />
       </v-main>
@@ -14,15 +14,66 @@ import Navigation from '~/components/admin/header/Navigation'
 export default {
   components: { Navigation },
   middleware: 'authenticated',
-  created() {
-    this.init()
-  },
-  methods: {
-    init() {
-      this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_CATEGORY_INIT)
-      this.$store.dispatch('admin/color/init')
-      this.$store.dispatch('admin/product/init')
+  computed: {
+    menu() {
+      return [
+        {
+          name: this.$local.vn_admin_menu.CONTENT_MANAGEMENT,
+          function: [
+            {
+              name: this.$local.vn_admin_menu.CATEGORY_MANAGEMENT,
+              function: [
+                {
+                  name: this.$local.vn_admin_menu.CATEGORY_VIEW,
+                  url: 'admin-category',
+                },
+              ],
+            },
+            {
+              name: this.$local.vn_admin_menu.PRODUCT_MANAGEMENT,
+              function: [
+                {
+                  name: this.$local.vn_admin_menu.PRODUCT_VIEW,
+                  url: 'admin-product',
+                },
+                {
+                  name: this.$local.vn_admin_menu.PRODUCT_ADD,
+                  url: 'admin-product-add',
+                },
+              ],
+            },
+            {
+              name: this.$local.vn_admin_menu.COLOR_MANAGEMENT,
+              function: [
+                {
+                  name: this.$local.vn_admin_menu.COLOR_VIEW,
+                  url: 'admin-color',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: this.$local.vn_admin_menu.WAREHOUSE_MANAGEMENT,
+          function: [
+            {
+              name: this.$local.vn_admin_menu.IMPORT_PRODUCT_MANAGEMENT,
+              function: [
+                {
+                  name: this.$local.vn_admin_menu.IMPORT_PRODUCT_VIEW,
+                  url: 'admin-coupon',
+                },
+              ],
+            },
+          ],
+        },
+      ]
     },
+  },
+  created() {
+    this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_CATEGORY_INIT)
+    this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_COLOR_INIT)
+    this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT)
   },
 }
 </script>

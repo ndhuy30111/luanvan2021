@@ -89,7 +89,7 @@ public class ProductModel extends BaseModel {
     @JsonView(BaseViews.Internal.class)
     private Collection<InvoiceDetailsModel> invoicedetals;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     private Collection<DetailsProductModel> detailsProduct;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

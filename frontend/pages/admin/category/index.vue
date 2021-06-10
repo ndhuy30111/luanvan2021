@@ -1,6 +1,6 @@
 <template>
   <v-data-table
-    :headers="$local.vn_admin.category_headers"
+    :headers="$local.vn_admin_headerTable.CATEGORY_HEADER"
     :items="category"
     :search="search"
     sort-by="calories"
@@ -36,6 +36,7 @@
                     <v-text-field
                       v-model="editedItem.name"
                       label="Tên"
+                      :rules="nameRules"
                       required
                     ></v-text-field>
                   </v-col>
@@ -91,9 +92,6 @@
       <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
       <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
-    <!-- <template #[no-data]>
-      <v-btn color="primary" @click="initialize"> Reset </v-btn>
-    </template> -->
   </v-data-table>
 </template>
 
@@ -111,7 +109,16 @@ export default {
       sort: 1,
       category: '',
     },
+    defaultItem: {
+      name: '',
+      sort: 1,
+      category: '',
+    },
     data: [],
+    nameRules: [
+      (v) => !!v || 'Name is required',
+      (v) => v.length <= 20 || 'Name must be less than 10 characters',
+    ],
   }),
   head() {
     return {
@@ -131,8 +138,8 @@ export default {
     },
     ...mapGetters({
       // map `this.doneCount` to `this.$store.getters.doneTodosCount`
-      categorys: 'admin/category/getAllContent',
-      selects: 'admin/category/getAllSelect',
+      categorys: 'admin/category/getFindAll',
+      selects: 'admin/category/getFindByCategoryNull',
     }),
     category() {
       return this.categorys
@@ -154,7 +161,7 @@ export default {
   methods: {
     editItem(item) {
       this.editedIndex = this.category.indexOf(item)
-      this.editedItem = this.$_.cloneDeep(Object.assign({}, item))
+      this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
@@ -170,7 +177,10 @@ export default {
           this.category[this.editedIndex],
           this.editedItem
         )
-        this.$store.dispatch('admin/category/deleteContent', item)
+        this.$store.dispatch(
+          this.$constant.admin.ACTION_ADMIN_CATEGORY_DELETE,
+          item
+        )
       } else {
         // this.desserts.push(this.editedItem)
       }
@@ -195,16 +205,16 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        try {
-          const item = this.$_.cloneDeep(
-            Object.assign(this.category[this.editedIndex], this.editedItem)
-          )
-          this.$store.dispatch('admin/category/updateContent', item)
-        } catch (ex) {
-          console.log(ex)
-        }
+        const item = this.$_.clone(this.category[this.editedIndex])
+        this.$store.dispatch(
+          this.$constant.admin.ACTION_ADMIN_CATEGORY_UPDATA,
+          Object.assign(item, this.editedItem)
+        )
       } else {
-        this.$store.dispatch('admin/category/addContent', this.editedItem)
+        this.$store.dispatch(
+          this.$constant.admin.ACTION_ADMIN_CATEGORY_ADD,
+          this.editedItem
+        )
       }
       this.close()
     },

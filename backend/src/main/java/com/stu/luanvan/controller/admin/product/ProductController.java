@@ -50,4 +50,14 @@ public class ProductController implements ProductInterfaceController{
             return  new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> delete(@PathVariable int id) throws Exception {
+        try{
+            productService.delete(id);
+            return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+        }catch(Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+    }
 }
