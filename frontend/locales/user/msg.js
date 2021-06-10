@@ -2,7 +2,6 @@ export default () => ({
   nation: 'Việt Nam',
   shop: 'Shop 7755',
   sreach: 'Tìm kiếm',
-  menuproduct: ['ÁO THUN', 'VÁY', 'QUẦN JEAN'],
   title_news: 'Top sản phẩm bán chạy trong tháng',
   tilte_page_product: ['TẤT CẢ SẢN PHẨM'],
   shopnow: 'Mua sắm ngay',
@@ -16,28 +15,6 @@ export default () => ({
   size: 'Kích cỡ',
   quantity: 'Số lượng',
   add_cart: 'Thêm vào giỏ',
-  menu_header: [
-    {
-      content: 'Trang chủ',
-      url: '/',
-      active: true,
-    },
-    {
-      content: 'Sản phẩm',
-      url: 'shop',
-      active: false,
-    },
-    {
-      content: 'Liên hệ',
-      url: 'contact',
-      active: false,
-    },
-    {
-      content: 'Thông tin',
-      url: 'news',
-      active: false,
-    },
-  ],
   colors: [
     { name: 'black', value: '#000' },
     { name: 'white', value: '#FFF' },
@@ -118,7 +95,8 @@ export default () => ({
     'Tổng tiền',
     'Xóa',
   ],
-  total: 'Tổng tiền',
+  total: 'TỔNG TIỀN',
   checkout: 'Thanh toán',
   currency: 'đ',
+  category_vuex: ['Nữ', 'Nam', 'Sale'],
 })

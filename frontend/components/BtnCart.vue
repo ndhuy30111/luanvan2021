@@ -1,5 +1,5 @@
 <template>
-  <router-link to="cart">
+  <router-link :to="{ name: 'cart' }">
     <v-btn id="cart" icon>
       <b-icon icon="handbag"></b-icon>
       <span>{{ amount }}</span>
@@ -25,17 +25,18 @@ export default {
   margin-right: 10px;
   span {
     position: absolute;
-    margin-top: -25px;
+    margin-top: -30px;
     margin-left: 25px;
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
     background: #ec410d;
     color: #ffffff;
     border-radius: 50%;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 650;
     text-align: center;
     line-height: 15px;
+    padding-top: 2px;
   }
 }
 </style>

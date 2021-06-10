@@ -17,7 +17,6 @@
 
 <script>
 export default {
-  name: 'Filter1',
   data: () => {
     return {
       select: null,

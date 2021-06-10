@@ -1,14 +1,12 @@
 <template>
   <div class="product-grid">
     <div class="product-image">
-      <router-link to="productDetail">
-        <img class="pic-1" src="~/assets/product/vay1.jpg" />
-      </router-link>
+      <img class="pic-1" :src="product.image" />
       <ul class="social">
         <li>
-          <router-link to="ProductDetail" data-tip="Xem chi tiết"
+          <a data-tip="Xem chi tiết" @click="productdetail(product)"
             ><b-icon icon="search"></b-icon
-          ></router-link>
+          ></a>
         </li>
         <li>
           <router-link to="#" data-tip="Yêu thích"
@@ -16,7 +14,9 @@
           ></router-link>
         </li>
       </ul>
-      <!-- <span class="product-new-label">Sale</span> -->
+      <p v-for="(value, index) in product.category" :key="index">
+        <span v-if="value == 'Sale'" class="product-new-label">Sale</span>
+      </p>
       <span class="product-discount-label"></span>
     </div>
     <ul class="rating">
@@ -40,13 +40,16 @@
 
 <script>
 export default {
-  data() {
-    return {
-      product: {
-        name: 'Chân váy AH',
-        price: 315000,
-      },
-    }
+  props: ['product'],
+  methods: {
+    productdetail(product) {
+      this.$router.push({
+        name: 'productdetail-id',
+        params: {
+          id: product.id,
+        },
+      })
+    },
   },
 }
 </script>
@@ -105,7 +108,7 @@ export default {
       }
       a:hover {
         color: #fff;
-        background-color: #ce785c;
+        background-color: #ff0000;
       }
       a:after,
       a:before {
@@ -129,7 +132,7 @@ export default {
   .product-discount-label,
   .product-new-label {
     color: #fff;
-    background-color: #ce785c;
+    background-color: #ff0000;
     font-size: 12px;
     text-transform: uppercase;
     padding: 2px 7px;
@@ -206,7 +209,7 @@ export default {
 }
 .product-grid .title a:hover,
 .product-grid:hover .title a {
-  color: #ef5777;
+  color: #ff0000;
 }
 .product-grid .price {
   color: #333;
