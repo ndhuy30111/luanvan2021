@@ -91,7 +91,7 @@ export default {
     },
 
     toast() {
-      this.$toast.global.loading_image()
+      this.$toast.global.cart()
     },
   },
 }

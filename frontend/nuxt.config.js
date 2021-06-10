@@ -142,6 +142,17 @@ export default {
           icon: 'check',
         },
       },
+      {
+        name: 'cart',
+        message: 'Thêm giỏ hàng thành công',
+        options: {
+          position: 'top-right',
+          type: 'success',
+          duration: 5000,
+          theme: 'outline',
+          icon: 'check',
+        },
+      },
     ],
   },
 }

@@ -1,6 +1,14 @@
 export default {
   MUTATIONS_CART_ADDTOCART(state, cartItem) {
-    state.cart.push(cartItem)
+    const cart = state.cart.find(
+      (content) => content.id === parseInt(cartItem.id)
+    )
+    this.$toast.global.cart()
+    if (!cart) {
+      state.cart.push(cartItem)
+    } else {
+      cart.quantity += cartItem.quantity
+    }
     localStorage.setItem('cart', JSON.stringify(state.cart))
   },
 
