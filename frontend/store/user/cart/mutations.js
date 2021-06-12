@@ -1,7 +1,10 @@
 export default {
   MUTATIONS_CART_ADDTOCART(state, cartItem) {
     const cart = state.cart.find(
-      (content) => content.id === parseInt(cartItem.id)
+      (content) =>
+        content.id === parseInt(cartItem.id) &&
+        content.color === cartItem.color &&
+        content.size === cartItem.size
     )
     this.$toast.global.cart()
     if (!cart) {
