@@ -1,9 +1,23 @@
 package com.stu.luanvan.controller.admin.coupon;
 
 import com.stu.luanvan.request.CouponRequest;
+import com.stu.luanvan.service.coupon.CouponService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping("/api/admin/coupon")
+@CrossOrigin //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
+@EnableTransactionManagement
 public class CouponController implements CouponInterfaceController{
+    @Autowired
+    private CouponService couponService;
     @Override
     public ResponseEntity<?> getFindAll() {
         return null;
@@ -15,8 +29,13 @@ public class CouponController implements CouponInterfaceController{
     }
 
     @Override
+    @PostMapping
     public ResponseEntity<?> postSave(CouponRequest couponRequest) throws Exception {
-        return null;
+        try {
+            return new ResponseEntity<>(couponService.saveNew(couponRequest), HttpStatus.OK);
+        }catch (Exception ex){
+            return  new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override

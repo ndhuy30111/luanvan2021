@@ -1,7 +1,7 @@
 package com.stu.luanvan.controller.admin.product;
 
 import com.stu.luanvan.exception.NotFoundEx;
-import com.stu.luanvan.request.ProductRequest;
+import com.stu.luanvan.request.product.ProductRequest;
 import com.stu.luanvan.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,6 +46,18 @@ public class ProductController implements ProductInterfaceController{
             var product  =  productService.saveNew(productRequest);
 
            return new ResponseEntity<>(product, HttpStatus.CREATED);
+        }catch (Exception ex){
+            return  new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
+    @PutMapping("/{id}")
+    @Override
+    public ResponseEntity<?> putSaveById(@Valid @RequestBody ProductRequest productRequest,@PathVariable Integer id) throws Exception {
+        try {
+            return new ResponseEntity<>(productService.saveEdit(productRequest,id),HttpStatus.OK);
         }catch (Exception ex){
             return  new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
         }

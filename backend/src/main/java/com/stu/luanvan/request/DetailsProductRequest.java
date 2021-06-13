@@ -12,8 +12,9 @@ import java.util.Collection;
 public class DetailsProductRequest {
     private Integer id;
     private Integer color;
+    private String name;
     private String image;
     private FileRequest file;
     private Collection<SizeRequest> size;
-    private Integer productId;
+    private Integer product;
 }

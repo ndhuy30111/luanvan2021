@@ -28,14 +28,14 @@ public class SizeModel extends BaseModel {
     @Pattern(regexp = PatternLocales.NAME_PATTERN, message = MessageLocales.NAME_PATTERN)
     private String name;
 
-    @Column(columnDefinition = "int(5) default 0 COMMENT 'Số lượng sản phẩm'")
-    @Min(value = 0,message = MessageLocales.MIN + "0")
-    private Integer amount;
+    @Column(columnDefinition = "int(5) default 0 COMMENT 'Số lượng sản phẩm'",nullable = false)
+    @Min(value = -1,message = MessageLocales.MIN + "-1")
+    private Integer amount = 0;
 
     @ManyToOne
-    @JoinColumn(name="color_id")
+    @JoinColumn(name="detailsproduct_id")
     @JsonBackReference
-    private DetailsProductModel color;
+    private DetailsProductModel detailsProductModel;
 
     @OneToMany(mappedBy = "size")
     private Collection<CouponModel> coupon;
@@ -45,9 +45,9 @@ public class SizeModel extends BaseModel {
         this.amount = amount;
     }
 
-    public SizeModel(String name, DetailsProductModel color) {
+    public SizeModel(String name, DetailsProductModel detailsProductModel) {
         this.name = name;
-        this.color = color;
+        this.detailsProductModel = detailsProductModel;
     }
 
     public void setAmount(Integer amount) throws Exception {
@@ -55,6 +55,9 @@ public class SizeModel extends BaseModel {
         if(this.amount<0){
             throw new Exception("Lỗi số lượng");
         }
+    }
+    public void themAmount(Integer amount){
+        this.amount +=amount;
     }
 
 }

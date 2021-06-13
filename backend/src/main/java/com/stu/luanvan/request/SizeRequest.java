@@ -24,6 +24,7 @@ public class SizeRequest {
     }
     @Min(value = 0,message = MessageLocales.MIN + "0")
     private Integer amount;
+    private Integer detailsProduct;
 
 
 }

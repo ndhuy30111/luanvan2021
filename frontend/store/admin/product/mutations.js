@@ -5,7 +5,7 @@ export default {
   MUTATION_ADMIN_PRODUCT_ADD(state, product) {
     state.product.push(product)
   },
-  editProduct(state, product) {
+  MUTATION_ADMIN_PRODUCT_UPDATE(state, product) {
     const contentIndex = state.product.findIndex(
       (content) => parseInt(content.id) === parseInt(product.id)
     )
