@@ -1,5 +1,6 @@
 package com.stu.luanvan.controller.admin.detailsproduct;
 
+import com.stu.luanvan.controller.URlController;
 import com.stu.luanvan.request.DetailsProductRequest;
 import com.stu.luanvan.service.detailsproduct.DetailsProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/admin/detailsproduct")
+@RequestMapping(URlController.DETAILS_PRODUCT_ADMIN)
 @CrossOrigin
 @EnableTransactionManagement
 public class DetailsProductController implements DetailsProductInterfaceController{

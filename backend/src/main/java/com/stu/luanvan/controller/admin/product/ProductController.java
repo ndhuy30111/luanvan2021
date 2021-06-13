@@ -1,5 +1,6 @@
 package com.stu.luanvan.controller.admin.product;
 
+import com.stu.luanvan.controller.URlController;
 import com.stu.luanvan.exception.NotFoundEx;
 import com.stu.luanvan.request.product.ProductRequest;
 import com.stu.luanvan.service.product.ProductService;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/admin/product")
+@RequestMapping(URlController.PRODUCT_ADMIN)
 @CrossOrigin //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
 @EnableTransactionManagement
 public class ProductController implements ProductInterfaceController{

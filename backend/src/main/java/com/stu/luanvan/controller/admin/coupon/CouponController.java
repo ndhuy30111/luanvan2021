@@ -1,5 +1,6 @@
 package com.stu.luanvan.controller.admin.coupon;
 
+import com.stu.luanvan.controller.URlController;
 import com.stu.luanvan.request.CouponRequest;
 import com.stu.luanvan.service.coupon.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/admin/coupon")
+@RequestMapping(URlController.COUPON_ADMIN)
 @CrossOrigin //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
 @EnableTransactionManagement
 public class CouponController implements CouponInterfaceController{

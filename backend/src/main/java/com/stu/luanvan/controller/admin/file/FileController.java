@@ -1,5 +1,6 @@
 package com.stu.luanvan.controller.admin.file;
 
+import com.stu.luanvan.controller.URlController;
 import com.stu.luanvan.request.MessageRequest;
 import com.stu.luanvan.service.cloudinary.CloudinaryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/api/admin/file")
+@RequestMapping(URlController.FILE_ADMIN)
 public class FileController implements FileInterfaceController{
     @Autowired
     private CloudinaryService cloudinaryService;

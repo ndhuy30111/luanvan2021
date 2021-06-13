@@ -1,5 +1,6 @@
 package com.stu.luanvan.controller.admin.color;
 
+import com.stu.luanvan.controller.URlController;
 import com.stu.luanvan.request.ColorRequest;
 import com.stu.luanvan.service.color.ColorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/admin/color") //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
+@RequestMapping(URlController.COLOR_ADMIN) //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
 @EnableTransactionManagement
 public class ColorController implements ColorInterfaceController{
 

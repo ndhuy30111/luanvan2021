@@ -1,6 +1,7 @@
 package com.stu.luanvan.controller.admin.category;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.stu.luanvan.controller.URlController;
 import com.stu.luanvan.exception.NotFoundEx;
 import com.stu.luanvan.model.category.CategoryViews;
 import com.stu.luanvan.request.CategoryRequest;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/admin/category") //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
+@RequestMapping(URlController.CATEGORY_ADMIN) //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
 @EnableTransactionManagement
 public class CategoryController implements CategoryInterfaceController{
 

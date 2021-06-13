@@ -1,5 +1,6 @@
 package com.stu.luanvan.config;
 
+import com.stu.luanvan.controller.URlController;
 import com.stu.luanvan.filter.JwtRequestFilter;
 import com.stu.luanvan.security.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private  static String ROLE_ADMIN = "ADMIN";
+    private static String ROLE_EDIT="EDIT";
     @Autowired
     private MyUserDetailsService myUserDetailsService;
     @Autowired
@@ -33,12 +36,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        hasRole("ADMIN")
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/api/admin/category").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET,"/api/admin/category/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET,"/api/admin/user").hasAnyRole("ADMIN","EDIT")
-                .antMatchers(HttpMethod.POST,"/api/admin/category").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT,"/api/admin/category").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE,"/api/admin/category").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, URlController.CATEGORY_ADMIN).hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET,URlController.PRODUCT_ADMIN).hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET,URlController.COLOR_ADMIN).hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET,URlController.COUPON_ADMIN).hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET,URlController.DETAILS_PRODUCT_ADMIN).hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET,URlController.FILE_ADMIN).hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET,URlController.SIZE_ADMIN).hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET,URlController.CATEGORY_ADMIN+"/**").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET,"/api/admin/user").hasAnyRole(ROLE_ADMIN,ROLE_EDIT)
+                .antMatchers(HttpMethod.POST,URlController.ADMIN+"/**").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.PUT,URlController.ADMIN+"/**").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.DELETE,URlController.ADMIN+"/**").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.GET,"/api/user").authenticated()
                 .antMatchers(HttpMethod.POST,"/api/register").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/login").permitAll()
