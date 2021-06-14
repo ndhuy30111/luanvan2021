@@ -8,13 +8,13 @@ import com.github.slugify.Slugify;
 import com.stu.luanvan.locales.MessageLocales;
 import com.stu.luanvan.locales.PatternLocales;
 import com.stu.luanvan.model.BaseModel;
+import com.stu.luanvan.model.BaseViews;
 import com.stu.luanvan.model.category.CategoryModel;
 import com.stu.luanvan.model.detailsproduct.DetailsProductModel;
 import com.stu.luanvan.model.file.FileModel;
 import com.stu.luanvan.model.invoicedetails.InvoiceDetailsModel;
-import com.stu.luanvan.model.BaseViews;
 import com.stu.luanvan.model.review.ReviewModel;
-import com.stu.luanvan.request.ProductRequest;
+import com.stu.luanvan.request.product.ProductRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -67,7 +67,7 @@ public class ProductModel extends BaseModel {
 
     @Column(columnDefinition = "NVARCHAR(255) COMMENT 'Nội dung ngắn của sản phẩm để giới thiệu nhanh'")
     @JsonView(BaseViews.Public.class)
-    private String info_small;
+    private String infoSmall;
 
     @OneToOne
     @JoinColumn
@@ -113,17 +113,16 @@ public class ProductModel extends BaseModel {
     }
 
 
-    public ProductModel( String name, Long price, String info, String info_small, FileModel image) {
+    public ProductModel( String name, Long price, String info, String infoSmall, FileModel image) {
         setName(name);
         this.price = price;
         this.info = info;
-        this.info_small = info_small;
+        this.infoSmall = infoSmall;
         this.image = image;
     }
 
     public void edit(ProductRequest pr){
-
-        if(StringUtils.isEmpty(pr.getName())){
+        if(!StringUtils.isEmpty(pr.getName())){
             setName(pr.getName());
         }
 
@@ -131,12 +130,12 @@ public class ProductModel extends BaseModel {
             this.price = pr.getPrice();
         }
 
-        if(StringUtils.isEmpty(pr.getInfo())){
+        if(!StringUtils.isEmpty(pr.getInfo())){
             this.info = pr.getInfo();
         }
 
-        if(StringUtils.isEmpty(pr.getInfo_small())){
-            this.info_small = pr.getInfo_small();
+        if(!StringUtils.isEmpty(pr.getInfoSmall())){
+            this.infoSmall = pr.getInfoSmall();
         }
     }
 }

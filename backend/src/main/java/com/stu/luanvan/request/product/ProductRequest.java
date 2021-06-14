@@ -1,7 +1,9 @@
-package com.stu.luanvan.request;
+package com.stu.luanvan.request.product;
 
 import com.stu.luanvan.locales.MessageLocales;
 import com.stu.luanvan.locales.PatternLocales;
+import com.stu.luanvan.request.DetailsProductRequest;
+import com.stu.luanvan.request.FileRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +27,7 @@ public class ProductRequest{
     private Long price;
     private String image;
     private String info;
-    private String info_small;
+    private String infoSmall;
     private FileRequest file;
     private Integer category;
     private Collection<DetailsProductRequest> detailsProduct;

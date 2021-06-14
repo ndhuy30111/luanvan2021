@@ -42,7 +42,7 @@ public class DetailsProductModel extends BaseModel {
     @JsonIdentityReference(alwaysAsId = true)
     private ProductModel product;
 
-    @OneToMany(mappedBy = "color",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "detailsProductModel",cascade = CascadeType.ALL)
     @JsonManagedReference
     private Collection<SizeModel> size;
 
@@ -51,5 +51,10 @@ public class DetailsProductModel extends BaseModel {
         this.color = color;
         this.image = image;
         this.product = product;
+    }
+
+    public DetailsProductModel(ColorModel color, Collection<SizeModel> size) {
+        this.color = color;
+        this.size = size;
     }
 }

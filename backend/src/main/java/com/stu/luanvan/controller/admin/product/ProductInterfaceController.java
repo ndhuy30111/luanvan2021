@@ -1,6 +1,6 @@
 package com.stu.luanvan.controller.admin.product;
 
-import com.stu.luanvan.request.ProductRequest;
+import com.stu.luanvan.request.product.ProductRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,4 +14,5 @@ public interface ProductInterfaceController {
                                  @RequestParam(name = "name",required = false,defaultValue = "id") String name);
     ResponseEntity<?> getFindById(@PathVariable int id);
     ResponseEntity<?> postSave(@Valid @RequestBody ProductRequest productRequest) throws Exception;
+    ResponseEntity<?> putSaveById(@Valid @RequestBody ProductRequest ProductRequest,@PathVariable Integer id) throws Exception;
 }

@@ -31,7 +31,7 @@ public class ColorModel {
     @Column(columnDefinition = "VARCHAR(15) NOT NULL COMMENT 'Tên màu'")
     @Pattern(regexp = PatternLocales.NAME_PATTERN, message = MessageLocales.NAME_PATTERN)
     private String name;
-    @OneToMany
+    @OneToMany(mappedBy = "color")
     @JsonBackReference
     private Collection<DetailsProductModel> detailsProduct;
     @Column(columnDefinition = "VARCHAR(10) NULL COMMENT 'Mã Màu'")

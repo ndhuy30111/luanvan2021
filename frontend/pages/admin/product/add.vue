@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="onSubmit">
+  <v-form @submit.prevent="onSubmit">
     <v-container>
       <v-row>
         <v-col cols="12" sm="6">
@@ -84,7 +84,7 @@
                 <v-row>
                   <v-col cols="12" sm="12">
                     <v-textarea
-                      v-model="form.info_samll"
+                      v-model="form.infoSmall"
                       label="Mô tả ngắn"
                       outlined
                       clearable
@@ -253,7 +253,7 @@
         </v-col>
       </v-row>
     </v-container>
-  </form>
+  </v-form>
 </template>
 
 <script>
@@ -268,7 +268,7 @@ export default {
       price: 0,
       image: '',
       info: '',
-      info_samll: '',
+      infoSmall: '',
       category: null,
       detailsProduct: [
         {
@@ -307,6 +307,7 @@ export default {
     async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
       if (!file) return
       try {
+        this.$toast.global.loading()
         const formData = new FormData()
         formData.append('file', file)
         await this.$axios
@@ -314,26 +315,13 @@ export default {
           .then((response) => {
             Editor.insertEmbed(cursorLocation, 'image', response.url)
             resetUploader()
+            this.$toast.global.success()
           })
       } catch (e) {
-        console.log(e)
+        this.$toast.global.error()
       }
     },
-    async handleImagDelete(file, Editor, cursorLocation, resetUploader) {
-      if (!file) return
-      try {
-        const formData = new FormData()
-        formData.append('file', file)
-        await this.$axios
-          .$post('http://localhost:8080/api/admin/file', formData)
-          .then((response) => {
-            Editor.insertEmbed(cursorLocation, 'image', response.url)
-            resetUploader()
-          })
-      } catch (event) {
-        alert('Lỗi')
-      }
-    },
+    handleImagDelete(file) {},
     async inputFile(event, item) {
       item.image = await this.createBase64Image(event)
     },
@@ -378,7 +366,10 @@ export default {
     },
     onSubmit(event) {
       event.preventDefault()
-      this.$store.dispatch('admin/product/addProduct', this.form)
+      this.$store.dispatch(
+        this.$constant.admin.ACTION_ADMIN_PRODUCT_ADD,
+        this.form
+      )
     },
   },
 }

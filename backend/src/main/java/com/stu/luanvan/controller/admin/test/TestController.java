@@ -2,9 +2,7 @@ package com.stu.luanvan.controller.admin.test;
 
 import com.cloudinary.Cloudinary;
 import com.stu.luanvan.exception.NotFoundEx;
-import com.stu.luanvan.request.CategoryRequest;
 import com.stu.luanvan.request.FileRequest;
-import com.stu.luanvan.request.ProductRequest;
 import com.stu.luanvan.service.category.CategoryService;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;

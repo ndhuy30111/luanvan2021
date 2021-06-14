@@ -8,7 +8,8 @@ import com.stu.luanvan.model.file.FileModel;
 import com.stu.luanvan.model.product.ProductModel;
 import com.stu.luanvan.model.size.SizeModel;
 import com.stu.luanvan.repository.*;
-import com.stu.luanvan.request.ProductRequest;
+import com.stu.luanvan.request.product.ProductEditRequest;
+import com.stu.luanvan.request.product.ProductRequest;
 import com.stu.luanvan.service.ObjectMapDto;
 import com.stu.luanvan.service.category.CategoryService;
 import com.stu.luanvan.service.cloudinary.CloudinaryService;
@@ -72,7 +73,7 @@ public class ProductService implements ProductServiceInterface{
                 file = fileRepository.findByName(productRequest.getFile().getPublicId());
             }
 
-            var product = new ProductModel(productRequest.getName(),productRequest.getPrice(),productRequest.getInfo(),productRequest.getInfo_small(),file);
+            var product = new ProductModel(productRequest.getName(),productRequest.getPrice(),productRequest.getInfo(),productRequest.getInfoSmall(),file);
             var category = categoryService.findById(productRequest.getCategory());
             if(category!=null){
                 Collection<CategoryModel> listCategory = new ArrayList<>();
@@ -116,9 +117,6 @@ public class ProductService implements ProductServiceInterface{
             var product = findById(id);
             if(product!=null){
                 product.edit(productRequest);
-                if(productRequest.getCategory()!=null){
-                    var category = categoryService.findById(productRequest.getId());
-                }
                 productRepository.save(product);
                 return product;
             }
@@ -147,5 +145,10 @@ public class ProductService implements ProductServiceInterface{
         }catch(Exception ex){
             throw new Exception(ex.getMessage());
         }
+    }
+
+    @Override
+    public ProductModel saveEdit(ProductEditRequest productEditRequest, int id) throws Exception {
+        return null;
     }
 }

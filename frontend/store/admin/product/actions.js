@@ -15,7 +15,28 @@ export default {
       this.$toast.global.error()
     }
   },
-  async editProduct({ commit }, item) {},
+  async updateProduct({ commit }, item) {
+    try {
+      this.$toast.global.loading()
+      const product = {
+        name: item.name,
+        price: item.price,
+        infoSmall: item.infoSmall,
+        info: item.info,
+      }
+      const res = await this.$repositories.productAdmin.update(item.id, product)
+      const { status } = res
+      if (parseInt(status) === 200) {
+        this.$toast.global.success()
+        commit(this.$constant.admin.MUTATION_ADMIN_PRODUCT_UPDATE, item)
+      } else {
+        // Handle error here
+        this.$toast.global.error()
+      }
+    } catch (e) {
+      this.$toast.global.error()
+    }
+  },
   async deleteProduct({ commit }, item) {
     try {
       this.$toast.global.loading()
