@@ -63,6 +63,13 @@
                             required
                           ></v-text-field>
                         </v-col>
+                        <v-col cols="12">
+                          <v-text-field
+                            :label="$local.vn.address"
+                            :value="user.address"
+                            required
+                          ></v-text-field>
+                        </v-col>
                       </v-row>
                     </v-container>
                   </v-card-text>

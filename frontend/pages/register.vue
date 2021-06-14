@@ -48,6 +48,28 @@
 
           <b-form-group>
             <b-form-input
+              id="address"
+              v-model="form.address"
+              type="text"
+              :placeholder="$local.vn.address"
+              required
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group>
+            <b-form-input
+              id="numberPhone"
+              v-model="form.numberPhone"
+              type="number"
+              :state="
+                form.numberPhone.length >= 10 && form.numberPhone.length <= 11
+              "
+              :placeholder="$local.vn.numberPhone"
+              required
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group>
+            <b-form-input
               id="password"
               v-model.trim="$v.form.password.$model"
               :state="form.password.length >= 6"
@@ -77,15 +99,6 @@
           <div v-if="!$v.form.repeatPassword.sameAsPassword" class="mes_error">
             {{ $local.vn.err_password[2] }}
           </div>
-          <b-form-group id="checkboxes" v-slot="{ ariaDescribedby }">
-            <b-form-checkbox-group
-              id="checked"
-              v-model="form.checked"
-              :aria-describedby="ariaDescribedby"
-            >
-              <b-form-checkbox value="remember">Remenber me</b-form-checkbox>
-            </b-form-checkbox-group>
-          </b-form-group>
 
           <Button :text="$local.vn.register_title" />
         </b-form>
@@ -106,6 +119,8 @@ export default {
         email: '',
         name: '',
         userName: '',
+        address: '',
+        numberPhone: '',
         password: '',
         repeatPassword: '',
       },

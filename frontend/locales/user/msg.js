@@ -18,11 +18,9 @@ export default () => ({
   colors: [
     { name: 'black', value: '#000' },
     { name: 'white', value: '#FFF' },
-    { name: 'blue darken-4', value: '#0D47A1' },
+    { name: 'blue darken-4', value: 'red' },
     { name: 'yellow accent-2', value: '#FFFF00' },
-    { name: 'deep-orange accent-3', value: '#FF3D00' },
-    { name: 'deep-purple lighten-1', value: '#7E57C2' },
-    { name: 'grey lighten-1', value: '#BDBDBD' },
+    { name: 'deep-orange accent-3', value: 'green' },
   ],
 
   // Account
@@ -36,9 +34,12 @@ export default () => ({
   phone: 'Số điện thoại',
   user_name: 'Tên người dùng',
   account_name: 'Tên tài khoản',
+  address: 'Địa chỉ',
+  numberPhone: 'Số điện thoại',
   repeatPassword: 'Nhập lại mật khẩu',
   password: 'Mật khẩu',
   forget_password: 'Quên mật khẩu',
+  remember_password: 'Nhớ mật khẩu',
   err_password: ['Mật khẩu có ít nhất', 'kí tự', 'Mật khẩu phải trùng khớp'],
   memu_account: [
     { title: 'Đăng ký', url: 'register' },

@@ -9,10 +9,15 @@
         <b-form v-if="show" @submit="onSubmit" @reset="onReset">
           <b-form-group>
             <b-form-input
-              id="username"
-              v-model="form.username"
-              type="text"
-              :placeholder="$local.vn.account_name"
+              id="email"
+              v-model="form.email"
+              type="email"
+              :state="
+                /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(form.email)
+                  ? true
+                  : false
+              "
+              placeholder="Email"
               required
             ></b-form-input>
           </b-form-group>
@@ -35,9 +40,9 @@
                   v-model="form.checked"
                   :aria-describedby="ariaDescribedby"
                 >
-                  <b-form-checkbox value="remember"
-                    >Remenber me</b-form-checkbox
-                  >
+                  <b-form-checkbox value="remember">{{
+                    $local.vn.remember_password
+                  }}</b-form-checkbox>
                 </b-form-checkbox-group>
               </b-form-group>
             </div>
@@ -62,7 +67,7 @@ export default {
   data() {
     return {
       form: {
-        username: '',
+        email: '',
         password: '',
       },
       message: '',
@@ -77,7 +82,7 @@ export default {
         await this.$auth
           .loginWith('local', {
             data: {
-              userName: this.form.username,
+              email: this.form.email,
               password: this.form.password,
             },
           })

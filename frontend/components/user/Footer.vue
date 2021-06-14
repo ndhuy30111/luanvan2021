@@ -3,7 +3,7 @@
     <v-card class="flex" flat tile>
       <v-card-title>
         <v-row>
-          <v-col cols="12" md="3" sm="3">
+          <v-col cols="12" md="4" sm="5">
             <v-list-item>
               <v-list-item-content>
                 <v-list-item-title class="tit">{{
@@ -33,7 +33,7 @@
               </v-list-item-content>
             </v-list-item>
           </v-col>
-          <v-col cols="12" md="4" sm="4">
+          <v-col cols="12" md="3" sm="2">
             <v-btn v-for="icon in icons" :key="icon" class="mx-4 social" icon>
               <v-icon size="24px">
                 {{ icon }}
