@@ -10,4 +10,6 @@ export default () => ({
   ACTIONS_USER_REGISTER: 'user/account/register',
 
   ACTIONS_PRODUCT_GETALL: 'user/product/getAll',
+
+  ACTIONS_SEARCH: 'user/search/getSearch',
 })

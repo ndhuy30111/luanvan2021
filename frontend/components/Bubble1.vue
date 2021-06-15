@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  export default {
-    name: 'BaseBubble1',
-  }
+export default {
+  name: 'BaseBubble1',
+}
 </script>

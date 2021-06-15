@@ -5,7 +5,7 @@
         <v-btn v-bind="attrs" icon v-on="on">
           <b-icon id="person" icon="person-check"></b-icon>
         </v-btn>
-        {{ user.name }}
+        <article id="username">{{ user.name }}</article>
       </template>
       <v-list v-if="!user">
         <v-list-item
@@ -115,10 +115,13 @@ export default {
 
 <style lang="scss" scoped>
 .acc {
-  margin: 0px 10px;
   #person {
     font-size: 1.5rem;
   }
+}
+#username {
+  display: inline-block;
+  font-size: 14px;
 }
 a.text {
   color: rgb(0, 0, 0);
@@ -126,5 +129,10 @@ a.text {
 }
 a:hover {
   color: #ce785c;
+}
+@media screen and (max-width: 500px) {
+  #username {
+    font-size: 10px;
+  }
 }
 </style>

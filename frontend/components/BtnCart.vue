@@ -21,7 +21,7 @@ export default {
 
 <style lang="scss" scoped>
 #cart {
-  font-size: larger;
+  font-size: 1.2rem;
   margin-right: 10px;
   span {
     position: absolute;

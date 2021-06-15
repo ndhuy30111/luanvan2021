@@ -18,6 +18,7 @@
     <v-spacer></v-spacer>
     <v-responsive max-width="500">
       <v-text-field
+        v-model="search"
         background-color="grey lighten-5"
         dense
         flat
@@ -26,12 +27,12 @@
         solo
         append-icon="mdi-magnify"
         :label="$local.vn.sreach"
+        @input="keysearch()"
       >
       </v-text-field>
     </v-responsive>
     <BtnCart />
     <MenuAccount />
-    <!-- <v-avatar color="teal" size="38"></v-avatar> -->
   </v-app-bar>
 </template>
 
@@ -64,6 +65,7 @@ export default {
           active: false,
         },
       ],
+      search: '',
     }
   },
   methods: {
@@ -75,6 +77,9 @@ export default {
           item.active = false
         }
       })
+    },
+    keysearch() {
+      this.$emit('keysearch', this.search)
     },
   },
 }

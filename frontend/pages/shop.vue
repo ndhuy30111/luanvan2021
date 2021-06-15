@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row class="menu">
+    <!-- <v-row class="menu">
       <v-col class="collection">
         <div class="collection_img">
           <img
@@ -9,18 +9,20 @@
           />
         </div>
       </v-col>
-    </v-row>
+    </v-row> -->
 
     <v-row>
       <v-col v-show="!mobileView" cols="12" sm="4" md="3">
         <FilterLeft />
       </v-col>
       <v-col v-show="!mobileView" cols="12" sm="8" md="9" class="list-product">
-        <FilterTop />
-        <h4>Tất cả sản phẩm</h4>
+        <p class="d-flex justify-content-center">Tất cả sản phẩm</p>
+        <p v-show="search != ''" style="font-size: 20px; color: red">
+          Kết quả tìm kiếm: <strong>{{ resultsSearch }}</strong>
+        </p>
         <v-row>
           <v-col
-            v-for="item in listproduct"
+            v-for="item in filteredList"
             :key="item.id"
             cols="6"
             md="4"
@@ -38,11 +40,10 @@
       </v-col>
 
       <v-col v-show="mobileView" cols="12" class="list-product">
-        <FilterTop />
-        <h4>Tất cả sản phẩm</h4>
+        <p class="d-flex justify-content-center">Tất cả sản phẩm</p>
         <v-row>
           <v-col
-            v-for="item in listproduct"
+            v-for="item in filteredList"
             :key="item.id"
             cols="6"
             md="4"
@@ -60,25 +61,36 @@
 
 <script>
 import FilterLeft from '~/components/user/filter/Filter.vue'
-import FilterTop from '~/components/user/filter/Filter1.vue'
 import FiterMobile from '~/components/user/filter/FiterMobile.vue'
 import Product from '~/components/user/Product.vue'
 export default {
   name: 'Shop',
-  components: { FilterLeft, FilterTop, Product, FiterMobile },
+  components: { FilterLeft, Product, FiterMobile },
   data: () => {
     return {
       mobileView: true,
+      resultsSearch: '',
     }
   },
   computed: {
     listproduct() {
       return this.$store.state.user.product.list_products
     },
+    search() {
+      return this.$store.state.user.search.search
+    },
+    filteredList() {
+      return this.listproduct.filter((item) => {
+        return item.name.toLowerCase().includes(this.search.toLowerCase())
+      })
+    },
   },
   created() {
     this.handleView()
     addEventListener('resize', this.handleView)
+  },
+  updated() {
+    this.resultsSearch = this.filteredList.length
   },
   methods: {
     handleView() {
@@ -94,5 +106,17 @@ export default {
 }
 .collection {
   margin-top: -40px;
+}
+.list-product {
+  p {
+    font-size: 30px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .list-product {
+    p {
+      font-size: 20px;
+    }
+  }
 }
 </style>

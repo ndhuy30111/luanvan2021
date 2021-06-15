@@ -40,7 +40,12 @@
 
 <script>
 export default {
-  props: ['product'],
+  props: {
+    product: {
+      type: Object,
+      default: null,
+    },
+  },
   methods: {
     productdetail(product) {
       this.$router.push({
