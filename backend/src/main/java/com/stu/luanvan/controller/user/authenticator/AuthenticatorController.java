@@ -1,7 +1,6 @@
 package com.stu.luanvan.controller.user.authenticator;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.stu.luanvan.exception.BadRequestEx;
 import com.stu.luanvan.exception.NotFoundEx;
 import com.stu.luanvan.model.BaseViews;
 import com.stu.luanvan.request.LoginRequest;
@@ -39,24 +38,18 @@ public class AuthenticatorController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody UserRequest userRequest) throws Exception {
-        try{
-            userService.saveNew(userRequest);
-           return new ResponseEntity<>(HttpStatus.CREATED);
-        }catch(Exception ex){
-            throw new Exception(ex.getMessage());
-        }catch (Throwable ex){
-            throw new BadRequestEx(ex.getMessage());
-        }
+        userService.saveNew(userRequest);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) throws Exception {
         try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(),loginRequest.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 
         }catch (BadCredentialsException ex){
             throw new NotFoundEx(ex.getMessage());
         }
-        var userDetails = myUserDetailsService.loadUserByUsername(loginRequest.getUserName());
+        var userDetails = myUserDetailsService.loadUserByUsername(loginRequest.getEmail());
         var jwt =jwtUtil.generateToken(userDetails);
         var date = jwtUtil.extractExpiration(jwt);
         return new ResponseEntity<>(new JwtResponse(jwt,date),HttpStatus.OK);

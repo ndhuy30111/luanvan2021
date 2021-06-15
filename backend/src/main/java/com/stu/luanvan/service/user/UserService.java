@@ -67,15 +67,16 @@ public class UserService implements UserServiceInterfaces {
     public UserModel saveNew(UserRequest userRequest) throws Exception {
 
            try{
-               var find = findByUserName(userRequest.getUserName());
+               var find = findByEmail(userRequest.getEmail());
                if(find != null){
-                   throw new BadRequestEx("trung userName");
+                   throw new BadRequestEx("Email already exists");
                }
                UserModel user = new UserModel(userRequest);
                return userRepository.save(user);
            }catch (Exception ex){
-               throw new Exception(ex.getMessage());
+               throw new Exception(ex.getLocalizedMessage());
         }
+
 
     }
 
@@ -91,5 +92,10 @@ public class UserService implements UserServiceInterfaces {
     @Override
     public UserModel findByUserName(String userName) {
         return userRepository.findByUserName(userName);
+    }
+
+    @Override
+    public UserModel findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

@@ -46,12 +46,12 @@ public class AuthonticatorController implements AuthonticatorInterfaceController
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) throws Exception {
         try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(),loginRequest.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 
         }catch (BadCredentialsException ex){
             throw new NotFoundEx(ex.getMessage());
         }
-        var userDetails = myUserDetailsService.loadUserByUsername(loginRequest.getUserName());
+        var userDetails = myUserDetailsService.loadUserByUsername(loginRequest.getEmail());
         var jwt =jwtUtil.generateToken(userDetails);
         var date = jwtUtil.extractExpiration(jwt);
         return new ResponseEntity<>(new JwtResponse(jwt,date),HttpStatus.OK);

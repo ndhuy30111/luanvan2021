@@ -17,15 +17,15 @@ public class MyUserDetailsService implements UserDetailsService {
 
     /**
      * Xác thực người dùng theo username
-     * @param username
+     * @param email
      * @return UserDetails
      */
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserModel userModel = userRepository.findByUserName(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        UserModel userModel = userRepository.findByEmail(email);
         if(userModel==null){
-             throw new UsernameNotFoundException(username);
+             throw new UsernameNotFoundException(email);
         }
         return new MyUserDetails(userModel);
 

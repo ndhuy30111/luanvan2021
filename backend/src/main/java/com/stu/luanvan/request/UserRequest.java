@@ -32,7 +32,14 @@ public class UserRequest {
     public void setEmail(String email) {
         this.email = StringUtils.normalizeSpace(email);
     }
+
     @NotBlank(message = MessageLocales.PASSWORD_NOTBLANK)
 //    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$\n",message = "Password không hợp lệ")
     private String password;
+
+    @NotBlank(message = MessageLocales.ADDRESS_NOTBLANK)
+    private String address;
+
+    @NotBlank(message = MessageLocales.NUMBERPHONE_NOTBLANK)
+    private String numberPhone;
 }

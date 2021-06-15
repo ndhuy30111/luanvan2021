@@ -7,6 +7,7 @@ public class MessageLocales {
     public final static String PASSWORD_NOTBLANK = "Vui lòng bạn nhập mật khẩu";
     public final static String EMAIL_BLANK = "Vui lòng bạn nhập email";
     public final static String ADDRESS_NOTBLANK = "Vui lòng bạn nhập địa chỉ";
+    public final static String NUMBERPHONE_NOTBLANK = "Vui lòng bạn nhập số điện thoại";
 
     //PATTERN_REQUEST
     public final static String NAME_PATTERN = "Nhập tên không hợp lệ";

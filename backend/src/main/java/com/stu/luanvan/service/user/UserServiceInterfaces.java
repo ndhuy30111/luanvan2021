@@ -6,4 +6,5 @@ import com.stu.luanvan.service.ServiceInterfaces;
 
 public interface UserServiceInterfaces extends ServiceInterfaces<UserModel, UserRequest> {
     UserModel findByUserName(String userName);
+    UserModel findByEmail(String email);
 }

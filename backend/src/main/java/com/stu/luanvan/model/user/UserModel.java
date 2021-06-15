@@ -59,12 +59,12 @@ public class UserModel{
     private boolean isEnabled;
 
     @Column(columnDefinition = "VARCHAR(13) default 0  COMMENT 'Số điện thoại khách hàng' ")
-    @Pattern(regexp = PatternLocales.NUMBERPHONE_PATTERN,message = MessageLocales.NUMBERPHONE_PATTERN)
+//    @Pattern(regexp = PatternLocales.NUMBERPHONE_PATTERN,message = MessageLocales.NUMBERPHONE_PATTERN)
     @JsonView(BaseViews.Public.class)
     private String numberPhone;
 
     @Column(columnDefinition = "VARCHAR(200) NULL COMMENT 'địa chỉ hiện tại'")
-    @Pattern(regexp = PatternLocales.NAME_PATTERN, message = MessageLocales.ADDRESS_PATTERN)
+//    @Pattern(regexp = PatternLocales.NAME_PATTERN, message = MessageLocales.ADDRESS_PATTERN)
     @JsonView(BaseViews.Public.class)
     private String address;
 
@@ -106,6 +106,8 @@ public class UserModel{
         this.userName = userRequest.getUserName();
         this.name = userRequest.getName();
         this.email = userRequest.getEmail();
+        this.address = userRequest.getAddress();
+        this.numberPhone = userRequest.getNumberPhone();
         setPassword(userRequest.getPassword());
     }
 }
