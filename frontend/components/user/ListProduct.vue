@@ -13,60 +13,58 @@
         :key="indexs"
       >
         <v-container fluid>
-          <LazyMountainsList>
-            <v-row>
-              <v-col
-                v-for="(item, index) in category.product"
-                :key="index"
-                cols="6"
-                md="4"
-                lg="4"
-                sm="6"
-                xs="6"
-              >
-                <div class="product-grid">
-                  <div class="product-image">
-                    <img class="pic-1" :src="item.image" />
-                    <ul class="social">
-                      <li>
-                        <a data-tip="Xem chi tiết" @click="productdetail(item)"
-                          ><b-icon icon="search"></b-icon
-                        ></a>
-                      </li>
-                      <li>
-                        <router-link to="#" data-tip="Yêu thích"
-                          ><b-icon icon="heart"></b-icon
-                        ></router-link>
-                      </li>
-                    </ul>
-                    <p v-for="(value, i) in item.category" :key="i">
-                      <span v-if="value == 'Sale'" class="product-new-label"
-                        >Sale</span
-                      >
-                    </p>
-                    <span class="product-discount-label"></span>
-                  </div>
-                  <ul class="rating">
-                    <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>
-                    <li class="fa fa-star disable"></li>
+          <v-row>
+            <v-col
+              v-for="(item, index) in category.product"
+              :key="index"
+              cols="6"
+              md="4"
+              lg="4"
+              sm="6"
+              xs="6"
+            >
+              <div class="product-grid">
+                <div class="product-image">
+                  <img class="pic-1" :src="item.image" />
+                  <ul class="social">
+                    <li>
+                      <a data-tip="Xem chi tiết" @click="productdetail(item)"
+                        ><b-icon icon="search"></b-icon
+                      ></a>
+                    </li>
+                    <li>
+                      <router-link to="#" data-tip="Yêu thích"
+                        ><b-icon icon="heart"></b-icon
+                      ></router-link>
+                    </li>
                   </ul>
-                  <div class="product-content">
-                    <h6 class="title">
-                      <a href="#">{{ item.name }}</a>
-                    </h6>
-                    <div class="price">
-                      {{ item.price.toLocaleString() }}
-                      {{ $local.vn.currency }}
-                    </div>
-                    <a class="add-to-cart">+ {{ $local.vn.add_cart }}</a>
-                  </div>
+                  <p v-for="(value, i) in item.category" :key="i">
+                    <span v-if="value == 'Sale'" class="product-new-label"
+                      >Sale</span
+                    >
+                  </p>
+                  <span class="product-discount-label"></span>
                 </div>
-              </v-col>
-            </v-row>
-          </LazyMountainsList>
+                <ul class="rating">
+                  <li class="fa fa-star"></li>
+                  <li class="fa fa-star"></li>
+                  <li class="fa fa-star"></li>
+                  <li class="fa fa-star"></li>
+                  <li class="fa fa-star disable"></li>
+                </ul>
+                <div class="product-content">
+                  <h6 class="title">
+                    <a href="#">{{ item.name }}</a>
+                  </h6>
+                  <div class="price">
+                    {{ item.price.toLocaleString() }}
+                    {{ $local.vn.currency }}
+                  </div>
+                  <a class="add-to-cart">+ {{ $local.vn.add_cart }}</a>
+                </div>
+              </div>
+            </v-col>
+          </v-row>
         </v-container>
       </v-tab-item>
     </v-tabs>

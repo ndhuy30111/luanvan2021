@@ -1,5 +1,5 @@
 <template>
-  <b-container class="shopping-cart">
+  <b-container fluid class="shopping-cart">
     <b-row>
       <b-col cols="12" md="12">
         <div class="cart-table">
@@ -25,8 +25,8 @@
                   </h5>
                 </td>
                 <td class="p-price" aria-readonly="readonly">
-                  {{ parseInt(item.price).toLocaleString()
-                  }}{{ $local.vn.currency }}
+                  {{ parseInt(item.price).toLocaleString() }}
+                  {{ $local.vn.currency }}
                 </td>
                 <td class="qua-col">
                   <div class="quantity">
@@ -216,13 +216,15 @@ export default {
   }
 }
 .count {
-  width: 35px;
+  width: 30px;
 }
 .minus {
+  font-size: 17px;
   margin-right: 10px;
   cursor: pointer;
 }
 .plus {
+  font-size: 17px;
   margin-left: -7px;
   cursor: pointer;
 }
@@ -249,8 +251,8 @@ export default {
   * {
     font-size: 8px;
   }
-  .input_price {
-    font-size: 8px;
+  .count {
+    width: 27px;
   }
   .minus {
     font-size: 10px;

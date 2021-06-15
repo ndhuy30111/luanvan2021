@@ -59,7 +59,7 @@
                         <v-col cols="12">
                           <v-text-field
                             :label="$local.vn.phone"
-                            :value="user.phone"
+                            :value="user.numberPhone"
                             required
                           ></v-text-field>
                         </v-col>

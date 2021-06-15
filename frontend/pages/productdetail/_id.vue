@@ -36,13 +36,13 @@
               <div class="size-wrap">
                 <h5>{{ $local.vn.size }}:</h5>
                 <span
-                  v-for="(size, indexSize) in size"
+                  v-for="(item, indexSize) in size"
                   :key="indexSize"
                   class="size"
-                  :value="size.name"
-                  :class="sizeActive.id === size.id ? 'selected' : ''"
-                  @click="SizeActive(size)"
-                  >{{ size.name }}</span
+                  :value="item.name"
+                  :class="sizeActive.id === item.id ? 'selected' : ''"
+                  @click="SizeActive(item)"
+                  >{{ item.name }}</span
                 >
               </div>
 
@@ -216,6 +216,7 @@ export default {
   display: flex;
   align-items: center;
   border-radius: 10px;
+  margin-top: 30px;
 }
 p {
   width: 280px;
@@ -373,7 +374,7 @@ p {
 }
 @media (max-width: 700px) {
   .wrapper {
-    margin: -100px 0px 0px -35px;
+    margin: -90px 0px 5px -32px;
   }
   .outer {
     width: 95%;

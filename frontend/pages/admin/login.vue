@@ -10,9 +10,9 @@
             <v-card-text>
               <v-form>
                 <v-text-field
-                  v-model="userName"
+                  v-model="email"
                   label="Email"
-                  type="text"
+                  type="email"
                 ></v-text-field>
                 <v-text-field
                   v-model="password"
@@ -40,7 +40,7 @@ export default {
   middleware: 'isauthenticated',
   data() {
     return {
-      userName: '',
+      email: '',
       password: '',
     }
   },
@@ -50,7 +50,7 @@ export default {
       try {
         await this.$auth
           .loginWith('local', {
-            data: { userName: this.userName, password: this.password },
+            data: { email: this.email, password: this.password },
           })
           .then(() => {
             this.$router.push({ name: 'admin' })
