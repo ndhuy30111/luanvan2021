@@ -1,6 +1,7 @@
 package com.stu.luanvan.service.user;
 
 import com.stu.luanvan.exception.BadRequestEx;
+import com.stu.luanvan.exception.NotFoundEx;
 import com.stu.luanvan.locales.ExceptionLocales;
 import com.stu.luanvan.model.user.UserModel;
 import com.stu.luanvan.repository.UserRepository;
@@ -70,9 +71,9 @@ public class UserService implements UserServiceInterfaces {
     @Override
     public UserModel saveNew(UserRequest userRequest) throws Exception {
             try{
-                var find = findByUserName(userRequest.getUserName());
+                var find = findByEmail(userRequest.getEmail());
                 if(find != null){
-                    throw new BadRequestEx(ExceptionLocales.NAME_SAKE);
+                    throw new BadRequestEx(ExceptionLocales.EMAIL_SAKE);
                 }
                 UserModel user = new UserModel(userRequest);
                 return userRepository.save(user);
@@ -83,8 +84,18 @@ public class UserService implements UserServiceInterfaces {
     }
 
     @Override
-    public UserModel saveEdit(UserRequest userRequest,int id) {
-        return null;
+    public UserModel saveEdit(UserRequest userRequest,int id) throws Exception {
+        try {
+            var user = findById(id);
+            if(user ==null){
+                throw new NotFoundEx(ExceptionLocales.NOT_FOUND);
+            }
+            user.edit(userRequest);
+            userRepository.save(user);
+            return user;
+        }catch (Exception ex){
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override

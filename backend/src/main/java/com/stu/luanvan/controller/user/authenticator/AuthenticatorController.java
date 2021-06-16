@@ -55,6 +55,11 @@ public class AuthenticatorController {
         var date = jwtUtil.extractExpiration(jwt);
         return new ResponseEntity<>(new JwtResponse(jwt,date),HttpStatus.OK);
     }
+    @PutMapping("/user/{id}")
+    public ResponseEntity<?> putSave(@Valid @RequestBody UserRequest userRequest, @PathVariable int id) throws Exception {
+        var user = userService.saveEdit(userRequest,id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
     @GetMapping("/user")
     @JsonView(BaseViews.Public.class)
     public ResponseEntity<?> profile(){

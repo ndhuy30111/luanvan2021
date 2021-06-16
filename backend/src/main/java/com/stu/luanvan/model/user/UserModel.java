@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -109,5 +110,11 @@ public class UserModel{
         this.address = userRequest.getAddress();
         this.numberPhone = userRequest.getNumberPhone();
         setPassword(userRequest.getPassword());
+    }
+    public void edit(UserRequest ur){
+        this.name = ur.getName();
+        this.userName = ur.getUserName();
+        this.address = ur.getAddress();
+        this.numberPhone = ur.getNumberPhone();
     }
 }
