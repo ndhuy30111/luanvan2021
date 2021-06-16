@@ -1,10 +1,13 @@
 package com.stu.luanvan.service.user;
 
 import com.stu.luanvan.exception.BadRequestEx;
+import com.stu.luanvan.locales.ExceptionLocales;
 import com.stu.luanvan.model.user.UserModel;
 import com.stu.luanvan.repository.UserRepository;
 import com.stu.luanvan.request.UserRequest;
 import com.stu.luanvan.service.ObjectMapDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +19,7 @@ import java.util.Map;
 
 @Service
 public class UserService implements UserServiceInterfaces {
+    private Logger logger = LoggerFactory.getLogger(UserService.class.getName());
     @Autowired
     UserRepository userRepository;
     /**
@@ -65,19 +69,17 @@ public class UserService implements UserServiceInterfaces {
      */
     @Override
     public UserModel saveNew(UserRequest userRequest) throws Exception {
-
-           try{
-               var find = findByEmail(userRequest.getEmail());
-               if(find != null){
-                   throw new BadRequestEx("Email already exists");
-               }
-               UserModel user = new UserModel(userRequest);
-               return userRepository.save(user);
-           }catch (Exception ex){
-               throw new Exception(ex.getLocalizedMessage());
-        }
-
-
+            try{
+                var find = findByUserName(userRequest.getUserName());
+                if(find != null){
+                    throw new BadRequestEx(ExceptionLocales.NAME_SAKE);
+                }
+                UserModel user = new UserModel(userRequest);
+                return userRepository.save(user);
+            }catch (Exception ex){
+                logger.error(ex.getMessage());
+                throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
+            }
     }
 
     @Override
@@ -96,6 +98,6 @@ public class UserService implements UserServiceInterfaces {
 
     @Override
     public UserModel findByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return null;
     }
 }

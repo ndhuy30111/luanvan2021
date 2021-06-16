@@ -21,6 +21,7 @@ public class CategoryRequest {
     public void setName(String name) {
         this.name = StringUtils.normalizeSpace(name);
     }
+
     private Integer sort;
     private String category;
 

@@ -32,11 +32,9 @@ public class CouponController implements CouponInterfaceController{
     @Override
     @PostMapping
     public ResponseEntity<?> postSave(CouponRequest couponRequest) throws Exception {
-        try {
+
             return new ResponseEntity<>(couponService.saveNew(couponRequest), HttpStatus.OK);
-        }catch (Exception ex){
-            return  new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
-        }
+
     }
 
     @Override

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 public class SizeController implements SizeInterfacaeController{
     @Autowired
     private SizeService sizeService;
-
     @Override
     @PostMapping
     public ResponseEntity<?> postSave(@RequestBody SizeRequest sizeRequest) throws Exception {

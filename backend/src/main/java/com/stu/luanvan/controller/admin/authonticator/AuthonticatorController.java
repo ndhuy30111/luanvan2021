@@ -16,6 +16,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,15 +35,20 @@ public class AuthonticatorController implements AuthonticatorInterfaceController
     @Autowired
     private JwtUtil jwtUtil;
 
+
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody UserRequest userRequest) throws Exception {
-        try{
-            var user =  userService.saveNew(userRequest);
-            return new ResponseEntity<>(user, HttpStatus.CREATED);
-        }catch(Exception ex){
-            throw new Exception(ex.getMessage());
+    @ResponseBody
+    public ResponseEntity<?> register(@Valid @RequestBody UserRequest userRequest, Errors errors) throws Exception {
+        if (errors.hasErrors()) {
+            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         }
+        var user =  userService.saveNew(userRequest);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
+
     }
+
+
+
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) throws Exception {
         try{

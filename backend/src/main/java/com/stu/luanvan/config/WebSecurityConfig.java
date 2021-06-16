@@ -33,10 +33,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        hasRole("ADMIN")
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, URlController.CATEGORY_ADMIN).hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET,URlController.CATEGORY_ADMIN).hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.GET,URlController.PRODUCT_ADMIN).hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.GET,URlController.COLOR_ADMIN).hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.GET,URlController.COUPON_ADMIN).hasRole(ROLE_ADMIN)
@@ -45,13 +44,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,URlController.SIZE_ADMIN).hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.GET,URlController.CATEGORY_ADMIN+"/**").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.GET,"/api/admin/user").hasAnyRole(ROLE_ADMIN,ROLE_EDIT)
-                .antMatchers(HttpMethod.POST,URlController.ADMIN+"/**").hasRole(ROLE_ADMIN)
-                .antMatchers(HttpMethod.PUT,URlController.ADMIN+"/**").hasRole(ROLE_ADMIN)
-                .antMatchers(HttpMethod.DELETE,URlController.ADMIN+"/**").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.GET,"/api/user").authenticated()
                 .antMatchers(HttpMethod.POST,"/api/register").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/login").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/admin/login").permitAll()
+                .antMatchers(HttpMethod.POST,URlController.ADMIN+"/**").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.PUT,URlController.ADMIN+"/**").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.DELETE,URlController.ADMIN+"/**").hasRole(ROLE_ADMIN)
+
+
                 .anyRequest().permitAll()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

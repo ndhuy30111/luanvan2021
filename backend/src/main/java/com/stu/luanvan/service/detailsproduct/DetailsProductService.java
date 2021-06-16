@@ -10,6 +10,8 @@ import com.stu.luanvan.repository.ProductRepository;
 import com.stu.luanvan.repository.SizeRepository;
 import com.stu.luanvan.request.DetailsProductRequest;
 import com.stu.luanvan.service.cloudinary.CloudinaryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ import java.util.Collection;
 import java.util.Map;
 @Service
 public class DetailsProductService implements DetailsProductServiceinterface{
+    private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private DetailsProductReponsitory detailsProductReponsitory;
     @Autowired
@@ -60,7 +63,8 @@ public class DetailsProductService implements DetailsProductServiceinterface{
             });
             return findById(detailsProduct.getId());
         }catch (Exception ex){
-             throw  new Exception(ex.getMessage());
+            logger.error("Save Details Product: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
         }
 
     }

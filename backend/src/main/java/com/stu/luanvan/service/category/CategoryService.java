@@ -1,11 +1,14 @@
 package com.stu.luanvan.service.category;
 
+import com.stu.luanvan.exception.BadRequestEx;
 import com.stu.luanvan.exception.NotFoundEx;
 import com.stu.luanvan.locales.ExceptionLocales;
 import com.stu.luanvan.model.category.CategoryModel;
 import com.stu.luanvan.repository.CategoryRepository;
 import com.stu.luanvan.request.CategoryRequest;
 import com.stu.luanvan.service.ObjectMapDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +20,7 @@ import java.util.Collection;
 import java.util.Map;
 @Service
 public class CategoryService implements CategoryServiceInterface{
+    private  Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private CategoryRepository categoryRepository;
     @Override
@@ -45,6 +49,9 @@ public class CategoryService implements CategoryServiceInterface{
     @Transactional(rollbackFor = Throwable.class)
     public CategoryModel saveNew(CategoryRequest categoryRequest) throws Exception {
         try{
+            if(categoryRepository.findByName(categoryRequest.getName())!=null){
+                throw new BadRequestEx(ExceptionLocales.NAME_SAKE);
+            }
             CategoryModel category ;
             CategoryModel categoryFind;
             if(categoryRequest.getCategory()!=null){
@@ -53,10 +60,10 @@ public class CategoryService implements CategoryServiceInterface{
             }else{
                 category = new CategoryModel(categoryRequest,null);
             }
-
             return categoryRepository.save(category);
         }catch(Exception ex){
-            throw new Exception(ex.getMessage());
+            logger.error("Save Category: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -65,6 +72,9 @@ public class CategoryService implements CategoryServiceInterface{
     @Transactional(rollbackFor = Throwable.class)
     public CategoryModel saveEdit(CategoryRequest categoryRequest,int id) throws Exception {
         try{
+            if(categoryRepository.findByName(categoryRequest.getName())!=null){
+                throw new BadRequestEx(ExceptionLocales.NAME_SAKE);
+            }
             var category = categoryRepository.
                     findById(id).
                     orElse(null);
@@ -72,19 +82,18 @@ public class CategoryService implements CategoryServiceInterface{
                 throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
             }
             category.edit(categoryRequest);
-
             if(categoryRequest.getCategory()!=null){
-
                 var categoryFind = categoryRepository.findByName(categoryRequest.getCategory());
                 category.setCategory(categoryFind);
             }
             else{
                 category.setCategory(null);
             }
-
             return categoryRepository.save(category);
         }catch (Exception ex){
-            throw new Exception(ex.getMessage());
+
+            logger.error("Edit Category: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -101,8 +110,11 @@ public class CategoryService implements CategoryServiceInterface{
             }
             categoryRepository.delete(category);
         }catch (Exception ex){
-            throw new Exception(ex.getMessage());
+            logger.error("Delete Category: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
         }
+
+
     }
 
     @Override

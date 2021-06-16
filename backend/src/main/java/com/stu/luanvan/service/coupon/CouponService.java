@@ -6,6 +6,8 @@ import com.stu.luanvan.model.coupon.CouponModel;
 import com.stu.luanvan.repository.CouponRepository;
 import com.stu.luanvan.repository.SizeRepository;
 import com.stu.luanvan.request.CouponRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.Collection;
 import java.util.Map;
 @Service
 public class CouponService implements CouponSerivceInterface{
+    private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private CouponRepository couponRepository;
     @Autowired
@@ -45,7 +48,8 @@ public class CouponService implements CouponSerivceInterface{
             sizeRepository.save(size);
             return coupon;
         }catch(Exception ex){
-            throw new Exception(ex.getMessage());
+            logger.error("Save Coupon: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
         }
     }
 

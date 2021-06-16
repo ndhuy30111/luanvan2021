@@ -8,6 +8,8 @@ import com.stu.luanvan.repository.DetailsProductReponsitory;
 import com.stu.luanvan.repository.ProductRepository;
 import com.stu.luanvan.repository.SizeRepository;
 import com.stu.luanvan.request.SizeRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ import java.util.Collection;
 import java.util.Map;
 @Service
 public class SizeService implements SizeServiceInterfaces {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private DetailsProductReponsitory detailsProductReponsitory;
     @Autowired
@@ -47,8 +51,9 @@ public class SizeService implements SizeServiceInterfaces {
             }
             var size = new SizeModel(sizeRequest.getName(),detailsProduct);
             return sizeRepository.save(size);
-        }catch(Exception e){
-            throw new Exception(e.getMessage());
+        }catch(Exception ex){
+            logger.error("Save Size: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
         }
 
     }

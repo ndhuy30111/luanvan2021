@@ -27,6 +27,7 @@ import javax.validation.Valid;
 @RequestMapping("/api")
 @EnableTransactionManagement
 public class AuthenticatorController {
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -38,8 +39,8 @@ public class AuthenticatorController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody UserRequest userRequest) throws Exception {
-        userService.saveNew(userRequest);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+         var user = userService.saveNew(userRequest);
+         return user==null ? new ResponseEntity<>(HttpStatus.NOT_FOUND): new ResponseEntity<>(HttpStatus.CREATED);
     }
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) throws Exception {

@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @CrossOrigin
 @RequestMapping(URlController.CATEGORY_ADMIN) //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
@@ -71,13 +73,10 @@ public class CategoryController implements CategoryInterfaceController{
      */
     @PostMapping
     @ResponseBody
-    public ResponseEntity<?> postSave(@RequestBody CategoryRequest categoryRequest) throws Exception {
-       try {
-           var category = categoryService.saveNew(categoryRequest);
-           return new ResponseEntity<>(category, HttpStatus.CREATED);
-       }catch (Exception ex){
-           return  new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
-       }
+    public ResponseEntity<?> postSave(@Valid @RequestBody CategoryRequest categoryRequest) throws Exception {
+        var category = categoryService.saveNew(categoryRequest);
+        return new ResponseEntity<>(category, HttpStatus.CREATED);
+
     }
 
     /**
@@ -89,13 +88,10 @@ public class CategoryController implements CategoryInterfaceController{
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<?> putSave(@RequestBody CategoryRequest categoryRequest,@PathVariable int id) throws Exception {
-        try{
-            var category = categoryService.saveEdit(categoryRequest,id);
-            return new ResponseEntity<>(category, HttpStatus.OK);
-        }catch (Exception ex){
-            throw new Exception(ex.getMessage());
-        }
+    public ResponseEntity<?> putSave(@Valid @RequestBody CategoryRequest categoryRequest, @PathVariable int id) throws Exception {
+
+        var category = categoryService.saveEdit(categoryRequest,id);
+        return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
     /**
@@ -107,11 +103,8 @@ public class CategoryController implements CategoryInterfaceController{
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> delete(@PathVariable int id) throws Exception {
-        try{
-            categoryService.delete(id);
-            return new ResponseEntity<>( HttpStatus.NO_CONTENT);
-        }catch(Exception ex){
-            throw new Exception(ex.getMessage());
-        }
+        categoryService.delete(id);
+        return new ResponseEntity<>( HttpStatus.OK);
+
     }
 }

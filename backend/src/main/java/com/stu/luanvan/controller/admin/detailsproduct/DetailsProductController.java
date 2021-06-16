@@ -22,10 +22,6 @@ public class DetailsProductController implements DetailsProductInterfaceControll
     @PostMapping
     @ResponseBody
     public ResponseEntity<?> postSave(@RequestBody @Valid DetailsProductRequest detailsProductRequest) throws Exception {
-        try {
             return new ResponseEntity<>(detailsProductService.saveNew(detailsProductRequest), HttpStatus.CREATED);
-        }catch (Exception ex){
-            return  new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
-        }
     }
 }

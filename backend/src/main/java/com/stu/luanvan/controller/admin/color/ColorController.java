@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @CrossOrigin
 @RequestMapping(URlController.COLOR_ADMIN) //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
@@ -33,7 +35,7 @@ public class ColorController implements ColorInterfaceController{
     @Override
     @PostMapping
     @ResponseBody
-    public ResponseEntity<?> postSave(@RequestBody ColorRequest colorRequest) throws Exception {
+    public ResponseEntity<?> postSave(@Valid @RequestBody ColorRequest colorRequest) throws Exception {
         return new ResponseEntity<>(colorService.saveNew(colorRequest),HttpStatus.CREATED);
     }
 
@@ -41,23 +43,15 @@ public class ColorController implements ColorInterfaceController{
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<?> putSave(@RequestBody ColorRequest colorRequest,@PathVariable int id) throws Exception {
-        try{
+    public ResponseEntity<?> putSave(@Valid @RequestBody ColorRequest colorRequest, @PathVariable int id) throws Exception {
             return new ResponseEntity<>(colorService.saveEdit(colorRequest,id),HttpStatus.OK);
-        }catch(Exception ex){
-            throw new Exception(ex.getMessage());
-        }
 
     }
 
     @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable int id) throws Exception {
-        try{
             colorService.delete(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }catch(Exception ex){
-            throw new Exception(ex.getMessage());
-        }
+            return new ResponseEntity<>(HttpStatus.OK);
     }
 }

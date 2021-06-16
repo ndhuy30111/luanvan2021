@@ -16,20 +16,14 @@ public class FileController implements FileInterfaceController{
     private CloudinaryService cloudinaryService;
     @PostMapping
     public ResponseEntity<?> uploadFile(@RequestParam(value = "file") MultipartFile file,@RequestParam(value="name",required = false) String name) {
-        try{
+
             var fileCloudinary = cloudinaryService.uploadFile(file,name);
             return new ResponseEntity<>(fileCloudinary  ,HttpStatus.CREATED);
-        }catch (Exception ex){
-            throw new RuntimeException(ex);
-        }
+
     }
     @DeleteMapping(value="/{filename}")
     public ResponseEntity<?> deleteFile(@PathVariable String filename) {
-        try{
             var message = cloudinaryService.deleteFile(filename);
             return new ResponseEntity<>(new MessageRequest(message),HttpStatus.OK);
-        }catch (Exception ex){
-            throw new RuntimeException(ex);
-        }
     }
 }

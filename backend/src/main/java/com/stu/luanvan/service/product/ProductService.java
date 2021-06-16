@@ -13,6 +13,8 @@ import com.stu.luanvan.request.product.ProductRequest;
 import com.stu.luanvan.service.ObjectMapDto;
 import com.stu.luanvan.service.category.CategoryService;
 import com.stu.luanvan.service.cloudinary.CloudinaryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +28,7 @@ import java.util.Map;
 
 @Service
 public class ProductService implements ProductServiceInterface{
+    private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -106,7 +109,8 @@ public class ProductService implements ProductServiceInterface{
             });
             return product;
         }catch (Exception ex){
-            throw new Exception(ex.getMessage());
+            logger.error("Save Product: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -115,14 +119,15 @@ public class ProductService implements ProductServiceInterface{
     public ProductModel saveEdit(ProductRequest productRequest,int id) throws Exception {
         try{
             var product = findById(id);
-            if(product!=null){
-                product.edit(productRequest);
-                productRepository.save(product);
-                return product;
+            if(product==null){
+                throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
             }
-            throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
+            product.edit(productRequest);
+            productRepository.save(product);
+            return product;
         }catch(Exception ex){
-            throw new Exception(ex.getMessage());
+            logger.error("Edit Product: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -135,7 +140,7 @@ public class ProductService implements ProductServiceInterface{
                 throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
             }
             if(!product.getInvoicedetals().isEmpty()){
-                throw new Exception(ExceptionLocales.CAN_NOT_DELETE_PRODUCT);
+                throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
             }
             if(!product.getCategory().isEmpty()){
                 productRepository.deleteCategoryById(id);
@@ -143,7 +148,8 @@ public class ProductService implements ProductServiceInterface{
             productRepository.delete(product);
 
         }catch(Exception ex){
-            throw new Exception(ex.getMessage());
+            logger.error("Delete Product: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
         }
     }
 
