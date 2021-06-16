@@ -10,4 +10,5 @@ public class ExceptionLocales {
     public final static String RequestMethodNotSupport="No support method";
     public final static String FOUND_ERROR= "You cannot access";
     public final static String NAME_SAKE= "Namesake";
+    public final static String EMAIL_SAKE= "Emailsake";
 }
