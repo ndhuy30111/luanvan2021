@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(URlController.COUPON_ADMIN)
 @CrossOrigin //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
@@ -31,14 +33,14 @@ public class CouponController implements CouponInterfaceController{
 
     @Override
     @PostMapping
-    public ResponseEntity<?> postSave(CouponRequest couponRequest) throws Exception {
+    public ResponseEntity<?> postSave(@Valid CouponRequest couponRequest) throws Exception {
 
             return new ResponseEntity<>(couponService.saveNew(couponRequest), HttpStatus.OK);
 
     }
 
     @Override
-    public ResponseEntity<?> putSave(CouponRequest couponRequest, int id) throws Exception {
+    public ResponseEntity<?> putSave(@Valid CouponRequest couponRequest, int id) throws Exception {
         return null;
     }
 

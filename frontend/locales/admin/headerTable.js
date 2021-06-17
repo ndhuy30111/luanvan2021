@@ -7,7 +7,7 @@ export default () => ({
     },
     { text: 'Đường dẫn', value: 'url' },
     { text: 'Độ ưu tiên', value: 'sort' },
-    { text: 'Cha', value: 'category' },
+    { text: 'Danh mục Cha', value: 'category' },
     { text: 'Ngày tạo', value: 'createDate' },
     { text: 'Người tạo', value: 'createBy' },
     { text: 'Người cập nhập', value: 'lastModifiedBy' },
@@ -21,7 +21,7 @@ export default () => ({
       align: 'start',
       value: 'name',
     },
-    { text: 'mã màu', value: 'code' },
+    { text: 'Mã màu', value: 'code' },
     { text: '', value: 'actions', sortable: false },
   ],
   PRODUCT_HEADER: [

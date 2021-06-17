@@ -26,12 +26,11 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryModel extends BaseModel {
-    @Column(columnDefinition = "VARCHAR(40) NOT NULL COMMENT 'Tên danh mục' ")
+    @Column(columnDefinition = "VARCHAR(40) NOT NULL COMMENT 'Tên danh mục' ",unique = true)
     @JsonView({BaseViews.Public.class,CategoryViews.Select.class})
     @Pattern(regexp = PatternLocales.NAME_PATTERN, message = MessageLocales.NAME_PATTERN)
     private String name;
 
-    @JsonManagedReference
     @JsonView({BaseViews.Public.class,CategoryViews.Select.class})
     private Integer sort;
 

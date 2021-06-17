@@ -3,8 +3,8 @@ package com.stu.luanvan.model.user;
 import com.fasterxml.jackson.annotation.*;
 import com.stu.luanvan.locales.MessageLocales;
 import com.stu.luanvan.locales.PatternLocales;
-import com.stu.luanvan.model.invoice.InvoiceModel;
 import com.stu.luanvan.model.BaseViews;
+import com.stu.luanvan.model.invoice.InvoiceModel;
 import com.stu.luanvan.model.review.ReviewModel;
 import com.stu.luanvan.model.role.RoleModel;
 import com.stu.luanvan.request.UserRequest;
@@ -12,7 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -45,7 +44,7 @@ public class UserModel{
     @JsonView(BaseViews.Public.class)
     private String name;
 
-    @Column(columnDefinition = "VARCHAR(50) NOT NULL COMMENT 'email'")
+    @Column(columnDefinition = "VARCHAR(50) NOT NULL COMMENT 'email'",unique = true)
     @Email(message = MessageLocales.EMAIL_PATTERN)
     @JsonView(BaseViews.Public.class)
     private String email;
@@ -59,7 +58,7 @@ public class UserModel{
     @JsonView(BaseViews.Public.class)
     private boolean isEnabled;
 
-    @Column(columnDefinition = "VARCHAR(13) default 0  COMMENT 'Số điện thoại khách hàng' ")
+    @Column(columnDefinition = "VARCHAR(13) default 0  COMMENT 'Số điện thoại khách hàng' ",unique = true)
 //    @Pattern(regexp = PatternLocales.NUMBERPHONE_PATTERN,message = MessageLocales.NUMBERPHONE_PATTERN)
     @JsonView(BaseViews.Public.class)
     private String numberPhone;
@@ -113,7 +112,6 @@ public class UserModel{
     }
     public void edit(UserRequest ur){
         this.name = ur.getName();
-        this.userName = ur.getUserName();
         this.address = ur.getAddress();
         this.numberPhone = ur.getNumberPhone();
     }

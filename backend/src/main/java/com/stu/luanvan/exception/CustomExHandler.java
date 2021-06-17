@@ -32,6 +32,12 @@ public class CustomExHandler extends ResponseEntityExceptionHandler {
      * @param req webrequests
      * @return không tìm thấy dự liệu
      */
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(DuplicateEx.class)
+    public ResponseError handlerDuplicate(DuplicateEx ex, WebRequest req){
+        return new ResponseError(HttpStatus.CONFLICT,ex.getMessage());
+    }
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundEx.class)
     public ResponseError handlerNotFound(NotFoundEx ex, WebRequest req){
@@ -40,8 +46,6 @@ public class CustomExHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ResponseError handlerException(Exception ex, WebRequest req){
-        logger.error("message: "+ ex.getMessage());
-        logger.error(ex);
         return new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR,ExceptionLocales.INTERNAL_SERVER_ERROR);
     }
     /**

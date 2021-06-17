@@ -8,12 +8,14 @@
   >
     <template #[`top`]>
       <v-toolbar flat>
-        <v-toolbar-title>{{ $local.vn_admin.category_title }}</v-toolbar-title>
+        <v-toolbar-title>{{
+          $local.vn_admin_category.CATEGORY_TILE
+        }}</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
-          label="Search"
+          :label="$local.vn_admin_category.CATEGORY_SEARCH"
           single-line
           hide-details
         ></v-text-field>
@@ -21,52 +23,70 @@
         <v-dialog v-model="dialog" max-width="500px">
           <template #[`activator`]="{ on, attrs }">
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-              {{ $local.vn_admin.add_category }}
+              {{ $local.vn_admin_category.CATEGOR_BTN_SAVE }}
             </v-btn>
           </template>
           <v-card>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
+            <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+              @submit.prevent="save"
+            >
+              <v-card-title>
+                <span class="headline">{{ formTitle }}</span>
+              </v-card-title>
 
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Tên"
-                      :rules="nameRules"
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.sort"
-                      min="1"
-                      type="number"
-                      label="Độ ưu tiên"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-select
-                      v-model="editedItem.category"
-                      :items="select"
-                      item-value="name"
-                      item-text="name"
-                      label="Cha"
-                      required
-                    ></v-select
-                  ></v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.name"
+                        :label="$local.vn_admin_category.CATEGORY_NAME"
+                        :rules="$rule.ADMIN_CATEGORY_NAME"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem.sort"
+                        :rules="$rule.ADMIN_CATEGORY_SORT"
+                        :label="$local.vn_admin_category.CATEGORY_SORT"
+                        type="number"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-select
+                        v-model="editedItem.category"
+                        :items="select"
+                        item-value="name"
+                        item-text="name"
+                        :label="$local.vn_admin_category.CATEGORY_DADDY"
+                        required
+                      ></v-select
+                    ></v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
-              <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
-            </v-card-actions>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="close">
+                  Cancel
+                </v-btn>
+                <v-btn
+                  :disabled="!valid"
+                  color="blue darken-1"
+                  type="submit"
+                  text
+                  @click="validate"
+                >
+                  Save
+                </v-btn>
+              </v-card-actions>
+            </v-form>
           </v-card>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
@@ -100,6 +120,7 @@ import { mapGetters } from 'vuex'
 export default {
   layout: 'admin',
   data: () => ({
+    valid: true,
     dialog: false,
     dialogDelete: false,
     search: '',
@@ -115,10 +136,6 @@ export default {
       category: '',
     },
     data: [],
-    nameRules: [
-      (v) => !!v || 'Name is required',
-      (v) => v.length <= 20 || 'Name must be less than 10 characters',
-    ],
   }),
   head() {
     return {
@@ -134,7 +151,9 @@ export default {
   },
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Thêm dữ liệu' : 'Sửa dữ liệu'
+      return this.editedIndex === -1
+        ? this.$local.vn_admin_category.CATEGORY_SAVE_NEW
+        : this.$local.vn_admin_category.CATEGORY_SAVE_EDIT
     },
     ...mapGetters({
       // map `this.doneCount` to `this.$store.getters.doneTodosCount`
@@ -202,21 +221,25 @@ export default {
         this.editedIndex = -1
       })
     },
-
-    save() {
+    validate() {
+      this.$refs.form.validate()
+    },
+    async save(event) {
+      event.preventDefault()
+      let flap = false
       if (this.editedIndex > -1) {
         const item = this.$_.clone(this.category[this.editedIndex])
-        this.$store.dispatch(
+        flap = await this.$store.dispatch(
           this.$constant.admin.ACTION_ADMIN_CATEGORY_UPDATA,
           Object.assign(item, this.editedItem)
         )
       } else {
-        this.$store.dispatch(
+        flap = await this.$store.dispatch(
           this.$constant.admin.ACTION_ADMIN_CATEGORY_ADD,
           this.editedItem
         )
       }
-      this.close()
+      !flap || this.close()
     },
   },
 }

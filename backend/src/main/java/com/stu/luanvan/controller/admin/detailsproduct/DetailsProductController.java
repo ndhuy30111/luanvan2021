@@ -21,7 +21,7 @@ public class DetailsProductController implements DetailsProductInterfaceControll
     @Override
     @PostMapping
     @ResponseBody
-    public ResponseEntity<?> postSave(@RequestBody @Valid DetailsProductRequest detailsProductRequest) throws Exception {
+    public ResponseEntity<?> postSave(@Valid @RequestBody DetailsProductRequest detailsProductRequest) throws Exception {
             return new ResponseEntity<>(detailsProductService.saveNew(detailsProductRequest), HttpStatus.CREATED);
     }
 }

@@ -2,7 +2,6 @@ package com.stu.luanvan.controller.admin.category;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.stu.luanvan.controller.URlController;
-import com.stu.luanvan.exception.NotFoundEx;
 import com.stu.luanvan.model.category.CategoryViews;
 import com.stu.luanvan.request.CategoryRequest;
 import com.stu.luanvan.service.category.CategoryService;
@@ -36,16 +35,12 @@ public class CategoryController implements CategoryInterfaceController{
     public ResponseEntity<?> getFindAll(@RequestParam(name = "page",required = false,defaultValue = "-1")int page,
                                         @RequestParam(name = "size",required = false,defaultValue = "-1") int size,
                                         @RequestParam(name = "name",required = false,defaultValue = "id") String name) {
-        try{
             if(page!=-1&&size!=-1){
                 return new ResponseEntity<>(categoryService.findByAll(page,size,name),HttpStatus.OK);
             }else{
                 var category = categoryService.findByAll();
                 return new ResponseEntity<>(category,HttpStatus.OK);
             }
-        }catch(Exception ex){
-            throw new NotFoundEx("Không có dự liệu");
-        }
     }
 
 

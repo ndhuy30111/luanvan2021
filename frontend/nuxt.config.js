@@ -39,6 +39,7 @@ export default {
     '~/plugins/lodash.js',
     '~/plugins/vue-image-magnifier.js',
     '~/plugins/constants.js',
+    '~/plugins/rule.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -112,7 +113,7 @@ export default {
         name: 'error',
         message: 'Không thành công',
         options: {
-          position: 'top-right',
+          position: 'top-center',
           type: 'error',
           duration: 5000,
           theme: 'outline',
@@ -124,8 +125,8 @@ export default {
         message: 'Vui lòng bạn chờ ...',
 
         options: {
-          position: 'top-right',
-          type: 'show',
+          position: 'top-center',
+          type: 'info',
           duration: 5000,
           theme: 'outline',
           icon: 'hourglass_empty',
@@ -135,7 +136,7 @@ export default {
         name: 'success',
         message: 'Thành công',
         options: {
-          position: 'top-right',
+          position: 'top-center',
           type: 'success',
           duration: 5000,
           theme: 'outline',
@@ -146,11 +147,44 @@ export default {
         name: 'cart',
         message: 'Thêm giỏ hàng thành công',
         options: {
-          position: 'top-right',
+          position: 'top-center',
           type: 'success',
           duration: 5000,
           theme: 'outline',
           icon: 'check',
+        },
+      },
+      {
+        name: 'error_badrequest',
+        message: 'Vui lòng bạn kiểm tra lại',
+        options: {
+          position: 'top-center',
+          type: 'error',
+          duration: 5000,
+          theme: 'outline',
+          icon: 'error',
+        },
+      },
+      {
+        name: 'conflitct',
+        message: 'Không thể xoá vì có dự liệu liên quan',
+        options: {
+          position: 'top-center',
+          type: 'error',
+          duration: 5000,
+          theme: 'outline',
+          icon: 'error',
+        },
+      },
+      {
+        name: 'notfound',
+        message: 'Không tìm thấy',
+        options: {
+          position: 'top-center',
+          type: 'error',
+          duration: 5000,
+          theme: 'outline',
+          icon: 'error',
         },
       },
     ],

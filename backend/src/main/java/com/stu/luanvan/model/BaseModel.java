@@ -32,7 +32,7 @@ public class BaseModel {
     @JsonView({BaseViews.Internal.class})
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "userName")
+            property = "email")
     @JsonIdentityReference(alwaysAsId = true)
     private UserModel createBy;
 
@@ -42,7 +42,7 @@ public class BaseModel {
     @JsonView(BaseViews.Internal.class)
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "userName")
+            property = "email")
     @JsonIdentityReference(alwaysAsId = true)
     private UserModel lastModifiedBy;
 

@@ -28,7 +28,7 @@ public class ColorModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonView({BaseViews.Internal.class, CategoryViews.Select.class})
     private Integer id;
-    @Column(columnDefinition = "VARCHAR(15) NOT NULL COMMENT 'Tên màu'")
+    @Column(columnDefinition = "VARCHAR(15) NOT NULL COMMENT 'Tên màu'",unique = true)
     @Pattern(regexp = PatternLocales.NAME_PATTERN, message = MessageLocales.NAME_PATTERN)
     private String name;
     @OneToMany(mappedBy = "color")

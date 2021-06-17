@@ -1,6 +1,6 @@
 package com.stu.luanvan.service.category;
 
-import com.stu.luanvan.exception.BadRequestEx;
+import com.stu.luanvan.exception.DuplicateEx;
 import com.stu.luanvan.exception.NotFoundEx;
 import com.stu.luanvan.locales.ExceptionLocales;
 import com.stu.luanvan.model.category.CategoryModel;
@@ -36,7 +36,7 @@ public class CategoryService implements CategoryServiceInterface{
 
     @Override
     public Collection<CategoryModel> findByAll() {
-        return categoryRepository.findAll();
+        return categoryRepository.findAll(Sort.by("lastModifiedDate").descending());
     }
 
     @Override
@@ -48,10 +48,11 @@ public class CategoryService implements CategoryServiceInterface{
     @Override
     @Transactional(rollbackFor = Throwable.class)
     public CategoryModel saveNew(CategoryRequest categoryRequest) throws Exception {
-        try{
+
             if(categoryRepository.findByName(categoryRequest.getName())!=null){
-                throw new BadRequestEx(ExceptionLocales.NAME_SAKE);
+                throw new DuplicateEx(ExceptionLocales.NAME_SAKE);
             }
+        try{
             CategoryModel category ;
             CategoryModel categoryFind;
             if(categoryRequest.getCategory()!=null){
@@ -71,16 +72,18 @@ public class CategoryService implements CategoryServiceInterface{
     @Override
     @Transactional(rollbackFor = Throwable.class)
     public CategoryModel saveEdit(CategoryRequest categoryRequest,int id) throws Exception {
-        try{
-            if(categoryRepository.findByName(categoryRequest.getName())!=null){
-                throw new BadRequestEx(ExceptionLocales.NAME_SAKE);
-            }
             var category = categoryRepository.
                     findById(id).
                     orElse(null);
-            if(category ==null){
+            if(category == null){
                 throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
             }
+            if(!categoryRequest.getName().equals(category.getName())){
+                if(categoryRepository.findByName(categoryRequest.getName())!=null){
+                    throw new DuplicateEx(ExceptionLocales.NAME_SAKE);
+                }
+            }
+        try{
             category.edit(categoryRequest);
             if(categoryRequest.getCategory()!=null){
                 var categoryFind = categoryRepository.findByName(categoryRequest.getCategory());
@@ -91,7 +94,6 @@ public class CategoryService implements CategoryServiceInterface{
             }
             return categoryRepository.save(category);
         }catch (Exception ex){
-
             logger.error("Edit Category: ",ex);
             throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
         }
@@ -101,13 +103,17 @@ public class CategoryService implements CategoryServiceInterface{
     @Override
     @Transactional(rollbackFor = Throwable.class)
     public void delete(Integer id) throws Exception {
-        try{
+
             var category = categoryRepository.
                     findById(id).
                     orElse(null);
             if(category ==null){
                 throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
             }
+            if(!category.getProduct().isEmpty()){
+                throw new DuplicateEx(ExceptionLocales.CATEGORY_DUPLICATE_PRODUCT);
+            }
+        try{
             categoryRepository.delete(category);
         }catch (Exception ex){
             logger.error("Delete Category: ",ex);

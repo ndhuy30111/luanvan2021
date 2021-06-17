@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(URlController.SIZE_ADMIN)
 @CrossOrigin
@@ -18,7 +20,7 @@ public class SizeController implements SizeInterfacaeController{
     private SizeService sizeService;
     @Override
     @PostMapping
-    public ResponseEntity<?> postSave(@RequestBody SizeRequest sizeRequest) throws Exception {
+    public ResponseEntity<?> postSave(@Valid @RequestBody SizeRequest sizeRequest) throws Exception {
         return new ResponseEntity<>(sizeService.saveNew(sizeRequest), HttpStatus.CREATED);
     }
 }

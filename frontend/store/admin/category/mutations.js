@@ -7,7 +7,7 @@ export default {
     state.contents = payload
   },
   MUTATION_ADMIN_CATEGORY_ADD_CONTENT(state, payload) {
-    state.contents.push(payload)
+    state.contents.unshift(payload)
   },
   MUTATION_ADMIN_CATEGORY_UPDATE_CONTENT(state, payload) {
     const contentIndex = state.contents.findIndex(
@@ -16,7 +16,7 @@ export default {
     if (contentIndex === -1) {
       return
     }
-    state.contents[contentIndex] = payload
+    state.contents.splice(contentIndex, 1, payload)
   },
   MUTATION_ADMIN_CATEGORY_DELETE_CONTENT(state, payload) {
     const contentIndex = state.contents.findIndex(
