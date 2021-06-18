@@ -9,7 +9,10 @@ export default {
     const contentIndex = state.color.findIndex(
       (content) => parseInt(content.id) === parseInt(color.id)
     )
-    state.color[contentIndex] = color
+    if (contentIndex === -1) {
+      return
+    }
+    state.color.splice(contentIndex, 1, color)
   },
   MUTATION_ADMIN_COLOR_DELETE(state, color) {
     const contentIndex = state.color.findIndex(

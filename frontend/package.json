@@ -24,6 +24,7 @@
     "vue-fb-customer-chat": "^0.2.0",
     "vue-image-magnifier": "^0.2.1",
     "vue-lodash": "^2.1.2",
+    "vue-the-mask": "^0.11.1",
     "vue2-editor": "^2.10.2",
     "vuelidate": "^0.7.6"
   },

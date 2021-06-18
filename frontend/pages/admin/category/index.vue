@@ -226,6 +226,7 @@ export default {
     },
     async save(event) {
       event.preventDefault()
+      if (!this.valid) return
       let flap = false
       if (this.editedIndex > -1) {
         const item = this.$_.clone(this.category[this.editedIndex])

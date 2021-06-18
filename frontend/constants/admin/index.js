@@ -48,4 +48,8 @@ export default () => ({
   ACTION_ADMIN_SIZE_ADD: 'admin/size/addSize',
   ACTION_ADMIN_SIZE_UPDATE: 'admin/size/updateAmount',
   MUTATION_ADMIN_SIZE_ADD: 'MUTATION_ADMIN_SIZE_ADD',
+
+  // Auth
+  ACTION_ADMIN_LOGIN: 'admin/auth/login',
+  ACTION_ADMIN_USER: 'admin/auth/user',
 })

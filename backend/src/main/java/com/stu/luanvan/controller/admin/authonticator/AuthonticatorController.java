@@ -47,13 +47,10 @@ public class AuthonticatorController implements AuthonticatorInterfaceController
 
     }
 
-
-
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) throws Exception {
         try{
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
-
         }catch (BadCredentialsException ex){
             throw new NotFoundEx(ex.getMessage());
         }

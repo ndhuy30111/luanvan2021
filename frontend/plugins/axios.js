@@ -34,9 +34,6 @@ export default function ({ $axios, redirect, store, $toast }) {
         })
       }
     }
-    if (parseInt(data.response.status) === 404) {
-      $toast.global.notfound()
-    }
   })
   $axios.onRequest((config) => {
     // if (config.url === '/admin/category') {

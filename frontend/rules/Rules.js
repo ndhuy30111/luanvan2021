@@ -8,4 +8,12 @@ export default () => ({
     (v) => typeof v === 'string' || 'Bạn phải nhập số',
     (v) => v > 0 || 'Bạn phải nhập độ ưu tiên lớn hơn 0',
   ],
+  EMAIL_LOGIN: [
+    (v) => !!v || 'Vui lòng bạn nhập Email',
+    (v) => /.+@.+\..+/.test(v) || 'Email của bạn không phù hợp',
+  ],
+  PASSWORD_LOGIN: [
+    (v) => !!v || 'Vui lòng bạn nhập mật khẩu',
+    (v) => v.length >= 6 || 'Mật khẩu hơn 6 ký tự',
+  ],
 })

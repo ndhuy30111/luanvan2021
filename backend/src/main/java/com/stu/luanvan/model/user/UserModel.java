@@ -92,7 +92,7 @@ public class UserModel{
             inverseJoinColumns = @JoinColumn(
                     name="role_id",referencedColumnName = "id")
     )
-    @JsonView(BaseViews.Internal.class)
+    @JsonView(BaseViews.Public.class)
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="name",
             scope=RoleModel.class)
     @JsonIdentityReference(alwaysAsId = true)

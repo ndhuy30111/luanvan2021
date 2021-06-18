@@ -40,6 +40,7 @@ export default {
     '~/plugins/vue-image-magnifier.js',
     '~/plugins/constants.js',
     '~/plugins/rule.js',
+    { src: '~/plugins/mask' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -85,6 +86,7 @@ export default {
       Accept: 'application/json, text/plain, */*',
     },
     strategies: {
+      cookie: false,
       local: {
         token: {
           property: 'token',

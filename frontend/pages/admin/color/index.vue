@@ -40,6 +40,8 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.code"
+                        v-mask="'!#XXXXXXXX'"
+                        type="text"
                         hide-details
                         solo
                         class="ma-0 pa-0"
@@ -116,10 +118,14 @@ export default {
     dialogDelete: false,
     editedIndex: -1,
     menu: false,
-    color: '#FF00FF',
+    color: '#1976D2FF',
     editedItem: {
       name: '',
-      code: '#FF00FF',
+      code: '#1976D2FF',
+    },
+    defaultItem: {
+      name: '',
+      code: '#1976D2FF',
     },
   }),
   head() {
