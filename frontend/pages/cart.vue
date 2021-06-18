@@ -82,7 +82,9 @@
               >
             </li>
           </ul>
-          <a href="#" class="proceed-btn">{{ $local.vn.checkout }}</a>
+          <router-link :to="{ name: 'checkout' }" class="proceed-btn">{{
+            $local.vn.checkout
+          }}</router-link>
         </div>
       </b-col>
     </b-row>
@@ -93,11 +95,6 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'Cart',
-  data() {
-    return {
-      quantity: '',
-    }
-  },
   computed: {
     cart() {
       return this.$store.state.user.cart.cart
@@ -106,6 +103,12 @@ export default {
       // map `this.doneCount` to `this.$store.getters.doneTodosCount`
       total: 'user/cart/total',
     }),
+  },
+  created() {
+    this.$store.dispatch(
+      this.$constant.user.ACTION_CHECKOUT_SETPRODUCT,
+      this.cart
+    )
   },
   methods: {
     productdetail(product) {

@@ -150,6 +150,9 @@ export default {
         this.products = value
       },
     },
+    user() {
+      return this.$auth.user ? this.$auth.user : ''
+    },
   },
   watch: {
     ColorActive(item) {
@@ -186,7 +189,15 @@ export default {
         price: this.products.price,
         quantity: parseInt(this.quantity),
       }
-      this.$store.dispatch(this.$constant.user.ACTION_CART_ADDTOCART, cartItem)
+      if (!this.user) {
+        this.$toast.global.login()
+        this.$router.push({ name: 'login' })
+      } else {
+        this.$store.dispatch(
+          this.$constant.user.ACTION_CART_ADDTOCART,
+          cartItem
+        )
+      }
     },
     plus() {
       this.quantity++

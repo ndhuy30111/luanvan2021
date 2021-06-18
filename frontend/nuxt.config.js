@@ -187,6 +187,16 @@ export default {
           icon: 'error',
         },
       },
+      {
+        name: 'login',
+        message: 'Đăng nhập để mua hàng',
+        options: {
+          position: 'top-center',
+          type: 'info',
+          duration: 2000,
+          theme: 'outline',
+        },
+      },
     ],
   },
 }

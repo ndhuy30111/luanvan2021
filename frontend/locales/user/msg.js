@@ -45,7 +45,24 @@ export default () => ({
     { title: 'Đăng ký', url: 'register' },
     { title: 'Đăng nhập', url: 'login' },
   ],
-
+  menu_header: [
+    {
+      content: 'Trang chủ',
+      url: 'index',
+    },
+    {
+      content: 'Sản phẩm',
+      url: 'shop',
+    },
+    {
+      content: 'Liên hệ',
+      url: 'contact',
+    },
+    {
+      content: 'Thông tin',
+      url: 'news',
+    },
+  ],
   // Filter
   selects: [
     'Giá tăng',
@@ -100,4 +117,7 @@ export default () => ({
   checkout: 'Thanh toán',
   currency: 'đ',
   category_vuex: ['Nữ', 'Nam', 'Sale'],
+  shipping: 'PHÍ VẬN CHUYỂN',
+  discount: 'Mã khuyến mãi',
+  profile: 'Thông tin tài khoản',
 })

@@ -1,0 +1,11 @@
+export default {
+  MUTATIONS_CHECKOUT_SETPRODUCT(state, cart) {
+    state.checkout = cart
+  },
+
+  MUTATIONS_REMOVE_PRODUCT_CHECKOUT(state, indexRemove) {
+    state.checkout = state.checkout.filter((item, index) => {
+      return index !== indexRemove
+    })
+  },
+}

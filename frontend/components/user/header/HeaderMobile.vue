@@ -16,17 +16,10 @@
       </v-text-field>
     </v-responsive>
     <ul>
-      <li
-        v-for="(menu, index) in menu_header"
-        :key="index"
-        @click="activeMemu(index)"
-      >
-        <router-link
-          :id="menu.active ? 'active' : ''"
-          :to="{ name: menu.url }"
-          class="link"
-          >{{ menu.content }}</router-link
-        >
+      <li v-for="(menu, index) in $local.vn.menu_header" :key="index">
+        <router-link :to="{ name: menu.url }" class="link">{{
+          menu.content
+        }}</router-link>
       </li>
     </ul>
   </div>
@@ -36,41 +29,10 @@
 export default {
   data() {
     return {
-      menu_header: [
-        {
-          content: 'Trang chủ',
-          url: 'index',
-          active: true,
-        },
-        {
-          content: 'Sản phẩm',
-          url: 'shop',
-          active: false,
-        },
-        {
-          content: 'Liên hệ',
-          url: 'contact',
-          active: false,
-        },
-        {
-          content: 'Thông tin',
-          url: 'news',
-          active: false,
-        },
-      ],
       search: '',
     }
   },
   methods: {
-    activeMemu(i) {
-      this.menu_header.forEach((item, index) => {
-        if (i === index) {
-          item.active = true
-        } else {
-          item.active = false
-        }
-      })
-    },
     keysearch() {
       this.$emit('keysearch', this.search)
     },
@@ -105,9 +67,6 @@ export default {
     .link:hover::after {
       width: 50%;
       transition: width 0.3s;
-    }
-    #active {
-      color: #ce785c;
     }
   }
   .search {

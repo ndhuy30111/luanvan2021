@@ -5,4 +5,7 @@ export default ($axios) => ({
   register(payload) {
     return $axios.post('/register', payload)
   },
+  update(payload) {
+    return $axios.put('/user', payload)
+  },
 })

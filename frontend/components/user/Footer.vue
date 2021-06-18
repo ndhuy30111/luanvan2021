@@ -61,8 +61,7 @@ export default {
 
 <style lang="scss" scoped>
 .tit {
-  color: red;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
 }
 .select {
@@ -71,7 +70,7 @@ export default {
   margin-left: 10px;
 }
 .select:hover {
-  color: rgb(0, 132, 255);
+  color: red;
 }
 .social {
   cursor: pointer;

@@ -50,6 +50,9 @@
               <a href="#" class="forget_password">{{
                 $local.vn.forget_password
               }}</a>
+              <router-link :to="{ name: 'register' }" class="forget_password">{{
+                $local.vn.register_title
+              }}</router-link>
             </div>
           </div>
 
@@ -125,6 +128,9 @@ export default {
       background-color: #fff;
       border-radius: 25px !important;
     }
+  }
+  .forget_password:nth-child(2) {
+    margin-left: 10px;
   }
   .forget_password:hover {
     color: red;
