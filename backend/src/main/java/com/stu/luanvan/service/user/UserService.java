@@ -6,6 +6,8 @@ import com.stu.luanvan.locales.ExceptionLocales;
 import com.stu.luanvan.model.user.UserModel;
 import com.stu.luanvan.repository.UserRepository;
 import com.stu.luanvan.request.UserRequest;
+import com.stu.luanvan.request.auth.RegisterRequest;
+import com.stu.luanvan.security.MyUserDetails;
 import com.stu.luanvan.service.ObjectMapDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -62,6 +65,11 @@ public class UserService implements UserServiceInterfaces {
                 orElse(null);
     }
 
+    @Override
+    public UserModel saveNew(UserRequest userRequest) throws Exception {
+        return null;
+    }
+
     /**
      * Lưu tài khoản mới
      * @param userRequest
@@ -69,8 +77,7 @@ public class UserService implements UserServiceInterfaces {
      * @throws Exception //Nếu lỗi sẽ không lưu dữ liệu xuống database
      */
     @Override
-    public UserModel saveNew(UserRequest userRequest) throws Exception {
-
+    public UserModel saveNew(RegisterRequest userRequest) throws Exception {
                 var find = userRepository.findByEmailOrNumberPhone(userRequest.getEmail(),userRequest.getNumberPhone());
                 if(find != null){
                     throw new BadRequestEx(ExceptionLocales.EMAIL_SAKE);
@@ -85,15 +92,18 @@ public class UserService implements UserServiceInterfaces {
     }
 
     @Override
-    public UserModel saveEdit(UserRequest userRequest,int id) throws Exception {
-        var user = findById(id);
+    public UserModel saveEdit(UserRequest userRequest, int id) throws Exception {
+        return null;
+    }
+
+    public UserModel edit(UserRequest userRequest) throws Exception {
+        var user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserModel();
         if(user ==null){
             throw new NotFoundEx(ExceptionLocales.NOT_FOUND);
         }
         try {
             user.edit(userRequest);
             return userRepository.save(user);
-
         }catch (Exception ex){
             logger.error(ex.getMessage());
             throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);

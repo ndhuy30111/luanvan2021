@@ -8,6 +8,7 @@ import com.stu.luanvan.model.invoice.InvoiceModel;
 import com.stu.luanvan.model.review.ReviewModel;
 import com.stu.luanvan.model.role.RoleModel;
 import com.stu.luanvan.request.UserRequest;
+import com.stu.luanvan.request.auth.RegisterRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -102,7 +103,7 @@ public class UserModel{
         this.password = bry.encode(password) ;
     }
 
-    public UserModel(UserRequest userRequest) {
+    public UserModel(RegisterRequest userRequest) {
         this.userName = userRequest.getUserName();
         this.name = userRequest.getName();
         this.email = userRequest.getEmail();

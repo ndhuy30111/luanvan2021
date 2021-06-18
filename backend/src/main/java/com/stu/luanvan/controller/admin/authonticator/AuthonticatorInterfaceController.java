@@ -1,6 +1,6 @@
 package com.stu.luanvan.controller.admin.authonticator;
 
-import com.stu.luanvan.request.LoginRequest;
+import com.stu.luanvan.request.auth.LoginRequest;
 import com.stu.luanvan.request.UserRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;

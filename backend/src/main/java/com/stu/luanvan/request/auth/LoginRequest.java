@@ -1,4 +1,4 @@
-package com.stu.luanvan.request;
+package com.stu.luanvan.request.auth;
 
 import com.stu.luanvan.locales.MessageLocales;
 import lombok.AllArgsConstructor;

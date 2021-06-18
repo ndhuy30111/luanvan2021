@@ -3,8 +3,9 @@ package com.stu.luanvan.controller.user.authenticator;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.stu.luanvan.exception.NotFoundEx;
 import com.stu.luanvan.model.BaseViews;
-import com.stu.luanvan.request.LoginRequest;
+import com.stu.luanvan.request.auth.LoginRequest;
 import com.stu.luanvan.request.UserRequest;
+import com.stu.luanvan.request.auth.RegisterRequest;
 import com.stu.luanvan.response.JwtResponse;
 import com.stu.luanvan.security.MyUserDetails;
 import com.stu.luanvan.security.MyUserDetailsService;
@@ -38,7 +39,7 @@ public class AuthenticatorController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody UserRequest userRequest) throws Exception {
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest userRequest) throws Exception {
          var user = userService.saveNew(userRequest);
          return user==null ? new ResponseEntity<>(HttpStatus.NOT_FOUND): new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -55,9 +56,9 @@ public class AuthenticatorController {
         var date = jwtUtil.extractExpiration(jwt);
         return new ResponseEntity<>(new JwtResponse(jwt,date),HttpStatus.OK);
     }
-    @PutMapping("/user/{id}")
-    public ResponseEntity<?> putSave(@Valid @RequestBody UserRequest userRequest, @PathVariable int id) throws Exception {
-        var user = userService.saveEdit(userRequest,id);
+    @PutMapping("/user")
+    public ResponseEntity<?> putSave(@Valid @RequestBody UserRequest userRequest) throws Exception {
+        var user = userService.edit(userRequest);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
     @GetMapping("/user")

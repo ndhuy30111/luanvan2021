@@ -1,7 +1,7 @@
 package com.stu.luanvan.controller.admin.authonticator;
 
 import com.stu.luanvan.exception.NotFoundEx;
-import com.stu.luanvan.request.LoginRequest;
+import com.stu.luanvan.request.auth.LoginRequest;
 import com.stu.luanvan.request.UserRequest;
 import com.stu.luanvan.response.JwtResponse;
 import com.stu.luanvan.security.MyUserDetails;
