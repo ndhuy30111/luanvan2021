@@ -1,13 +1,14 @@
 package com.stu.luanvan.request;
 
-import com.stu.luanvan.locales.MessageLocales;
-import com.stu.luanvan.locales.PatternLocales;
-import org.apache.commons.lang3.StringUtils;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CartRequest {
+    private Integer productID;
     private Integer quantity;
     private String color;
     private String size;
