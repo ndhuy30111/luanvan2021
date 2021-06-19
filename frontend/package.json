@@ -26,6 +26,7 @@
     "vue-lodash": "^2.1.2",
     "vue-the-mask": "^0.11.1",
     "vue2-editor": "^2.10.2",
+    "vue2-filters": "^0.13.0",
     "vuelidate": "^0.7.6"
   },
   "devDependencies": {

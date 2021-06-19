@@ -3,7 +3,6 @@ package com.stu.luanvan.service.cloudinary;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.cloudinary.utils.StringUtils;
-import com.github.slugify.Slugify;
 import com.stu.luanvan.exception.BadRequestEx;
 import com.stu.luanvan.model.file.FileModel;
 import com.stu.luanvan.repository.FileRepository;
@@ -51,7 +50,7 @@ public class CloudinaryService {
 
             var uploadResult = cloudinaryConfig.uploader()
                     .upload(file, ObjectUtils.asMap(
-                            "public_id",new Slugify().slugify(name),
+                            "public_id",name,
                             "unique_filename","true"
                     ));
             var fileModel = new FileModel(uploadResult.get("public_id").toString(),

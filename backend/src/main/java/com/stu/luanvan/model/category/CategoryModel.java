@@ -1,13 +1,13 @@
 package com.stu.luanvan.model.category;
 
 import com.fasterxml.jackson.annotation.*;
-import com.github.slugify.Slugify;
 import com.stu.luanvan.locales.MessageLocales;
+import com.stu.luanvan.locales.PatternLocales;
 import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.BaseViews;
 import com.stu.luanvan.model.product.ProductModel;
-import com.stu.luanvan.locales.PatternLocales;
 import com.stu.luanvan.request.CategoryRequest;
+import com.stu.luanvan.service.slugify.SlugifyService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -62,7 +62,7 @@ public class CategoryModel extends BaseModel {
 
     public void setName(String name) {
         this.name = name.trim();
-        this.url = new Slugify().slugify(this.name);
+        this.url = SlugifyService.Url(this.name);
     }
 
     public CategoryModel(CategoryRequest cr, CategoryModel category) {

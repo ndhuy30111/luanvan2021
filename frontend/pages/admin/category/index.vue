@@ -51,9 +51,9 @@
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.sort"
+                        v-mask="'###'"
                         :rules="$rule.ADMIN_CATEGORY_SORT"
                         :label="$local.vn_admin_category.CATEGORY_SORT"
-                        type="number"
                         required
                       ></v-text-field>
                     </v-col>
@@ -74,7 +74,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">
-                  Cancel
+                  {{ $local.vn_admin_general.BTN_CANCEL }}
                 </v-btn>
                 <v-btn
                   :disabled="!valid"
@@ -83,7 +83,7 @@
                   text
                   @click="validate"
                 >
-                  Save
+                  {{ $local.vn_admin_general.BTN_SAVE }}
                 </v-btn>
               </v-card-actions>
             </v-form>
@@ -92,16 +92,16 @@
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="headline">{{
-              $local.vn_admin.delete_msg
+              $local.vn_admin.DELETE_MSG
             }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete"
-                >Cancel</v-btn
-              >
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                >OK</v-btn
-              >
+              <v-btn color="blue darken-1" text @click="closeDelete">{{
+                $local.vn_admin_general.BTN_CANCEL
+              }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{
+                $local.vn_admin_general.BTN_DELETE
+              }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>

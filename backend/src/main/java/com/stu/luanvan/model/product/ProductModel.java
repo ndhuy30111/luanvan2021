@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.github.slugify.Slugify;
 import com.stu.luanvan.locales.MessageLocales;
 import com.stu.luanvan.locales.PatternLocales;
 import com.stu.luanvan.model.BaseModel;
@@ -15,6 +14,7 @@ import com.stu.luanvan.model.file.FileModel;
 import com.stu.luanvan.model.invoicedetails.InvoiceDetailsModel;
 import com.stu.luanvan.model.review.ReviewModel;
 import com.stu.luanvan.request.product.ProductRequest;
+import com.stu.luanvan.service.slugify.SlugifyService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -105,7 +105,7 @@ public class ProductModel extends BaseModel {
 
     public void setName( String name) {
         this.name = name.trim();
-        this.url = new Slugify().slugify(this.name);
+        this.url = SlugifyService.Url(this.name);
     }
     //Hàm tính điểm rate
     public void rateLevels(Integer rate){

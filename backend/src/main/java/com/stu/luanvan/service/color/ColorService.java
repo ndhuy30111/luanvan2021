@@ -1,5 +1,6 @@
 package com.stu.luanvan.service.color;
 
+import com.stu.luanvan.exception.DuplicateEx;
 import com.stu.luanvan.exception.NotFoundEx;
 import com.stu.luanvan.locales.ExceptionLocales;
 import com.stu.luanvan.model.color.ColorModel;
@@ -43,22 +44,17 @@ public class ColorService implements ColorSerivceInterface{
             logger.error("Save Color: ",ex);
             throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
         }
-
-
-
     }
 
     @Override
     @Transactional(rollbackFor = Throwable.class)
     public ColorModel saveEdit(ColorRequest colorRequest, int id) throws Exception {
-        try{
+
             var color = colorReponsitory.findById(id).orElse(null);
             if(color== null){
                 throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
             }
-            if(!color.getDetailsProduct().isEmpty()){
-                throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
-            }
+        try{
             color.ColorEditModel( colorRequest);
             return colorReponsitory.save(color);
         }catch(Exception ex){
@@ -71,14 +67,15 @@ public class ColorService implements ColorSerivceInterface{
     @Override
     @Transactional(rollbackFor = Throwable.class)
     public void delete(Integer id) throws Exception {
-        try{
+
             var color = colorReponsitory.findById(id).orElse(null);
             if(color== null){
                 throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
             }
             if(!color.getDetailsProduct().isEmpty()){
-                throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
+                throw new DuplicateEx(ExceptionLocales.CATEGORY_DUPLICATE_PRODUCT);
             }
+        try{
             colorReponsitory.delete(color);
         }catch(Exception ex){
             logger.error("Save Color: ",ex);

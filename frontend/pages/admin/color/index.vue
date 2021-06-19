@@ -13,88 +13,107 @@
       </template>
       <template #[`top`]>
         <v-toolbar flat>
-          <v-toolbar-title>{{ $local.vn_admin.color_title }}</v-toolbar-title>
+          <v-toolbar-title>{{
+            $local.vn_admin_color.COLOR_TILE
+          }}</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template #[`activator`]="{ on, attrs }">
               <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-                {{ $local.vn_admin.add_color }}
+                {{ $local.vn_admin_color.COLOR_SAVE_NEW }}
               </v-btn>
             </template>
             <v-card>
-              <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
-              </v-card-title>
+              <v-form
+                ref="form"
+                v-model="valid"
+                lazy-validation
+                @submit.prevent="save"
+              >
+                <v-card-title>
+                  <span class="headline">{{ formTitle }}</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12" sm="6" md="6">
+                        <v-text-field
+                          v-model="editedItem.name"
+                          :rules="$rule.ADMIN_COLOR_NAME"
+                          label="Tên"
+                          required
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="6">
+                        <v-text-field
+                          v-model="editedItem.code"
+                          v-mask="'!#XXXXXXXXX'"
+                          :rules="$rule.ADMIN_COLOR_CODE"
+                          type="text"
+                          hide-details
+                          solo
+                          class="ma-0 pa-0"
+                          required
+                        >
+                          <template #append>
+                            <v-menu
+                              v-model="menu"
+                              top
+                              nudge-bottom="105"
+                              nudge-left="16"
+                              :close-on-content-click="false"
+                            >
+                              <template #activator="{ on }">
+                                <div :style="swatchStyle" v-on="on" />
+                              </template>
+                              <v-card>
+                                <v-card-text class="pa-0">
+                                  <v-color-picker
+                                    v-model="editedItem.code"
+                                    flat
+                                  />
+                                </v-card-text>
+                              </v-card>
+                            </v-menu>
+                          </template>
+                        </v-text-field>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-text>
 
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.name"
-                        label="Tên"
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.code"
-                        v-mask="'!#XXXXXXXX'"
-                        type="text"
-                        hide-details
-                        solo
-                        class="ma-0 pa-0"
-                      >
-                        <template #append>
-                          <v-menu
-                            v-model="menu"
-                            top
-                            nudge-bottom="105"
-                            nudge-left="16"
-                            :close-on-content-click="false"
-                          >
-                            <template #activator="{ on }">
-                              <div :style="swatchStyle" v-on="on" />
-                            </template>
-                            <v-card>
-                              <v-card-text class="pa-0">
-                                <v-color-picker
-                                  v-model="editedItem.code"
-                                  flat
-                                />
-                              </v-card-text>
-                            </v-card>
-                          </v-menu>
-                        </template>
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">
-                  Cancel
-                </v-btn>
-                <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
-              </v-card-actions>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="close">
+                    {{ $local.vn_admin_general.BTN_CANCEL }}
+                  </v-btn>
+                  <v-btn
+                    :disabled="!valid"
+                    color="blue darken-1"
+                    type="submit"
+                    text
+                    @click="validate"
+                  >
+                    {{ $local.vn_admin_general.BTN_SAVE }}
+                  </v-btn>
+                </v-card-actions>
+              </v-form>
             </v-card>
           </v-dialog>
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
               <v-card-title class="headline">{{
-                $local.vn_admin.delete_msg
+                $local.vn_admin.DELETE_MSG
               }}</v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete"
-                  >Cancel</v-btn
+                <v-btn color="blue darken-1" text @click="closeDelete">
+                  {{ $local.vn_admin_general.BTN_CANCEL }}</v-btn
                 >
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                  >OK</v-btn
-                >
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{
+                  $local.vn_admin_general.BTN_DELETE
+                }}</v-btn>
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
@@ -114,6 +133,7 @@ import { mapGetters } from 'vuex'
 export default {
   layout: 'admin',
   data: () => ({
+    valid: true,
     dialog: false,
     dialogDelete: false,
     editedIndex: -1,
@@ -143,7 +163,9 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'Thêm dữ liệu' : 'Sửa dữ liệu'
+      return this.editedIndex === -1
+        ? this.$local.vn_admin_color.COLOR_SAVE_NEW
+        : this.$local.vn_admin_color.COLOR_SAVE_EDIT
     },
     ...mapGetters({
       // map `this.doneCount` to `this.$store.getters.doneTodosCount`
@@ -219,21 +241,24 @@ export default {
         this.editedIndex = -1
       })
     },
-
+    validate() {
+      this.$refs.form.validate()
+    },
     save() {
+      let flap = false
       if (this.editedIndex > -1) {
         const item = this.$_.clone(this.colorData[this.editedIndex])
-        this.$store.dispatch(
+        flap = this.$store.dispatch(
           this.$constant.admin.ACTION_ADMIN_COLOR_UPDATA,
           Object.assign(item, this.editedItem)
         )
       } else {
-        this.$store.dispatch(
+        flap = this.$store.dispatch(
           this.$constant.admin.ACTION_ADMIN_COLOR_ADD,
           this.editedItem
         )
       }
-      this.close()
+      !flap || this.close()
     },
   },
 }

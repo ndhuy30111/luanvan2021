@@ -10,9 +10,11 @@ export default {
     if (status === 201) {
       this.$toast.global.success()
       commit(this.$constant.admin.MUTATION_ADMIN_COLOR_ADD, data)
+      return true
     } else {
       // Handle error here
       this.$toast.global.error()
+      return false
     }
   },
   async updateColor({ commit }, item) {
@@ -22,21 +24,24 @@ export default {
     if (status === 200) {
       this.$toast.global.success()
       commit(this.$constant.admin.MUTATION_ADMIN_COLOR_UPDATE, data)
+      return true
     } else {
       // Handle error here
       this.$toast.global.error()
+      return false
     }
   },
   async deleteColor({ commit }, item) {
     this.$toast.global.loading()
     const res = await this.$repositories.colorAdmin.delete(item.id)
     const { status } = res
-    if (status === 204) {
+    if (status === 200) {
       this.$toast.global.success()
       commit(this.$constant.admin.MUTATION_ADMIN_COLOR_DELETE, item)
+      return true
     } else {
-      // Handle error here
       this.$toast.global.error()
+      return false
     }
   },
 }
