@@ -27,6 +27,7 @@ export default () => ({
   ACTION_ADMIN_PRODUCT_INIT: 'admin/product/init',
   ACTION_ADMIN_PRODUCT_ADD: 'admin/product/addProduct',
   ACTION_ADMIN_PRODUCT_UPDATE: 'admin/product/updateProduct',
+  ACTION_ADMIN_PRODUCT_SHOW: 'admin/product/showProduct',
   ACTION_ADMIN_PRODUCT_DELETE: 'admin/product/deleteProduct',
   MUTATION_ADMIN_PRODUCT_INIT: 'MUTATION_ADMIN_PRODUCT_INIT',
   MUTATION_ADMIN_PRODUCT_ADD: 'MUTATION_ADMIN_PRODUCT_ADD',

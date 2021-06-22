@@ -10,9 +10,11 @@ export default {
     if (status === 201) {
       this.$toast.global.success()
       commit(this.$constant.admin.MUTATION_ADMIN_PRODUCT_ADD, data)
+      return true
     } else {
       // Handle error here
       this.$toast.global.error()
+      return false
     }
   },
   async updateProduct({ commit }, item) {
@@ -25,16 +27,15 @@ export default {
         info: item.info,
       }
       const res = await this.$repositories.productAdmin.update(item.id, product)
-      const { status } = res
+      const { status, data } = res
       if (parseInt(status) === 200) {
         this.$toast.global.success()
-        commit(this.$constant.admin.MUTATION_ADMIN_PRODUCT_UPDATE, item)
-      } else {
-        // Handle error here
-        this.$toast.global.error()
+        commit(this.$constant.admin.MUTATION_ADMIN_PRODUCT_UPDATE, data)
+        return true
       }
     } catch (e) {
       this.$toast.global.error()
+      return false
     }
   },
   async deleteProduct({ commit }, item) {
@@ -45,12 +46,24 @@ export default {
       if (parseInt(status) === 204) {
         this.$toast.global.success()
         commit(this.$constant.admin.MUTATION_ADMIN_PRODUCT_DELETE, item)
-      } else {
-        // Handle error here
-        this.$toast.global.error()
+        return true
       }
     } catch (e) {
       this.$toast.global.error()
+      return false
+    }
+  },
+  async showProduct({ commit }, item) {
+    try {
+      this.$toast.global.loading()
+      const res = await this.$repositories.productAdmin.show(item)
+      const { status, data } = res
+      if (parseInt(status) === 200) {
+        commit(this.$constant.admin.MUTATION_ADMIN_PRODUCT_UPDATE, data)
+        return true
+      }
+    } catch (e) {
+      return false
     }
   },
 }

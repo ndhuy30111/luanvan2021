@@ -37,17 +37,17 @@
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="headline"
-              >Bạn thật sự muốn xoá không?</v-card-title
-            >
+            <v-card-title class="headline">{{
+              $local.vn_admin.DELETE_MSG
+            }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete"
-                >Cancel</v-btn
-              >
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                >OK</v-btn
-              >
+              <v-btn color="blue darken-1" text @click="closeDelete">{{
+                $local.vn_admin_general.BTN_CANCEL
+              }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{
+                $local.vn_admin_general.BTN_DELETE
+              }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -92,9 +92,6 @@ export default {
     }
   },
   computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? 'Thêm dữ liệu' : 'Sửa dữ liệu'
-    },
     ...mapGetters({
       // map `this.doneCount` to `this.$store.getters.doneTodosCount`
       product: 'admin/product/getAll',

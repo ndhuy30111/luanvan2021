@@ -4,7 +4,6 @@
       {{ $local.vn_admin_product.INFORMATION }}
       <v-icon> {{ $local.vn_admin_product.ICON_INFORMATION }}</v-icon>
     </v-tab>
-
     <v-tab>
       {{ $local.vn_admin_product.INFORMATION_DETAIL }}
       <v-icon>
@@ -20,7 +19,12 @@
       <v-icon> {{ $local.vn_admin_product.ICON_IMPORT }}</v-icon>
     </v-tab>
     <v-tab-item>
-      <v-form @submit.prevent="onSubmitInformation">
+      <v-form
+        ref="form"
+        v-model="validInformation"
+        lazy-validation
+        @submit.prevent="onSubmitInformation"
+      >
         <v-card>
           <v-card-text>
             <v-row
@@ -29,11 +33,13 @@
               ><v-spacer></v-spacer>
               <v-col class="d-flex justify-content-end"
                 ><v-btn
+                  :disabled="!validInformation"
                   type="submit"
                   color="orange"
                   elevation="2"
                   outlined
                   plain
+                  @click="validateInformation"
                   >{{ $local.vn_admin_product.BTN_EDIT }}</v-btn
                 ></v-col
               > </v-row
@@ -44,18 +50,19 @@
                   <v-text-field
                     v-model="products.name"
                     :label="$local.vn_admin_product.NAME"
+                    :rules="$rule.ADMIN_PRODUCT_NAME"
                     outlined
-                    clearable
                     required
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-text-field
                     v-model="products.price"
-                    type="number"
+                    v-mask="'#########'"
+                    :rules="$rule.ADMIN_PRODUCT_PRICE"
                     :label="$local.vn_admin_product.PRICE"
                     outlined
-                    clearable
+                    suffix="₫"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -64,8 +71,8 @@
                   <v-textarea
                     v-model="products.infoSmall"
                     :label="$local.vn_admin_product.SHORT_DESCRIPTION"
+                    :rules="$rule.ADMIN_PRODUCT_SHORT_DESCRIPTION"
                     outlined
-                    clearable
                   >
                   </v-textarea>
                 </v-col>
@@ -110,149 +117,191 @@
                           {{ $local.vn_admin_product.ADD_SIZE_COLOR }}
                         </v-col></v-row
                       >
-                      <v-row>
-                        <v-col
-                          ><v-select
-                            v-model="editSize.detailsProduct"
-                            :items="colorItem"
-                            item-value="id"
-                            item-text="name"
-                            :label="$local.vn_admin_product.COLOR"
-                          ></v-select>
-                        </v-col>
-                        <v-col>
-                          <v-text-field
-                            v-model="editSize.name"
-                            :label="$local.vn_admin_product.SIZE"
-                            outlined
-                          ></v-text-field></v-col
-                        ><v-col>
-                          <v-btn @click="addSize">{{
-                            $local.vn_admin_product.BTN_ADD_SIZE
-                          }}</v-btn>
-                        </v-col>
-                      </v-row>
+                      <v-form
+                        ref="formColorSize"
+                        v-model="validColorSize"
+                        lazy-validation
+                        @submit.prevent="SubmitaddSize"
+                      >
+                        <v-row>
+                          <v-col
+                            ><v-select
+                              v-model="editSize.detailsProduct"
+                              :items="colorItem"
+                              item-value="id"
+                              item-text="name"
+                              :label="$local.vn_admin_product.COLOR"
+                              :rules="$rule.ADMIN_PRODUCT_COLOR_NAME"
+                            ></v-select>
+                          </v-col>
+                          <v-col>
+                            <v-text-field
+                              v-model="editSize.name"
+                              :label="$local.vn_admin_product.SIZE"
+                              :rules="$rule.ADMIN_PRODUCT_NAME_SIZE"
+                              outlined
+                            ></v-text-field></v-col
+                          ><v-col>
+                            <v-btn
+                              :disabled="!validColorSize"
+                              type="submit"
+                              color="orange"
+                              elevation="2"
+                              outlined
+                              plain
+                              @click="validateColorSize"
+                              >{{ $local.vn_admin_product.BTN_ADD_SIZE }}</v-btn
+                            >
+                          </v-col>
+                        </v-row>
+                      </v-form>
                       <v-row>
                         <v-container>
-                          <v-row>
-                            <v-col>
-                              <v-card-text
-                                ><p>
-                                  {{ $local.vn_admin_product.ADD_COLOR }}
-                                </p></v-card-text
-                              ></v-col
-                            >
-                            <v-col
-                              ><v-btn @click="addColors">
-                                {{ $local.vn_admin_product.ADD_COLOR }}</v-btn
-                              ></v-col
-                            >
-                          </v-row>
-
-                          <v-divider></v-divider>
-                          <v-row>
-                            <v-col sm="6" cols="12">
-                              <v-select
-                                v-model="addColor.color"
-                                :items="color"
-                                item-text="name"
-                                item-value="id"
-                                label="Màu"
-                                outlined
-                              >
-                                <template #selection="{ item }">
-                                  <v-chip
-                                    :text-color="
-                                      item.code == '#FFFFFF' ? 'black' : 'white'
-                                    "
-                                    :color="item.code"
-                                  >
-                                    <span class="mr-2">{{ item.name }}</span>
-                                    {{ item.code }}</v-chip
-                                  >
-                                </template></v-select
-                              ></v-col
-                            >
-                            <v-col height="auto">
-                              <v-card outlined>
-                                <v-row>
-                                  <v-col>
-                                    <v-toolbar-bar
-                                      >Hình ảnh</v-toolbar-bar
-                                    ></v-col
-                                  ></v-row
-                                >
-                                <v-row>
-                                  <v-col cols="2" sm="2">
-                                    <v-file-input
-                                      hide-input
-                                      accept="image/png, image/jpeg, image/bmp"
-                                      @change="inputFile($event, addColor)"
-                                    ></v-file-input>
-                                    <v-btn
-                                      text
-                                      icon
-                                      @click="addColor.image = ''"
-                                      ><v-icon>mdi-close</v-icon></v-btn
-                                    >
-                                  </v-col>
-                                  <v-col cols="10" sm="10">
-                                    <v-img
-                                      :src="addColor.image"
-                                      max-height="200"
-                                      max-width="200"
-                                      contain
-                                    ></v-img>
-                                  </v-col>
-                                </v-row>
-                              </v-card>
-                            </v-col>
-                          </v-row>
-                          <v-row>
-                            <v-col>
-                              <v-card-text
-                                ><p>Kích thước</p>
-                              </v-card-text></v-col
-                            >
-                            <v-col class="d-flex justify-content-end">
-                              <v-btn
-                                class="mr-1"
-                                color="primary"
-                                small
-                                fab
-                                @click="addSizeArray(addColor)"
-                                ><v-icon>mdi-plus</v-icon></v-btn
-                              >
-                            </v-col>
-                          </v-row>
-                          <v-row
-                            v-for="(itemSize, indexSize) in addColor.size"
-                            :key="indexSize"
+                          <v-form
+                            ref="formColor"
+                            v-model="validColor"
+                            lazy-validation
+                            @submit.prevent="SubmitaddColor"
                           >
-                            <v-col sm="6" cols="12">
-                              <v-text-field
-                                v-model.trim="itemSize.name"
-                                label="Tên kích thước"
-                                outlined
-                                clearable
-                                required
-                              ></v-text-field>
-                            </v-col>
-                            <v-col>
-                              <v-btn
-                                color="error"
-                                fab
-                                small
-                                @click="
-                                  deleteSizeArray(
-                                    indexDetailsProduct,
-                                    indexSize
-                                  )
-                                "
-                                ><v-icon>mdi-minus</v-icon></v-btn
-                              ></v-col
+                            <v-row>
+                              <v-col>
+                                <v-card-text
+                                  ><p>
+                                    {{ $local.vn_admin_product.ADD_COLOR }}
+                                  </p></v-card-text
+                                ></v-col
+                              >
+                              <v-col
+                                ><v-btn
+                                  :disabled="!validColor"
+                                  type="submit"
+                                  color="orange"
+                                  elevation="2"
+                                  outlined
+                                  plain
+                                  @click="validateColor"
+                                >
+                                  {{ $local.vn_admin_product.ADD_COLOR }}</v-btn
+                                ></v-col
+                              >
+                            </v-row>
+
+                            <v-divider></v-divider>
+                            <v-row>
+                              <v-col sm="6" cols="12">
+                                <v-select
+                                  v-model="addColor.color"
+                                  :items="color"
+                                  :rules="$rule.ADMIN_PRODUCT_COLOR_NAME"
+                                  item-text="name"
+                                  item-value="id"
+                                  :label="$local.vn_admin_product.COLOR"
+                                  outlined
+                                >
+                                  <template #selection="{ item }">
+                                    <v-chip
+                                      :text-color="
+                                        item.code == '#FFFFFF'
+                                          ? 'black'
+                                          : 'white'
+                                      "
+                                      :color="item.code"
+                                    >
+                                      <span class="mr-2">{{ item.name }}</span>
+                                      {{ item.code }}</v-chip
+                                    >
+                                  </template></v-select
+                                ></v-col
+                              >
+                              <v-col height="auto">
+                                <v-card outlined>
+                                  <v-row>
+                                    <v-col>
+                                      <v-toolbar-bar>{{
+                                        $local.vn_admin_product.IMAGE
+                                      }}</v-toolbar-bar></v-col
+                                    ></v-row
+                                  >
+                                  <v-row>
+                                    <v-col cols="2" sm="2">
+                                      <v-file-input
+                                        :rules="$rule.ADMIN_PRODUCT_COLOR_IMAGE"
+                                        hide-input
+                                        accept="image/png, image/jpeg, image/bmp"
+                                        @change="inputFile($event, addColor)"
+                                      ></v-file-input>
+                                      <v-btn
+                                        text
+                                        icon
+                                        @click="addColor.image = ''"
+                                        ><v-icon>{{
+                                          $local.vn_admin_product.ICON_BTN_CLOSE
+                                        }}</v-icon></v-btn
+                                      >
+                                    </v-col>
+                                    <v-col cols="10" sm="10">
+                                      <v-img
+                                        :src="addColor.image"
+                                        max-height="200"
+                                        max-width="200"
+                                        contain
+                                      ></v-img>
+                                    </v-col>
+                                  </v-row>
+                                </v-card>
+                              </v-col>
+                            </v-row>
+                            <v-row>
+                              <v-col>
+                                <v-card-text
+                                  ><p>{{ $local.vn_admin_product.SIZE }}</p>
+                                </v-card-text></v-col
+                              >
+                              <v-col class="d-flex justify-content-end">
+                                <v-btn
+                                  class="mr-1"
+                                  color="primary"
+                                  small
+                                  fab
+                                  @click="addSizeArray(addColor)"
+                                  ><v-icon>{{
+                                    $local.vn_admin_product.ICON_ADD_PLUS
+                                  }}</v-icon></v-btn
+                                >
+                              </v-col>
+                            </v-row>
+                            <v-row
+                              v-for="(itemSize, indexSize) in addColor.size"
+                              :key="indexSize"
                             >
-                          </v-row>
+                              <v-col sm="6" cols="12">
+                                <v-text-field
+                                  v-model="itemSize.name"
+                                  :rules="$rule.ADMIN_PRODUCT_NAME_SIZE"
+                                  :label="$local.vn_admin_product.NAME_SIZE"
+                                  outlined
+                                  clearable
+                                  required
+                                ></v-text-field>
+                              </v-col>
+                              <v-col>
+                                <v-btn
+                                  color="error"
+                                  fab
+                                  small
+                                  @click="
+                                    deleteSizeArray(
+                                      indexDetailsProduct,
+                                      indexSize
+                                    )
+                                  "
+                                  ><v-icon
+                                    >$local.vn_admin_product.ICON_DEL_MINUS</v-icon
+                                  ></v-btn
+                                ></v-col
+                              >
+                            </v-row>
+                          </v-form>
                         </v-container>
                       </v-row>
                       <v-row><v-col> </v-col></v-row>
@@ -272,50 +321,58 @@
         <v-card-text>
           <v-row
             ><v-col
-              ><h5>{{ $local.vn_admin_product.ICON_IMPORT }}</h5></v-col
+              ><h5>{{ $local.vn_admin_product.IMPORT }}</h5></v-col
             ><v-spacer></v-spacer> </v-row
           ><v-divider></v-divider>
           <v-container>
-            <v-row>
-              <v-col>
-                <v-select
-                  v-model="activeColor"
-                  :items="colorItem"
-                  item-text="name"
-                  item-value="children"
-                  :label="$local.vn_admin_product.COLOR"
-                  outlined
-                />
-              </v-col>
-              <v-col
-                ><v-select
-                  v-model="addCoupon.id"
-                  :items="activeColor"
-                  item-text="name"
-                  item-value="id"
-                  :label="$local.vn_admin_product.SIZE"
-                  outlined
-              /></v-col>
-              <v-col>
-                <v-text-field
-                  v-model="addCoupon.amount"
-                  type="number"
-                  :label="$local.vn_admin_product.AMOUNT"
-                  outlined
-                  clearable
-                ></v-text-field>
-              </v-col>
-              <v-col class="d-flex justify-content-end"
-                ><v-btn
-                  color="orange"
-                  elevation="2"
-                  outlined
-                  plain
-                  @click="addCoupons"
-                  >{{ $local.vn_admin_product.BTN_ADD_AMOUNT }}</v-btn
-                ></v-col
-              >
-            </v-row>
+            <v-form
+              ref="formCoupon"
+              v-model="validCoupn"
+              lazy-validation
+              @submit.prevent="SubmitaddCoupons"
+            >
+              <v-row>
+                <v-col>
+                  <v-select
+                    v-model="activeColor"
+                    :items="colorItem"
+                    item-text="name"
+                    item-value="children"
+                    :label="$local.vn_admin_product.COLOR"
+                    outlined
+                  />
+                </v-col>
+                <v-col
+                  ><v-select
+                    v-model="addCoupon.id"
+                    :items="activeColor"
+                    item-text="name"
+                    item-value="id"
+                    :label="$local.vn_admin_product.SIZE"
+                    outlined
+                /></v-col>
+                <v-col>
+                  <v-text-field
+                    v-model="addCoupon.amount"
+                    type="number"
+                    :label="$local.vn_admin_product.AMOUNT"
+                    outlined
+                    clearable
+                  ></v-text-field>
+                </v-col>
+                <v-col class="d-flex justify-content-end"
+                  ><v-btn
+                    type="submit"
+                    color="orange"
+                    elevation="2"
+                    outlined
+                    plain
+                    @click="validateCoupon"
+                    >{{ $local.vn_admin_product.BTN_ADD_AMOUNT }}</v-btn
+                  ></v-col
+                >
+              </v-row>
+            </v-form>
           </v-container>
         </v-card-text>
       </v-card>
@@ -328,6 +385,10 @@ import { mapGetters } from 'vuex'
 export default {
   layout: 'admin',
   data: () => ({
+    validInformation: false,
+    validColorSize: false,
+    validColor: false,
+    validCoupn: false,
     editProduct: true,
     editProductImage: true,
     defaultItem: {},
@@ -350,7 +411,7 @@ export default {
         this.cloneColor(item)
         return this.clone(item)
       }
-      return {}
+      return { name: '' }
     },
     colors() {
       const item = this.products
@@ -429,11 +490,27 @@ export default {
         this.products
       )
     },
-    addSize() {
+    SubmitaddSize() {
       this.$store.dispatch(
         this.$constant.admin.ACTION_ADMIN_SIZE_ADD,
         this.editSize
       )
+      this.goBack()
+    },
+    SubmitaddColor() {
+      this.addColor.product = this.products.id
+      this.$store.dispatch(
+        this.$constant.admin.ACTION_ADMIN_DETAILS_PRODUCT_ADD,
+        this.addColor
+      )
+      this.goBack()
+    },
+    SubmitaddCoupons() {
+      this.$store.dispatch(
+        this.$constant.admin.ACTION_ADMIN_SIZE_UPDATE,
+        this.addCoupon
+      )
+      this.goBack()
     },
     addSizeArray() {
       this.addColor.size.push({})
@@ -441,18 +518,21 @@ export default {
     deleteSizeArray(indexSize) {
       this.addColor.size.splice(indexSize, 1)
     },
-    addColors() {
-      this.addColor.product = this.products.id
-      this.$store.dispatch(
-        this.$constant.admin.ACTION_ADMIN_DETAILS_PRODUCT_ADD,
-        this.addColor
-      )
+
+    validateInformation() {
+      this.$refs.form.validate()
     },
-    addCoupons() {
-      this.$store.dispatch(
-        this.$constant.admin.ACTION_ADMIN_SIZE_UPDATE,
-        this.addCoupon
-      )
+    validateColorSize() {
+      this.$refs.formColorSize.validate()
+    },
+    validateColor() {
+      this.$refs.formColor.validate()
+    },
+    validateCoupon() {
+      this.$refs.formCoupon.validate()
+    },
+    goBack() {
+      window.history.length > 1 ? this.$router.go(0) : this.$router.push('/')
     },
   },
 }

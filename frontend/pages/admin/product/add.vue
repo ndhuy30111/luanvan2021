@@ -1,21 +1,26 @@
 <template>
-  <v-form @submit.prevent="onSubmit">
+  <v-form ref="form" v-model="valid" lazy-validation @submit.prevent="onSubmit">
     <v-container>
       <v-row>
         <v-col cols="12" sm="6">
           <v-card>
             <v-card-text>
               <v-row
-                ><v-col><h5>Thêm thông tin sản phẩm</h5></v-col
+                ><v-col
+                  ><h5>
+                    {{ $local.vn_admin_product.INFORMATION }}
+                  </h5></v-col
                 ><v-spacer></v-spacer>
-                <v-col
+                <v-col class="d-flex justify-content-end"
                   ><v-btn
+                    :disabled="!valid"
                     type="submit"
                     color="orange"
                     elevation="2"
                     outlined
                     plain
-                    >Thêm sản sẩm</v-btn
+                    @click="validate"
+                    >{{ $local.vn_admin_product.BTN_ADD_PRODUCT }}</v-btn
                   ></v-col
                 > </v-row
               ><v-divider></v-divider>
@@ -23,8 +28,9 @@
                 <v-row>
                   <v-col cols="12" sm="6">
                     <v-text-field
-                      v-model.trim="form.name"
-                      label="Tên sản phẩm"
+                      v-model="form.name"
+                      :label="$local.vn_admin_product.NAME"
+                      :rules="$rule.ADMIN_PRODUCT_NAME"
                       outlined
                       clearable
                       required
@@ -33,9 +39,11 @@
                   <v-col cols="12" sm="6">
                     <v-text-field
                       v-model.number="form.price"
-                      label="Giá tiền"
+                      v-mask="'#########'"
+                      :rules="$rule.ADMIN_PRODUCT_PRICE"
+                      :label="$local.vn_admin_product.PRICE"
                       outlined
-                      clearable
+                      suffix="₫"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -44,19 +52,23 @@
                     <v-card outlined>
                       <v-row>
                         <v-col>
-                          <v-toolbar-bar>Hình ảnh</v-toolbar-bar></v-col
+                          <v-toolbar-bar>{{
+                            $local.vn_admin_product.IMAGE_ADD
+                          }}</v-toolbar-bar></v-col
                         ></v-row
                       >
                       <v-row>
                         <v-col cols="2" sm="2">
                           <v-file-input
+                            :rules="$rule.ADMIN_PRODUCT_IMAGE"
                             hide-input
                             accept="image/png, image/jpeg, image/bmp"
-                            label="Avatar"
                             @change="inputFile($event, form)"
                           ></v-file-input>
                           <v-btn text icon @click="form.image = ''"
-                            ><v-icon>mdi-close</v-icon></v-btn
+                            ><v-icon>{{
+                              $local.vn_admin_product.ICON_BTN_CLOSE
+                            }}</v-icon></v-btn
                           >
                         </v-col>
                         <v-col cols="10" sm="10">
@@ -71,21 +83,29 @@
                     </v-card>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-toolbar-bar> Danh mục</v-toolbar-bar>
+                    <v-toolbar-bar>{{
+                      $local.vn_admin_category.CATEGORY_TILE
+                    }}</v-toolbar-bar>
                     <Treeselect
                       v-model="form.category"
                       :options="category"
                       :normalizer="normalizer"
                       :disable-branch-nodes="false"
+                      :rules="$rule.ADMIN_PRODUCT_SELECT"
+                      required
                     >
-                    </Treeselect
-                  ></v-col>
+                    </Treeselect>
+                    <span v-if="info.valid" style="color: red">{{
+                      info.msg
+                    }}</span>
+                  </v-col>
                 </v-row>
                 <v-row>
                   <v-col cols="12" sm="12">
                     <v-textarea
                       v-model="form.infoSmall"
-                      label="Mô tả ngắn"
+                      :label="$local.vn_admin_product.SHORT_DESCRIPTION"
+                      :rules="$rule.ADMIN_PRODUCT_SHORT_DESCRIPTION"
                       outlined
                       clearable
                     >
@@ -94,7 +114,12 @@
                 </v-row>
                 <v-row>
                   <v-col cols="12" sm="12">
-                    <v-toolbar-bar>Mô tả chi tiết</v-toolbar-bar>
+                    <v-toolbar-bar>{{
+                      $local.vn_admin_product.DETAILS_DESCRIPTION
+                    }}</v-toolbar-bar>
+                    <span v-if="selectCategoryValid.valid" style="color: red">{{
+                      selectCategoryValid.msg
+                    }}</span>
                     <vue-editor
                       id="editor"
                       v-model="form.info"
@@ -113,7 +138,7 @@
             <v-container>
               <v-row>
                 <v-card-text
-                  ><p>Thêm thông tin chi tiết sản phẩm</p>
+                  ><p>{{ $local.vn_admin_product.INFORMATION_DETAIL }}</p>
                   <v-divider></v-divider>
 
                   <v-card
@@ -127,7 +152,11 @@
                     <v-container>
                       <v-row>
                         <v-col>
-                          <v-card-text><p>Màu sắc</p></v-card-text></v-col
+                          <v-card-text
+                            ><p>
+                              {{ $local.vn_admin_product.COLOR }}
+                            </p></v-card-text
+                          ></v-col
                         >
 
                         <v-col class="d-flex justify-content-end">
@@ -137,14 +166,20 @@
                             small
                             fab
                             @click="addColor"
-                            ><v-icon>mdi-plus</v-icon></v-btn
+                            ><v-icon>
+                              {{
+                                $local.vn_admin_product.ICON_ADD_PLUS
+                              }}</v-icon
+                            ></v-btn
                           >
                           <v-btn
                             color="error"
                             fab
                             small
                             @click="deleteColor(indexColor)"
-                            ><v-icon>mdi-minus</v-icon></v-btn
+                            ><v-icon>{{
+                              $local.vn_admin_product.ICON_DEL_MINUS
+                            }}</v-icon></v-btn
                           ></v-col
                         >
                       </v-row>
@@ -155,9 +190,10 @@
                           <v-select
                             v-model="itemDetailsProduct.color"
                             :items="color"
+                            :rules="$rule.ADMIN_PRODUCT_COLOR_NAME"
                             item-text="name"
                             item-value="id"
-                            label="Màu"
+                            :label="$local.vn_admin_product.COLOR"
                             outlined
                           >
                             <template #selection="{ item }">
@@ -177,12 +213,15 @@
                           <v-card outlined>
                             <v-row>
                               <v-col>
-                                <v-toolbar-bar>Hình ảnh</v-toolbar-bar></v-col
+                                <v-toolbar-bar>{{
+                                  $local.vn_admin_product.IMAGE
+                                }}</v-toolbar-bar></v-col
                               ></v-row
                             >
                             <v-row>
                               <v-col cols="2" sm="2">
                                 <v-file-input
+                                  :rules="$rule.ADMIN_PRODUCT_COLOR_IMAGE"
                                   hide-input
                                   accept="image/png, image/jpeg, image/bmp"
                                   @change="
@@ -210,7 +249,9 @@
                       </v-row>
                       <v-row>
                         <v-col>
-                          <v-card-text><p>Kích thước</p> </v-card-text></v-col
+                          <v-card-text
+                            ><p>{{ $local.vn_admin_product.SIZE }}</p>
+                          </v-card-text></v-col
                         >
                         <v-col class="d-flex justify-content-end">
                           <v-btn
@@ -219,16 +260,11 @@
                             small
                             fab
                             @click="addSize(indexColor)"
-                            ><v-icon>mdi-plus</v-icon></v-btn
+                            ><v-icon>{{
+                              $local.vn_admin_product.ICON_ADD_PLUS
+                            }}</v-icon></v-btn
                           >
-                          <v-btn
-                            color="error"
-                            fab
-                            small
-                            @click="deleteSize(indexColor, indexSize)"
-                            ><v-icon>mdi-minus</v-icon></v-btn
-                          ></v-col
-                        >
+                        </v-col>
                       </v-row>
                       <v-row
                         v-for="(itemSize, indexSize) in itemDetailsProduct.size"
@@ -237,12 +273,24 @@
                         <v-col sm="6" cols="12">
                           <v-text-field
                             v-model.trim="itemSize.name"
-                            label="Tên kích thước"
+                            :label="$local.vn_admin_product.NAME_SIZE"
+                            :rules="$rule.ADMIN_PRODUCT_NAME_SIZE"
                             outlined
                             clearable
                             required
                           ></v-text-field>
                         </v-col>
+                        <v-col
+                          ><v-btn
+                            color="error"
+                            fab
+                            small
+                            @click="deleteSize(indexColor, indexSize)"
+                            ><v-icon>{{
+                              $local.vn_admin_product.ICON_DEL_MINUS
+                            }}</v-icon></v-btn
+                          ></v-col
+                        >
                       </v-row>
                     </v-container>
                   </v-card>
@@ -263,6 +311,15 @@ export default {
   components: { Treeselect },
   layout: 'admin',
   data: () => ({
+    valid: false,
+    selectCategoryValid: {
+      valid: false,
+      msg: 'Bạn phải chọn danh mục',
+    },
+    info: {
+      valid: false,
+      msg: 'Bạn phải thêm mô tả vào',
+    },
     form: {
       name: '',
       price: 0,
@@ -364,12 +421,27 @@ export default {
       if (indexColor === 0) return
       this.form.detailsProduct[indexColor].size.splice(indexSize, 1)
     },
-    onSubmit(event) {
+    async onSubmit(event) {
       event.preventDefault()
-      this.$store.dispatch(
+      if (this.valid === false) {
+        return
+      }
+      const flap = await this.$store.dispatch(
         this.$constant.admin.ACTION_ADMIN_PRODUCT_ADD,
         this.form
       )
+      !flap || this.$router.push({ name: 'admin-product' })
+    },
+    validate() {
+      this.$refs.form.validate()
+      if (this.form.category === null) {
+        this.selectCategoryValid.valid = true
+        this.valid = true
+      }
+      if (this.form.info === '') {
+        this.info.valid = true
+        this.valid = true
+      }
     },
   },
 }

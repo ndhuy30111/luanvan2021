@@ -41,6 +41,7 @@ export default {
     '~/plugins/constants.js',
     '~/plugins/rule.js',
     { src: '~/plugins/mask' },
+    '~/plugins/vue2-filters',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

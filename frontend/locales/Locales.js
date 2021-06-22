@@ -7,6 +7,7 @@ import AdminHeaderTable from '~/locales/admin/headerTable'
 import ADMINCATEGORY from '~/locales/admin/category'
 import AdminPorudct from '~/locales/admin/product'
 import ADMINGENERAL from '~/locales/admin/general'
+import ADMINCOLOR from '~/locales/admin/color'
 export default () => ({
   vn: UserMsg(),
 
@@ -16,4 +17,5 @@ export default () => ({
   vn_admin_product: AdminPorudct(),
   vn_admin_category: ADMINCATEGORY(),
   vn_admin_general: ADMINGENERAL(),
+  vn_admin_color: ADMINCOLOR(),
 })
