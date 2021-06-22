@@ -14,7 +14,8 @@ import java.util.List;
 @Repository
 public interface CartItemsRepository extends JpaRepository<CartItemsModel, Integer> {
     List<CartItemsModel> findByUser(UserModel user);
-    @Query(value ="SELECT p.name,p.price,f.url,ci.quantity,ci.color,ci.size  FROM `cart_items` ci " +
+    List<CartItemsModel> findByUser(Integer id);
+    @Query(value ="SELECT p.id,p.name,p.price,f.url,ci.quantity,ci.color,ci.size FROM `cart_items` ci " +
             "JOIN `product` p ON p.id = ci.product_id " +
             "JOIN `details_product` dp ON dp.product_id = p.id " +
             "JOIN `file` f ON f.id = dp.image_id " +

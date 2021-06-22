@@ -9,13 +9,16 @@ import com.stu.luanvan.repository.ProductRepository;
 import com.stu.luanvan.request.CartRequest;
 import com.stu.luanvan.request.UserRequest;
 import com.stu.luanvan.response.CartItemsResponse;
+import com.stu.luanvan.response.CartResponse;
 import com.stu.luanvan.security.MyUserDetails;
 import com.stu.luanvan.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -29,8 +32,27 @@ public class CartService implements CartServiceInterfaces{
     @Autowired
     private ProductRepository productRepository;
 
-    public Collection<CartItemsResponse> listCartItems(UserModel user) {
-        return cartItemsRepository.findByUserAndColorName(user.getId());
+    public Collection<CartResponse> listCartItems(UserModel user) {
+        var cart = cartItemsRepository.findByUser(user);
+
+        Collection<CartResponse> listCart = new ArrayList<>();
+        cart.forEach(el->{
+            var cartRepository = new CartResponse();
+            cartRepository.setId(el.getProduct().getId());
+            cartRepository.setColor(el.getColor());
+            cartRepository.setSize(el.getSize());
+            cartRepository.setName(el.getProduct().getName());
+            cartRepository.setPrice(el.getProduct().getPrice());
+            cartRepository.setQuantity(el.getQuantity());
+            el.getProduct().getDetailsProduct().forEach(elm->{
+                if(elm.getColor().getName().equals(cartRepository.getColor())){
+                    cartRepository.setImage(elm.getImage().getUrl());
+                }
+            });
+            listCart.add(cartRepository);
+
+        });
+        return listCart;
     }
 
     @Override

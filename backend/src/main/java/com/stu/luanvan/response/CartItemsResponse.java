@@ -1,6 +1,7 @@
 package com.stu.luanvan.response;
 
 public interface CartItemsResponse {
+    public Integer getId();
 
     public String getName() ;
 
