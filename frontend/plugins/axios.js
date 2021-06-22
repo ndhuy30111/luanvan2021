@@ -19,9 +19,7 @@ export default function ({ $axios, redirect, store, $toast }) {
         }
       }
     }
-    if (parseInt(data.response.status) === 500) {
-      $toast.global.error()
-    }
+    // if (parseInt(data.response.status) === 500) {}
     if (parseInt(data.response.status) === 409) {
       $toast.global.conflitct()
       if (message === 'Namesake') {

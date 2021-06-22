@@ -15,13 +15,18 @@
               <tr v-for="(item, index) in cart" :key="index">
                 <td class="cart-pic" style="width: 21%">
                   <a data-tip="Xem chi tiết" @click="productdetail(item)">
-                    <img :src="item.img" alt="" style="width: 50%" />
+                    <img
+                      :src="item.image"
+                      alt=""
+                      style="width: 50%"
+                      aspect-ratio="1"
+                    />
                   </a>
                 </td>
                 <td class="cart-title">
                   <h5>
-                    {{ item.name }} / {{ item.color.name }} /
-                    {{ item.size.name }}
+                    {{ item.name }} / {{ item.color }} /
+                    {{ item.size }}
                   </h5>
                 </td>
                 <td class="p-price" aria-readonly="readonly">
@@ -111,11 +116,11 @@ export default {
     )
   },
   methods: {
-    productdetail(product) {
+    productdetail(item) {
       this.$router.push({
         name: 'productdetail-id',
         params: {
-          id: product.id,
+          id: item.id,
         },
       })
     },

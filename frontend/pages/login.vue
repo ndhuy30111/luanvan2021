@@ -66,6 +66,7 @@
 <script>
 import Button from '../components/Button'
 export default {
+  name: 'Login',
   components: { Button },
   data() {
     return {
@@ -90,6 +91,7 @@ export default {
             },
           })
           .then(() => {
+            this.$store.dispatch(this.$constant.user.ACTION_SHOW_CART)
             this.$router.push({ name: 'index' })
           })
       } catch (ex) {

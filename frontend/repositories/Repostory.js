@@ -10,6 +10,8 @@ import AuthAdminRepository from '~/repositories/admin/AuthRepostory'
 import AccounRepostory from '~/repositories/user/AccounRepostory'
 import CategoryReponstory from '~/repositories/user/CategoryRepostory'
 import ProductReponstory from '~/repositories/user/ProductRepostory'
+import CartRepostory from '~/repositories/user/CartRepostory'
+
 export default ($axios) => ({
   // admin
   productAdmin: ProductAdminRepository($axios),
@@ -23,4 +25,5 @@ export default ($axios) => ({
   account: AccounRepostory($axios),
   categoryUser: CategoryReponstory($axios),
   productUser: ProductReponstory($axios),
+  cartRepostory: CartRepostory($axios),
 })

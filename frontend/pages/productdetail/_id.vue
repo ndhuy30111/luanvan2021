@@ -183,9 +183,9 @@ export default {
       const cartItem = {
         id: this.products.id,
         name: this.products.name,
-        size: this.sizeActive,
-        color: this.colorActive,
-        img: this.imgActive,
+        size: this.sizeActive.name,
+        color: this.colorActive.name,
+        url: this.imgActive,
         price: this.products.price,
         quantity: parseInt(this.quantity),
       }

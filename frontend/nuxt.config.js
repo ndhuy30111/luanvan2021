@@ -105,6 +105,14 @@ export default {
         },
         autoLogout: true,
       },
+      facebook: {
+        endpoints: {
+          userInfo:
+            'https://graph.facebook.com/v6.0/me?fields=id,name,picture{url}',
+        },
+        clientId: '205092034803969',
+        scope: ['public_profile', 'email'],
+      },
     },
   },
   toast: {

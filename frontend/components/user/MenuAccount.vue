@@ -47,6 +47,7 @@ export default {
   methods: {
     logout() {
       this.$auth.logout()
+      this.$store.dispatch(this.$constant.user.ACTION_REMOVE_CART)
     },
   },
 }
