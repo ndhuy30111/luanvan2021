@@ -20,10 +20,6 @@
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <v-card>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
-
             <v-card-text>
               <v-container>
                 <v-row>
@@ -91,12 +87,14 @@ export default {
       ],
     }
   },
+
   computed: {
     ...mapGetters({
       // map `this.doneCount` to `this.$store.getters.doneTodosCount`
       product: 'admin/product/getAll',
     }),
   },
+
   watch: {
     dialog(val) {
       val || this.close()
@@ -105,7 +103,6 @@ export default {
       val || this.closeDelete()
     },
   },
-
   methods: {
     editItem(item) {
       this.$router.push({

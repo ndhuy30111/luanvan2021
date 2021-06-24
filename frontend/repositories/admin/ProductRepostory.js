@@ -19,4 +19,7 @@ export default ($axios) => ({
   delete(id) {
     return $axios.delete(`${resource}/${id}`)
   },
+  updateImage(id, payload) {
+    return $axios.put(`${resource}/${id}/image`, payload)
+  },
 })

@@ -1,5 +1,6 @@
 export default {
   MUTATION_ADMIN_PRODUCT_INIT(state, product) {
+    state.product = []
     state.product = product
   },
   MUTATION_ADMIN_PRODUCT_ADD(state, product) {

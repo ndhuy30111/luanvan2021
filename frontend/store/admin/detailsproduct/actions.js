@@ -1,11 +1,11 @@
 export default {
-  async addDetailsproduct({ commit }, item) {
+  async addDetailsproduct({ dispatch }, item) {
     this.$toast.global.loading()
     const res = await this.$repositories.detailsproductAdmin.create(item)
-    const { status, data } = res
+    const { status } = res
     if (status === 201) {
       this.$toast.global.success()
-      console.log(data)
+      dispatch(this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT)
     } else {
       // Handle error here
       this.$toast.global.error()

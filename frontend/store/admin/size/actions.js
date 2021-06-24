@@ -1,26 +1,41 @@
 export default {
-  async addSize({ commit }, item) {
+  async addSize({ dispatch }, item) {
     this.$toast.global.loading()
-    const res = await this.$repositories.sizeAdmin.create(item)
-    const { status, data } = res
-    if (status === 201) {
-      this.$toast.global.success()
-      // commit(this.$constant.admin.MUTATION_ADMIN_SIZE_ADD, data)
-      console.log(data)
-    } else {
-      // Handle error here
+    try {
+      const res = await this.$repositories.sizeAdmin.create(item)
+      const { status } = res
+      if (status === 201) {
+        this.$toast.global.success()
+      } else {
+        this.$toast.global.error()
+      }
+    } catch (e) {
       this.$toast.global.error()
     }
   },
-  async updateAmount({ commit }, item) {
+  async updateAmount({ dispatch }, item) {
     this.$toast.global.loading()
-    const res = await this.$repositories.couponAdmin.create(item)
-    const { status, data } = res
-    if (status === 200) {
-      this.$toast.global.success()
-      console.log(data)
-    } else {
-      // Handle error here
+    let res = null
+    try {
+      res = await this.$repositories.couponAdmin.create(item)
+      const { status } = res
+      if (status === 200) {
+        this.$toast.global.success()
+      }
+    } catch (e) {
+      this.$toast.global.error()
+    }
+  },
+  async deleteSize({ commit }, item) {
+    this.$toast.global.loading()
+    let res = null
+    try {
+      res = await this.$repositories.sizeAdmin.delete(item)
+      const { status } = res
+      if (status === 200) {
+        this.$toast.global.success()
+      }
+    } catch (e) {
       this.$toast.global.error()
     }
   },

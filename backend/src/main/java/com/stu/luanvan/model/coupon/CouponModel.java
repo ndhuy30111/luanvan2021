@@ -30,5 +30,4 @@ public class CouponModel extends BaseModel {
     private SizeModel size;
     private Integer amount;
 
-
 }

@@ -79,9 +79,7 @@
               </v-row>
               <v-row>
                 <v-col cols="12" sm="12">
-                  <v-toolbar-bar>{{
-                    $local.vn_admin_product.DETAILS_DESCRIPTION
-                  }}</v-toolbar-bar>
+                  <h5>{{ $local.vn_admin_product.DETAILS_DESCRIPTION }}</h5>
                   <vue-editor
                     id="editor"
                     v-model="products.info"
@@ -106,7 +104,39 @@
               <v-row>
                 <v-col>
                   <v-card>
-                    <v-treeview :items="colorItem" open-all> </v-treeview>
+                    <v-treeview :items="colorItem" open-all>
+                      <template #prepend="{ item }"
+                        ><v-btn
+                          v-if="!item.children && !item.del"
+                          icon
+                          @click="deleteItem(item)"
+                          ><v-icon>mdi-delete</v-icon></v-btn
+                        >
+                      </template>
+                    </v-treeview>
+                    <v-dialog v-model="dialogDelete" max-width="500px">
+                      <v-card>
+                        <v-card-title class="headline">{{
+                          $local.vn_admin.DELETE_MSG
+                        }}</v-card-title>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="closeDelete"
+                            >{{ $local.vn_admin_general.BTN_CANCEL }}</v-btn
+                          >
+                          <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="deleteItemConfirm"
+                            >{{ $local.vn_admin_general.BTN_DELETE }}</v-btn
+                          >
+                          <v-spacer></v-spacer>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
                   </v-card>
                 </v-col>
                 <v-col>
@@ -217,9 +247,9 @@
                                 <v-card outlined>
                                   <v-row>
                                     <v-col>
-                                      <v-toolbar-bar>{{
-                                        $local.vn_admin_product.IMAGE
-                                      }}</v-toolbar-bar></v-col
+                                      <h5>
+                                        {{ $local.vn_admin_product.IMAGE }}
+                                      </h5></v-col
                                     ></v-row
                                   >
                                   <v-row>
@@ -284,20 +314,20 @@
                                   required
                                 ></v-text-field>
                               </v-col>
-                              <v-col>
+                              <v-col sm="6" cols="12">
                                 <v-btn
                                   color="error"
-                                  fab
                                   small
+                                  fab
                                   @click="
                                     deleteSizeArray(
                                       indexDetailsProduct,
                                       indexSize
                                     )
                                   "
-                                  ><v-icon
-                                    >$local.vn_admin_product.ICON_DEL_MINUS</v-icon
-                                  ></v-btn
+                                  ><v-icon>{{
+                                    $local.vn_admin_product.ICON_DEL_MINUS
+                                  }}</v-icon></v-btn
                                 ></v-col
                               >
                             </v-row>
@@ -314,7 +344,50 @@
       </v-card>
     </v-tab-item>
     <v-tab-item>
-      <v-card flat> </v-card>
+      <v-card flat>
+        <v-simple-table>
+          <template #default>
+            <thead>
+              <tr>
+                <th
+                  v-for="(item, index) in $local.vn_admin_headerTable
+                    .IMAGE_HEADER"
+                  :key="index"
+                  class="text-center"
+                >
+                  {{ item.text }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in editImage" :key="index">
+                <td>{{ item.typeName }}</td>
+                <td>{{ item.name }}</td>
+                <td>
+                  <v-img
+                    :src="item.url"
+                    :lazy-src="require(`~/assets/loadding.png`)"
+                    width="100"
+                  />
+                </td>
+                <td>
+                  <v-file-input
+                    hide-input
+                    accept="image/png, image/jpeg, image/bmp"
+                    @change="inputFile($event, item)"
+                  ></v-file-input>
+                </td>
+                <td><v-img :src="item.image" width="100"></v-img></td>
+                <td>
+                  <v-btn @click="onImage(item)">{{
+                    $local.vn_admin_product.BTN_EDIT_IMAGE
+                  }}</v-btn>
+                </td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+      </v-card>
     </v-tab-item>
     <v-tab-item>
       <v-card flat>
@@ -385,6 +458,7 @@ import { mapGetters } from 'vuex'
 export default {
   layout: 'admin',
   data: () => ({
+    dialogDelete: false,
     validInformation: false,
     validColorSize: false,
     validColor: false,
@@ -397,7 +471,9 @@ export default {
     editSize: {},
     addColor: { size: [{}] },
     addCoupon: {},
-    activeColor: {},
+    activeColor: [],
+    delSizeId: -1,
+    editImage: [],
   }),
   computed: {
     ...mapGetters({
@@ -409,6 +485,7 @@ export default {
       const item = this.product({ id: this.$route.params.id })
       if (item) {
         this.cloneColor(item)
+        this.cloneImage(item)
         return this.clone(item)
       }
       return { name: '' }
@@ -416,13 +493,19 @@ export default {
     colors() {
       const item = this.products
       if (item) {
-        return this.$_.cloneDeep(item)
+        return this.$_.clone(item)
       }
       return {}
     },
   },
+  watch: {
+    dialogDelete(val) {
+      val || this.closeDelete()
+    },
+  },
   methods: {
     cloneColor(item) {
+      this.colorItem = []
       item.detailsProduct.forEach((e) => {
         const sizes = []
         e.size.forEach((sizeItem) => {
@@ -430,6 +513,7 @@ export default {
             id: sizeItem.id,
             name:
               'Tên Size: ' + sizeItem.name + ' / Số lượng: ' + sizeItem.amount,
+            del: sizeItem.amount > 0,
           }
           sizes.push(size)
         })
@@ -441,6 +525,30 @@ export default {
 
         this.colorItem.push(childers)
       })
+    },
+    cloneImage(item) {
+      this.editImage = []
+      let image = {
+        id: item.id,
+        typeName: 'Hình đại diện sản phẩm ',
+        type: 'product',
+        name: item.name,
+        url: item.image,
+        image: '',
+      }
+      this.editImage.push(image)
+      item.detailsProduct.forEach((el) => {
+        image = {
+          id: el.id,
+          typeName: 'Hình của màu sắc sản phẩm',
+          type: 'color',
+          name: el.color.name,
+          url: el.image,
+          image: '',
+        }
+        this.editImage.push(image)
+      })
+      return this.editImage
     },
     clone(item) {
       this.defaultItem = this.$_.cloneDeep(item)
@@ -462,7 +570,6 @@ export default {
           reader.onloadend = () => resolve(reader.result)
           reader.readAsDataURL(f)
         })
-      /* Read data */
       return await readData(file)
     },
     async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
@@ -483,40 +590,71 @@ export default {
       }
     },
     handleImagDelete(file) {},
-    onSubmitInformation(event) {
+    async onSubmitInformation(event) {
       event.preventDefault()
-      this.$store.dispatch(
+      await this.$store.dispatch(
         this.$constant.admin.ACTION_ADMIN_PRODUCT_UPDATE,
         this.products
       )
     },
-    SubmitaddSize() {
-      this.$store.dispatch(
+    async SubmitaddSize() {
+      await this.$store.dispatch(
         this.$constant.admin.ACTION_ADMIN_SIZE_ADD,
         this.editSize
       )
-      this.goBack()
+      await this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT)
     },
-    SubmitaddColor() {
+    async SubmitaddColor() {
       this.addColor.product = this.products.id
-      this.$store.dispatch(
+      await this.$store.dispatch(
         this.$constant.admin.ACTION_ADMIN_DETAILS_PRODUCT_ADD,
         this.addColor
       )
-      this.goBack()
+      await this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT)
     },
-    SubmitaddCoupons() {
-      this.$store.dispatch(
+    async SubmitaddCoupons() {
+      await this.$store.dispatch(
         this.$constant.admin.ACTION_ADMIN_SIZE_UPDATE,
         this.addCoupon
       )
-      this.goBack()
+      await this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT)
+    },
+    async deleteItemConfirm() {
+      if (this.delSizeId > -1) {
+        await this.$store.dispatch(
+          this.$constant.admin.ACTION_ADMIN_SIZE_DELETE,
+          this.delSizeId
+        )
+        await this.$store.dispatch(
+          this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT
+        )
+      }
+      this.closeDelete()
+    },
+    async onImage(item) {
+      if (item.image === '') {
+        this.$toast.error('Bạn chưa thêm hình', {
+          position: 'top-center',
+          type: 'error',
+          duration: 5000,
+          theme: 'outline',
+          icon: 'error',
+        })
+        return
+      }
+      await this.$store.dispatch(
+        this.$constant.admin.ACTION_ADMIN_IMAGE_ADDIMAGE,
+        item
+      )
+      await this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT)
     },
     addSizeArray() {
       this.addColor.size.push({})
     },
     deleteSizeArray(indexSize) {
-      this.addColor.size.splice(indexSize, 1)
+      if (this.addColor.size.length > 1) {
+        this.addColor.size.splice(indexSize, 1)
+      }
     },
 
     validateInformation() {
@@ -531,8 +669,13 @@ export default {
     validateCoupon() {
       this.$refs.formCoupon.validate()
     },
-    goBack() {
-      window.history.length > 1 ? this.$router.go(0) : this.$router.push('/')
+    deleteItem(item) {
+      this.delSizeId = item.id
+      this.dialogDelete = true
+    },
+    closeDelete() {
+      this.dialogDelete = false
+      this.delSizeId = -1
     },
   },
 }

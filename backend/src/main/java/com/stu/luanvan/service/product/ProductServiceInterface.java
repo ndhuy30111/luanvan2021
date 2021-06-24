@@ -7,4 +7,5 @@ import com.stu.luanvan.service.ServiceInterfaces;
 
 public interface ProductServiceInterface extends ServiceInterfaces<ProductModel, ProductRequest> {
    ProductModel saveEdit(ProductEditRequest productRequest, int id) throws Exception;
+   ProductModel saveEditImage(String image, int id) throws Exception;
 }

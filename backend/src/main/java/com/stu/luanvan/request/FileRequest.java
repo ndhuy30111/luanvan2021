@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 public class FileRequest {
     private Integer id;
     private String publicId;
+    private String image;
 }

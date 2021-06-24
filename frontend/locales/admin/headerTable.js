@@ -39,4 +39,13 @@ export default () => ({
 
     { text: '', value: 'actions', sortable: false },
   ],
+  IMAGE_HEADER: [
+    { text: 'Loại hình ảnh' },
+    { text: 'Tên' },
+    { text: 'Hình' },
+    { text: '' },
+    { text: '' },
+    { text: '' },
+  ],
+  COUPON_HEADER: [{ text: '', align: 'start' }],
 })

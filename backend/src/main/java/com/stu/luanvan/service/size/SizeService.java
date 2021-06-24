@@ -65,6 +65,15 @@ public class SizeService implements SizeServiceInterfaces {
 
     @Override
     public void delete(Integer id) throws Exception {
-
+        var size = sizeRepository.findById(id).orElse(null);
+        if(size==null){
+            throw new NotFoundEx(ExceptionLocales.NOT_FOUND);
+        }
+        try{
+            sizeRepository.delete(size);
+        }catch(Exception ex){
+            logger.error("Delete Size: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
+        }
     }
 }

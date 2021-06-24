@@ -48,7 +48,7 @@ public class DetailsProductService implements DetailsProductServiceinterface{
 
     @Override
     public DetailsProductModel saveNew(DetailsProductRequest detailsProductRequest) throws Exception {
-        try{
+
             var product = productRepository.findById(detailsProductRequest.getProduct()).orElse(null);
             var color = colorReponsitory.findById(detailsProductRequest.getColor()).orElse(null);
             if(product == null||color ==null){
@@ -56,6 +56,7 @@ public class DetailsProductService implements DetailsProductServiceinterface{
             }
             var image = cloudinaryService.uploadFile(detailsProductRequest.getImage(),product.getName() + " " + color.getName());
             var detailsProduct = new DetailsProductModel(color,image , product);
+        try{
             detailsProductReponsitory.save(detailsProduct);
             detailsProductRequest.getSize().forEach(e->{
                 var size = new SizeModel(e.getName(),detailsProduct);
@@ -77,5 +78,24 @@ public class DetailsProductService implements DetailsProductServiceinterface{
     @Override
     public void delete(Integer id) throws Exception {
 
+    }
+
+
+    @Override
+    public DetailsProductModel saveEditImage(String image, Integer id) throws Exception {
+        var detailsProduct = detailsProductReponsitory.findById(id).orElse(null);
+        if(detailsProduct==null){
+            throw new NotFoundEx(ExceptionLocales.NOT_FOUND);
+        }
+        var nameImage = detailsProduct.getImage().getName();
+        cloudinaryService.deleteFile(detailsProduct.getImage().getPublicId());
+        var file =  cloudinaryService.uploadFile(image, nameImage);
+        try{
+            detailsProduct.setImage(file);
+            return detailsProductReponsitory.save(detailsProduct);
+        }catch(Exception ex){
+            logger.error("Updata Image Details Product: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
+        }
     }
 }

@@ -23,4 +23,9 @@ public class SizeController implements SizeInterfacaeController{
     public ResponseEntity<?> postSave(@Valid @RequestBody SizeRequest sizeRequest) throws Exception {
         return new ResponseEntity<>(sizeService.saveNew(sizeRequest), HttpStatus.CREATED);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Integer id) throws Exception {
+        sizeService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

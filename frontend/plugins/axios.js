@@ -1,4 +1,4 @@
-export default function ({ $axios, redirect, store, $toast }) {
+export default function ({ $axios, $toast }) {
   $axios.onError((data) => {
     const { errors, message } = data.response.data
     if (parseInt(data.response.status) === 400) {

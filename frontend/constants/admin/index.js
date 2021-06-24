@@ -48,9 +48,14 @@ export default () => ({
 
   ACTION_ADMIN_SIZE_ADD: 'admin/size/addSize',
   ACTION_ADMIN_SIZE_UPDATE: 'admin/size/updateAmount',
+  ACTION_ADMIN_SIZE_DELETE: 'admin/size/deleteSize',
   MUTATION_ADMIN_SIZE_ADD: 'MUTATION_ADMIN_SIZE_ADD',
 
   // Auth
   ACTION_ADMIN_LOGIN: 'admin/auth/login',
   ACTION_ADMIN_USER: 'admin/auth/user',
+  ACTION_ADMIN_IMAGE_ADDIMAGE: 'admin/image/addImage',
+  // COUPON
+  ACTION_ADMIN_COUPON_INIT: 'admin/coupon/init',
+  MUTATION_ADMIN_COUPON_INIT: 'MUTATION_ADMIN_COUPON_INIT',
 })

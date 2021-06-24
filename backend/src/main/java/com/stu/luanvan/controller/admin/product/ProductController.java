@@ -1,6 +1,7 @@
 package com.stu.luanvan.controller.admin.product;
 
 import com.stu.luanvan.controller.URlController;
+import com.stu.luanvan.request.FileRequest;
 import com.stu.luanvan.request.product.ProductRequest;
 import com.stu.luanvan.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,9 @@ public class ProductController implements ProductInterfaceController{
     public ResponseEntity<?> delete(@PathVariable int id) throws Exception {
         productService.delete(id);
         return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+    }
+    @PutMapping("/{id}/image")
+    public ResponseEntity<?> putSaveByImage(@Valid @RequestBody FileRequest file,@PathVariable Integer id) throws Exception {
+        return new ResponseEntity<>(productService.saveEditImage(file.getImage(),id),HttpStatus.OK);
     }
 }

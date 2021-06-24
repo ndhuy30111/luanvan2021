@@ -134,7 +134,7 @@ public class ProductService implements ProductServiceInterface{
     @Override
     @Transactional(rollbackFor = Throwable.class)
     public void delete(Integer id) throws Exception {
-        try{
+
             var product = findById(id);
             if(product==null){
                 throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
@@ -142,6 +142,7 @@ public class ProductService implements ProductServiceInterface{
             if(!product.getInvoicedetals().isEmpty()){
                 throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
             }
+        try{
             if(!product.getCategory().isEmpty()){
                 productRepository.deleteCategoryById(id);
             }
@@ -156,5 +157,22 @@ public class ProductService implements ProductServiceInterface{
     @Override
     public ProductModel saveEdit(ProductEditRequest productEditRequest, int id) throws Exception {
         return null;
+    }
+
+    @Override
+    public ProductModel saveEditImage(String image, int id) throws Exception {
+        var product = productRepository.findById(id).orElse(null);
+        if(product ==null){
+            throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
+        }
+        cloudinaryService.deleteFile(product.getImage().getPublicId());
+        var file =  cloudinaryService.uploadFile(image, product.getName());
+        try{
+            product.setImage(file);
+            return productRepository.save(product);
+        }catch(Exception ex){
+            logger.error("Update Image Product: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
+        }
     }
 }

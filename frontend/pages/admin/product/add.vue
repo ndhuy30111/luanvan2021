@@ -38,13 +38,15 @@
                   </v-col>
                   <v-col cols="12" sm="6">
                     <v-text-field
-                      v-model.number="form.price"
-                      v-mask="'#########'"
+                      v-model="form.price"
+                      v-mask="'###-###-###-###'"
+                      type="tel"
                       :rules="$rule.ADMIN_PRODUCT_PRICE"
                       :label="$local.vn_admin_product.PRICE"
                       outlined
                       suffix="₫"
-                    ></v-text-field>
+                    />
+                    {{ form.price }}
                   </v-col>
                 </v-row>
                 <v-row>

@@ -42,7 +42,7 @@ public class DetailsProductModel extends BaseModel {
     @JsonIdentityReference(alwaysAsId = true)
     private ProductModel product;
 
-    @OneToMany(mappedBy = "detailsProductModel",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "detailsProduct",cascade = CascadeType.ALL)
     @JsonManagedReference
     private Collection<SizeModel> size;
 

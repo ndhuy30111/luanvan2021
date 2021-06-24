@@ -55,8 +55,7 @@
               }}</router-link>
             </div>
           </div>
-
-          <Button :text="$local.vn.login_title" />
+          <Button :text="$local.vn.login_title" @click="onFacebook" />
         </b-form>
       </b-col>
     </b-row>
@@ -95,6 +94,9 @@ export default {
       } catch (ex) {
         alert('Bạn không thể truy cập')
       }
+    },
+    async onFacebook() {
+      await this.$auth.loginWith('facebook')
     },
     onReset(event) {
       event.preventDefault()

@@ -65,7 +65,6 @@ export default {
       e.preventDefault()
       let flap = null
       if (!this.valid) return
-
       const form = { email: this.email, password: this.password }
       flap = await this.$store.dispatch(
         this.$constant.admin.ACTION_ADMIN_LOGIN,

@@ -6,11 +6,14 @@ import com.stu.luanvan.model.coupon.CouponModel;
 import com.stu.luanvan.repository.CouponRepository;
 import com.stu.luanvan.repository.SizeRepository;
 import com.stu.luanvan.request.CouponRequest;
+import com.stu.luanvan.response.CouponResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 @Service
@@ -27,9 +30,15 @@ public class CouponService implements CouponSerivceInterface{
 
     @Override
     public Collection<CouponModel> findByAll() {
-        return couponRepository.findAll();
+        return couponRepository.findAll(Sort.by("id").descending());
     }
-
+    public Collection<CouponResponse> findAll(){
+        Collection<CouponResponse> coupon =  new ArrayList<>();
+        couponRepository.findAll(Sort.by("id").descending()).forEach(e->{
+                coupon.add(new CouponResponse(e));
+        });
+        return coupon;
+    }
     @Override
     public CouponModel findById(Integer id) {
         return null;

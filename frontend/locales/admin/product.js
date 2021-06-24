@@ -27,4 +27,5 @@ export default () => ({
   ICON_BTN_CLOSE: 'mdi-close',
   ICON_ADD_PLUS: 'mdi-plus',
   ICON_DEL_MINUS: 'mdi-minus',
+  BTN_EDIT_IMAGE: 'Thay đổi hình ảnh',
 })
