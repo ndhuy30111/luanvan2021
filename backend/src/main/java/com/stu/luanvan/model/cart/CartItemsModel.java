@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -40,5 +41,8 @@ public class CartItemsModel {
         this.quantity = cart.getQuantity();
         this.color = cart.getColor();
         this.size = cart.getSize();
+    }
+    public void edit (CartRequest cart){
+        this.quantity = cart.getQuantity();
     }
 }

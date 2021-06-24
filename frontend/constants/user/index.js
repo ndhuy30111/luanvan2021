@@ -4,7 +4,8 @@ export default () => ({
   ACTION_CART_ADDTOCART: 'user/cart/addCart',
   ACTION_SHOW_CART: 'user/cart/showcart',
   ACTION_REMOVE_CART: 'user/cart/removeCart',
-  ACTION_REMOVE_PRODUCTCART: 'user/cart/removeProductCart',
+  ACTION_DELETE_PRODUCTCART: 'user/cart/deleteCart',
+  ACTION_UPDATE_CART: 'user/cart/updateCart',
   ACTION_PLUS_ITEMCART: 'user/cart/plus',
   ACTION_MINUS_ITEMCART: 'user/cart/minus',
 

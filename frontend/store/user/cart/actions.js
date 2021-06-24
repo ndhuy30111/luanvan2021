@@ -14,7 +14,6 @@ export default {
       if (status === 201) {
         commit(constants.MUTATIONS_CART_ADDTOCART, cartItem)
         this.$toast.global.cart()
-        return true
       }
     } catch (e) {
       return false
@@ -26,19 +25,27 @@ export default {
     const { status, data } = res
     if (status === 200) {
       commit(constants.MUTATIONS_SHOW_CART, data)
-      return true
     }
+  },
+  async updateCart({ commit }, cart) {
+    await this.$repositories.cartRepostory.updated(cart.idCart, cart)
+  },
+  async deleteCart({ commit }, item) {
+    try {
+      const res = await this.$repositories.cartRepostory.delete(item.idCart)
+      const { status } = res
+      if (status === 200) {
+        commit(constants.MUTATIONS_REMOVE_PRODUCTCART, item)
+      }
+    } catch (e) {}
   },
   removeCart: (context) => {
     context.commit(constants.MUTATIONS_REMOVE_CART)
   },
-  removeProductCart: (context, indexRemove) => {
-    context.commit(constants.MUTATIONS_REMOVE_PRODUCTCART, indexRemove)
+  plus({ commit }, cartItems) {
+    commit(constants.MUTATIONS_PLUS_ITEMCART, cartItems)
   },
-  plus: (context, i) => {
-    context.commit(constants.MUTATIONS_PLUS_ITEMCART, i)
-  },
-  minus: (context, i) => {
-    context.commit(constants.MUTATIONS_MINUS_ITEMCART, i)
+  minus: (context, cartItems) => {
+    context.commit(constants.MUTATIONS_MINUS_ITEMCART, cartItems)
   },
 }

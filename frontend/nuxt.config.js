@@ -160,7 +160,7 @@ export default {
         options: {
           position: 'top-center',
           type: 'success',
-          duration: 5000,
+          duration: 1000,
           theme: 'outline',
           icon: 'check',
         },
@@ -204,7 +204,7 @@ export default {
         options: {
           position: 'top-center',
           type: 'info',
-          duration: 2000,
+          duration: 1500,
           theme: 'outline',
         },
       },

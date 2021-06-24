@@ -8,26 +8,32 @@ export default {
   MUTATIONS_REMOVE_CART(state) {
     state.cart = []
   },
-  MUTATIONS_REMOVE_PRODUCTCART(state, indexRemove) {
+  MUTATIONS_REMOVE_PRODUCTCART(state, payload) {
+    const contentIndex = state.cart.findIndex(
+      (items) => parseInt(items.idCart) === parseInt(payload.idCart)
+    )
     state.cart = state.cart.filter((item, index) => {
-      return index !== indexRemove
+      return index !== contentIndex
     })
   },
-
-  MUTATIONS_PLUS_ITEMCART(state, i) {
+  MUTATIONS_PLUS_ITEMCART(state, payload) {
+    const contentIndex = state.cart.findIndex(
+      (items) => parseInt(items.idCart) === parseInt(payload.idCart)
+    )
     state.cart.forEach((item, index) => {
-      if (index === i) {
+      if (index === contentIndex) {
         item.quantity++
-        // localStorage.setItem('cart', JSON.stringify(state.cart))
       }
     })
   },
-  MUTATIONS_MINUS_ITEMCART(state, i) {
+  MUTATIONS_MINUS_ITEMCART(state, payload) {
+    const contentIndex = state.cart.findIndex(
+      (items) => parseInt(items.idCart) === parseInt(payload.idCart)
+    )
     state.cart.forEach((item, index) => {
-      if (index === i) {
+      if (index === contentIndex) {
         if (item.quantity > 1) {
           item.quantity--
-          // localStorage.setItem('cart', JSON.stringify(state.cart))
         }
       }
     })

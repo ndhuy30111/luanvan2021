@@ -35,4 +35,16 @@ public class CartController {
         var cartItems = cartService.saveNew(cartRequest);
         return cartItems==null ? new ResponseEntity<>(HttpStatus.NOT_FOUND): new ResponseEntity<>(HttpStatus.CREATED);
     }
+    @PatchMapping("/cart/{id}")
+    public ResponseEntity<?> patchSave(@Valid @RequestBody CartRequest cartRequest, @PathVariable int id) throws Exception {
+        var cartItems = cartService.saveEdit(cartRequest, id);
+        return new ResponseEntity<>(cartItems,HttpStatus.OK);
+    }
+    @DeleteMapping("/cart/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> delete(@PathVariable int id) throws Exception {
+        cartService.delete(id);
+        return new ResponseEntity<>( HttpStatus.OK);
+
+    }
 }

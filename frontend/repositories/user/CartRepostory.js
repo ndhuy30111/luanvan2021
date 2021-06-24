@@ -6,4 +6,10 @@ export default ($axios) => ({
   addcart(payload) {
     return $axios.post(`${resource}`, payload)
   },
+  delete(id) {
+    return $axios.delete(`${resource}/${id}`)
+  },
+  updated(id, payload) {
+    return $axios.patch(`${resource}/${id}`, payload)
+  },
 })
