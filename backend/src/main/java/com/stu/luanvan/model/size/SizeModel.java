@@ -28,7 +28,7 @@ public class SizeModel extends BaseModel {
     @Pattern(regexp = PatternLocales.NAME_PATTERN, message = MessageLocales.NAME_PATTERN)
     private String name;
 
-    @Column(columnDefinition = "int(5) default 0 COMMENT 'Số lượng sản phẩm'",nullable = false)
+    @Column(columnDefinition = "int(8) default 0 COMMENT 'Số lượng sản phẩm'",nullable = false)
     @Min(value = -1,message = MessageLocales.MIN + "-1")
     private Integer amount = 0;
 
@@ -50,7 +50,7 @@ public class SizeModel extends BaseModel {
         this.detailsProduct = detailsProductModel;
     }
 
-    public void setAmount(Integer amount) throws Exception {
+    public void xoaAmount(Integer amount) throws Exception {
         this.amount -= amount;
         if(this.amount<0){
             throw new Exception("Lỗi số lượng");

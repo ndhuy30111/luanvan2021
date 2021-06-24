@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class CouponRequest {
     private Integer id;
     private Integer amount;
+    private String message;
 }

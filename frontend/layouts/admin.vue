@@ -57,11 +57,20 @@ export default {
           name: this.$local.vn_admin_menu.WAREHOUSE_MANAGEMENT,
           function: [
             {
-              name: this.$local.vn_admin_menu.IMPORT_PRODUCT_MANAGEMENT,
+              name: this.$local.vn_admin_menu.PRODUCT_IMPORT_MANAGEMENT,
               function: [
                 {
-                  name: this.$local.vn_admin_menu.IMPORT_PRODUCT_VIEW,
+                  name: this.$local.vn_admin_menu.PRODUCT_IMPORT_VIEW,
                   url: 'admin-coupon',
+                },
+              ],
+            },
+            {
+              name: this.$local.vn_admin_menu.INVOICE_MANAGEMENT,
+              function: [
+                {
+                  name: this.$local.vn_admin_menu.INVOICE_VIEW,
+                  url: 'admin-invoice',
                 },
               ],
             },

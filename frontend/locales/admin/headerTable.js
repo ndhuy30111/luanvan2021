@@ -47,5 +47,18 @@ export default () => ({
     { text: '' },
     { text: '' },
   ],
-  COUPON_HEADER: [{ text: '', align: 'start' }],
+  COUPON_HEADER: [
+    { text: 'Tên Sản phẩm', align: 'start', value: 'nameProduct' },
+    { text: 'Tên màu', value: 'nameColor' },
+    { text: 'Tên kích thước', value: 'nameSize' },
+    { text: 'Số lượng', value: 'amount' },
+    { text: 'Lý do', value: 'message' },
+    { text: 'Trạng thái', value: 'status' },
+    { text: 'Người tạo', value: 'createBy' },
+    { text: 'Ngày tạo', value: 'createDate' },
+    { text: 'Người cập nhập', value: 'lastModifiedBy' },
+    { text: 'Ngày cập nhập', value: 'lastModifiedDate' },
+
+    { text: '', value: 'actions', sortable: false },
+  ],
 })
