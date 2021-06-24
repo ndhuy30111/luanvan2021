@@ -15,13 +15,18 @@
               <tr v-for="(item, index) in cart" :key="index">
                 <td class="cart-pic" style="width: 21%">
                   <a data-tip="Xem chi tiết" @click="productdetail(item)">
-                    <img :src="item.img" alt="" style="width: 50%" />
+                    <img
+                      :src="item.image"
+                      alt=""
+                      style="width: 50%"
+                      aspect-ratio="1"
+                    />
                   </a>
                 </td>
                 <td class="cart-title">
                   <h5>
-                    {{ item.name }} / {{ item.color.name }} /
-                    {{ item.size.name }}
+                    {{ item.name }} / {{ item.color }} /
+                    {{ item.size }}
                   </h5>
                 </td>
                 <td class="p-price" aria-readonly="readonly">
@@ -35,7 +40,7 @@
                         slot="prepend"
                         color="green"
                         class="minus"
-                        @click="minus(index)"
+                        @click="minus(item)"
                       >
                         mdi-minus
                       </v-icon>
@@ -50,7 +55,7 @@
                         slot="append"
                         color="red"
                         class="plus"
-                        @click="plus(index)"
+                        @click="plus(item)"
                       >
                         mdi-plus
                       </v-icon>
@@ -61,7 +66,7 @@
                   {{ parseInt(item.price * item.quantity).toLocaleString() }}
                   {{ $local.vn.currency }}
                 </td>
-                <td class="close-td" @click="removeProductCart(index)">
+                <td class="close-td" @click="removeProductCart(item)">
                   <b-icon icon="trash" style="cursor: pointer"></b-icon>
                 </td>
               </tr>
@@ -110,26 +115,28 @@ export default {
       this.cart
     )
   },
+  mounted() {
+    this.$store.dispatch(this.$constant.user.ACTION_SHOW_CART)
+  },
   methods: {
-    productdetail(product) {
+    productdetail(item) {
       this.$router.push({
         name: 'productdetail-id',
         params: {
-          id: product.id,
+          id: item.idProduct,
         },
       })
     },
-    removeProductCart(indexRemove) {
-      this.$store.dispatch(
-        this.$constant.user.ACTION_REMOVE_PRODUCTCART,
-        indexRemove
-      )
+    removeProductCart(item) {
+      this.$store.dispatch(this.$constant.user.ACTION_DELETE_PRODUCTCART, item)
     },
-    plus(i) {
-      this.$store.dispatch(this.$constant.user.ACTION_PLUS_ITEMCART, i)
+    plus(item) {
+      this.$store.dispatch(this.$constant.user.ACTION_PLUS_ITEMCART, item)
+      this.$store.dispatch(this.$constant.user.ACTION_UPDATE_CART, item)
     },
-    minus(i) {
-      this.$store.dispatch(this.$constant.user.ACTION_MINUS_ITEMCART, i)
+    minus(item) {
+      this.$store.dispatch(this.$constant.user.ACTION_MINUS_ITEMCART, item)
+      this.$store.dispatch(this.$constant.user.ACTION_UPDATE_CART, item)
     },
   },
 }

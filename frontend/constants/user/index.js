@@ -1,9 +1,11 @@
 export default () => ({
   ACTIONS_CATEGORYS_GETALL: 'user/categorys/getAll',
 
-  ACTION_CART_ADDTOCART: 'user/cart/addProdcutToCart',
-  ACTION_REMOVE_PRODUCTCART: 'user/cart/removeProductCart',
-  ACTION_LOAD_CART: 'user/cart/render',
+  ACTION_CART_ADDTOCART: 'user/cart/addCart',
+  ACTION_SHOW_CART: 'user/cart/showcart',
+  ACTION_REMOVE_CART: 'user/cart/removeCart',
+  ACTION_DELETE_PRODUCTCART: 'user/cart/deleteCart',
+  ACTION_UPDATE_CART: 'user/cart/updateCart',
   ACTION_PLUS_ITEMCART: 'user/cart/plus',
   ACTION_MINUS_ITEMCART: 'user/cart/minus',
 

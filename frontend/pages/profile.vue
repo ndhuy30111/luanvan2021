@@ -108,7 +108,6 @@ export default {
       numberPhone: '',
     },
   }),
-  computed: {},
   watch() {
     this.editItem(this.$auth.user)
   },

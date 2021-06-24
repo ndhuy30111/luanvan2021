@@ -9,7 +9,7 @@
           </div>
           <div class="col d-flex justify-content-end">
             <BtnCart />
-            <MenuAccount />
+            <MenuAcc />
           </div>
         </div>
         <Header v-if="!mobileView" @keysearch="handeleSearch($event)" />
@@ -25,10 +25,10 @@
 import Header from '~/components/user/header/Header.vue'
 import Footer from '~/components/user/Footer.vue'
 import HeaderMobile from '~/components/user/header/HeaderMobile.vue'
-import MenuAccount from '~/components/user/MenuAccount.vue'
+import MenuAcc from '~/components/user/MenuAccount.vue'
 import BtnCart from '~/components/BtnCart'
 export default {
-  components: { Header, Footer, HeaderMobile, MenuAccount, BtnCart },
+  components: { Header, Footer, HeaderMobile, MenuAcc, BtnCart },
   build: {
     splitChunks: {
       layouts: true,
@@ -50,9 +50,11 @@ export default {
   created() {
     this.handleView()
     addEventListener('resize', this.handleView)
-    this.$store.dispatch(this.$constant.user.ACTION_LOAD_CART)
     this.$store.dispatch(this.$constant.user.ACTIONS_CATEGORYS_GETALL)
     this.$store.dispatch(this.$constant.user.ACTIONS_PRODUCT_GETALL)
+    if (this.$auth.user) {
+      this.$store.dispatch(this.$constant.user.ACTION_SHOW_CART)
+    }
   },
   methods: {
     handleView() {

@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
@@ -35,5 +34,17 @@ public class CartController {
     public ResponseEntity<?> addCart(@Valid @RequestBody CartRequest cartRequest) throws Exception {
         var cartItems = cartService.saveNew(cartRequest);
         return cartItems==null ? new ResponseEntity<>(HttpStatus.NOT_FOUND): new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    @PatchMapping("/cart/{id}")
+    public ResponseEntity<?> patchSave(@Valid @RequestBody CartRequest cartRequest, @PathVariable int id) throws Exception {
+        var cartItems = cartService.saveEdit(cartRequest, id);
+        return new ResponseEntity<>(cartItems,HttpStatus.OK);
+    }
+    @DeleteMapping("/cart/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> delete(@PathVariable int id) throws Exception {
+        cartService.delete(id);
+        return new ResponseEntity<>( HttpStatus.OK);
+
     }
 }

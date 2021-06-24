@@ -106,6 +106,14 @@ export default {
         },
         autoLogout: true,
       },
+      facebook: {
+        endpoints: {
+          userInfo:
+            'https://graph.facebook.com/v6.0/me?fields=id,name,picture{url}',
+        },
+        clientId: '205092034803969',
+        scope: ['public_profile', 'email'],
+      },
     },
   },
   toast: {
@@ -152,7 +160,7 @@ export default {
         options: {
           position: 'top-center',
           type: 'success',
-          duration: 5000,
+          duration: 1000,
           theme: 'outline',
           icon: 'check',
         },
@@ -196,7 +204,7 @@ export default {
         options: {
           position: 'top-center',
           type: 'info',
-          duration: 2000,
+          duration: 1500,
           theme: 'outline',
         },
       },

@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-content-around">
     <b-button class="btn" type="submit">{{ text }} </b-button>
-    <b-button class="btn">
+    <b-button class="btn" @click="loginFacebook()">
       <img :src="require('@/assets/facebook.png')" class="img" />Facebook
     </b-button>
   </div>
