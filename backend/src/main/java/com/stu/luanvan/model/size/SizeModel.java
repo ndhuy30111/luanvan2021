@@ -35,7 +35,7 @@ public class SizeModel extends BaseModel {
     @ManyToOne
     @JoinColumn(name="detailsproduct_id")
     @JsonBackReference
-    private DetailsProductModel detailsProductModel;
+    private DetailsProductModel detailsProduct;
 
     @OneToMany(mappedBy = "size")
     private Collection<CouponModel> coupon;
@@ -47,7 +47,7 @@ public class SizeModel extends BaseModel {
 
     public SizeModel(String name, DetailsProductModel detailsProductModel) {
         this.name = name;
-        this.detailsProductModel = detailsProductModel;
+        this.detailsProduct = detailsProductModel;
     }
 
     public void setAmount(Integer amount) throws Exception {

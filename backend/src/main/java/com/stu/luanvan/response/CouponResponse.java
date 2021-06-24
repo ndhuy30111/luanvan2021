@@ -25,7 +25,7 @@ public class CouponResponse {
 
     public CouponResponse(CouponModel couponModel){
        this.id = couponModel.getId();
-       this.name = couponModel.getSize().getDetailsProductModel().getProduct().getName()+" "+ couponModel.getSize().getDetailsProductModel().getColor().getName() +" "+ couponModel.getSize().getName();
+       this.name = couponModel.getSize().getDetailsProduct().getProduct().getName()+" "+ couponModel.getSize().getDetailsProduct().getColor().getName() +" "+ couponModel.getSize().getName();
        this.amount = couponModel.getAmount();
        this.createBy = couponModel.getCreateBy().getEmail();
        this.createDate = couponModel.getCreateDate();
