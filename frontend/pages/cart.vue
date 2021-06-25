@@ -40,7 +40,7 @@
                         slot="prepend"
                         color="green"
                         class="minus"
-                        @click="minus(item)"
+                        @click="minus(item, index)"
                       >
                         mdi-minus
                       </v-icon>
@@ -55,7 +55,7 @@
                         slot="append"
                         color="red"
                         class="plus"
-                        @click="plus(item)"
+                        @click="plus(item, index)"
                       >
                         mdi-plus
                       </v-icon>
@@ -66,7 +66,7 @@
                   {{ parseInt(item.price * item.quantity).toLocaleString() }}
                   {{ $local.vn.currency }}
                 </td>
-                <td class="close-td" @click="removeProductCart(item)">
+                <td class="close-td" @click="removeProductCart(item, index)">
                   <b-icon icon="trash" style="cursor: pointer"></b-icon>
                 </td>
               </tr>
@@ -104,17 +104,27 @@ export default {
     cart() {
       return this.$store.state.user.cart.cart
     },
+    user() {
+      return this.$auth.user
+    },
     ...mapGetters({
       // map `this.doneCount` to `this.$store.getters.doneTodosCount`
       total: 'user/cart/total',
     }),
+  },
+  watch: {
+    user() {},
   },
   created() {
     this.$store.dispatch(
       this.$constant.user.ACTION_CHECKOUT_SETPRODUCT,
       this.cart
     )
+    if (this.user !== null) {
+      this.$store.dispatch(this.$constant.user.ACTION_SHOW_CART_USER)
+    }
   },
+
   mounted() {
     this.$store.dispatch(this.$constant.user.ACTION_SHOW_CART)
   },
@@ -127,16 +137,37 @@ export default {
         },
       })
     },
-    removeProductCart(item) {
-      this.$store.dispatch(this.$constant.user.ACTION_DELETE_PRODUCTCART, item)
+    removeProductCart(item, index) {
+      if (this.user !== null) {
+        this.$store.dispatch(
+          this.$constant.user.ACTION_DELETE_PRODUCTCART_USER,
+          item
+        )
+      } else if (this.user === null) {
+        this.$store.dispatch(this.$constant.user.ACTION_REMOVE_CART, index)
+      }
     },
-    plus(item) {
-      this.$store.dispatch(this.$constant.user.ACTION_PLUS_ITEMCART, item)
-      this.$store.dispatch(this.$constant.user.ACTION_UPDATE_CART, item)
+    plus(item, index) {
+      if (this.user !== null) {
+        this.$store.dispatch(
+          this.$constant.user.ACTION_PLUS_ITEMCART_USER,
+          item
+        )
+        this.$store.dispatch(this.$constant.user.ACTION_UPDATE_CART_USER, item)
+      } else if (this.user === null) {
+        this.$store.dispatch(this.$constant.user.ACTION_PLUS_ITEMCART, index)
+      }
     },
-    minus(item) {
-      this.$store.dispatch(this.$constant.user.ACTION_MINUS_ITEMCART, item)
-      this.$store.dispatch(this.$constant.user.ACTION_UPDATE_CART, item)
+    minus(item, index) {
+      if (this.user !== null) {
+        this.$store.dispatch(
+          this.$constant.user.ACTION_MINUS_ITEMCART_USER,
+          item
+        )
+        this.$store.dispatch(this.$constant.user.ACTION_UPDATE_CART_USER, item)
+      } else if (this.user === null) {
+        this.$store.dispatch(this.$constant.user.ACTION_MINUS_ITEMCART, index)
+      }
     },
   },
 }

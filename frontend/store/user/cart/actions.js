@@ -1,9 +1,9 @@
 import constants from './constants'
 
 export default {
-  async addCart({ commit }, cartItem) {
+  async addCartUser({ commit }, cartItem) {
     const newCartitem = {
-      productID: cartItem.id,
+      productID: cartItem.idProduct,
       quantity: cartItem.quantity,
       color: cartItem.color,
       size: cartItem.size,
@@ -12,7 +12,7 @@ export default {
       const res = await this.$repositories.cartRepostory.addcart(newCartitem)
       const { status } = res
       if (status === 201) {
-        commit(constants.MUTATIONS_CART_ADDTOCART, cartItem)
+        commit(constants.MUTATIONS_CART_ADDTOCART_USER, cartItem)
         this.$toast.global.cart()
       }
     } catch (e) {
@@ -20,32 +20,49 @@ export default {
     }
   },
 
-  async showcart({ commit }) {
+  async showcartUser({ commit }) {
     const res = await this.$repositories.cartRepostory.showcart()
     const { status, data } = res
     if (status === 200) {
-      commit(constants.MUTATIONS_SHOW_CART, data)
+      commit(constants.MUTATIONS_SHOW_CART_USER, data)
     }
   },
-  async updateCart({ commit }, cart) {
+  async updateCartUser({ commit }, cart) {
     await this.$repositories.cartRepostory.updated(cart.idCart, cart)
   },
-  async deleteCart({ commit }, item) {
+  async deleteCartUser({ commit }, item) {
     try {
       const res = await this.$repositories.cartRepostory.delete(item.idCart)
       const { status } = res
       if (status === 200) {
-        commit(constants.MUTATIONS_REMOVE_PRODUCTCART, item)
+        commit(constants.MUTATIONS_REMOVE_PRODUCTCART_USER, item)
       }
     } catch (e) {}
   },
-  removeCart: (context) => {
-    context.commit(constants.MUTATIONS_REMOVE_CART)
+  removeCartUser: (context) => {
+    context.commit(constants.MUTATIONS_REMOVE_CART_USER)
   },
-  plus({ commit }, cartItems) {
-    commit(constants.MUTATIONS_PLUS_ITEMCART, cartItems)
+  plusUser({ commit }, cartItems) {
+    commit(constants.MUTATIONS_PLUS_ITEMCART_USER, cartItems)
   },
-  minus: (context, cartItems) => {
-    context.commit(constants.MUTATIONS_MINUS_ITEMCART, cartItems)
+  minusUser: (context, cartItems) => {
+    context.commit(constants.MUTATIONS_MINUS_ITEMCART_USER, cartItems)
+  },
+
+  addCart: (context, cartItem) => {
+    context.commit(constants.MUTATIONS_CART_ADDTOCART, cartItem)
+  },
+
+  removeProductCart: (context, indexRemove) => {
+    context.commit(constants.MUTATIONS_REMOVE_PRODUCTCART, indexRemove)
+  },
+  render: (context) => {
+    context.commit(constants.MUTATIONS_LOAD_CART)
+  },
+  plus: (context, i) => {
+    context.commit(constants.MUTATIONS_PLUS_ITEMCART, i)
+  },
+  minus: (context, i) => {
+    context.commit(constants.MUTATIONS_MINUS_ITEMCART, i)
   },
 }

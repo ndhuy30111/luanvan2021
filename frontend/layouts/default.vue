@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <HeaderMobile @keysearch="handeleSearch($event)" />
+    <HeaderMobile />
     <div class="content_default" :class="{ open: showNav }">
       <div class="top-bar container">
         <div v-if="mobileView" class="w-100 row">
@@ -12,7 +12,7 @@
             <MenuAcc />
           </div>
         </div>
-        <Header v-if="!mobileView" @keysearch="handeleSearch($event)" />
+        <Header v-if="!mobileView" />
       </div>
       <v-main in>
         <Nuxt />
@@ -38,7 +38,6 @@ export default {
     return {
       mobileView: true,
       showNav: false,
-      search: '',
     }
   },
   mounted() {
@@ -53,15 +52,14 @@ export default {
     this.$store.dispatch(this.$constant.user.ACTIONS_CATEGORYS_GETALL)
     this.$store.dispatch(this.$constant.user.ACTIONS_PRODUCT_GETALL)
     if (this.$auth.user) {
+      this.$store.dispatch(this.$constant.user.ACTION_SHOW_CART_USER)
+    } else {
       this.$store.dispatch(this.$constant.user.ACTION_SHOW_CART)
     }
   },
   methods: {
     handleView() {
       this.mobileView = window.innerWidth <= 990
-    },
-    handeleSearch(search) {
-      this.$store.dispatch(this.$constant.user.ACTIONS_SEARCH, search)
     },
   },
 }

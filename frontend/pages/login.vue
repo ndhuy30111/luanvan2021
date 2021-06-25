@@ -55,7 +55,7 @@
               }}</router-link>
             </div>
           </div>
-          <Button :text="$local.vn.login_title" @click="onFacebook" />
+          <Button :text="$local.vn.login_title" />
         </b-form>
       </b-col>
     </b-row>
@@ -90,15 +90,14 @@ export default {
             },
           })
           .then(() => {
-            this.$store.dispatch(this.$constant.user.ACTION_SHOW_CART)
+            localStorage.removeItem('cart')
+            this.$store.dispatch(this.$constant.user.ACTION_REMOVE_CART_USER)
+            this.$store.dispatch(this.$constant.user.ACTION_SHOW_CART_USER)
             this.$router.push({ name: 'index' })
           })
       } catch (ex) {
         alert('Bạn không thể truy cập')
       }
-    },
-    async onFacebook() {
-      await this.$auth.loginWith('facebook')
     },
     onReset(event) {
       event.preventDefault()

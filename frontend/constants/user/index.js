@@ -1,11 +1,19 @@
 export default () => ({
   ACTIONS_CATEGORYS_GETALL: 'user/categorys/getAll',
 
+  // Cart has Account
+  ACTION_CART_ADDTOCART_USER: 'user/cart/addCartUser',
+  ACTION_SHOW_CART_USER: 'user/cart/showcartUser',
+  ACTION_REMOVE_CART_USER: 'user/cart/removeCartUser',
+  ACTION_DELETE_PRODUCTCART_USER: 'user/cart/deleteCartUser',
+  ACTION_UPDATE_CART_USER: 'user/cart/updateCartUser',
+  ACTION_PLUS_ITEMCART_USER: 'user/cart/plusUser',
+  ACTION_MINUS_ITEMCART_USER: 'user/cart/minusUser',
+
+  // Cart hasn't Account
   ACTION_CART_ADDTOCART: 'user/cart/addCart',
-  ACTION_SHOW_CART: 'user/cart/showcart',
-  ACTION_REMOVE_CART: 'user/cart/removeCart',
-  ACTION_DELETE_PRODUCTCART: 'user/cart/deleteCart',
-  ACTION_UPDATE_CART: 'user/cart/updateCart',
+  ACTION_SHOW_CART: 'user/cart/render',
+  ACTION_REMOVE_CART: 'user/cart/removeProductCart',
   ACTION_PLUS_ITEMCART: 'user/cart/plus',
   ACTION_MINUS_ITEMCART: 'user/cart/minus',
 

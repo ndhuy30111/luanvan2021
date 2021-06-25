@@ -1,10 +1,17 @@
 <template>
   <v-app-bar app color="white" flat>
     <ul>
-      <li v-for="(menu, index) in $local.vn.menu_header" :key="index">
-        <router-link :to="{ name: menu.url }" class="link">{{
-          menu.content
-        }}</router-link>
+      <li
+        v-for="(menu, index) in menu_header"
+        :key="index"
+        @click="activeMemu(index)"
+      >
+        <router-link
+          :id="menu.active ? 'active' : ''"
+          :to="{ name: menu.url }"
+          class="link"
+          >{{ menu.content }}</router-link
+        >
       </li>
     </ul>
 
@@ -34,9 +41,49 @@ import MenuAccount from '../MenuAccount.vue'
 import BtnCart from '../../BtnCart'
 export default {
   components: { MenuAccount, BtnCart },
+  data() {
+    return {
+      menu_header: [
+        {
+          content: 'Trang chủ',
+          url: 'index',
+          active: false,
+        },
+        {
+          content: 'Sản phẩm',
+          url: 'shop',
+          active: false,
+        },
+        {
+          content: 'Liên hệ',
+          url: 'contact',
+          active: false,
+        },
+        {
+          content: 'Thông tin',
+          url: 'news',
+          active: false,
+        },
+      ],
+      activeValue: '',
+      search: '',
+    }
+  },
+
   methods: {
+    activeMemu(i) {
+      this.menu_header.forEach((item, index) => {
+        if (i === index) {
+          this.activeValue = index
+          item.active = true
+        } else {
+          item.active = false
+        }
+      })
+    },
     keysearch() {
-      this.$emit('keysearch', this.search)
+      this.$router.push({ name: 'shop' })
+      this.$store.dispatch(this.$constant.user.ACTIONS_SEARCH, this.search)
     },
   },
 }
@@ -53,6 +100,9 @@ ul li {
     color: black;
     text-decoration: none;
     transition: all 0.3s;
+  }
+  #active {
+    color: #ce785c;
   }
   a:hover {
     color: #ce785c;

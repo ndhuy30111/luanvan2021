@@ -161,6 +161,7 @@ export default {
       this.size = item.size
       this.sizeActive = this.size[0]
     },
+    user() {},
   },
   methods: {
     cloneProduct(item) {
@@ -181,17 +182,19 @@ export default {
     },
     addCart() {
       const cartItem = {
-        id: this.products.id,
+        idProduct: this.products.id,
         name: this.products.name,
         size: this.sizeActive.name,
         color: this.colorActive.name,
-        url: this.imgActive,
+        image: this.imgActive,
         price: this.products.price,
         quantity: parseInt(this.quantity),
       }
-      if (!this.user) {
-        this.$toast.global.login()
-        this.$router.push({ name: 'login' })
+      if (this.user !== '') {
+        this.$store.dispatch(
+          this.$constant.user.ACTION_CART_ADDTOCART_USER,
+          cartItem
+        )
       } else {
         this.$store.dispatch(
           this.$constant.user.ACTION_CART_ADDTOCART,

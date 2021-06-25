@@ -1,14 +1,14 @@
 export default {
-  MUTATIONS_CART_ADDTOCART(state, cartItem) {
+  MUTATIONS_CART_ADDTOCART_USER(state, cartItem) {
     state.cart.push(cartItem)
   },
-  MUTATIONS_SHOW_CART(state, payload) {
+  MUTATIONS_SHOW_CART_USER(state, payload) {
     state.cart = payload
   },
-  MUTATIONS_REMOVE_CART(state) {
+  MUTATIONS_REMOVE_CART_USER(state) {
     state.cart = []
   },
-  MUTATIONS_REMOVE_PRODUCTCART(state, payload) {
+  MUTATIONS_REMOVE_PRODUCTCART_USER(state, payload) {
     const contentIndex = state.cart.findIndex(
       (items) => parseInt(items.idCart) === parseInt(payload.idCart)
     )
@@ -16,7 +16,7 @@ export default {
       return index !== contentIndex
     })
   },
-  MUTATIONS_PLUS_ITEMCART(state, payload) {
+  MUTATIONS_PLUS_ITEMCART_USER(state, payload) {
     const contentIndex = state.cart.findIndex(
       (items) => parseInt(items.idCart) === parseInt(payload.idCart)
     )
@@ -26,7 +26,7 @@ export default {
       }
     })
   },
-  MUTATIONS_MINUS_ITEMCART(state, payload) {
+  MUTATIONS_MINUS_ITEMCART_USER(state, payload) {
     const contentIndex = state.cart.findIndex(
       (items) => parseInt(items.idCart) === parseInt(payload.idCart)
     )
@@ -34,6 +34,52 @@ export default {
       if (index === contentIndex) {
         if (item.quantity > 1) {
           item.quantity--
+        }
+      }
+    })
+  },
+
+  MUTATIONS_CART_ADDTOCART(state, cartItem) {
+    const cart = state.cart.find(
+      (content) =>
+        content.id === parseInt(cartItem.id) &&
+        content.color === cartItem.color &&
+        content.size === cartItem.size
+    )
+    this.$toast.global.cart()
+    if (!cart) {
+      state.cart.push(cartItem)
+    } else {
+      cart.quantity += cartItem.quantity
+    }
+    localStorage.setItem('cart', JSON.stringify(state.cart))
+  },
+  MUTATIONS_REMOVE_PRODUCTCART(state, indexRemove) {
+    state.cart = state.cart.filter((item, index) => {
+      return index !== indexRemove
+    })
+    localStorage.setItem('cart', JSON.stringify(state.cart))
+  },
+  MUTATIONS_LOAD_CART(state) {
+    const cart = localStorage.getItem('cart')
+    if (cart != null) {
+      state.cart = JSON.parse(cart)
+    }
+  },
+  MUTATIONS_PLUS_ITEMCART(state, i) {
+    state.cart.forEach((item, index) => {
+      if (index === i) {
+        item.quantity++
+        localStorage.setItem('cart', JSON.stringify(state.cart))
+      }
+    })
+  },
+  MUTATIONS_MINUS_ITEMCART(state, i) {
+    state.cart.forEach((item, index) => {
+      if (index === i) {
+        if (item.quantity > 1) {
+          item.quantity--
+          localStorage.setItem('cart', JSON.stringify(state.cart))
         }
       }
     })

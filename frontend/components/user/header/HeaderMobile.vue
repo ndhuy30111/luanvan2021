@@ -34,7 +34,8 @@ export default {
   },
   methods: {
     keysearch() {
-      this.$emit('keysearch', this.search)
+      this.$router.push({ name: 'shop' })
+      this.$store.dispatch(this.$constant.user.ACTIONS_SEARCH, this.search)
     },
   },
 }

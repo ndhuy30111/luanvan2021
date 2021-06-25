@@ -66,7 +66,10 @@ export default {
     '@nuxtjs/auth-next',
     '@nuxtjs/cloudinary',
     'nuxt-material-design-icons',
+    '@nuxt/content',
   ],
+  // Content module configuration : https://content.nuxtjs.org/configuration
+  content: {},
   bootstrapVue: {
     icons: true,
   },
