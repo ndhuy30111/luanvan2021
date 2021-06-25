@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,12 +33,22 @@ public class CouponService implements CouponSerivceInterface{
     public Collection<CouponModel> findByAll() {
         return couponRepository.findAll(Sort.by("id").descending());
     }
-    public Collection<CouponResponse> findAll(){
+    public Collection<CouponResponse> findAll() throws Exception {
         Collection<CouponResponse> coupon =  new ArrayList<>();
-        couponRepository.findAll(Sort.by("id").descending()).forEach(e->{
+        try{
+            var  listCoupon= couponRepository.findAll(Sort.by("lastModifiedDate").descending());
+            listCoupon.forEach(e->{
+                if(e.getSize()==null){
+                    return;
+                }
                 coupon.add(new CouponResponse(e));
-        });
-        return coupon;
+            });
+            return coupon;
+        }catch(Exception e){
+            logger.error("Save List: ",e);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
+        }
+
     }
     @Override
     public CouponModel findById(Integer id) {
@@ -45,16 +56,18 @@ public class CouponService implements CouponSerivceInterface{
     }
 
     @Override
+    @Transactional(rollbackFor = Throwable.class)
     public CouponModel saveNew(CouponRequest couponRequest) throws Exception {
-        try{
+
             var size = sizeRepository.findById(couponRequest.getId()).orElse(null);
             if(size== null){
                 throw new NotFoundEx(ExceptionLocales.NOT_FOUND);
             }
             var coupon = new CouponModel(size,couponRequest.getAmount());
+        try{
             couponRepository.saveAndFlush(coupon);
             size.themAmount(couponRequest.getAmount());
-            sizeRepository.save(size);
+            sizeRepository.saveAndFlush(size);
             return coupon;
         }catch(Exception ex){
             logger.error("Save Coupon: ",ex);
@@ -63,8 +76,24 @@ public class CouponService implements CouponSerivceInterface{
     }
 
     @Override
+
+    @Transactional(rollbackFor = Throwable.class)
     public CouponModel saveEdit(CouponRequest couponRequest, int id) throws Exception {
-        return null;
+        var coupon = couponRepository.findById(id).orElse(null);
+
+        var size = sizeRepository.findById(coupon.getSize().getId()).orElse(null);
+        if(coupon == null || size == null){
+            throw new NotFoundEx(ExceptionLocales.NOT_FOUND);
+        }
+        try{
+            coupon.delete(couponRequest);
+            var couponEdit =couponRepository.save(coupon);
+            size.xoaAmount(couponEdit.getAmount());
+            return couponEdit;
+        }catch(Exception ex){
+            logger.error("Delete Coupon: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override

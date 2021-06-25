@@ -14,8 +14,12 @@ import java.util.Date;
 @Data
 public class CouponResponse {
     private Integer id;
-    private String name;
+    private String nameProduct;
+    private String nameColor;
+    private String nameSize;
     private Integer amount;
+    private String message;
+    private Boolean status;
     private String createBy;
     private  String lastModifiedBy;
     @JsonFormat(pattern= FormatLocales.DATE_FORMAT)
@@ -25,8 +29,12 @@ public class CouponResponse {
 
     public CouponResponse(CouponModel couponModel){
        this.id = couponModel.getId();
-       this.name = couponModel.getSize().getDetailsProduct().getProduct().getName()+" "+ couponModel.getSize().getDetailsProduct().getColor().getName() +" "+ couponModel.getSize().getName();
+       this.nameProduct = couponModel.getSize().getDetailsProduct().getProduct().getName();
+       this.nameColor = couponModel.getSize().getDetailsProduct().getColor().getName();
+       this.nameSize = couponModel.getSize().getName();
        this.amount = couponModel.getAmount();
+       this.message = couponModel.getMessage();
+        this.status = couponModel.getStatus();
        this.createBy = couponModel.getCreateBy().getEmail();
        this.createDate = couponModel.getCreateDate();
        this.lastModifiedBy = couponModel.getLastModifiedBy().getEmail();

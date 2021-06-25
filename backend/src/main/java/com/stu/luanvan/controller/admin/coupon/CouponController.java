@@ -2,6 +2,7 @@ package com.stu.luanvan.controller.admin.coupon;
 
 import com.stu.luanvan.controller.URlController;
 import com.stu.luanvan.request.CouponRequest;
+import com.stu.luanvan.response.CouponResponse;
 import com.stu.luanvan.service.coupon.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,30 +21,33 @@ public class CouponController implements CouponInterfaceController{
     private CouponService couponService;
     @GetMapping
     @Override
-    public ResponseEntity<?> getFindAll() {
+    public ResponseEntity<?> getFindAll() throws Exception {
         return new ResponseEntity<>(couponService.findAll(),HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<?> getFindById(int id) {
+    public ResponseEntity<?> getFindById(Integer id) {
         return null;
     }
 
     @Override
     @PostMapping
     public ResponseEntity<?> postSave(@Valid CouponRequest couponRequest) throws Exception {
-
-            return new ResponseEntity<>(couponService.saveNew(couponRequest), HttpStatus.OK);
+        return new ResponseEntity<>(couponService.saveNew(couponRequest), HttpStatus.CREATED);
 
     }
 
     @Override
-    public ResponseEntity<?> putSave(@Valid CouponRequest couponRequest, int id) throws Exception {
-        return null;
+    @PutMapping("/{id}")
+    public ResponseEntity<?> putSave(@Valid CouponRequest couponRequest, Integer id) throws Exception {
+        var coupon = couponService.saveEdit(couponRequest,id);
+        return new ResponseEntity<>(new CouponResponse(coupon), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<?> delete(int id) throws Exception {
+    @DeleteMapping
+    public ResponseEntity<?> delete(Integer id) throws Exception {
+        couponService.delete(id);
         return null;
     }
 }

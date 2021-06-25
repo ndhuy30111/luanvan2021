@@ -43,7 +43,6 @@ public class CategoryController implements CategoryInterfaceController{
             }
     }
 
-
     @GetMapping("/categorynull")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
