@@ -72,6 +72,18 @@ export default {
                   name: this.$local.vn_admin_menu.INVOICE_VIEW,
                   url: 'admin-invoice',
                 },
+                {
+                  name: this.$local.vn_admin_menu.INVOICE_NOT_RECEIVE_VIEW,
+                  url: 'admin-invoice-not_receive',
+                },
+                {
+                  name: this.$local.vn_admin_menu.INVOICE_RECEIVE_VIEW,
+                  url: 'admin-invoice-receive',
+                },
+                {
+                  name: this.$local.vn_admin_menu.INVOICE_CANCEL_RECEIVE_VIEW,
+                  url: 'admin-invoice-cancel_receive',
+                },
               ],
             },
           ],
@@ -84,6 +96,7 @@ export default {
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_COLOR_INIT)
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT)
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_COUPON_INIT)
+    this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_INVOICE_INIT)
   },
 }
 </script>

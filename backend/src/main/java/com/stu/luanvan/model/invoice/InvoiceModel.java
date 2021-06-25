@@ -33,7 +33,7 @@ public class InvoiceModel extends BaseModel {
     private String address;
 
     @Column(columnDefinition = "tinyint(1) default 0 COMMENT 'Trạng thái của Hoá đơn'")
-    private Integer status;
+    private Integer status = 0;
 
     @Column(columnDefinition = "datetime(6) NULL COMMENT 'Ngày xuất bill'")
     private Date billDate;
