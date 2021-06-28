@@ -1,10 +1,11 @@
 package com.stu.luanvan.controller.admin.test;
 
 import com.cloudinary.Cloudinary;
-import com.stu.luanvan.exception.NotFoundEx;
+import com.stu.luanvan.request.CategoryRequest;
 import com.stu.luanvan.request.FileRequest;
 import com.stu.luanvan.service.category.CategoryService;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,18 +34,8 @@ public class TestController {
     }
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> getFindAll(@RequestParam(name = "page",required = false,defaultValue = "-1")int page,
-                                        @RequestParam(name = "size",required = false,defaultValue = "-1") int size,
-                                        @RequestParam(name = "name",required = false,defaultValue = "id") String name) {
+    public ResponseEntity<?> getFindAll(@RequestBody CategoryRequest categoryRequest) {
 
-        try{
-            if(page!=-1&&size!=-1){
-                return new ResponseEntity<>(categoryService.findByAll(page,size,name),HttpStatus.OK);
-            }else{
-                return new ResponseEntity<>(categoryService.findByCategoryNull(),HttpStatus.OK);
-            }
-        }catch(Exception ex){
-            throw new NotFoundEx("Không có dự liệu");
-        }
+      return new ResponseEntity<>(StringUtils.containsAny(categoryRequest.getName(),"Địt"),HttpStatus.OK) ;
     }
 }

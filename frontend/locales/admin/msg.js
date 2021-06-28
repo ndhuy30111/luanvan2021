@@ -2,7 +2,6 @@ export default () => ({
   admin: 'Quản trị viên',
   home: 'Trang chủ',
   DELETE_MSG: 'Bạn thật sự muốn xoá không?',
-
   // Category
   // Color
   content_color: 'Danh sách màu sắc vào cửa hàng 7755',

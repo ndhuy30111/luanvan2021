@@ -16,4 +16,6 @@ export default () => ({
   INVOICE_RECEIVE_VIEW: 'Hoàn thành',
   INVOICE_NOT_RECEIVE_VIEW: 'Chưa hoàn thành',
   INVOICE_CANCEL_RECEIVE_VIEW: 'Bị hủy',
+  REVIEW_MANAGEMENT: 'Quản lý bình luận',
+  REVIEW_VIEW: 'Xem bình luận',
 })

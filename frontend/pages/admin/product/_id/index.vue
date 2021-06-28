@@ -503,7 +503,13 @@ export default {
       val || this.closeDelete()
     },
   },
+  created() {
+    this.init()
+  },
   methods: {
+    init() {
+      this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT)
+    },
     cloneColor(item) {
       this.colorItem = []
       item.detailsProduct.forEach((e) => {
@@ -602,7 +608,7 @@ export default {
         this.$constant.admin.ACTION_ADMIN_SIZE_ADD,
         this.editSize
       )
-      await this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT)
+      await this.init()
     },
     async SubmitaddColor() {
       this.addColor.product = this.products.id
@@ -610,14 +616,14 @@ export default {
         this.$constant.admin.ACTION_ADMIN_DETAILS_PRODUCT_ADD,
         this.addColor
       )
-      await this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT)
+      await this.init()
     },
     async SubmitaddCoupons() {
       await this.$store.dispatch(
         this.$constant.admin.ACTION_ADMIN_SIZE_UPDATE,
         this.addCoupon
       )
-      await this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT)
+      await this.init()
     },
     async deleteItemConfirm() {
       if (this.delSizeId > -1) {
@@ -625,9 +631,7 @@ export default {
           this.$constant.admin.ACTION_ADMIN_SIZE_DELETE,
           this.delSizeId
         )
-        await this.$store.dispatch(
-          this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT
-        )
+        this.init()
       }
       this.closeDelete()
     },
@@ -646,7 +650,7 @@ export default {
         this.$constant.admin.ACTION_ADMIN_IMAGE_ADDIMAGE,
         item
       )
-      await this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT)
+      await this.init()
     },
     addSizeArray() {
       this.addColor.size.push({})

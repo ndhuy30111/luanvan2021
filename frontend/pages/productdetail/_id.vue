@@ -88,7 +88,7 @@
       </b-col>
     </b-row>
     <b-row class="opinion">
-      <div>
+      <v-col>
         <v-tabs color="accent-4">
           <v-tab
             v-for="item in $local.vn.menuoption"
@@ -101,7 +101,9 @@
             <v-container fluid>
               <v-row>
                 <v-col cols="12">
+                  <!-- eslint-disable vue/no-v-html -->
                   <div class="info_img" v-html="products.info"></div>
+                  <!--eslint-enable-->
                 </v-col>
               </v-row>
             </v-container>
@@ -110,12 +112,53 @@
           <v-tab-item>
             <v-container fluid>
               <v-row>
+                <v-col>
+                  <v-form
+                    ref="commet"
+                    v-model="validCommet"
+                    lazy-validation
+                    @submit.prevent="onCommet"
+                  >
+                    <v-row>
+                      <v-rating
+                        v-model="userCommet.rate"
+                        background-color="grey lighten-2"
+                        color="red"
+                        empty-icon="mdi-heart-outline"
+                        full-icon="mdi-heart"
+                        half-icon="mdi-heart"
+                        hover
+                        length="5"
+                        size="25"
+                      ></v-rating
+                    ></v-row>
+                    <v-row>
+                      <v-textarea
+                        v-model="userCommet.comment"
+                        name="input-7-1"
+                        auto-grow
+                        label="Bình luận"
+                        :rules="[$auth.user || 'Bạn phải đăng nhập']"
+                      ></v-textarea
+                    ></v-row>
+                    <v-row class="d-flex justify-content-end"
+                      ><v-btn
+                        :disabled="!validCommet"
+                        type="submit"
+                        @click="validateComment"
+                        >Bình luận</v-btn
+                      ></v-row
+                    >
+                  </v-form>
+                </v-col>
+              </v-row>
+              <v-row>
                 <v-col> </v-col>
               </v-row>
             </v-container>
           </v-tab-item>
         </v-tabs>
-      </div>
+      </v-col>
     </b-row>
   </b-container>
 </template>
@@ -126,6 +169,11 @@ export default {
   name: 'Productdetail',
   data() {
     return {
+      validCommet: false,
+      userCommet: {
+        rate: 5,
+        commet: '',
+      },
       quantity: 1,
       imgActive: '',
       size: [],
@@ -210,208 +258,20 @@ export default {
         this.quantity--
       }
     },
+    validateComment() {
+      this.$refs.commet.validate()
+    },
+    async onCommet() {
+      this.userCommet.product = this.products.id
+      await this.$store.dispatch(
+        this.$constant.user.ACTION_POST_REVIEW,
+        this.userCommet
+      )
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 100%;
-  margin-top: 20px;
-}
-.outer {
-  position: relative;
-  background-color: #fff;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  border-radius: 10px;
-  margin-top: 30px;
-}
-p {
-  width: 280px;
-  font-size: 13px;
-  line-height: 1.4;
-  color: #aaa;
-  margin: 20px 0;
-}
-.img {
-  top: 0px;
-  right: 0px;
-  width: 80%;
-  margin-top: -15px;
-  height: 70%;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-}
-.content {
-  position: relative;
-  z-index: 3;
-  margin-top: -20%;
-  text-align: left;
-  margin-bottom: 60px;
-}
-.bg {
-  display: inline-block;
-  overflow: hidden;
-  position: relative;
-  font-size: 15px;
-
-  color: #fff;
-  background-color: red;
-  text-decoration: none;
-  padding: 10px 10px;
-  border: 1px solid #aaa;
-  font-weight: bold;
-  border-radius: 25px;
-}
-.button {
-  width: fit-content;
-  height: fit-content;
-  margin-top: 10px;
-}
-.button a {
-  display: inline-block;
-  overflow: hidden;
-  position: relative;
-  font-size: 15px;
-  color: #111;
-  text-decoration: none;
-  padding: 10px 10px;
-  border: 1px solid #aaa;
-  font-weight: bold;
-}
-.button a:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: -10px;
-  width: 0%;
-  background-color: #111;
-  height: 100%;
-  z-index: -1;
-  transition: width 0.3s ease-in-out;
-  transform: skew(-25deg);
-  transform-origin: right;
-}
-.product__content {
-  font-size: 2.5em;
-}
-.button a:hover:after {
-  width: 150%;
-  left: -10px;
-  transform-origin: left;
-}
-.button a:hover {
-  color: #fff;
-  transition: all 0.5s ease;
-}
-.button a:nth-of-type(1) {
-  border-radius: 50px 0 0 50px;
-  border-right: none;
-}
-.button a:nth-of-type(2) {
-  border-radius: 0px 50px 50px 0;
-}
-.cart-icon {
-  padding-right: 8px;
-}
-.colors {
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  transition: 0.3s all;
-  border-radius: 50%;
-  border: 1px solid black;
-  margin: 0 15px;
-}
-.colors:hover,
-.size:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 0 8px rgba(173, 173, 170, 0.3);
-  cursor: pointer;
-}
-.colors:active,
-.size:active {
-  transform: scale(0.8);
-}
-.selected {
-  box-shadow: 0 0 0 4px #fff, 0 0 0 8px rgba(173, 173, 170, 0.3);
-}
-.colors-wrap,
-.size-wrap {
-  width: 100%;
-  height: auto;
-  margin: 5px auto;
-  padding: 10px;
-  border-radius: 70px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.size {
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 15px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.sameproduct {
-  margin-top: -10%;
-}
-.opinion {
-  margin-top: -20%;
-}
-.count {
-  width: 70px;
-}
-.minus {
-  margin-right: 15px;
-  cursor: pointer;
-}
-.plus {
-  margin-left: 0px;
-  cursor: pointer;
-}
-#menu_title {
-  font-size: 18px;
-  font-weight: bold;
-}
-@media (max-width: 700px) {
-  .wrapper {
-    margin: -90px 0px 5px -32px;
-  }
-  .outer {
-    width: 95%;
-    margin-top: 0;
-  }
-  .content {
-    left: 50%;
-    transform: translateX(-40%);
-  }
-
-  .img {
-    /* display: none; */
-    width: 100%;
-    margin-top: 0px !important;
-  }
-  .product__content {
-    font-size: 2em;
-  }
-  #menu_title {
-    font-size: 14px;
-  }
-}
-div.info_img ::v-deep p > img {
-  width: 100%;
-}
+@import './assets/css/detailsproduct.scss';
 </style>

@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.Map;
 @Service
 public class CategoryService implements CategoryServiceInterface{
-    private  Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private CategoryRepository categoryRepository;
     @Override

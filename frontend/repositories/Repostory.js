@@ -7,12 +7,13 @@ import DetailsProductAdminRepository from '~/repositories/admin/DetailsProductRe
 import CouponAdminRepository from '~/repositories/admin/CouponRepostory'
 import AuthAdminRepository from '~/repositories/admin/AuthRepostory'
 import InvoiceAdminRepository from '~/repositories/admin/InvoiceRepostory'
+import ReviewAdminRepository from '~/repositories/admin/ReviewRepostory'
 // user
 import AccounRepostory from '~/repositories/user/AccounRepostory'
 import CategoryReponstory from '~/repositories/user/CategoryRepostory'
 import ProductReponstory from '~/repositories/user/ProductRepostory'
 import CartRepostory from '~/repositories/user/CartRepostory'
-
+import ReviewReponstory from '~/repositories/user/ReviewRepostory'
 export default ($axios) => ({
   // admin
   productAdmin: ProductAdminRepository($axios),
@@ -23,9 +24,11 @@ export default ($axios) => ({
   couponAdmin: CouponAdminRepository($axios),
   authAdmin: AuthAdminRepository($axios),
   invoiceAdmin: InvoiceAdminRepository($axios),
+  reviewAdmin: ReviewAdminRepository($axios),
   // user
   account: AccounRepostory($axios),
   categoryUser: CategoryReponstory($axios),
   productUser: ProductReponstory($axios),
   cartRepostory: CartRepostory($axios),
+  reviewRepostory: ReviewReponstory($axios),
 })

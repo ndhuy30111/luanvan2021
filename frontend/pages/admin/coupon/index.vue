@@ -97,6 +97,9 @@ export default {
   },
 
   methods: {
+    init() {
+      this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_COUPON_INIT)
+    },
     deleteItem(item) {
       this.editedIndex = this.coupons.indexOf(item)
       this.editedItem = Object.assign({}, item)
@@ -125,6 +128,7 @@ export default {
         this.$constant.admin.ACTION_ADMIN_COUPON_DELETE,
         this.editedItem
       )
+      this.init()
       this.dialogDelete = false
     },
   },

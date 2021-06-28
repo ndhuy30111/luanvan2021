@@ -15,8 +15,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class UserProductKey implements Serializable {
-    @Column(name="user_id")
-    Integer userId;
-    @Column(name = "product_id")
-    Integer productId;
+    @Column(name="user")
+    Integer user;
+    @Column(name = "product")
+    Integer product;
 }

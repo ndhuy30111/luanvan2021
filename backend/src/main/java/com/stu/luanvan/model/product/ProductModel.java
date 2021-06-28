@@ -1,9 +1,6 @@
 package com.stu.luanvan.model.product;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import com.stu.luanvan.locales.MessageLocales;
 import com.stu.luanvan.locales.PatternLocales;
 import com.stu.luanvan.model.BaseModel;
@@ -101,6 +98,7 @@ public class ProductModel extends BaseModel {
 
     @OneToMany(mappedBy = "product")
     @JsonView(BaseViews.Public.class)
+    @JsonManagedReference
     private Collection<ReviewModel> review;
 
     public void setName( String name) {

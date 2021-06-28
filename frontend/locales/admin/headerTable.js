@@ -61,4 +61,16 @@ export default () => ({
 
     { text: '', value: 'actions', sortable: false },
   ],
+  REVIEW_HEADER: [
+    {
+      text: 'Tên sản phẩm',
+      align: 'start',
+      value: 'product',
+    },
+    { text: 'Tên người bình luận', value: 'user' },
+    { text: 'Đánh giá', value: 'rate' },
+    { text: 'Lời bình luận', value: 'comment' },
+    { text: 'Vào lúc mấy giờ', value: 'createDate' },
+    { text: '', value: 'actions', sortable: false },
+  ],
 })

@@ -26,4 +26,6 @@ export default () => ({
 
   ACTION_CHECKOUT_SETPRODUCT: 'user/checkout/setProdcut',
   ACTION_REMOVE_PRODUCTCART_CHECKOUT: 'user/checkout/removeProduct',
+
+  ACTION_POST_REVIEW: 'user/review/postCommit',
 })

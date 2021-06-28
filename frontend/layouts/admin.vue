@@ -51,6 +51,15 @@ export default {
                 },
               ],
             },
+            {
+              name: this.$local.vn_admin_menu.REVIEW_MANAGEMENT,
+              function: [
+                {
+                  name: this.$local.vn_admin_menu.REVIEW_VIEW,
+                  url: 'admin-review',
+                },
+              ],
+            },
           ],
         },
         {
@@ -97,6 +106,7 @@ export default {
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT)
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_COUPON_INIT)
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_INVOICE_INIT)
+    this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_REVIEW_INIT)
   },
 }
 </script>

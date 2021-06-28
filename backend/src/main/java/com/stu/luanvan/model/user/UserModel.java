@@ -79,10 +79,6 @@ public class UserModel{
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<InvoiceModel> createBill;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<ReviewModel> review ;
-
     //Khoá ngoại với Role
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

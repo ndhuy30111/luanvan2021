@@ -361,8 +361,14 @@ export default {
       return this.$store.state.admin.color.color
     },
   },
-
+  created() {
+    this.init()
+  },
   methods: {
+    init() {
+      this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_CATEGORY_INIT)
+      this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_COLOR_INIT)
+    },
     async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
       if (!file) return
       try {

@@ -103,7 +103,14 @@ export default {
       val || this.closeDelete()
     },
   },
+
+  created() {
+    this.init()
+  },
   methods: {
+    init() {
+      this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT)
+    },
     editItem(item) {
       this.$router.push({
         name: 'admin-product-id',
@@ -129,6 +136,7 @@ export default {
           this.$constant.admin.ACTION_ADMIN_PRODUCT_DELETE,
           item
         )
+        this.init()
       } else {
         // this.desserts.push(this.editedItem)
       }

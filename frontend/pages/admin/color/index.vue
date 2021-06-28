@@ -198,6 +198,9 @@ export default {
   },
 
   methods: {
+    init() {
+      this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_COLOR_INIT)
+    },
     editItem(item) {
       this.editedIndex = this.colorData.indexOf(item)
       this.editedItem = Object.assign({}, item)
@@ -220,6 +223,7 @@ export default {
           this.$constant.admin.ACTION_ADMIN_COLOR_DELETE,
           item
         )
+        this.init()
       } else {
         // this.desserts.push(this.editedItem)
       }
@@ -259,6 +263,7 @@ export default {
         )
       }
       !flap || this.close()
+      !flap || this.init()
     },
   },
 }

@@ -1,7 +1,7 @@
 <template>
   <v-data-table
-    :headers="$local.vn_admin_headerTable.CATEGORY_HEADER"
-    :items="category"
+    :headers="$local.vn_admin_headerTable.REVIEW_HEADER"
+    :items="reviews"
     :search="search"
     sort-by="calories"
     class="elevation-1"
@@ -9,7 +9,7 @@
     <template #[`top`]>
       <v-toolbar flat>
         <v-toolbar-title>{{
-          $local.vn_admin_category.CATEGORY_TILE
+          $local.vn_admin_review.REVIEW_TILE
         }}</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-text-field
@@ -20,79 +20,27 @@
           hide-details
         ></v-text-field>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="500px">
-          <template #[`activator`]="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-              {{ $local.vn_admin_category.CATEGOR_BTN_SAVE }}
-            </v-btn>
-          </template>
+        <v-dialog v-model="dialogCheck" max-width="500px">
           <v-card>
-            <v-form
-              ref="form"
-              v-model="valid"
-              lazy-validation
-              @submit.prevent="save"
-            >
-              <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
-              </v-card-title>
-
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.name"
-                        :label="$local.vn_admin_category.CATEGORY_NAME"
-                        :rules="$rule.ADMIN_CATEGORY_NAME"
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.sort"
-                        v-mask="'###'"
-                        :rules="$rule.ADMIN_CATEGORY_SORT"
-                        :label="$local.vn_admin_category.CATEGORY_SORT"
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-select
-                        v-model="editedItem.category"
-                        :items="select"
-                        item-value="name"
-                        item-text="name"
-                        :label="$local.vn_admin_category.CATEGORY_DADDY"
-                        required
-                      ></v-select
-                    ></v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">
-                  {{ $local.vn_admin_general.BTN_CANCEL }}
-                </v-btn>
-                <v-btn
-                  :disabled="!valid"
-                  color="blue darken-1"
-                  type="submit"
-                  text
-                  @click="validate"
-                >
-                  {{ $local.vn_admin_general.BTN_SAVE }}
-                </v-btn>
-              </v-card-actions>
-            </v-form>
+            <v-card-title class="headline">{{
+              $local.vn_admin_review.REVIEW_SUBMIT_MSG
+            }}</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="closeCheck">{{
+                $local.vn_admin_general.BTN_CANCEL
+              }}</v-btn>
+              <v-btn color="blue darken-1" text @click="saveCheck">{{
+                $local.vn_admin_general.BTN_DELETE
+              }}</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
           </v-card>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="headline">{{
-              $local.vn_admin.DELETE_MSG
+              $local.vn_admin_review.REVIEW_DELETE_MSG
             }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -109,7 +57,9 @@
       </v-toolbar>
     </template>
     <template #[`item.actions`]="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+      <v-icon small class="mr-2" @click="editItem(item)">
+        mdi-check-circle
+      </v-icon>
       <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
   </v-data-table>
@@ -121,19 +71,19 @@ export default {
   layout: 'admin',
   data: () => ({
     valid: true,
-    dialog: false,
+    dialogCheck: false,
     dialogDelete: false,
     search: '',
     editedIndex: -1,
     editedItem: {
       name: '',
       sort: 1,
-      category: '',
+      reviews: '',
     },
     defaultItem: {
       name: '',
       sort: 1,
-      category: '',
+      reviews: '',
     },
     data: [],
   }),
@@ -149,7 +99,6 @@ export default {
       ],
     }
   },
-
   computed: {
     formTitle() {
       return this.editedIndex === -1
@@ -158,14 +107,10 @@ export default {
     },
     ...mapGetters({
       // map `this.doneCount` to `this.$store.getters.doneTodosCount`
-      categorys: 'admin/category/getFindAll',
-      selects: 'admin/category/getFindByCategoryNull',
+      review: 'admin/review/getFindAll',
     }),
-    category() {
-      return this.categorys
-    },
-    select() {
-      return this.selects
+    reviews() {
+      return this.review
     },
   },
 
@@ -177,18 +122,16 @@ export default {
       val || this.closeDelete()
     },
   },
+
   methods: {
-    init() {
-      this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_CATEGORY_INIT)
-    },
     editItem(item) {
-      this.editedIndex = this.category.indexOf(item)
+      this.editedIndex = this.reviews.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      this.dialog = true
+      this.dialogCheck = true
     },
 
     deleteItem(item) {
-      this.editedIndex = this.category.indexOf(item)
+      this.editedIndex = this.reviews.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
     },
@@ -196,22 +139,21 @@ export default {
     deleteItemConfirm() {
       if (this.editedIndex > -1) {
         const item = Object.assign(
-          this.category[this.editedIndex],
+          this.reviews[this.editedIndex],
           this.editedItem
         )
         this.$store.dispatch(
           this.$constant.admin.ACTION_ADMIN_CATEGORY_DELETE,
           item
         )
-        this.init()
       } else {
         // this.desserts.push(this.editedItem)
       }
       this.closeDelete()
     },
 
-    close() {
-      this.dialog = false
+    closeCheck() {
+      this.dialogCheck = false
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
@@ -228,12 +170,12 @@ export default {
     validate() {
       this.$refs.form.validate()
     },
-    async save(event) {
+    async saveCheck(event) {
       event.preventDefault()
       if (!this.valid) return
       let flap = false
       if (this.editedIndex > -1) {
-        const item = this.$_.clone(this.category[this.editedIndex])
+        const item = this.$_.clone(this.reviews[this.editedIndex])
         flap = await this.$store.dispatch(
           this.$constant.admin.ACTION_ADMIN_CATEGORY_UPDATA,
           Object.assign(item, this.editedItem)
@@ -245,7 +187,6 @@ export default {
         )
       }
       !flap || this.close()
-      !flap || this.init()
     },
   },
 }

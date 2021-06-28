@@ -9,9 +9,12 @@ export default {
         return true
       }
     } catch (e) {
-      if (parseInt(e.response.status) === 404) {
-        return 404
+      if (e.response.status) {
+        if (parseInt(e.response.status) === 404) {
+          return 404
+        }
       }
+
       return false
     }
   },
