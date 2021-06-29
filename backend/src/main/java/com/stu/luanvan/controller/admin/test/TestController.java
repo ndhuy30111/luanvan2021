@@ -1,6 +1,9 @@
 package com.stu.luanvan.controller.admin.test;
 
 import com.cloudinary.Cloudinary;
+import com.stu.luanvan.repository.CouponRepository;
+import com.stu.luanvan.repository.ProductRepository;
+import com.stu.luanvan.repository.SizeRepository;
 import com.stu.luanvan.request.CategoryRequest;
 import com.stu.luanvan.request.FileRequest;
 import com.stu.luanvan.service.category.CategoryService;
@@ -23,6 +26,12 @@ public class TestController {
     private Cloudinary cloudinaryConfig;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private CouponRepository couponRepository;
+    @Autowired
+    private SizeRepository sizeRepository;
     @PostMapping
     public ResponseEntity<?> postSave(@Valid @RequestBody FileRequest productRequest) throws Exception {
         try {
@@ -38,4 +47,5 @@ public class TestController {
 
       return new ResponseEntity<>(StringUtils.containsAny(categoryRequest.getName(),"Địt"),HttpStatus.OK) ;
     }
+
 }

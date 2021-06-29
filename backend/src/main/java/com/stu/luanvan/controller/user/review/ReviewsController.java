@@ -17,6 +17,11 @@ import javax.validation.Valid;
 public class ReviewsController {
     @Autowired
     private ReviewService reviewService;
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getShow(@PathVariable Integer id) throws Exception {
+        var review  =  reviewService.showCommentProduct(id);
+        return new ResponseEntity<>(review, HttpStatus.OK);
+    }
     @PostMapping
     public ResponseEntity<?> postSave(@Valid @RequestBody ReviewRequest reviewRequest) throws Exception {
         var review  =  reviewService.saveNew(reviewRequest);

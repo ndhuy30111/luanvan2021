@@ -40,6 +40,13 @@ public class ReviewService implements  ReviewServiceInterface{
     public ReviewModel findById(Integer id) {
         return null;
     }
+    public Collection<ReviewModel> showCommentProduct(Integer id) {
+        var product = productRepository.findById(id).orElse(null);
+        if(product==null ){
+            throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
+        }
+        return reviewRepository.findByProduct(product);
+    }
 
     @Override
     public ReviewModel saveNew(ReviewRequest reviewRequest) throws Exception {
@@ -69,6 +76,23 @@ public class ReviewService implements  ReviewServiceInterface{
         try{
             review.setStatus(true);
             return reviewRepository.save(review);
+        }catch(Exception ex){
+            logger.error("Save Review: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
+        }
+    }
+    public void deleteComment(KeyRequest key) throws Exception {
+        var product = productRepository.findById(key.getProduct()).orElse(null);
+        var user = userRepository.findById(key.getUser()).orElse(null);
+        if(product == null || user == null){
+            throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
+        }
+        var review = reviewRepository.findByProductAndUser(product,user);
+        if(review==null ){
+            throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
+        }
+        try{
+            reviewRepository.delete(review);
         }catch(Exception ex){
             logger.error("Save Review: ",ex);
             throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);

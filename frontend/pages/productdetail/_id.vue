@@ -212,6 +212,7 @@ export default {
     user() {},
   },
   methods: {
+    init() {},
     cloneProduct(item) {
       this.imgActive = item.image
       this.colorActive = item.detailsProduct[0].color

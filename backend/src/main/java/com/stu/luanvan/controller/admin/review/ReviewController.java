@@ -29,4 +29,11 @@ public class ReviewController {
     public ResponseEntity<?> activeComment (@RequestBody KeyRequest keyRequest) throws Exception {
         return new ResponseEntity<>(reviewService.activeStatus(keyRequest), HttpStatus.OK) ;
     }
+    @PostMapping("/delete")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<?> deleteComment (@RequestBody KeyRequest keyRequest) throws Exception {
+        reviewService.deleteComment(keyRequest);
+        return new ResponseEntity<>(HttpStatus.OK) ;
+    }
 }

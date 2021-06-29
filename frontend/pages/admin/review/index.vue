@@ -31,7 +31,7 @@
                 $local.vn_admin_general.BTN_CANCEL
               }}</v-btn>
               <v-btn color="blue darken-1" text @click="saveCheck">{{
-                $local.vn_admin_general.BTN_DELETE
+                $local.vn_admin_general.BTN_SUBMIT
               }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
@@ -124,6 +124,9 @@ export default {
   },
 
   methods: {
+    async init() {
+      await this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_REVIEW_INIT)
+    },
     editItem(item) {
       this.editedIndex = this.reviews.indexOf(item)
       this.editedItem = Object.assign({}, item)
@@ -136,18 +139,13 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
+    async deleteItemConfirm() {
       if (this.editedIndex > -1) {
-        const item = Object.assign(
-          this.reviews[this.editedIndex],
-          this.editedItem
+        await this.$store.dispatch(
+          this.$constant.admin.ACTION_ADMIN_REVIEW_DELETE,
+          this.editedItem.userProductKey
         )
-        this.$store.dispatch(
-          this.$constant.admin.ACTION_ADMIN_CATEGORY_DELETE,
-          item
-        )
-      } else {
-        // this.desserts.push(this.editedItem)
+        await this.init()
       }
       this.closeDelete()
     },
@@ -173,20 +171,14 @@ export default {
     async saveCheck(event) {
       event.preventDefault()
       if (!this.valid) return
-      let flap = false
       if (this.editedIndex > -1) {
-        const item = this.$_.clone(this.reviews[this.editedIndex])
-        flap = await this.$store.dispatch(
-          this.$constant.admin.ACTION_ADMIN_CATEGORY_UPDATA,
-          Object.assign(item, this.editedItem)
+        await this.$store.dispatch(
+          this.$constant.admin.ACTION_ADMIN_REVIEW_SUBMIT,
+          this.editedItem.userProductKey
         )
-      } else {
-        flap = await this.$store.dispatch(
-          this.$constant.admin.ACTION_ADMIN_CATEGORY_ADD,
-          this.editedItem
-        )
+        await this.init()
       }
-      !flap || this.close()
+      this.closeCheck()
     },
   },
 }

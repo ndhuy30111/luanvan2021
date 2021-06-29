@@ -16,7 +16,7 @@ export default ($axios) => ({
     return $axios.put(`${resource}/${id}`, payload)
   },
 
-  delete(id) {
-    return $axios.delete(`${resource}/${id}`)
+  delete(payload) {
+    return $axios.post(`${resource}/delete`, payload)
   },
 })
