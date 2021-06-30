@@ -41,4 +41,6 @@ public class RegisterRequest {
 
     @NotBlank(message = MessageLocales.NUMBERPHONE_NOTBLANK)
     private String numberPhone;
+
+    private String accessToken;
 }

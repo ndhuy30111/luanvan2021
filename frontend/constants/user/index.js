@@ -18,6 +18,8 @@ export default () => ({
   ACTION_MINUS_ITEMCART: 'user/cart/minus',
 
   ACTIONS_USER_REGISTER: 'user/account/register',
+  ACTIONS_USER_LOGINFACEBOOK: 'user/account/loginFacebook',
+  ACTIONS_USER_REGISTERFACEBOOk: 'user/account/registerFacebook',
   ACTIONS_USER_UPDATE: 'user/account/update',
 
   ACTIONS_PRODUCT_GETALL: 'user/product/getAll',

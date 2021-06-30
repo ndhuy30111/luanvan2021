@@ -1,1 +1,1 @@
-export default function ({ $auth }) {}
+export default async function ({ store, $auth, app }) {}

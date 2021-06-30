@@ -57,6 +57,7 @@ export default {
       this.$store.dispatch(this.$constant.user.ACTION_SHOW_CART)
     }
   },
+
   methods: {
     handleView() {
       this.mobileView = window.innerWidth <= 990

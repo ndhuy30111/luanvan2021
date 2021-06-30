@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 @Service
@@ -41,11 +42,16 @@ public class ReviewService implements  ReviewServiceInterface{
         return null;
     }
     public Collection<ReviewModel> showCommentProduct(Integer id) {
+        Collection<ReviewModel> listShow = new ArrayList<>();
         var product = productRepository.findById(id).orElse(null);
-        if(product==null ){
-            throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
+        if(!SecurityContextHolder.getContext().getAuthentication().isAuthenticated()){
+            var user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserModel();
+            var reviewUser = reviewRepository.findByProductAndUser(product,user);
+            listShow.add(reviewUser);
         }
-        return reviewRepository.findByProduct(product);
+        var listProduct = reviewRepository.findByStatusTrueAndProduct(product);
+        listShow.addAll(listProduct);
+        return listShow;
     }
 
     @Override

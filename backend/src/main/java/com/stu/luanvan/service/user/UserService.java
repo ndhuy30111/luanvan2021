@@ -6,6 +6,7 @@ import com.stu.luanvan.locales.ExceptionLocales;
 import com.stu.luanvan.model.user.UserModel;
 import com.stu.luanvan.repository.UserRepository;
 import com.stu.luanvan.request.UserRequest;
+import com.stu.luanvan.request.auth.AccessTokenRequest;
 import com.stu.luanvan.request.auth.RegisterRequest;
 import com.stu.luanvan.security.MyUserDetails;
 import com.stu.luanvan.service.ObjectMapDto;
@@ -79,10 +80,10 @@ public class UserService implements UserServiceInterfaces {
      */
     @Override
     public UserModel saveNew(RegisterRequest userRequest) throws Exception {
-                var find = userRepository.findByEmailOrNumberPhone(userRequest.getEmail(),userRequest.getNumberPhone());
-                if(find != null){
-                    throw new BadRequestEx(ExceptionLocales.EMAIL_SAKE);
-                }
+        var find = userRepository.findByEmailOrNumberPhone(userRequest.getEmail(),userRequest.getNumberPhone());
+        if(find != null){
+            throw new BadRequestEx(ExceptionLocales.EMAIL_SAKE);
+        }
         try{
                 UserModel user = new UserModel(userRequest);
                 return userRepository.save(user);
@@ -91,7 +92,20 @@ public class UserService implements UserServiceInterfaces {
                 throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
             }
     }
-
+    @Override
+    public UserModel saveNewFacebook(AccessTokenRequest accessTokenRequest) throws Exception {
+        var find = userRepository.findByEmail(accessTokenRequest.getEmail());
+        if(find != null){
+            throw new BadRequestEx(ExceptionLocales.EMAIL_SAKE);
+        }
+        try{
+            var user = new UserModel(accessTokenRequest.getName(),accessTokenRequest.getEmail(),accessTokenRequest.getId());
+            return userRepository.save(user);
+        }catch (Exception ex){
+            logger.error(ex.getMessage());
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
+        }
+    }
     @Override
     public UserModel saveEdit(UserRequest userRequest, int id) throws Exception {
         return null;
@@ -114,7 +128,9 @@ public class UserService implements UserServiceInterfaces {
     @Override
     public void delete(Integer id) {
     }
-
+    public UserModel findByAccessToken(AccessTokenRequest token){
+        return userRepository.findByAccessToken(token.getId());
+    }
     @Override
     public UserModel findByUserName(String userName) {
         return userRepository.findByUserName(userName);

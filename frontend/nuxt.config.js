@@ -1,7 +1,16 @@
+import path from 'path'
+import fs from 'fs'
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'server.crt')),
+      passphrase: '3011',
+    },
+  },
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
@@ -32,7 +41,6 @@ export default {
     { src: '~/plugins/vue-fb-customer-chat.js', ssr: false },
     { src: '~/plugins/vuelidate.js', ssr: false },
     { src: '~/plugins/axios.js', ssr: false },
-    '~/plugins/auth.js',
     { src: '~/plugins/vue2-editor.js' },
     '~/plugins/repositories.js',
     '~/plugins/local.js',
@@ -58,15 +66,12 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/bootstrap
-    'bootstrap-vue/nuxt',
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // Auth
     '@nuxtjs/auth-next',
     '@nuxtjs/cloudinary',
     'nuxt-material-design-icons',
     '@nuxt/content',
+    'bootstrap-vue/nuxt',
   ],
   // Content module configuration : https://content.nuxtjs.org/configuration
   content: {},
@@ -86,6 +91,7 @@ export default {
   build: {},
   // Auth Configuration https://auth.nuxtjs.org/guide/setup
   auth: {
+    plugins: ['~/plugins/auth.js'],
     common: {
       Accept: 'application/json, text/plain, */*',
     },
@@ -109,13 +115,37 @@ export default {
         },
         autoLogout: true,
       },
+      local2: {
+        scheme: 'local',
+        token: {
+          property: 'token',
+          type: 'Bearer',
+          name: 'Authorization',
+          maxAge: 1800,
+        },
+        user: {
+          property: false,
+          autoFetch: true,
+        },
+        endpoints: {
+          login: {
+            url: '/login/facebook',
+            method: 'post',
+            propertName: 'token',
+          },
+          logout: false,
+          user: { url: '/user', method: 'get' },
+        },
+      },
       facebook: {
         endpoints: {
           userInfo:
             'https://graph.facebook.com/v6.0/me?fields=id,name,picture{url}',
         },
-        clientId: '205092034803969',
         scope: ['public_profile', 'email'],
+        clientId: '205092034803969',
+        token: false,
+        redirectUri: 'https://localhost:3000/callback',
       },
     },
   },

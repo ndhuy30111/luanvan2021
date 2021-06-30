@@ -38,5 +38,8 @@ export default function ({ $axios, $toast }) {
     // }
     return config
   })
-  $axios.onResponse((response) => {})
+  $axios.onResponse((config) => {
+    config.headers['Content-Type'] = 'application/json'
+    config.headers['Access-Control-Allow-Origin'] = '*'
+  })
 }

@@ -8,4 +8,10 @@ export default ($axios) => ({
   update(payload) {
     return $axios.put('/user', payload)
   },
+  accessToken(payload) {
+    return $axios.post('/access_token', payload)
+  },
+  facebook(payload) {
+    return $axios.post('/facebook', payload)
+  },
 })

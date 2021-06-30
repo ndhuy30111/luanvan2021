@@ -3,8 +3,9 @@ package com.stu.luanvan.controller.user.authenticator;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.stu.luanvan.exception.NotFoundEx;
 import com.stu.luanvan.model.BaseViews;
-import com.stu.luanvan.request.auth.LoginRequest;
 import com.stu.luanvan.request.UserRequest;
+import com.stu.luanvan.request.auth.AccessTokenRequest;
+import com.stu.luanvan.request.auth.LoginRequest;
 import com.stu.luanvan.request.auth.RegisterRequest;
 import com.stu.luanvan.response.JwtResponse;
 import com.stu.luanvan.security.MyUserDetails;
@@ -71,5 +72,15 @@ public class AuthenticatorController {
     public ResponseEntity<?> getAllUser(){
         return new ResponseEntity<>(userService.findByAll(),HttpStatus.OK);
     }
-
+    @PostMapping("/login/facebook")
+    public ResponseEntity<?> accessToken(@RequestBody AccessTokenRequest token) throws Exception {
+        var user = userService.findByAccessToken(token);
+        if(user==null){
+            user = userService.saveNewFacebook(token);
+        }
+        var userDetails = myUserDetailsService.loadUserByUsername(user.getEmail());
+        var jwt =jwtUtil.generateToken(userDetails);
+        var date = jwtUtil.extractExpiration(jwt);
+        return new ResponseEntity<>(new JwtResponse(jwt,date),HttpStatus.OK);
+    }
 }

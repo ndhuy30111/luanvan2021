@@ -11,7 +11,7 @@
           @submit.prevent="register(form)"
           @reset="onReset"
         >
-          <b-form-group>
+          <b--form-group>
             <b-form-input
               id="email"
               v-model="form.email"
@@ -24,7 +24,7 @@
               placeholder="Email"
               required
             ></b-form-input>
-          </b-form-group>
+          </b--form-group>
           <b-form-group>
             <b-form-input
               id="name"
