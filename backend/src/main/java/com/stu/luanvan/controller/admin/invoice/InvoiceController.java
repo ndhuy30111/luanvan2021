@@ -1,7 +1,7 @@
 package com.stu.luanvan.controller.admin.invoice;
 
 import com.stu.luanvan.controller.URlController;
-import com.stu.luanvan.request.CategoryRequest;
+import com.stu.luanvan.request.InvoiceRequest;
 import com.stu.luanvan.service.invoice.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,12 +53,12 @@ public class InvoiceController implements InvoiceInterfaceController{
     }
 
     @Override
-    public ResponseEntity<?> postSave(CategoryRequest categoryRequest) throws Exception {
+    public ResponseEntity<?> postSave(InvoiceRequest invoiceRequest) throws Exception {
         return null;
     }
 
     @Override
-    public ResponseEntity<?> putSave(CategoryRequest categoryRequest, Integer id) throws Exception {
+    public ResponseEntity<?> putSave(InvoiceRequest invoiceRequest, Integer id) throws Exception {
         return null;
     }
 

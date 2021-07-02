@@ -12,6 +12,8 @@ import com.stu.luanvan.security.MyUserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -44,10 +46,15 @@ public class ReviewService implements  ReviewServiceInterface{
     public Collection<ReviewModel> showCommentProduct(Integer id) {
         Collection<ReviewModel> listShow = new ArrayList<>();
         var product = productRepository.findById(id).orElse(null);
-        if(!SecurityContextHolder.getContext().getAuthentication().isAuthenticated()){
+
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication instanceof UsernamePasswordAuthenticationToken){
             var user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserModel();
             var reviewUser = reviewRepository.findByProductAndUser(product,user);
-            listShow.add(reviewUser);
+            if(reviewUser != null ) {
+                listShow.add(reviewUser);
+            }
+
         }
         var listProduct = reviewRepository.findByStatusTrueAndProduct(product);
         listShow.addAll(listProduct);

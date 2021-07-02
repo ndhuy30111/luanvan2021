@@ -1,6 +1,7 @@
 package com.stu.luanvan.controller.admin.invoice;
 
 import com.stu.luanvan.request.CategoryRequest;
+import com.stu.luanvan.request.InvoiceRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,8 +15,8 @@ public interface InvoiceInterfaceController {
     ResponseEntity<?> getFindAllReceive();
     ResponseEntity<?> getFindAllNotReceive();
     ResponseEntity<?> getFindAllCancelReceive();
-    ResponseEntity<?> postSave(@RequestBody CategoryRequest categoryRequest) throws Exception;
-    ResponseEntity<?> putSave(@RequestBody CategoryRequest categoryRequest,@PathVariable Integer id) throws Exception;
+    ResponseEntity<?> postSave(@RequestBody InvoiceRequest invoiceRequest) throws Exception;
+    ResponseEntity<?> putSave(@RequestBody InvoiceRequest invoiceRequest,@PathVariable Integer id) throws Exception;
     ResponseEntity<?> delete(@PathVariable Integer id) throws Exception;
 
 }

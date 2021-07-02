@@ -74,7 +74,6 @@ public class UserModel{
     private Integer status;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<InvoiceModel> createBill;
 
     //Khoá ngoại với Role
