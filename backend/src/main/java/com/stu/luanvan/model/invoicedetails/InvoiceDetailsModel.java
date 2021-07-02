@@ -1,8 +1,12 @@
 package com.stu.luanvan.model.invoicedetails;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.stu.luanvan.model.invoice.InvoiceModel;
 import com.stu.luanvan.model.key.InvoiceDetailsKey;
 import com.stu.luanvan.model.product.ProductModel;
+import com.stu.luanvan.model.role.RoleModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,10 +39,27 @@ public class InvoiceDetailsModel {
     @ManyToOne
     @MapsId("invoiceId")
     @JoinColumn(name="invoice_id")
+
+    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class,property="id",
+            scope= RoleModel.class)
+    @JsonIdentityReference(alwaysAsId = true)
     private InvoiceModel invoice;
 
     @ManyToOne
     @MapsId("productId")
     @JoinColumn(name="product_id")
+
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="name",
+            scope=RoleModel.class)
+    @JsonIdentityReference(alwaysAsId = true)
     private ProductModel product;
+
+    public InvoiceDetailsModel(String name, Integer amount, Long price, ProductModel product, InvoiceModel invoice) {
+        this.name = name;
+        this.amount = amount;
+        this.price = price;
+        this.id = new InvoiceDetailsKey(invoice.getId(), product.getId());
+        this.invoice = invoice;
+        this.product=product;
+    }
 }

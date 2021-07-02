@@ -11,7 +11,8 @@ import java.util.Collection;
 @Repository
 public interface ReviewRepository extends JpaRepository<ReviewModel,Integer> {
     Collection<ReviewModel> findByStatusFalse();
-    Collection<ReviewModel> findByStatusTrueAndProduct(ProductModel product);
     ReviewModel findByProductAndUser(ProductModel product, UserModel user);
+    Collection<ReviewModel> findByStatusTrueAndProduct(ProductModel product);
+    Collection<ReviewModel> findByStatusTrueAndProductAndUserNot(ProductModel product,UserModel user);
     Collection<ReviewModel> findByProduct(ProductModel product);
 }
