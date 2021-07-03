@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 @Service
 public class ReviewService implements  ReviewServiceInterface{
@@ -53,6 +54,9 @@ public class ReviewService implements  ReviewServiceInterface{
             var reviewUser = reviewRepository.findByProductAndUser(product,user);
             if(reviewUser != null ) {
                 listShow.add(reviewUser);
+                var listProduct = reviewRepository.findByStatusTrueAndProductAndUserNot(product,user);
+                listShow.addAll(listProduct);
+                return listShow;
             }
 
         }

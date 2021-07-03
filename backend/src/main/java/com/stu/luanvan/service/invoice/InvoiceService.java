@@ -6,11 +6,14 @@ import com.stu.luanvan.model.invoice.InvoiceModel;
 import com.stu.luanvan.model.invoicedetails.InvoiceDetailsModel;
 import com.stu.luanvan.repository.InvoiceDetailsRepository;
 import com.stu.luanvan.repository.InvoiceRepository;
+import com.stu.luanvan.request.BillRequest;
 import com.stu.luanvan.request.InvoiceRequest;
+import com.stu.luanvan.security.MyUserDetails;
 import com.stu.luanvan.service.product.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -40,23 +43,37 @@ public class InvoiceService implements InvoiceServiceInterface{
     }
 
     @Override
-    public InvoiceModel saveNew(InvoiceRequest invoiceRequest) {
-            try{
-                var i = new InvoiceModel(invoiceRequest.getCustomerName(), invoiceRequest.getNumberPhone(), invoiceRequest.getAddress(),
-                        invoiceRequest.getNote(), invoiceRequest.getBillCode());
-                var invoice = invoiceRepository.saveAndFlush(i);
-                invoiceRequest.getInvoiceDetailsRequests().forEach(c->{
-                    var product = productService.findById(c.getProductId());
-                    var invoicedetails = new InvoiceDetailsModel(c.getName(), c.getAmount(), c.getPrice(), product, invoice);
-                    invoiceDetailsRepository.saveAndFlush(invoicedetails);
-                });
-                return invoice;
-            } catch (Exception ex){
-                logger.error(String.valueOf(ex));
-                throw ex;
+    public InvoiceModel saveNew(InvoiceRequest invoiceRequest) throws Exception{
+        try{
+            var code = (int) Math.floor(((Math.random() * 89999) + 10000));
+            var billCode = (invoiceRequest.getPayment() + invoiceRequest.getNumberPhone().substring(7) + code);
+            var i = new InvoiceModel(invoiceRequest.getNumberPhone(), invoiceRequest.getAddress(),
+                    invoiceRequest.getNote(), billCode, invoiceRequest.getPayment());
+            var invoice = invoiceRepository.saveAndFlush(i);
+            invoiceRequest.getInvoiceDetailsRequests().forEach(c->{
+                var product = productService.findById(c.getProductId());
+                var invoicedetails = new InvoiceDetailsModel(c.getName(), c.getAmount(), c.getPrice(), product, invoice);
+                invoiceDetailsRepository.saveAndFlush(invoicedetails);
+            });
+            return invoice;
+        } catch (Exception ex){
+            logger.error("Save New Invoice: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public InvoiceModel savePayment(BillRequest billRequest) throws Exception{
+        try{
+            var invoice = invoiceRepository.findByBillCode(billRequest.getBillCode());
+            if(invoice != null){
+                invoice.setStatusPayment(true);
             }
-
-
+            return invoiceRepository.save(invoice);
+        }
+        catch (Exception ex){
+            logger.error("Save Payment: ",ex);
+            throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override

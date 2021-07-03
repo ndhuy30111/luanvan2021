@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <b-row>
-      <b-col cols="12" sm="6" md="8">
+      <b-col cols="12" sm="6" md="6">
         <image-magnifier
           class="img"
           :src="imgActive"
@@ -14,7 +14,7 @@
         />
       </b-col>
 
-      <b-col cols="12" sm="6" md="4">
+      <b-col cols="12" sm="6" md="6">
         <div class="wrapper">
           <div class="outer">
             <div class="content">
@@ -114,14 +114,14 @@
               <v-row>
                 <v-col>
                   <v-form
-                    ref="commet"
-                    v-model="validCommet"
+                    ref="comment"
+                    v-model="validComment"
                     lazy-validation
-                    @submit.prevent="onCommet"
+                    @submit.prevent="onComment"
                   >
                     <v-row>
                       <v-rating
-                        v-model="userCommet.rate"
+                        v-model="userComment.rate"
                         background-color="grey lighten-2"
                         color="red"
                         empty-icon="mdi-heart-outline"
@@ -132,10 +132,12 @@
                         size="25"
                       ></v-rating
                     ></v-row>
+
                     <v-row>
                       <v-textarea
-                        v-model="userCommet.comment"
+                        v-model="userComment.comment"
                         name="input-7-1"
+                        rows="2"
                         auto-grow
                         label="Bình luận"
                         :rules="[$auth.user || 'Bạn phải đăng nhập']"
@@ -143,8 +145,10 @@
                     ></v-row>
                     <v-row class="d-flex justify-content-end"
                       ><v-btn
-                        :disabled="!validCommet"
+                        class="btn white--text"
+                        :disabled="!validComment"
                         type="submit"
+                        color="rgb(16, 120, 248)"
                         @click="validateComment"
                         >Bình luận</v-btn
                       ></v-row
@@ -152,6 +156,42 @@
                   </v-form>
                 </v-col>
               </v-row>
+              <v-row v-show="show">
+                <v-avatar color="primary" size="30"
+                  ><v-icon dark> mdi-account </v-icon></v-avatar
+                >
+                <div style="margin-left: 10px">
+                  <strong class="usercomment">{{ usercomment.user }}</strong>
+                  <div>
+                    {{ usercomment.comment }}
+                  </div>
+                </div>
+              </v-row>
+
+              <no-ssr v-if="comment != null">
+                <v-row v-for="(item, index) in comment" :key="index">
+                  <v-avatar color="primary" size="30">
+                    <v-icon dark> mdi-account </v-icon>
+                  </v-avatar>
+                  <div style="margin-left: 10px">
+                    <strong class="usercomment">{{ item.user }}</strong>
+                    <div>
+                      <v-rating
+                        v-model="item.rate"
+                        background-color="grey lighten-2"
+                        color="red"
+                        empty-icon="mdi-heart-outline"
+                        full-icon="mdi-heart"
+                        half-icon="mdi-heart"
+                        length="5"
+                        size="18"
+                      ></v-rating>
+                      <h6 class="usercomment">{{ item.comment }}</h6>
+                    </div>
+                  </div>
+                </v-row>
+              </no-ssr>
+
               <v-row>
                 <v-col> </v-col>
               </v-row>
@@ -160,32 +200,61 @@
         </v-tabs>
       </v-col>
     </b-row>
+    <h3>
+      <strong>{{ $local.vn.same_product }}</strong>
+    </h3>
+    <b-row>
+      <b-col
+        v-for="item in filteredList"
+        :key="item.id"
+        cols="6"
+        md="4"
+        lg="3"
+        sm="6"
+        xs="6"
+      >
+        <Product :product="item" />
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import Product from '~/components/user/Product.vue'
 export default {
   name: 'Productdetail',
+  components: { Product },
   data() {
     return {
-      validCommet: false,
-      userCommet: {
+      validComment: false,
+      userComment: {
         rate: 5,
-        commet: '',
+        comment: '',
       },
       quantity: 1,
       imgActive: '',
       size: [],
       colorActive: {},
       sizeActive: {},
+      show: false,
     }
   },
+
   computed: {
     ...mapGetters({
       // map `this.doneCount` to `this.$store.getters.doneTodosCount`
       product: 'user/product/getFindProduct',
     }),
+    listproduct() {
+      return this.$store.state.user.product.list_products
+    },
+    comment() {
+      return this.$store.state.user.review.comment
+    },
+    usercomment() {
+      return this.$store.state.user.review.usercomment
+    },
     products: {
       get() {
         const item = this.product({ id: parseInt(this.$route.params.id) })
@@ -201,6 +270,15 @@ export default {
     user() {
       return this.$auth.user ? this.$auth.user : ''
     },
+    filteredList() {
+      return this.listproduct.filter((item) => {
+        return (
+          item.category[0] === this.products.category[0] &&
+          item.category[1] === this.products.category[1] &&
+          item.id !== this.products.id
+        )
+      })
+    },
   },
   watch: {
     ColorActive(item) {
@@ -210,6 +288,13 @@ export default {
       this.sizeActive = this.size[0]
     },
     user() {},
+    comment() {},
+  },
+  created() {
+    this.$store.dispatch(
+      this.$constant.user.ACTION_GET_REVIEW,
+      this.$route.params.id
+    )
   },
   methods: {
     init() {},
@@ -260,14 +345,16 @@ export default {
       }
     },
     validateComment() {
-      this.$refs.commet.validate()
+      this.$refs.comment.validate()
     },
-    async onCommet() {
-      this.userCommet.product = this.products.id
+    async onComment() {
+      this.userComment.product = this.products.id
       await this.$store.dispatch(
         this.$constant.user.ACTION_POST_REVIEW,
-        this.userCommet
+        this.userComment
       )
+      this.show = true
+      this.userComment.comment = ''
     },
   },
 }

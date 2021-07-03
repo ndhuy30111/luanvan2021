@@ -6,7 +6,7 @@
       class="btn"
       @click="loginFacebook()"
     >
-      <img :src="require('@/assets/facebook.png')" class="img" />Facebook
+      <img :src="require('@/assets/logo/facebook.png')" class="img" />Facebook
     </b-button>
   </div>
 </template>
@@ -39,7 +39,6 @@ export default {
   background: rgb(241, 16, 16);
   color: white;
   background-size: 200%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-transform: uppercase;
   margin: 0.5rem 0;
   cursor: pointer;
@@ -49,6 +48,9 @@ export default {
   background: rgb(49, 96, 252);
   color: white;
   margin-left: 50px;
+}
+.btn:hover {
+  background: rgb(110, 110, 110);
 }
 .img {
   width: 20px;

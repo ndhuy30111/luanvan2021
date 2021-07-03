@@ -14,5 +14,4 @@ public interface ReviewRepository extends JpaRepository<ReviewModel,Integer> {
     ReviewModel findByProductAndUser(ProductModel product, UserModel user);
     Collection<ReviewModel> findByStatusTrueAndProduct(ProductModel product);
     Collection<ReviewModel> findByStatusTrueAndProductAndUserNot(ProductModel product,UserModel user);
-    Collection<ReviewModel> findByProduct(ProductModel product);
 }

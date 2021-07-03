@@ -85,15 +85,9 @@
 export default {
   data: () => ({
     valid: false,
-    nameRules: [
-      (v) => !!v || 'Tên người dùng không được để tróng',
-      (v) => v.length > 6 || 'Tên người dùng ít nhất 6 kí tự',
-    ],
+    nameRules: [(v) => !!v || 'Tên người dùng không được để tróng'],
     numberPhoneRules: [(v) => !!v || 'Số điện thoại không được để trống'],
-    userNameRules: [
-      (v) => !!v || 'Tên tài khoản không được để tróng',
-      (v) => v.length > 6 || 'Tên tài khoản ít nhất 6 kí tự',
-    ],
+    userNameRules: [(v) => !!v || 'Tên tài khoản không được để tróng'],
     addressRules: [(v) => !!v || 'Đại chỉ không được để trống'],
     emailRules: [
       (v) => !!v || 'E-mail không được để trống',

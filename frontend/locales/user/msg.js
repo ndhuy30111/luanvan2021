@@ -10,7 +10,7 @@ export default () => ({
   menuoption: ['MÔ TẢ', 'BÌNH LUẬN'],
   comments: 'Đăng',
   facebook_mes: 'Plugin bình luận trên facebook',
-  same_product: ['Sản phẩm cùng loại'],
+  same_product: 'Sản phẩm cùng loại',
   color: 'Màu sắc',
   size: 'Kích cỡ',
   quantity: 'Số lượng',
@@ -24,7 +24,7 @@ export default () => ({
   ],
 
   // Account
-  login_title: 'Đăng nhập',
+  login_title: 'Đăng Nhập',
   register_title: 'Đăng ký',
   logout_title: 'Đăng xuất',
   profile_tille: 'Tài khoản',
@@ -41,10 +41,7 @@ export default () => ({
   forget_password: 'Quên mật khẩu',
   remember_password: 'Nhớ mật khẩu',
   err_password: ['Mật khẩu có ít nhất', 'kí tự', 'Mật khẩu phải trùng khớp'],
-  memu_account: [
-    { title: 'Đăng ký', url: 'register' },
-    { title: 'Đăng nhập', url: 'login' },
-  ],
+  memu_account: [{ title: 'Đăng ký / Đăng nhập', url: 'loginregister' }],
   menu_header: [
     {
       content: 'Trang chủ',

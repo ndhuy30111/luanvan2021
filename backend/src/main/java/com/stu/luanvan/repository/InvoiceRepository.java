@@ -8,6 +8,7 @@ import java.util.Collection;
 
 @Repository
 public interface InvoiceRepository extends JpaRepository<InvoiceModel,Integer> {
+   InvoiceModel findByBillCode(String billCode);
    Collection<InvoiceModel>  findByStatus(Integer status);
    Collection<InvoiceModel> findByStatusLessThanAndStatusGreaterThan(Integer min,Integer max);
 }

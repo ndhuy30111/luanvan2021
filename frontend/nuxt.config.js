@@ -233,11 +233,11 @@ export default {
       },
       {
         name: 'login',
-        message: 'Đăng nhập để mua hàng',
+        message: 'Đăng nhập để thanh toán',
         options: {
           position: 'top-center',
           type: 'info',
-          duration: 1500,
+          duration: 2500,
           theme: 'outline',
         },
       },

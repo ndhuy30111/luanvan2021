@@ -1,17 +1,19 @@
 <template>
-  <b-container class="register">
+  <b-container class="login">
+    <b-alert :show="message != ''" variant="danger">{{ message }}</b-alert>
     <b-row>
-      <b-col id="title">
-        <p>{{ $local.vn.register_title }}</p>
-      </b-col>
-      <b-col md="7">
+      <!-- Register -->
+      <b-col cols="12" md="6">
+        <h3 class="d-flex justify-content-center">
+          {{ $local.vn.register_title }}
+        </h3>
         <b-form
           v-if="show"
           class="form"
           @submit.prevent="register(form)"
-          @reset="onReset"
+          @reset="onReset()"
         >
-          <b--form-group>
+          <b-form-group>
             <b-form-input
               id="email"
               v-model="form.email"
@@ -24,7 +26,7 @@
               placeholder="Email"
               required
             ></b-form-input>
-          </b--form-group>
+          </b-form-group>
           <b-form-group>
             <b-form-input
               id="name"
@@ -103,6 +105,60 @@
           <Button :text="$local.vn.register_title" />
         </b-form>
       </b-col>
+      <!-- Login -->
+      <b-col cols="12" md="6">
+        <h3 class="d-flex justify-content-center">
+          {{ $local.vn.login_title }}
+        </h3>
+        <b-form v-if="show" class="form" @submit="onSubmit" @reset="onReset">
+          <b-form-group>
+            <b-form-input
+              id="email"
+              v-model="login.email"
+              type="email"
+              :state="
+                /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(form.email)
+                  ? true
+                  : false
+              "
+              placeholder="Email"
+              required
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group>
+            <b-form-input
+              id="passwordlogin"
+              v-model="login.password"
+              type="password"
+              :placeholder="$local.vn.password"
+              required
+            ></b-form-input>
+          </b-form-group>
+
+          <div class="d-flex">
+            <div>
+              <b-form-group id="input-group-4" v-slot="{ ariaDescribedby }">
+                <b-form-checkbox-group
+                  id="checkboxes"
+                  v-model="form.checked"
+                  :aria-describedby="ariaDescribedby"
+                >
+                  <b-form-checkbox value="remember">{{
+                    $local.vn.remember_password
+                  }}</b-form-checkbox>
+                </b-form-checkbox-group>
+              </b-form-group>
+            </div>
+            <div>
+              <a href="#" class="forget_password">{{
+                $local.vn.forget_password
+              }}</a>
+            </div>
+          </div>
+          <Button :text="$local.vn.login_title" />
+        </b-form>
+      </b-col>
     </b-row>
   </b-container>
 </template>
@@ -111,10 +167,14 @@
 import { sameAs, minLength } from 'vuelidate/lib/validators'
 import Button from '../components/Button'
 export default {
-  name: 'Register',
+  name: 'Login',
   components: { Button },
   data() {
     return {
+      login: {
+        email: '',
+        password: '',
+      },
       form: {
         email: '',
         name: '',
@@ -124,8 +184,9 @@ export default {
         password: '',
         repeatPassword: '',
       },
-      show: true,
+      message: '',
       isActive: false,
+      show: true,
     }
   },
   validations: {
@@ -135,12 +196,31 @@ export default {
     },
   },
   methods: {
+    async onSubmit(event) {
+      event.preventDefault()
+      try {
+        await this.$auth
+          .loginWith('local', {
+            data: {
+              email: this.login.email,
+              password: this.login.password,
+            },
+          })
+          .then(() => {
+            this.$router.push({ name: 'index' })
+            localStorage.removeItem('cart')
+            this.$store.dispatch(this.$constant.user.ACTION_REMOVE_CART_USER)
+            this.$store.dispatch(this.$constant.user.ACTION_SHOW_CART_USER)
+          })
+      } catch (ex) {
+        alert('Vui lòng kiểm tra lại thông tin')
+      }
+    },
     register(form) {
       this.$store.dispatch(this.$constant.user.ACTIONS_USER_REGISTER, form)
+      this.onReset()
     },
     onReset(event) {
-      event.preventDefault()
-      // Reset our form values
       this.form.email = ''
       this.form.name = ''
       this.form.userName = ''
@@ -156,15 +236,11 @@ export default {
   },
 }
 </script>
-<style lang="scss" scope>
-.register {
+<style lang="scss" scoped>
+.login {
   #title {
-    font-size: 60px;
+    font-size: 20px;
     justify-content: center;
-  }
-  .mes_error {
-    font-size: 15px;
-    color: red;
   }
   .form {
     position: relative;
@@ -174,14 +250,24 @@ export default {
         padding: 20px;
         display: block;
         width: 100%;
-        border: solid 1px #f3f3f3;
+        border: solid 1px #d3d3d3;
         background-color: #fff;
       }
     }
   }
+  .forget_password:nth-child(2) {
+    margin-left: 10px;
+  }
+  .forget_password:hover {
+    color: red;
+  }
+  .mes_error {
+    font-size: 15px;
+    color: red;
+  }
 }
 @media screen and (max-width: 600px) {
-  .register {
+  .login {
     #title {
       margin-top: 0px;
       font-size: 40px;
