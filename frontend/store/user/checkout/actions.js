@@ -1,8 +1,8 @@
 import constants from './constants'
 
 export default {
-  setProdcut: (context, cartItem) => {
-    context.commit(constants.MUTATIONS_CHECKOUT_SETPRODUCT, cartItem)
+  setCheckout: (context, cartItem) => {
+    context.commit(constants.MUTATIONS_CHECKOUT_CHECKOUT, cartItem)
   },
 
   removeProduct: (context, indexRemove) => {

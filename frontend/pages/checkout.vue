@@ -2,7 +2,9 @@
   <v-container fluid>
     <v-row>
       <v-col class="checkout_title d-flex justify-content-center">
-        <h2 class="hidden-sm-and-down">{{ $local.vn.info_checkout }}</h2>
+        <h2 class="hidden-sm-and-down">
+          <strong style="color: red">{{ $local.vn.info_checkout }}</strong>
+        </h2>
       </v-col>
     </v-row>
     <v-row>
@@ -14,64 +16,89 @@
           </v-card-title>
           <v-card-text>
             <v-container>
-              <v-row>
+              <!-- Có đăng nhập -->
+              <v-row v-if="user">
                 <v-col cols="12">
-                  <v-text-field
-                    :label="$local.vn.full_name"
-                    :value="user.name"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="6">
-                  <v-text-field
-                    label="Email"
-                    :value="user.email"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="6">
-                  <v-text-field
-                    :label="$local.vn.phone"
-                    :value="user.numberPhone"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="4">
-                  <v-select
-                    v-model="select_provice"
-                    :items="provice"
-                    :label="$local.vn.provice"
-                    item-text="name"
-                    item-value="code"
-                    @change="$fetch"
-                  ></v-select>
-                </v-col>
-                <v-col cols="4">
-                  <v-select
-                    v-model="select_district"
-                    :items="district"
-                    :label="$local.vn.district"
-                    item-text="name_with_type"
-                    item-value="code"
-                    @change="$fetch"
-                  ></v-select>
-                </v-col>
-                <v-col cols="4">
-                  <v-select
-                    :items="commune"
-                    :label="$local.vn.commune"
-                    item-text="name_with_type"
-                  ></v-select>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    :label="$local.vn.address"
-                    :value="user.address"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-textarea :label="$local.vn.note_bill"></v-textarea>
+                  <v-form ref="form" v-model="valid" lazy-validation>
+                    <v-row>
+                      <v-col cols="6">
+                        <v-text-field
+                          v-model="user.name"
+                          :rules="userNameRules"
+                          :label="$local.vn.full_name"
+                          required
+                        ></v-text-field>
+                      </v-col>
+
+                      <v-col cols="6">
+                        <v-text-field
+                          v-model="user.email"
+                          :rules="emailRules"
+                          label="Email"
+                          required
+                        ></v-text-field> </v-col
+                    ></v-row>
+                    <v-row>
+                      <v-col cols="6">
+                        <v-text-field
+                          v-model="user.numberPhone"
+                          :label="$local.vn.phone"
+                          :rules="numberPhoneRules"
+                          required
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="6">
+                        <v-text-field
+                          v-model="user.address"
+                          :label="$local.vn.address"
+                          :rules="addressRules"
+                          required
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col cols="4">
+                        <v-select
+                          v-model="select_provice"
+                          :rules="rules"
+                          :items="provice"
+                          :label="$local.vn.provice"
+                          item-value="code"
+                          item-text="name"
+                          @change="$fetch"
+                        ></v-select>
+                      </v-col>
+                      <v-col cols="4">
+                        <v-select
+                          v-model="select_district"
+                          :rules="rules"
+                          :items="district"
+                          :label="$local.vn.district"
+                          item-text="name_with_type"
+                          item-value="code"
+                          @change="$fetch"
+                        ></v-select>
+                      </v-col>
+                      <v-col cols="4">
+                        <v-select
+                          v-model="address"
+                          :items="commune"
+                          :rules="rules"
+                          :label="$local.vn.commune"
+                          item-text="name_with_type"
+                          item-value="path_with_type"
+                        ></v-select>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col cols="12">
+                        <v-textarea
+                          v-model="note"
+                          :label="$local.vn.note_bill"
+                        ></v-textarea>
+                      </v-col>
+                    </v-row>
+                  </v-form>
                 </v-col>
               </v-row>
             </v-container>
@@ -79,6 +106,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" md="6">
+        <!-- Phương thức thanh toán -->
         <v-row>
           <v-col cols="12">
             <v-card elevation="0">
@@ -90,8 +118,42 @@
                 <v-container>
                   <v-row>
                     <v-col cols="12">
-                      <v-radio-group>
-                        <v-radio :label="$local.vn.COD" value="COD"></v-radio>
+                      <v-radio-group v-model="select_checkout">
+                        <div class="d-flex">
+                          <v-radio value="COD"></v-radio>
+                          {{ $local.vn.COD }}
+                        </div>
+
+                        <div class="d-flex">
+                          <div class="mt-3">
+                            <v-radio value="MoMo"></v-radio>
+                          </div>
+                          <div>
+                            <label>
+                              Quét mã QR MoMo
+                              <img
+                                :src="require('@/assets/logo/momologo.png')"
+                                width="40"
+                                height="40"
+                                alt=""
+                            /></label>
+                          </div>
+                        </div>
+                        <div class="d-flex">
+                          <div class="mt-5">
+                            <v-radio value="ZaloPay" disabled></v-radio>
+                          </div>
+                          <div>
+                            <label>
+                              Quét mã
+                              <img
+                                :src="require('@/assets/logo/zalopay.svg')"
+                                width="60"
+                                height="60"
+                                alt=""
+                            /></label>
+                          </div>
+                        </div>
                       </v-radio-group>
                     </v-col>
                   </v-row>
@@ -100,6 +162,7 @@
             </v-card>
           </v-col>
         </v-row>
+        <!-- Thông tin sản phẩm -->
         <v-row>
           <v-col cols="12">
             <v-card elevation="0">
@@ -138,6 +201,7 @@
                                 {{ item.quantity }}
                               </td>
                               <td
+                                v-show="checkout.length > 1"
                                 class="close-td"
                                 @click="removeProductCheckout(index)"
                               >
@@ -154,7 +218,7 @@
                       <div>
                         <v-row>
                           <v-col>
-                            <strong>{{ $local.vn.provisional }}</strong>
+                            <strong>{{ $local.vn.total }}</strong>
                           </v-col>
                           <v-col>
                             <h6>
@@ -164,48 +228,20 @@
                           </v-col>
                         </v-row>
                         <v-row>
-                          <v-col>
-                            {{ $local.vn.shipping }}
-                          </v-col>
-                          <v-col>
-                            <h6>
-                              {{ parseInt(shipping).toLocaleString() }}
-                              {{ $local.vn.currency }}
-                            </h6>
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col>
-                            <strong>{{ $local.vn.total }}</strong>
-                          </v-col>
-                          <v-col>
-                            <h6>
-                              {{
-                                (
-                                  parseInt(shipping) + parseInt(total)
-                                ).toLocaleString()
-                              }}
-                              {{ $local.vn.currency }}
-                            </h6>
-                          </v-col>
-                        </v-row>
-                        <v-row>
                           <v-col class="d-flex justify-content-center">
                             <v-btn
                               class="ma-2 white--text"
-                              :loading="loading"
-                              :disabled="loading"
                               color="#FF0000"
-                              @click="loader = 'loading'"
+                              type="submit"
+                              @click="submitCheckout()"
                             >
                               {{ $local.vn.checkout }}
                             </v-btn>
-                            <router-link :to="{ name: 'index' }">
-                              <v-btn
-                                class="ma-2 white--text"
-                                color="black"
-                                @click="loader = 'loading'"
-                              >
+                            <router-link
+                              :to="{ name: 'index' }"
+                              style="text-decoration: none"
+                            >
+                              <v-btn class="ma-2 white--text" color="black">
                                 {{ $local.vn.keep_buying }}
                               </v-btn>
                             </router-link>
@@ -230,15 +266,31 @@ export default {
   name: 'Checkout',
   data() {
     return {
+      valid: true,
       discount: '',
-      loading: false,
-      loader: null,
-      shipping: 15000,
       select_provice: '',
       select_district: '',
+      address: '',
       provice: [],
       district: [],
       commune: [],
+      select_checkout: 'COD',
+      note: '',
+      nameRules: [
+        (v) => !!v || 'Tên người dùng không được để tróng',
+        (v) => v.length > 6 || 'Tên người dùng ít nhất 6 kí tự',
+      ],
+      numberPhoneRules: [(v) => !!v || 'Số điện thoại không được để trống'],
+      userNameRules: [
+        (v) => !!v || 'Tên tài khoản không được để tróng',
+        (v) => v.length > 6 || 'Tên tài khoản ít nhất 6 kí tự',
+      ],
+      addressRules: [(v) => !!v || 'Địa chỉ không được để trống'],
+      rules: [(v) => !!v || 'Không được để trống'],
+      emailRules: [
+        (v) => !!v || 'E-mail không được để trống',
+        (v) => /.+@.+/.test(v) || 'Không phải email',
+      ],
     }
   },
   async fetch() {
@@ -249,32 +301,32 @@ export default {
       }
     })
     if (this.select_provice) {
-      const tam = []
+      const temp = []
       const data = await this.$content('location', 'quan-huyen').fetch()
       data.forEach((el) => {
         if (el.slug === this.select_provice) {
           Object.entries(el).forEach((item) => {
             if (item[0] === item[1].code) {
-              tam.push(item[1])
+              temp.push(item[1])
             }
           })
         }
       })
-      this.district = tam
+      this.district = temp
     }
     if (this.select_district) {
-      const tam = []
+      const temp = []
       const data = await this.$content('location', 'xa-phuong').fetch()
       data.forEach((el) => {
         if (el.slug === this.select_district) {
           Object.entries(el).forEach((item) => {
             if (item[0] === item[1].code) {
-              tam.push(item[1])
+              temp.push(item[1])
             }
           })
         }
       })
-      this.commune = tam
+      this.commune = temp
     }
   },
   computed: {
@@ -289,14 +341,6 @@ export default {
       total: 'user/checkout/total',
     }),
   },
-  watch: {
-    loader() {
-      const l = this.loader
-      this[l] = !this[l]
-      setTimeout(() => (this[l] = false), 3000)
-      this.loader = null
-    },
-  },
   methods: {
     removeProductCheckout(indexRemove) {
       if (this.checkout.length > 1) {
@@ -304,6 +348,39 @@ export default {
           this.$constant.user.ACTION_REMOVE_PRODUCTCART_CHECKOUT,
           indexRemove
         )
+      }
+    },
+    submitCheckout() {
+      this.$refs.form.validate()
+      const tam = []
+      this.checkout.forEach((el) => {
+        const item = {
+          productId: el.idProduct,
+          name: el.name + ' / ' + el.color + ' / ' + el.size,
+          amount: el.quantity,
+          price: el.price,
+        }
+        tam.push(item)
+      })
+      if (this.$refs.form.validate() === true) {
+        const invoice = {
+          numberPhone: this.user.numberPhone,
+          address: this.user.address + this.address,
+          note: this.note,
+          payment: this.select_checkout,
+          invoiceDetailsRequests: tam,
+        }
+        this.$store.dispatch(this.$constant.user.ACTION_INVOICE_SET, invoice)
+        this.checkout.forEach((el) => {
+          this.$store.dispatch(
+            this.$constant.user.ACTION_DELETE_PRODUCTCART_USER,
+            el
+          )
+        })
+
+        if (this.select_checkout === 'MoMo') {
+          this.$router.push({ name: 'payment' })
+        }
       }
     },
   },

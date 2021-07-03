@@ -376,7 +376,7 @@ export default {
         const formData = new FormData()
         formData.append('file', file)
         await this.$axios
-          .$post('http://localhost:8080/api/admin/file', formData)
+          .$post('https://localhost:8080/api/admin/file', formData)
           .then((response) => {
             Editor.insertEmbed(cursorLocation, 'image', response.url)
             resetUploader()

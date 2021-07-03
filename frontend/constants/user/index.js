@@ -26,8 +26,12 @@ export default () => ({
 
   ACTIONS_SEARCH: 'user/search/getSearch',
 
-  ACTION_CHECKOUT_SETPRODUCT: 'user/checkout/setProdcut',
+  ACTION_CHECKOUT_SET: 'user/checkout/setCheckout',
   ACTION_REMOVE_PRODUCTCART_CHECKOUT: 'user/checkout/removeProduct',
 
   ACTION_POST_REVIEW: 'user/review/postCommit',
+  ACTION_GET_REVIEW: 'user/review/getCommemt',
+
+  ACTION_INVOICE_SET: 'user/invoice/createIvoice',
+  ACTION_INVOICE_SAVEPAYMENT: 'user/invoice/savePayment',
 })

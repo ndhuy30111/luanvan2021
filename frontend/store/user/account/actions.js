@@ -6,7 +6,7 @@ export default {
       const res = await this.$repositories.account.register(user)
       const { status } = res
       if (status === 201) {
-        this.$router.push({ name: 'login' })
+        this.$toast.global.success()
       }
     } catch (error) {
       alert(error)
@@ -24,7 +24,7 @@ export default {
       this.$auth.loginWith('local2', {
         data: {
           email: user.email,
-          name: user.password,
+          name: user.name,
           id: user.id,
         },
       })

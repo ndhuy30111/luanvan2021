@@ -49,7 +49,7 @@ export default {
     margin-top: 20px;
     margin-left: 30px;
     a {
-      font-size: 12px;
+      font-size: 18px;
       color: black;
       text-decoration: none;
       transition: all 0.3s;

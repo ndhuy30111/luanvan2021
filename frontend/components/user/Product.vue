@@ -101,7 +101,7 @@ export default {
       a {
         color: #fff;
         background-color: #333;
-        font-size: 16px;
+        font-size: 18px;
         line-height: 40px;
         text-align: center;
         height: 40px;
@@ -120,7 +120,7 @@ export default {
         content: attr(data-tip);
         color: #fff;
         background-color: #000;
-        font-size: 12px;
+        font-size: 15px;
         letter-spacing: 1px;
         line-height: 20px;
         padding: 1px 5px;
@@ -138,7 +138,7 @@ export default {
   .product-new-label {
     color: #fff;
     background-color: #ff0000;
-    font-size: 12px;
+    font-size: 15px;
     text-transform: uppercase;
     padding: 2px 7px;
     display: block;
@@ -176,7 +176,7 @@ export default {
 }
 .product-grid .rating {
   color: #ffd200;
-  font-size: 12px;
+  font-size: 15px;
   padding: 12px 0 0;
   margin: 0;
   list-style: none;
@@ -202,7 +202,7 @@ export default {
   bottom: 0;
 }
 .product-grid .title {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 400;
   letter-spacing: 0.5px;
   text-transform: capitalize;
@@ -218,7 +218,7 @@ export default {
 }
 .product-grid .price {
   color: #333;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.6px;
   margin-bottom: 8px;
@@ -227,7 +227,7 @@ export default {
 }
 .product-grid .price span {
   color: #999;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 400;
   text-decoration: line-through;
   margin-left: 3px;
@@ -235,7 +235,7 @@ export default {
 }
 .product-grid .add-to-cart {
   color: #000;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
 }
 @media only screen and (max-width: 990px) {

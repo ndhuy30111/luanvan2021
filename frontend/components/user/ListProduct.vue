@@ -90,6 +90,7 @@ export default {
 <style lang="scss" scoped>
 #menu_title {
   font-weight: bold;
+  font-size: 16px;
 }
 .product-grid {
   text-align: center;
@@ -132,7 +133,7 @@ export default {
       a {
         color: #fff;
         background-color: #333;
-        font-size: 16px;
+        font-size: 20px;
         line-height: 40px;
         text-align: center;
         height: 40px;
@@ -266,7 +267,7 @@ export default {
 }
 .product-grid .add-to-cart {
   color: #000;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 600;
 }
 @media only screen and (max-width: 990px) {
