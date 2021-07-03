@@ -36,5 +36,4 @@ public class BackendApplication {
         return new Cloudinary(config);
     }
 
-
 }

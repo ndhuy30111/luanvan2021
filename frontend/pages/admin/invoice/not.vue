@@ -7,7 +7,7 @@
     class="elevation-1"
   >
     <template #[`item.status`]="{ item }">
-      {{ item.status ? 'Bình thường' : 'Bị Xóa' }}
+      {{ item.status || 'Chưa xác nhận đơn hàng' }}
     </template>
     <template #[`top`]>
       <v-toolbar flat>
@@ -22,6 +22,20 @@
         ></v-text-field>
 
         <v-spacer></v-spacer>
+        <v-dialog v-model="dialog" max-width="500px">
+          <v-card
+            ><v-card-title>{{ message }}</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="closeDialog">{{
+                $local.vn_admin_general.BTN_CANCEL
+              }}</v-btn>
+              <v-btn color="blue darken-1" text @click="save">{{
+                $local.vn_admin_general.BTN_SUBMIT
+              }}</v-btn></v-card-actions
+            ></v-card
+          >
+        </v-dialog>
         <v-dialog v-model="detailsDialog" max-width="900px">
           <v-card>
             <v-card-title
@@ -105,6 +119,24 @@
                 >
               </v-row>
             </v-container>
+            <v-card-actions>
+              <v-btn color="red darken-1" text @click="billDel"
+                >Hủy đơn hàng</v-btn
+              >
+              <v-spacer></v-spacer>
+              <v-btn color="green darken-1" text @click="billPaid"
+                >Xác nhận đã thanh toán</v-btn
+              >
+              <v-spacer></v-spacer>
+              <v-btn
+                color="blue darken-1"
+                type="submit"
+                text
+                @click="billSubmit"
+              >
+                Xác thực thành công
+              </v-btn>
+            </v-card-actions>
           </v-card>
         </v-dialog>
       </v-toolbar>
@@ -116,7 +148,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
   layout: 'admin',
   data: () => ({
@@ -131,6 +162,7 @@ export default {
     message: '',
     action: '',
     dialog: false,
+    coupons: [],
   }),
   head() {
     return {
@@ -144,15 +176,7 @@ export default {
       ],
     }
   },
-  computed: {
-    ...mapGetters({
-      // map `this.doneCount` to `this.$store.getters.doneTodosCount`
-      coupon: 'admin/invoice/getAll',
-    }),
-    coupons() {
-      return this.coupon
-    },
-  },
+
   watch: {
     detail(val) {
       val || this.close()
@@ -167,8 +191,15 @@ export default {
       val || this.closeDialog()
     },
   },
-
+  created() {
+    this.init()
+  },
   methods: {
+    async init() {
+      this.coupons = await this.$store.dispatch(
+        this.$constant.admin.ACTION_ADMIN_INVOICE_INIT_NOT
+      )
+    },
     detail(item) {
       this.detailsDialog = true
       this.editedItem = Object.assign({}, item)
@@ -178,6 +209,52 @@ export default {
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
       })
+    },
+    closeDialog() {
+      this.action = ''
+      this.message = ''
+      this.dialog = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+      })
+    },
+    billDel() {
+      this.action = 'del'
+      this.message = 'Bạn muốn hủy đơn hàng ?'
+      this.detailsDialog = false
+      this.dialog = true
+    },
+    billPaid() {
+      this.action = 'paid'
+      this.message = 'Đơn hàng đã được thanh toán ?'
+      this.detailsDialog = false
+      this.dialog = true
+    },
+    billSubmit() {
+      this.action = 'submit'
+      this.message = 'Đơn hàng đã được xác thực ?'
+      this.detailsDialog = false
+      this.dialog = true
+    },
+    async save() {
+      if (this.action === 'del') {
+        await this.$store.dispatch(
+          this.$constant.admin.ACTION_ADMIN_INVOICE_DEL,
+          this.editedItem
+        )
+      } else if (this.action === 'paid') {
+        await this.$store.dispatch(
+          this.$constant.admin.ACTION_ADMIN_INVOICE_PAID,
+          this.editedItem
+        )
+      } else if (this.action === 'submit') {
+        await this.$store.dispatch(
+          this.$constant.admin.ACTION_ADMIN_INVOICE_SUBMIT,
+          this.editedItem
+        )
+      }
+      this.init()
+      this.closeDialog()
     },
   },
 }

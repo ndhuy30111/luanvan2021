@@ -10,4 +10,8 @@ public interface InvoiceServiceInterface extends ServiceInterfaces<InvoiceModel,
     Collection<InvoiceModel> findAllNotReceive();
     Collection<InvoiceModel> findAllReceive();
     Collection<InvoiceModel> findAllCancelReceive();
+    Collection<InvoiceModel> findAllStatus(Integer status);
+    InvoiceModel saveStatus(Integer id) throws Exception;
+    InvoiceModel savePaid(Integer id) throws Exception;
+    InvoiceModel saveDel(Integer id) throws Exception;
 }

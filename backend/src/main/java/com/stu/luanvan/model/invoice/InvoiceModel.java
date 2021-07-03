@@ -3,8 +3,6 @@ package com.stu.luanvan.model.invoice;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.stu.luanvan.locales.MessageLocales;
-import com.stu.luanvan.locales.PatternLocales;
 import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.invoicedetails.InvoiceDetailsModel;
 import com.stu.luanvan.model.role.RoleModel;
@@ -15,7 +13,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 import java.util.Collection;
 import java.util.Date;
 
@@ -78,5 +75,18 @@ public class InvoiceModel extends BaseModel {
         this.billCode = billCode;
         this.note = note;
         this.user = user;
+    }
+    public void Status(){
+        ++this.status;
+        if(this.status==3){
+            this.statusPayment=true;
+        }
+    }
+    public void Paid(){
+        ++this.status;
+        this.statusPayment=true;
+    }
+    public void Del(){
+        this.status=4;
     }
 }

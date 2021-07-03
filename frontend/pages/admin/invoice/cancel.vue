@@ -7,7 +7,7 @@
     class="elevation-1"
   >
     <template #[`item.status`]="{ item }">
-      {{ item.status ? 'Bình thường' : 'Bị Xóa' }}
+      {{ item.status || 'Chưa xác nhận đơn hàng' }}
     </template>
     <template #[`top`]>
       <v-toolbar flat>
@@ -22,6 +22,20 @@
         ></v-text-field>
 
         <v-spacer></v-spacer>
+        <v-dialog v-model="dialog" max-width="500px">
+          <v-card
+            ><v-card-title>{{ message }}</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="closeDialog">{{
+                $local.vn_admin_general.BTN_CANCEL
+              }}</v-btn>
+              <v-btn color="blue darken-1" text @click="save">{{
+                $local.vn_admin_general.BTN_SUBMIT
+              }}</v-btn></v-card-actions
+            ></v-card
+          >
+        </v-dialog>
         <v-dialog v-model="detailsDialog" max-width="900px">
           <v-card>
             <v-card-title
@@ -116,7 +130,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
   layout: 'admin',
   data: () => ({
@@ -131,6 +144,7 @@ export default {
     message: '',
     action: '',
     dialog: false,
+    coupons: [],
   }),
   head() {
     return {
@@ -144,15 +158,7 @@ export default {
       ],
     }
   },
-  computed: {
-    ...mapGetters({
-      // map `this.doneCount` to `this.$store.getters.doneTodosCount`
-      coupon: 'admin/invoice/getAll',
-    }),
-    coupons() {
-      return this.coupon
-    },
-  },
+
   watch: {
     detail(val) {
       val || this.close()
@@ -167,14 +173,29 @@ export default {
       val || this.closeDialog()
     },
   },
-
+  created() {
+    this.init()
+  },
   methods: {
+    async init() {
+      this.coupons = await this.$store.dispatch(
+        this.$constant.admin.ACTION_ADMIN_INVOICE_INIT_CANCEL
+      )
+    },
     detail(item) {
       this.detailsDialog = true
       this.editedItem = Object.assign({}, item)
     },
     close() {
       this.detailsDialog = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+      })
+    },
+    closeDialog() {
+      this.action = ''
+      this.message = ''
+      this.dialog = false
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
       })

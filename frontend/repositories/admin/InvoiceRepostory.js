@@ -3,7 +3,23 @@ export default ($axios) => ({
   all() {
     return $axios.get(`${resource}`)
   },
+  allNot() {
+    return $axios.get(`${resource}/not`)
+  },
+  allAccuracy() {
+    return $axios.get(`${resource}/accuracy`)
+  },
+  allTransport() {
+    return $axios.get(`${resource}/transport`)
+  },
 
+  allComplete() {
+    return $axios.get(`${resource}/complete`)
+  },
+
+  allCancel() {
+    return $axios.get(`${resource}/cancel`)
+  },
   show(id) {
     return $axios.get(`${resource}/${id}`)
   },
@@ -14,5 +30,16 @@ export default ($axios) => ({
 
   update(id, payload) {
     return $axios.put(`${resource}/${id}`, payload)
+  },
+  status(id) {
+    return $axios.put(`${resource}/${id}/status`)
+  },
+
+  del(id) {
+    return $axios.put(`${resource}/${id}/del`)
+  },
+
+  paid(id) {
+    return $axios.put(`${resource}/${id}/paid`)
   },
 })

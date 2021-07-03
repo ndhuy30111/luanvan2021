@@ -82,16 +82,24 @@ export default {
                   url: 'admin-invoice',
                 },
                 {
-                  name: this.$local.vn_admin_menu.INVOICE_NOT_RECEIVE_VIEW,
-                  url: 'admin-invoice-not_receive',
+                  name: this.$local.vn_admin_menu.INVOICE_NOT_RECEIVE,
+                  url: 'admin-invoice-not',
                 },
                 {
-                  name: this.$local.vn_admin_menu.INVOICE_RECEIVE_VIEW,
-                  url: 'admin-invoice-receive',
+                  name: this.$local.vn_admin_menu.INVOICE_ACCURACY_RECEIVE,
+                  url: 'admin-invoice-accuracy',
                 },
                 {
-                  name: this.$local.vn_admin_menu.INVOICE_CANCEL_RECEIVE_VIEW,
-                  url: 'admin-invoice-cancel_receive',
+                  name: this.$local.vn_admin_menu.INVOICE_TRANSPORT_RECEIVE,
+                  url: 'admin-invoice-transport',
+                },
+                {
+                  name: this.$local.vn_admin_menu.INVOICE_COMPLETE_RECEIVE,
+                  url: 'admin-invoice-complete',
+                },
+                {
+                  name: this.$local.vn_admin_menu.INVOICE_CANCEL_RECEIVE,
+                  url: 'admin-invoice-cancel',
                 },
               ],
             },

@@ -1,19 +1,17 @@
 package com.stu.luanvan.service.invoice;
 
+import com.stu.luanvan.exception.NotFoundEx;
 import com.stu.luanvan.locales.ExceptionLocales;
 import com.stu.luanvan.model.invoice.InvoiceModel;
 import com.stu.luanvan.model.invoicedetails.InvoiceDetailsModel;
 import com.stu.luanvan.repository.InvoiceDetailsRepository;
 import com.stu.luanvan.repository.InvoiceRepository;
 import com.stu.luanvan.request.InvoiceRequest;
-import com.stu.luanvan.security.MyUserDetails;
 import com.stu.luanvan.service.product.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Map;
@@ -82,5 +80,46 @@ public class InvoiceService implements InvoiceServiceInterface{
     @Override
     public Collection<InvoiceModel> findAllCancelReceive() {
         return invoiceRepository.findByStatus(6);
+    }
+
+    @Override
+    public Collection<InvoiceModel> findAllStatus(Integer status) {
+        try{
+            return invoiceRepository.findByStatus(status);
+        }catch (Exception ex){
+            logger.error(String.valueOf(ex));
+            throw ex;
+        }
+    }
+
+    @Override
+    public InvoiceModel saveStatus(Integer id) throws Exception {
+        var invoice = invoiceRepository.findById(id).orElse(null);
+        if(invoice == null){
+            throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
+        }
+        invoice.Status();
+        return invoiceRepository.save(invoice);
+    }
+
+    @Override
+    public InvoiceModel savePaid(Integer id) throws Exception {
+        var invoice = invoiceRepository.findById(id).orElse(null);
+        if(invoice == null){
+            throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
+        }
+        invoice.Paid();
+        return invoiceRepository.save(invoice);
+
+    }
+
+    @Override
+    public InvoiceModel saveDel(Integer id) throws Exception {
+        var invoice = invoiceRepository.findById(id).orElse(null);
+        if(invoice == null){
+            throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
+        }
+        invoice.Del();
+        return invoiceRepository.save(invoice);
     }
 }

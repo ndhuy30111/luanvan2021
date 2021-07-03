@@ -62,6 +62,16 @@ export default () => ({
   MUTATION_ADMIN_COUPON_UPDATE: 'MUTATION_ADMIN_COUPON_UPDATE',
   // INVOICE
   ACTION_ADMIN_INVOICE_INIT: 'admin/invoice/init',
+
+  ACTION_ADMIN_INVOICE_INIT_NOT: 'admin/invoice/notData',
+  ACTION_ADMIN_INVOICE_INIT_ACCURACY: 'admin/invoice/accuracyData',
+  ACTION_ADMIN_INVOICE_INIT_TRANSPORT: 'admin/invoice/transportData',
+  ACTION_ADMIN_INVOICE_INIT_COMPLETE: 'admin/invoice/completeData',
+  ACTION_ADMIN_INVOICE_INIT_CANCEL: 'admin/invoice/cancelData',
+
+  ACTION_ADMIN_INVOICE_SUBMIT: 'admin/invoice/submit',
+  ACTION_ADMIN_INVOICE_DEL: 'admin/invoice/del',
+  ACTION_ADMIN_INVOICE_PAID: 'admin/invoice/paid',
   MUTATION_ADMIN_INVOICE_INIT: 'MUTATION_ADMIN_INVOICE_INIT',
   // REVIEW
   ACTION_ADMIN_REVIEW_INIT: 'admin/review/init',

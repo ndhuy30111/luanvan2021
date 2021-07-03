@@ -46,6 +46,7 @@ public class CustomExHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ResponseError handlerException(Exception ex, WebRequest req){
+        logger.error(ex);
         return new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR,ExceptionLocales.INTERNAL_SERVER_ERROR);
     }
     /**

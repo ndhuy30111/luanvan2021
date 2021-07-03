@@ -58,7 +58,6 @@ export default () => ({
     { text: 'Ngày tạo', value: 'createDate' },
     { text: 'Người cập nhập', value: 'lastModifiedBy' },
     { text: 'Ngày cập nhập', value: 'lastModifiedDate' },
-
     { text: '', value: 'actions', sortable: false },
   ],
   REVIEW_HEADER: [
@@ -71,6 +70,19 @@ export default () => ({
     { text: 'Đánh giá', value: 'rate' },
     { text: 'Lời bình luận', value: 'comment' },
     { text: 'Vào lúc mấy giờ', value: 'createDate' },
+    { text: '', value: 'actions', sortable: false },
+  ],
+  INVOICE_HEADER: [
+    {
+      text: 'Mã đơn hàng',
+      align: 'start',
+      value: 'id',
+    },
+    { text: 'Số điện thoại', value: 'numberPhone' },
+    { text: 'Tên người đặt', value: 'user' },
+    { text: 'Địa chỉ', value: 'address' },
+    { text: 'Ngày đăng hàng', value: 'createDate' },
+    { text: 'Trạng thái đơn hàng', value: 'status' },
     { text: '', value: 'actions', sortable: false },
   ],
 })
