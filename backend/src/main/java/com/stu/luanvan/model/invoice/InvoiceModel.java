@@ -44,14 +44,14 @@ public class InvoiceModel extends BaseModel {
     @Column(columnDefinition = "TEXT COMMENT 'Ghi chú của hoá đơn' ")
     private String note;
 
-    @Column(columnDefinition = "VARCHAR(13) NOT NULL COMMENT 'Mã đơn hàng' ")
+    @Column(columnDefinition = "VARCHAR(30) NOT NULL COMMENT 'Mã đơn hàng' ")
     private String billCode;
 
     @Column
-    private String customerName;
+    private Boolean statusPayment = false;
 
     @Column
-    private Boolean statusPayment;
+    private String methodsPayment;
 
     @ManyToOne
     @JoinColumn(name = "createbill_by")
@@ -63,20 +63,11 @@ public class InvoiceModel extends BaseModel {
     @OneToMany(mappedBy = "invoice")
     private Collection<InvoiceDetailsModel> invoicedetals;
 
-    public InvoiceModel(String customerName, String numberPhone, String address, String billCode, String note) {
-        this.customerName = customerName;
+    public InvoiceModel(String numberPhone, String address, String note, String billCode, String methodsPayment) {
         this.numberPhone = numberPhone;
         this.address = address;
         this.billCode = billCode;
         this.note = note;
-    }
-
-    public InvoiceModel(String customerName, String numberPhone, String address, String billCode, String note, UserModel user) {
-        this.customerName = customerName;
-        this.numberPhone = numberPhone;
-        this.address = address;
-        this.billCode = billCode;
-        this.note = note;
-        this.user = user;
+        this.methodsPayment =  methodsPayment;
     }
 }
