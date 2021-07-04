@@ -1,7 +1,7 @@
 <template>
   <div class="product-grid">
     <div class="product-image">
-      <img class="pic-1" :src="product.image" />
+      <img class="pic-1" :src="product.image" @click="productdetail(product)" />
       <ul class="social">
         <li>
           <a data-tip="Xem chi tiết" @click="productdetail(product)"
@@ -28,7 +28,7 @@
     </ul>
     <div class="product-content">
       <h6 class="title">
-        <a href="#">{{ product.name }}</a>
+        <a @click="productdetail(product)">{{ product.name }}</a>
       </h6>
       <div class="price">
         {{ product.price.toLocaleString() }} {{ $local.vn.currency }}

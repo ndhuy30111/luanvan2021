@@ -276,6 +276,13 @@ export default {
       commune: [],
       select_checkout: 'COD',
       note: '',
+      user: {
+        email: '',
+        name: '',
+        userName: '',
+        address: '',
+        numberPhone: '',
+      },
       nameRules: [
         (v) => !!v || 'Tên người dùng không được để tróng',
         (v) => v.length > 6 || 'Tên người dùng ít nhất 6 kí tự',
@@ -330,9 +337,6 @@ export default {
     }
   },
   computed: {
-    user() {
-      return this.$auth.user ? this.$auth.user : ''
-    },
     checkout() {
       return this.$store.state.user.checkout.checkout
     },
@@ -341,7 +345,22 @@ export default {
       total: 'user/checkout/total',
     }),
   },
+  created() {
+    const item = this.$auth.user
+    this.editItem(item)
+  },
   methods: {
+    editItem(item) {
+      this.user = Object.assign({}, item)
+    },
+    productdetail(item) {
+      this.$router.push({
+        name: 'productdetail-id',
+        params: {
+          id: item.idProduct,
+        },
+      })
+    },
     removeProductCheckout(indexRemove) {
       if (this.checkout.length > 1) {
         this.$store.dispatch(
@@ -365,21 +384,29 @@ export default {
       if (this.$refs.form.validate() === true) {
         const invoice = {
           numberPhone: this.user.numberPhone,
-          address: this.user.address + this.address,
+          address: this.user.address + ' ' + this.address,
           note: this.note,
           payment: this.select_checkout,
           invoiceDetailsRequests: tam,
         }
-        this.$store.dispatch(this.$constant.user.ACTION_INVOICE_SET, invoice)
-        this.checkout.forEach((el) => {
-          this.$store.dispatch(
-            this.$constant.user.ACTION_DELETE_PRODUCTCART_USER,
-            el
-          )
-        })
-
         if (this.select_checkout === 'MoMo') {
-          this.$router.push({ name: 'payment' })
+          this.$store.dispatch(this.$constant.user.ACTION_INVOICE_SET, invoice)
+          this.checkout.forEach((el) => {
+            this.$store.dispatch(
+              this.$constant.user.ACTION_DELETE_PRODUCTCART_USER,
+              el
+            )
+          })
+        } else if (this.select_checkout === 'COD') {
+          this.$store.dispatch(this.$constant.user.ACTION_INVOICE_SET, invoice)
+          this.checkout.forEach((el) => {
+            this.$store.dispatch(
+              this.$constant.user.ACTION_DELETE_PRODUCTCART_USER,
+              el
+            )
+          })
+          this.$toast.global.checkout()
+          this.$router.push({ name: 'index' })
         }
       }
     },

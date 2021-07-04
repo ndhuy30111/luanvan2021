@@ -241,6 +241,28 @@ export default {
           theme: 'outline',
         },
       },
+      {
+        name: 'checkout',
+        message: 'Đặt hàng thành công',
+        options: {
+          position: 'top-center',
+          type: 'success',
+          duration: 5000,
+          theme: 'outline',
+          icon: 'check',
+        },
+      },
+      {
+        name: 'paymet',
+        message: 'Đã xác nhận thanh toán',
+        options: {
+          position: 'top-center',
+          type: 'success',
+          duration: 5000,
+          theme: 'outline',
+          icon: 'check',
+        },
+      },
     ],
   },
 }
