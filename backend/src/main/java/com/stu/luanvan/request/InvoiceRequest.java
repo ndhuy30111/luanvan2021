@@ -1,6 +1,5 @@
 package com.stu.luanvan.request;
 
-import com.stu.luanvan.locales.MessageLocales;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

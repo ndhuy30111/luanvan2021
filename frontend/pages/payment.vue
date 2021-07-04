@@ -69,7 +69,6 @@
                       max-height="500"
                       width="100%"
                       position="top left"
-                      :src="require('@/assets/momo.jpg')"
                     />
                   </li>
                   <li>Quét mã MoMo mà cửa hàng đã cung cấp</li>
@@ -83,7 +82,6 @@
                       max-height="500"
                       width="100%"
                       position="top left"
-                      :src="require('@/assets/checkout.jpg')"
                     />
                   </li>
                   <li>Chọn chuyển tiền. Và đợi nhận hàng thôi!</li>

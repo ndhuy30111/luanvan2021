@@ -109,6 +109,7 @@ export default {
     },
   },
   created() {
+    this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_REPORT_INIT)
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_CATEGORY_INIT)
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_COLOR_INIT)
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_PRODUCT_INIT)

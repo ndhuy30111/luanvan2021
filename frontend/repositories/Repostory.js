@@ -8,6 +8,7 @@ import CouponAdminRepository from '~/repositories/admin/CouponRepostory'
 import AuthAdminRepository from '~/repositories/admin/AuthRepostory'
 import InvoiceAdminRepository from '~/repositories/admin/InvoiceRepostory'
 import ReviewAdminRepository from '~/repositories/admin/ReviewRepostory'
+import ReportAdminRepository from '~/repositories/admin/ReportRepostory'
 // user
 import AccounRepostory from '~/repositories/user/AccounRepostory'
 import CategoryReponstory from '~/repositories/user/CategoryRepostory'
@@ -26,6 +27,7 @@ export default ($axios) => ({
   authAdmin: AuthAdminRepository($axios),
   invoiceAdmin: InvoiceAdminRepository($axios),
   reviewAdmin: ReviewAdminRepository($axios),
+  reportAdmin: ReportAdminRepository($axios),
   // user
   account: AccounRepostory($axios),
   categoryUser: CategoryReponstory($axios),
