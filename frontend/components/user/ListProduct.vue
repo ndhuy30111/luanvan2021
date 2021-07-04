@@ -25,7 +25,11 @@
             >
               <div class="product-grid">
                 <div class="product-image">
-                  <img class="pic-1" :src="item.image" />
+                  <img
+                    class="pic-1"
+                    :src="item.image"
+                    @click="productdetail(item)"
+                  />
                   <ul class="social">
                     <li>
                       <a data-tip="Xem chi tiết" @click="productdetail(item)"
@@ -54,7 +58,7 @@
                 </ul>
                 <div class="product-content">
                   <h6 class="title">
-                    <a href="#">{{ item.name }}</a>
+                    <a @click="productdetail(item)">{{ item.name }}</a>
                   </h6>
                   <div class="price">
                     {{ item.price.toLocaleString() }}

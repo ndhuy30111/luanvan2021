@@ -7,6 +7,9 @@ export default {
       const { status, data } = res
       if (status === 201) {
         commit(constants.MUTATIONS_INVOICE_CREATE, data.billCode)
+        if (invoice.payment === 'MoMo') {
+          this.$router.push({ name: 'payment' })
+        }
       }
     } catch (e) {
       return false
@@ -20,7 +23,7 @@ export default {
       const res = await this.$repositories.invoiceUser.savePayment(data)
       const { status } = res
       if (status === 200) {
-        this.$toast.global.success()
+        this.$toast.global.paymet()
         this.$router.push({ name: 'index' })
       }
     } catch (e) {
