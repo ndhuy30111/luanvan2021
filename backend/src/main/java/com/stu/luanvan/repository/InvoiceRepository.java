@@ -1,11 +1,13 @@
 package com.stu.luanvan.repository;
 
 import com.stu.luanvan.model.invoice.InvoiceModel;
+import com.stu.luanvan.model.user.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Repository
 public interface InvoiceRepository extends JpaRepository<InvoiceModel,Integer> {
@@ -13,4 +15,5 @@ public interface InvoiceRepository extends JpaRepository<InvoiceModel,Integer> {
    Collection<InvoiceModel>  findByStatus(Integer status);
    Collection<InvoiceModel>  findByStatusAndLastModifiedDateAfterAndLastModifiedDateBefore(Integer status, Date start, Date end);
    Collection<InvoiceModel> findByStatusLessThanAndStatusGreaterThan(Integer min,Integer max);
+   List<InvoiceModel>  findByCreateByAndStatus(UserModel user, Integer status);
 }
