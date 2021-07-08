@@ -7,12 +7,7 @@
         <h3 class="d-flex justify-content-center">
           {{ $local.vn.register_title }}
         </h3>
-        <b-form
-          v-if="show"
-          class="form"
-          @submit.prevent="register(form)"
-          @reset="onReset()"
-        >
+        <b-form v-if="show" class="form" @submit.prevent="register(form)">
           <b-form-group>
             <b-form-input
               id="email"
@@ -32,7 +27,7 @@
               id="name"
               v-model="form.name"
               type="text"
-              :state="form.name.length >= 5"
+              :state="form.name.length >= 6"
               :placeholder="$local.vn.user_name"
               required
             ></b-form-input>
@@ -42,12 +37,13 @@
               id="uername"
               v-model="form.userName"
               type="text"
-              :state="form.userName.length >= 3"
+              :state="
+                form.userName.length >= 5 && form.userName.includes(' ') <= 0
+              "
               :placeholder="$local.vn.account_name"
               required
             ></b-form-input>
           </b-form-group>
-
           <b-form-group>
             <b-form-input
               id="address"
@@ -226,6 +222,7 @@ export default {
       this.form.userName = ''
       this.form.password = ''
       this.form.repeatPassword = ''
+      this.numberPhone = ''
 
       // Trick to reset/clear native browser form validation state
       this.show = false

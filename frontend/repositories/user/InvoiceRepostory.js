@@ -6,4 +6,24 @@ export default ($axios) => ({
   savePayment(payload) {
     return $axios.post('invoice/payment', payload)
   },
+  all() {
+    return $axios.get(`${resource}`)
+  },
+  allNot() {
+    return $axios.get(`${resource}/not`)
+  },
+  allAccuracy() {
+    return $axios.get(`${resource}/accuracy`)
+  },
+  allTransport() {
+    return $axios.get(`${resource}/transport`)
+  },
+
+  allComplete() {
+    return $axios.get(`${resource}/complete`)
+  },
+
+  allCancel() {
+    return $axios.get(`${resource}/cancel`)
+  },
 })

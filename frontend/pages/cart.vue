@@ -14,18 +14,20 @@
           <div class="d-flex justify-content-center">
             <h1>Giỏ hàng của bạn đang trống</h1>
           </div>
-          <div class="d-flex justify-content-center">
-            <h5>Đăng nhập để xem giỏ hàng của bạn và tiếp tục mua sắm</h5>
-          </div>
-          <div class="d-flex justify-content-center">
-            <router-link
-              :to="{ name: $local.vn.memu_account[0].url }"
-              style="text-decoration: none"
-            >
-              <b-button class="btn" type="submit"
-                >{{ $local.vn.memu_account[0].title }}
-              </b-button></router-link
-            >
+          <div v-show="user === null">
+            <div class="d-flex justify-content-center">
+              <h5>Đăng nhập để xem giỏ hàng của bạn và tiếp tục mua sắm</h5>
+            </div>
+            <div class="d-flex justify-content-center">
+              <router-link
+                :to="{ name: $local.vn.memu_account[0].url }"
+                style="text-decoration: none"
+              >
+                <b-button class="btn" type="submit"
+                  >{{ $local.vn.memu_account[0].title }}
+                </b-button></router-link
+              >
+            </div>
           </div>
           <div class="d-flex justify-content-center">
             <router-link :to="{ name: 'shop' }" style="text-decoration: none">

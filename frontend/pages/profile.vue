@@ -1,88 +1,98 @@
 <template>
   <v-container fluid>
-    <v-row>
-      <v-col>
-        <v-card class="mx-auto" outlined>
-          <v-list-item three-line>
-            <v-list-item-content>
-              <v-list-item-title>
-                <h4 class="title">{{ $local.vn.profile }}</h4>
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                <v-form v-model="valid">
-                  <v-container>
-                    <v-row>
-                      <v-col cols="12" md="4">
-                        <v-text-field
-                          v-model="user.email"
-                          label="E-mail"
-                          readonly
-                          required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" md="4">
-                        <v-text-field
-                          v-model="user.userName"
-                          :rules="userNameRules"
-                          :label="$local.vn.account_name"
-                          readonly
-                          required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" md="4">
-                        <v-text-field
-                          v-model="user.name"
-                          :rules="nameRules"
-                          :label="$local.vn.user_name"
-                          required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" md="8">
-                        <v-text-field
-                          v-model="user.address"
-                          :rules="addressRules"
-                          :label="$local.vn.address"
-                          required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" md="4">
-                        <v-text-field
-                          v-model="user.numberPhone"
-                          :rules="numberPhoneRules"
-                          type="number"
-                          :label="$local.vn.numberPhone"
-                          required
-                        ></v-text-field>
-                      </v-col>
-                    </v-row>
-                  </v-container>
-                </v-form>
-              </v-list-item-subtitle>
-            </v-list-item-content>
+    <v-card flat>
+      <v-tabs vertical>
+        <v-tab> Chờ xác nhận </v-tab>
+        <v-tab> Đang chuẩn bị hàng </v-tab>
+        <v-tab> Vận chuyển </v-tab>
+        <v-tab> Hoàn thành </v-tab>
+        <v-tab> Đơn đã hủy </v-tab>
+        <v-tab>
+          {{ $local.vn.profile }}
+        </v-tab>
 
-            <v-list-item-avatar
-              class="hidden-sm-and-down mt-16"
-              rounded-circle
-              size="120"
-              color="blue"
-            >
-              <span class="white--text text-h4">{{ avatar }}</span>
-            </v-list-item-avatar>
-          </v-list-item>
+        <v-tab-item> <InvoiceTable :invoice="not" /> </v-tab-item>
+        <v-tab-item> <InvoiceTable :invoice="accuracy" /> </v-tab-item>
+        <v-tab-item> <InvoiceTable :invoice="transport" /> </v-tab-item>
+        <v-tab-item> <InvoiceTable :invoice="complete" /> </v-tab-item>
+        <v-tab-item> <InvoiceTable :invoice="cancel" /> </v-tab-item>
 
-          <v-card-actions>
-            <v-btn class="btn_update" outlined rounded text @click="update()">
-              Sửa
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
+        <v-tab-item>
+          <v-card>
+            <v-list-item three-line>
+              <v-list-item-content>
+                <v-list-item-title>
+                  <h4 class="title">{{ $local.vn.profile }}</h4>
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  <v-form v-model="valid">
+                    <v-container>
+                      <v-row>
+                        <v-col cols="12" md="4">
+                          <v-text-field
+                            v-model="user.email"
+                            label="E-mail"
+                            readonly
+                            required
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="4">
+                          <v-text-field
+                            v-model="user.userName"
+                            :rules="userNameRules"
+                            :label="$local.vn.account_name"
+                            readonly
+                            required
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="4">
+                          <v-text-field
+                            v-model="user.name"
+                            :rules="nameRules"
+                            :label="$local.vn.user_name"
+                            required
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="8">
+                          <v-text-field
+                            v-model="user.address"
+                            :rules="addressRules"
+                            :label="$local.vn.address"
+                            required
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="4">
+                          <v-text-field
+                            v-model="user.numberPhone"
+                            :rules="numberPhoneRules"
+                            type="number"
+                            :label="$local.vn.numberPhone"
+                            required
+                          ></v-text-field>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-form>
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-card-actions class="d-flex justify-content-end">
+              <v-btn class="btn_update" outlined rounded text @click="update()">
+                Sửa
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-tab-item>
+      </v-tabs>
+    </v-card>
   </v-container>
 </template>
 
 <script>
+import InvoiceTable from '../components/user/InvoiceTable.vue'
 export default {
+  components: { InvoiceTable },
   data: () => ({
     valid: false,
     nameRules: [(v) => !!v || 'Tên người dùng không được để tróng'],
@@ -102,12 +112,34 @@ export default {
       numberPhone: '',
     },
   }),
+  computed: {
+    not() {
+      return this.$store.state.user.invoice.not
+    },
+    accuracy() {
+      return this.$store.state.user.invoice.accuracy
+    },
+    transport() {
+      return this.$store.state.user.invoice.transport
+    },
+    complete() {
+      return this.$store.state.user.invoice.complete
+    },
+    cancel() {
+      return this.$store.state.user.invoice.cancel
+    },
+  },
   watch() {
     this.editItem(this.$auth.user)
   },
   created() {
     const item = this.$auth.user
     this.editItem(item)
+    this.$store.dispatch(this.$constant.user.ACTION_INVOICE_INIT_NOT)
+    this.$store.dispatch(this.$constant.user.ACTION_INVOICE_INIT_ACCURACY)
+    this.$store.dispatch(this.$constant.user.ACTION_INVOICE_INIT_TRANSPORT)
+    this.$store.dispatch(this.$constant.user.ACTION_INVOICE_INIT_COMPLETE)
+    this.$store.dispatch(this.$constant.user.ACTION_INVOICE_INIT_CANCEL)
   },
   mounted() {
     const splitName = this.$auth.user.name.split(' ')
@@ -134,5 +166,21 @@ export default {
 .btn_update {
   background-color: rgb(24, 149, 221);
   color: aliceblue;
+}
+.member {
+  display: block;
+  height: 32px;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  background: rgb(241, 16, 16);
+  color: white;
+  background-size: 200%;
+  padding: 3px 9px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.listmenu {
+  cursor: pointer;
 }
 </style>

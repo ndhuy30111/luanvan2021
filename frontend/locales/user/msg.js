@@ -129,4 +129,5 @@ export default () => ({
   COD: 'Thanh toán bằng tiền mặt khi nhận hàng (COD)',
   provisional: 'Tạm tính',
   keep_buying: 'TIẾP TỤC MUA HÀNG',
+  invoice: 'Danh sách đơn hàng',
 })
