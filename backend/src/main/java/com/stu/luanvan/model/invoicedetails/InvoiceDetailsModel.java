@@ -1,12 +1,13 @@
 package com.stu.luanvan.model.invoicedetails;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.stu.luanvan.model.BaseViews;
+import com.stu.luanvan.model.category.CategoryViews;
 import com.stu.luanvan.model.invoice.InvoiceModel;
-import com.stu.luanvan.model.key.InvoiceDetailsKey;
 import com.stu.luanvan.model.product.ProductModel;
-import com.stu.luanvan.model.role.RoleModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,9 +24,12 @@ import javax.validation.constraints.Min;
 @AllArgsConstructor
 public class InvoiceDetailsModel {
 
-    @EmbeddedId
-    InvoiceDetailsKey id;
-    @Column(name = "name",columnDefinition = "VARCHAR(80) NOT NULL COMMENT 'Tên sản phẩm trong hoá đơn theo đi Quy định thế này ( Tên sản phẩm - Tên màu - Tên size ) '")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView({BaseViews.Internal.class, CategoryViews.Select.class})
+    private Integer id;
+
+    @Column(name = "name",columnDefinition = "VARCHAR(80) NOT NULL COMMENT 'Tên sản phẩm trong hoá đơn theo đi Quy định thế này ( Tên sản phẩm / Tên màu / Tên size ) '")
     private String name;
 
     @Column(name="price",columnDefinition = "bigint(19) not null COMMENT 'Giá tiền tại thời điểm được mua' ")
@@ -36,30 +40,25 @@ public class InvoiceDetailsModel {
     @Min(value = 1 , message = "Số lượng không được bé ")
     private Integer amount;
 
-    @ManyToOne
-    @MapsId("invoiceId")
-    @JoinColumn(name="invoice_id")
+    @Column(name = "color")
+    private String color;
 
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class,property="id",
-            scope= RoleModel.class)
-    @JsonIdentityReference(alwaysAsId = true)
+    @ManyToOne
+    @JoinColumn(name="invoice_id")
+    @JsonIgnore
     private InvoiceModel invoice;
 
     @ManyToOne
-    @MapsId("productId")
     @JoinColumn(name="product_id")
-
-    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="name",
-            scope=RoleModel.class)
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnore
     private ProductModel product;
 
-    public InvoiceDetailsModel(String name, Integer amount, Long price, ProductModel product, InvoiceModel invoice) {
+    public InvoiceDetailsModel(String name, Integer amount, Long price, ProductModel product, InvoiceModel invoice, String color) {
         this.name = name;
         this.amount = amount;
         this.price = price;
-        this.id = new InvoiceDetailsKey(invoice.getId(), product.getId());
         this.invoice = invoice;
         this.product=product;
+        this.color = color;
     }
 }

@@ -9,6 +9,7 @@ import com.stu.luanvan.repository.InvoiceDetailsRepository;
 import com.stu.luanvan.repository.InvoiceRepository;
 import com.stu.luanvan.request.BillRequest;
 import com.stu.luanvan.request.InvoiceRequest;
+import com.stu.luanvan.response.InvoiceDetailsResponse;
 import com.stu.luanvan.response.InvoiceResponse;
 import com.stu.luanvan.security.MyUserDetails;
 import com.stu.luanvan.service.product.ProductService;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 @Service
 public class InvoiceService implements InvoiceServiceInterface{
@@ -55,7 +57,7 @@ public class InvoiceService implements InvoiceServiceInterface{
             var invoice = invoiceRepository.saveAndFlush(i);
             invoiceRequest.getInvoiceDetailsRequests().forEach(c->{
                 var product = productService.findById(c.getProductId());
-                var invoicedetails = new InvoiceDetailsModel(c.getName(), c.getAmount(), c.getPrice(), product, invoice);
+                var invoicedetails = new InvoiceDetailsModel(c.getName(), c.getAmount(), c.getPrice(), product, invoice, c.getColor());
                 invoiceDetailsRepository.saveAndFlush(invoicedetails);
             });
             return invoice;
@@ -146,20 +148,29 @@ public class InvoiceService implements InvoiceServiceInterface{
             var invoice =  invoiceRepository.findByCreateByAndStatus(user, status);
             Collection<InvoiceResponse> listInvoive = new ArrayList<>();
             invoice.forEach(el -> {
+                List<InvoiceDetailsResponse> data = new ArrayList<>();
                 var invoiceResponse = new InvoiceResponse();
+                invoiceResponse.setId(el.getId());
                 invoiceResponse.setCreateDate(el.getCreateDate());
+                invoiceResponse.setPayment(el.getMethodsPayment());
                 invoiceResponse.setAddress(el.getAddress());
                 invoiceResponse.setNumberPhone(el.getNumberPhone());
                 invoiceResponse.setBillCode(el.getBillCode());
                 invoiceResponse.setStatus(el.getStatus());
                 el.getInvoicedetals().forEach(elm -> {
-                    invoiceResponse.setName(elm.getName());
-                    invoiceResponse.setAmount(elm.getAmount());
-                    invoiceResponse.setPrice(elm.getPrice());
-                    invoiceResponse.setProductId(elm.getId().getProductId());
-                    var product = productService.findById(elm.getId().getProductId());
-                    invoiceResponse.setImage(product.getImage().getUrl());
+                    var invoiceDetailsResponse = new InvoiceDetailsResponse();
+                    elm.getProduct().getDetailsProduct().forEach(elme -> {
+                        if(elme.getColor().getName().equals(elm.getColor())){
+                            invoiceDetailsResponse.setImage(elme.getImage().getUrl());
+                        }
+                    });
+                    invoiceDetailsResponse.setName(elm.getName());
+                    invoiceDetailsResponse.setPrice(elm.getPrice());
+                    invoiceDetailsResponse.setAmount(elm.getAmount());
+                    invoiceDetailsResponse.setProductId(elm.getProduct().getId());
+                    data.add(invoiceDetailsResponse);
                 });
+                invoiceResponse.setInvoiceDetails(data);
                 listInvoive.add(invoiceResponse);
             });
             return listInvoive;

@@ -60,4 +60,9 @@ public class InvoicesController {
         var payment = invoiceService.savePayment(billRequest);
         return new ResponseEntity<>(payment, HttpStatus.OK);
     }
+
+    @PutMapping("/{id}/del")
+    public ResponseEntity<?> putDel(@PathVariable Integer id ) throws Exception {
+        return new ResponseEntity<>(invoiceService.saveDel(id),HttpStatus.OK);
+    }
 }
