@@ -57,8 +57,8 @@
   </section>
 </template>
 <script>
-import Bubble2 from '../components/Bubble2'
 import Bubble1 from '../components/Bubble1'
+import Bubble2 from '../components/Bubble2'
 export default {
   components: { Bubble1, Bubble2 },
   data: () => ({}),

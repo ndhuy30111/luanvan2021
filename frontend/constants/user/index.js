@@ -36,9 +36,12 @@ export default () => ({
   ACTION_INVOICE_SAVEPAYMENT: 'user/invoice/savePayment',
   ACTION_INVOICE_GET: 'user/invoice/getInvoice',
 
+  ACTION_INVOICE_INIT: 'user/invoice/init',
   ACTION_INVOICE_INIT_NOT: 'user/invoice/notData',
   ACTION_INVOICE_INIT_ACCURACY: 'user/invoice/accuracyData',
   ACTION_INVOICE_INIT_TRANSPORT: 'user/invoice/transportData',
   ACTION_INVOICE_INIT_COMPLETE: 'user/invoice/completeData',
   ACTION_INVOICE_INIT_CANCEL: 'user/invoice/cancelData',
+
+  ACTION_INVOICE_DEL: 'user/invoice/del',
 })

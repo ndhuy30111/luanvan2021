@@ -1,6 +1,6 @@
 export default () => ({
   nation: 'Việt Nam',
-  shop: 'Shop 7755',
+  shop: 'Cửa hàng thời trang 7755',
   sreach: 'Tìm kiếm',
   title_news: 'Top sản phẩm bán chạy trong tháng',
   tilte_page_product: ['TẤT CẢ SẢN PHẨM'],
@@ -130,4 +130,7 @@ export default () => ({
   provisional: 'Tạm tính',
   keep_buying: 'TIẾP TỤC MUA HÀNG',
   invoice: 'Danh sách đơn hàng',
+  update: 'Sửa',
+  billCode: 'Mã đơn hàng:',
+  createBillDate: 'Ngày đặt:',
 })

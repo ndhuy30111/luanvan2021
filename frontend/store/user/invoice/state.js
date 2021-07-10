@@ -6,4 +6,10 @@ export default () => ({
   transport: [],
   complete: [],
   cancel: [],
+
+  totalnot: [],
+  totalaccuracy: [],
+  totaltransport: [],
+  totalcomplete: [],
+  totalcancel: [],
 })

@@ -26,4 +26,7 @@ export default ($axios) => ({
   allCancel() {
     return $axios.get(`${resource}/cancel`)
   },
+  del(id) {
+    return $axios.put(`${resource}/${id}/del`)
+  },
 })

@@ -1,21 +1,51 @@
 <template>
   <v-container fluid>
     <v-card flat>
-      <v-tabs vertical>
-        <v-tab> Chờ xác nhận </v-tab>
-        <v-tab> Đang chuẩn bị hàng </v-tab>
-        <v-tab> Vận chuyển </v-tab>
-        <v-tab> Hoàn thành </v-tab>
-        <v-tab> Đơn đã hủy </v-tab>
+      <v-tabs v-show="!mobileView" vertical>
         <v-tab>
+          <b-icon icon="bookmark" style="margin-right: 10px"></b-icon>Chờ xác
+          nhận
+          <span>{{ not.length }}</span>
+        </v-tab>
+        <v-tab>
+          <b-icon icon="bookmark-check" style="margin-right: 10px"></b-icon>
+          Đang chuẩn bị hàng
+          <span>{{ accuracy.length }}</span>
+        </v-tab>
+        <v-tab>
+          <b-icon icon="truck" style="margin-right: 10px"></b-icon>Vận chuyển
+          <span>{{ transport.length }}</span>
+        </v-tab>
+        <v-tab>
+          <b-icon icon="clipboard-check" style="margin-right: 10px"></b-icon
+          >Hoàn thành
+          <span>{{ complete.length }}</span>
+        </v-tab>
+        <v-tab>
+          <b-icon icon="clipboard-x" style="margin-right: 10px"></b-icon>Đơn đã
+          hủy
+          <span>{{ cancel.length }}</span>
+        </v-tab>
+        <v-tab>
+          <b-icon icon="person"></b-icon>
           {{ $local.vn.profile }}
         </v-tab>
 
-        <v-tab-item> <InvoiceTable :invoice="not" /> </v-tab-item>
-        <v-tab-item> <InvoiceTable :invoice="accuracy" /> </v-tab-item>
-        <v-tab-item> <InvoiceTable :invoice="transport" /> </v-tab-item>
-        <v-tab-item> <InvoiceTable :invoice="complete" /> </v-tab-item>
-        <v-tab-item> <InvoiceTable :invoice="cancel" /> </v-tab-item>
+        <v-tab-item>
+          <InvoiceTable :invoice="not" :total="totalnot" />
+        </v-tab-item>
+        <v-tab-item>
+          <InvoiceTable :invoice="accuracy" :total="totalaccuracy" />
+        </v-tab-item>
+        <v-tab-item>
+          <InvoiceTable :invoice="transport" :total="totaltransport" />
+        </v-tab-item>
+        <v-tab-item>
+          <InvoiceTable :invoice="complete" :total="totalcomplete" />
+        </v-tab-item>
+        <v-tab-item>
+          <InvoiceTable :invoice="cancel" :total="totalcancel" />
+        </v-tab-item>
 
         <v-tab-item>
           <v-card>
@@ -79,7 +109,117 @@
 
             <v-card-actions class="d-flex justify-content-end">
               <v-btn class="btn_update" outlined rounded text @click="update()">
-                Sửa
+                {{ $local.vn.update }}
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-tab-item>
+      </v-tabs>
+
+      <v-tabs v-show="mobileView" vertical>
+        <v-tab>
+          <b-icon icon="bookmark" style="margin-right: 10px"></b-icon>
+          <span>{{ not.length }}</span>
+        </v-tab>
+        <v-tab>
+          <b-icon icon="bookmark-check" style="margin-right: 10px"></b-icon>
+          <span>{{ accuracy.length }}</span>
+        </v-tab>
+        <v-tab>
+          <b-icon icon="truck" style="margin-right: 10px"></b-icon>
+          <span>{{ transport.length }}</span>
+        </v-tab>
+        <v-tab>
+          <b-icon icon="clipboard-check" style="margin-right: 10px"></b-icon>
+          <span>{{ complete.length }}</span>
+        </v-tab>
+        <v-tab>
+          <b-icon icon="clipboard-x" style="margin-right: 10px"></b-icon>
+          <span>{{ cancel.length }}</span>
+        </v-tab>
+        <v-tab>
+          <b-icon icon="person"></b-icon>
+        </v-tab>
+
+        <v-tab-item>
+          <InvoiceTable :invoice="not" :total="totalnot" />
+        </v-tab-item>
+        <v-tab-item>
+          <InvoiceTable :invoice="accuracy" :total="totalaccuracy" />
+        </v-tab-item>
+        <v-tab-item>
+          <InvoiceTable :invoice="transport" :total="totaltransport" />
+        </v-tab-item>
+        <v-tab-item>
+          <InvoiceTable :invoice="complete" :total="totalcomplete" />
+        </v-tab-item>
+        <v-tab-item>
+          <InvoiceTable :invoice="cancel" :total="totalcancel" />
+        </v-tab-item>
+
+        <v-tab-item>
+          <v-card>
+            <v-list-item three-line>
+              <v-list-item-content>
+                <v-list-item-title>
+                  <h4 class="title">{{ $local.vn.profile }}</h4>
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  <v-form v-model="valid">
+                    <v-container>
+                      <v-row>
+                        <v-col cols="12" md="4">
+                          <v-text-field
+                            v-model="user.email"
+                            label="E-mail"
+                            readonly
+                            required
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="4">
+                          <v-text-field
+                            v-model="user.userName"
+                            :rules="userNameRules"
+                            :label="$local.vn.account_name"
+                            readonly
+                            required
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="4">
+                          <v-text-field
+                            v-model="user.name"
+                            :rules="nameRules"
+                            :label="$local.vn.user_name"
+                            required
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="8">
+                          <v-text-field
+                            v-model="user.address"
+                            :rules="addressRules"
+                            :label="$local.vn.address"
+                            required
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="4">
+                          <v-text-field
+                            v-model="user.numberPhone"
+                            :rules="numberPhoneRules"
+                            type="number"
+                            :label="$local.vn.numberPhone"
+                            required
+                          ></v-text-field>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-form>
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-card-actions class="d-flex justify-content-end">
+              <v-btn class="btn_update" outlined rounded text @click="update()">
+                {{ $local.vn.update }}
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -111,6 +251,7 @@ export default {
       address: '',
       numberPhone: '',
     },
+    mobileView: true,
   }),
   computed: {
     not() {
@@ -128,18 +269,31 @@ export default {
     cancel() {
       return this.$store.state.user.invoice.cancel
     },
+    totalnot() {
+      return this.$store.state.user.invoice.totalnot
+    },
+    totalaccuracy() {
+      return this.$store.state.user.invoice.totalaccuracy
+    },
+    totaltransport() {
+      return this.$store.state.user.invoice.totaltransport
+    },
+    totalcomplete() {
+      return this.$store.state.user.invoice.totalcomplete
+    },
+    totalcancel() {
+      return this.$store.state.user.invoice.totalcancel
+    },
   },
   watch() {
     this.editItem(this.$auth.user)
   },
   created() {
+    this.handleView()
+    addEventListener('resize', this.handleView)
     const item = this.$auth.user
     this.editItem(item)
-    this.$store.dispatch(this.$constant.user.ACTION_INVOICE_INIT_NOT)
-    this.$store.dispatch(this.$constant.user.ACTION_INVOICE_INIT_ACCURACY)
-    this.$store.dispatch(this.$constant.user.ACTION_INVOICE_INIT_TRANSPORT)
-    this.$store.dispatch(this.$constant.user.ACTION_INVOICE_INIT_COMPLETE)
-    this.$store.dispatch(this.$constant.user.ACTION_INVOICE_INIT_CANCEL)
+    this.$store.dispatch(this.$constant.user.ACTION_INVOICE_INIT)
   },
   mounted() {
     const splitName = this.$auth.user.name.split(' ')
@@ -149,6 +303,12 @@ export default {
       .concat(splitName[splitName.length - 1].charAt(0).toUpperCase())
   },
   methods: {
+    handleView() {
+      this.mobileView = window.innerWidth <= 1050
+    },
+    initInvoice() {
+      this.$store.dispatch(this.$constant.user.ACTION_INVOICE_INIT)
+    },
     editItem(item) {
       this.user = Object.assign({}, item)
     },
@@ -182,5 +342,18 @@ export default {
 }
 .listmenu {
   cursor: pointer;
+}
+span {
+  height: 20px;
+  width: 20px;
+  background: #ec410d;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 650;
+  text-align: center;
+  line-height: 15px;
+  padding: 3px;
+  margin-left: 3px;
 }
 </style>

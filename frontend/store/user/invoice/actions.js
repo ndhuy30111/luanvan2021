@@ -1,6 +1,18 @@
 import constants from './constants'
 
 export default {
+  async init({ commit }) {
+    const allNot = await this.$repositories.invoiceUser.allNot()
+    commit(constants.MUTATION_INVOICE_NOT, allNot)
+    const accuracy = await this.$repositories.invoiceUser.allAccuracy()
+    commit(constants.MUTATION_INVOICE_ACCURACY, accuracy)
+    const allTransport = await this.$repositories.invoiceUser.allTransport()
+    commit(constants.MUTATION_INVOICE_TRANSPORT, allTransport)
+    const complete = await this.$repositories.invoiceUser.allComplete()
+    commit(constants.MUTATION_INVOICE_COMPLETE, complete)
+    const cancel = await this.$repositories.invoiceUser.allCancel()
+    commit(constants.MUTATION_INVOICE_CANCEL, cancel)
+  },
   async createIvoice({ commit }, invoice) {
     try {
       const res = await this.$repositories.invoiceUser.create(invoice)
@@ -66,5 +78,19 @@ export default {
     const payload = await this.$repositories.invoiceUser.allCancel()
     commit(constants.MUTATION_INVOICE_CANCEL, payload)
     return payload.data
+  },
+  async del({ commit }, payload) {
+    this.$toast.global.loading()
+    try {
+      const res = await this.$repositories.invoiceUser.del(payload.id)
+      const { status } = res
+      if (status === 200) {
+        this.$toast.global.success()
+        this.$router.go()
+        return true
+      }
+    } catch (e) {
+      return false
+    }
   },
 }
