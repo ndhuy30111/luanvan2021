@@ -1,5 +1,7 @@
 package com.stu.luanvan.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.stu.luanvan.locales.FormatLocales;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +17,10 @@ public class InvoiceResponse {
     private String address;
     private String numberPhone;
     private Integer status;
+
+    @JsonFormat(pattern= FormatLocales.DATE_FORMAT)
     private Date createDate;
+
     private String billCode;
     private String payment;
     private List<InvoiceDetailsResponse> invoiceDetails;
