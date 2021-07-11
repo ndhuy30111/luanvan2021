@@ -11,5 +11,5 @@ public class CartRequest {
     private Integer productID;
     private Integer quantity;
     private String color;
-    private String size;
+    private Integer sizeId;
 }

@@ -43,6 +43,9 @@ public class InvoiceDetailsModel {
     @Column(name = "color")
     private String color;
 
+    @Column(name = "sizeId")
+    private Integer size;
+
     @ManyToOne
     @JoinColumn(name="invoice_id")
     @JsonIgnore
@@ -53,12 +56,14 @@ public class InvoiceDetailsModel {
     @JsonIgnore
     private ProductModel product;
 
-    public InvoiceDetailsModel(String name, Integer amount, Long price, ProductModel product, InvoiceModel invoice, String color) {
+    public InvoiceDetailsModel(String name, Integer amount, Long price, ProductModel product,
+                               InvoiceModel invoice, String color, Integer size) {
         this.name = name;
         this.amount = amount;
         this.price = price;
         this.invoice = invoice;
         this.product=product;
         this.color = color;
+        this.size = size;
     }
 }

@@ -13,4 +13,5 @@ public class InvoiceDetailsRequest {
     private Integer amount;
     private Long price;
     private String color;
+    private Integer sizeId;
 }

@@ -33,14 +33,14 @@ public class CartItemsModel {
 
     private String color;
 
-    private String size;
+    private Integer size;
 
     public CartItemsModel(CartRequest cart, ProductModel p, UserModel u) {
         this.product = p;
         this.user = u;
         this.quantity = cart.getQuantity();
         this.color = cart.getColor();
-        this.size = cart.getSize();
+        this.size = cart.getSizeId();
     }
     public void edit (CartRequest cart){
         this.quantity = cart.getQuantity();

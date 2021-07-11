@@ -16,5 +16,5 @@ public class CartResponse {
     private Integer quantity;
     private String color;
     private String size;
-
+    private Integer sizeId;
 }

@@ -57,7 +57,8 @@ public class InvoiceService implements InvoiceServiceInterface{
             var invoice = invoiceRepository.saveAndFlush(i);
             invoiceRequest.getInvoiceDetailsRequests().forEach(c->{
                 var product = productService.findById(c.getProductId());
-                var invoicedetails = new InvoiceDetailsModel(c.getName(), c.getAmount(), c.getPrice(), product, invoice, c.getColor());
+                var invoicedetails = new InvoiceDetailsModel(c.getName(), c.getAmount(), c.getPrice(), product,
+                        invoice, c.getColor(), c.getSizeId());
                 invoiceDetailsRepository.saveAndFlush(invoicedetails);
             });
             return invoice;

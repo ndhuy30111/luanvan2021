@@ -39,7 +39,7 @@ public class SizeService implements SizeServiceInterfaces {
 
     @Override
     public SizeModel findById(Integer id) {
-        return null;
+        return sizeRepository.findById(id).orElse(null);
     }
 
     @Override

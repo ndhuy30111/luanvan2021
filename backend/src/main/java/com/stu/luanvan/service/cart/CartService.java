@@ -13,6 +13,7 @@ import com.stu.luanvan.response.CartItemsResponse;
 import com.stu.luanvan.response.CartResponse;
 import com.stu.luanvan.security.MyUserDetails;
 import com.stu.luanvan.service.product.ProductService;
+import com.stu.luanvan.service.size.SizeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class CartService implements CartServiceInterfaces{
     private ProductService productService;
 
     @Autowired
+    private SizeService sizeService;
+
+    @Autowired
     private ProductRepository productRepository;
 
     public Collection<CartResponse> listCartItems(UserModel user) {
@@ -43,10 +47,14 @@ public class CartService implements CartServiceInterfaces{
         Collection<CartResponse> listCart = new ArrayList<>();
         cart.forEach(el->{
             var cartRepository = new CartResponse();
+            var sizename = sizeService.findById(el.getSize());
+            if(sizename != null) {
+                cartRepository.setSize(sizename.getName());
+            }
             cartRepository.setIdCart(el.getId());
             cartRepository.setIdProduct(el.getProduct().getId());
             cartRepository.setColor(el.getColor());
-            cartRepository.setSize(el.getSize());
+            cartRepository.setSizeId(el.getSize());
             cartRepository.setName(el.getProduct().getName());
             cartRepository.setPrice(el.getProduct().getPrice());
             cartRepository.setQuantity(el.getQuantity());
@@ -86,13 +94,16 @@ public class CartService implements CartServiceInterfaces{
         try{
             cartItems.edit(cartRequest);
             var result= cartItemsRepository.save(cartItems);
-
             Collection<CartResponse> listCart = new ArrayList<>();
             var cartRepository = new CartResponse();
+            var sizename = sizeService.findById(result.getSize());
+            if(sizename != null) {
+                cartRepository.setSize(sizename.getName());
+            }
             cartRepository.setIdCart(result.getId());
             cartRepository.setIdProduct(result.getProduct().getId());
             cartRepository.setColor(result.getColor());
-            cartRepository.setSize(result.getSize());
+            cartRepository.setSizeId(result.getSize());
             cartRepository.setName(result.getProduct().getName());
             cartRepository.setPrice(result.getProduct().getPrice());
             cartRepository.setQuantity(result.getQuantity());

@@ -1,17 +1,5 @@
 <template>
   <v-container fluid>
-    <v-row v-show="invoice.length === 0">
-      <v-col>
-        <v-img
-          contain
-          max-height="220"
-          width="100%"
-          position="top center"
-          :src="require('@/assets/logo/404.svg')"
-        />
-        <h5 class="d-flex justify-content-center mt-3">Chưa có đơn hàng</h5>
-      </v-col>
-    </v-row>
     <v-row
       v-for="(data, index) in invoice"
       v-show="invoice.length > 0"
@@ -31,30 +19,27 @@
           ></v-card
         >
       </v-dialog>
-      <hr />
-      <v-row>
+      <v-row class="mt-1">
         <v-col cols="12" md="4">
           <h5 style="cursor: pointer">
-            {{ $local.vn.billCode }}
-            <strong>[{{ data.billCode }}]</strong>
+            <strong>{{ $local.vn.billCode }}</strong>
+            [{{ data.billCode }}]
           </h5>
         </v-col>
         <v-col
-          ><h5>{{ $local.vn.createBillDate }} {{ data.createDate }}</h5></v-col
+          ><h5>
+            <strong>{{ $local.vn.createBillDate }}</strong>
+            {{ data.createDate }}
+          </h5></v-col
         >
       </v-row>
-      <v-row>
-        <v-col
-          v-for="(item, indexitem) in data.invoiceDetails"
-          :key="indexitem"
-          cols="12"
-          md="6"
-        >
+      <v-row v-for="(item, indexitem) in data.invoiceDetails" :key="indexitem">
+        <v-col cols="12" md="12">
           <v-row>
             <v-col cols="12" md="3" sm="3">
               <v-img
                 contain
-                max-height="250"
+                max-height="150"
                 width="100%"
                 :src="item.image"
                 position="left"
@@ -64,16 +49,18 @@
             </v-col>
             <v-col cols="12" md="9" sm="9">
               <v-row>
-                <v-col>
+                <v-col cols="12" md="5">
                   <h6>{{ item.name }}</h6>
                 </v-col>
-              </v-row>
-              <v-row>
-                <v-col cols="12">
+                <v-col cols="12" md="3">
                   <h6>
+                    Giá:
                     {{ parseInt(item.price).toLocaleString() }}
-                    {{ $local.vn.currency }} x {{ item.amount }}
+                    {{ $local.vn.currency }}
                   </h6>
+                </v-col>
+                <v-col cols="12" md="3">
+                  <h6>Số lượng: {{ item.amount }}</h6>
                 </v-col>
               </v-row>
               <v-row>
@@ -136,10 +123,20 @@
         v-show="data.status === 3"
         @click="productdetail(data.invoiceDetails[0])"
       >
-        <b-button class="btn" style="background: rgb(0, 153, 255)"
-          >Bình luận
-        </b-button>
+        <b-button class="btn">Đánh giá </b-button>
       </div>
+    </v-row>
+    <v-row v-show="invoice.length === 0">
+      <v-col>
+        <v-img
+          contain
+          max-height="220"
+          width="100%"
+          position="top center"
+          :src="require('@/assets/logo/404.svg')"
+        />
+        <h5 class="d-flex justify-content-center mt-3">Chưa có đơn hàng</h5>
+      </v-col>
     </v-row>
   </v-container>
 </template>
