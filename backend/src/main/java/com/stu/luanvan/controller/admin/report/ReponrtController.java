@@ -26,5 +26,16 @@ public class ReponrtController {
         }
         return new ResponseEntity<>(reportService.getInvoiceDate(dateRequest),HttpStatus.OK);
     }
-
+    @GetMapping("/invoice/category")
+    public ResponseEntity<?> getReportCategory(){
+        return new ResponseEntity<>(reportService.getCategory(),HttpStatus.OK) ;
+    }
+    @GetMapping("invoice/sum")
+    public ResponseEntity<?> getReportSum(@RequestParam(name="date",required = false) String date){
+        return new ResponseEntity<>(reportService.getInvoiceSum(date),HttpStatus.OK) ;
+    }
+    @GetMapping("invoice/sum/week")
+    public ResponseEntity<?> getReportSumWeek(@RequestParam(name="date",required = false) String date){
+        return new ResponseEntity<>(reportService.getInvoiceSumWeek(date),HttpStatus.OK) ;
+    }
 }

@@ -43,15 +43,21 @@
             <v-col
               ><v-card color="green"
                 ><v-card-title
-                  ><span class="text">{{ completeSize }}</span></v-card-title
+                  ><span class="text">{{ sumDay.sum }}</span></v-card-title
                 >
                 <v-card-subtitle
-                  ><span class="text"
-                    >Đơn hàng đã hoàn thành</span
-                  ></v-card-subtitle
+                  ><span class="text">Tổng tiền hôm này</span></v-card-subtitle
                 >
               </v-card></v-col
             >
+          </v-row>
+          <v-row>
+            <v-col sm="6">
+              <Bar :chartdata="dataCategoryDoughnut" :options="options" />
+            </v-col>
+            <v-col sm="6">
+              <Bar :chartdata="sumWeek" :options="options" />
+            </v-col>
           </v-row>
         </v-container>
       </v-col>
@@ -71,10 +77,27 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Bar from '~/components/vue-chart/BarChart.js'
 export default {
+  components: {
+    Bar,
+  },
   layout: 'admin',
+
   data: () => ({
     picker: new Date(Date.now()).toISOString().substr(0, 10),
+    options: {
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+            },
+          },
+        ],
+      },
+      responsive: true,
+    },
   }),
   computed: {
     ...mapGetters({
@@ -83,8 +106,14 @@ export default {
       accuracySize: 'admin/invoice/getAccuracySize',
       transportSize: 'admin/invoice/getTransportSize',
       completeSize: 'admin/invoice/getCompleteSize',
+      dataCategoryDoughnut: 'admin/report/getDataCategoryDoughnutChart',
+      sumDay: 'admin/report/getSumDay',
+      sumWeek: 'admin/report/getSumWeek',
     }),
   },
+
+  created() {},
+  methods: {},
 }
 </script>
 
