@@ -19,7 +19,7 @@
     "@riophae/vue-treeselect": "^0.4.0",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
-    "chart.js": "^3.4.0",
+    "chart.js": "^2.9.0",
     "core-js": "^3.9.1",
     "nuxt": "^2.15.3",
     "nuxt-material-design-icons": "^1.0.4",

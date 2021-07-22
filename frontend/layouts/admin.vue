@@ -18,6 +18,20 @@ export default {
     menu() {
       return [
         {
+          name: this.$local.vn_admin_menu.REPORT_MANAGEMENT,
+          function: [
+            {
+              name: this.$local.vn_admin_menu.PRODUCT_IMPORT_MANAGEMENT,
+              function: [
+                {
+                  name: this.$local.vn_admin_menu.PRODUCT_IMPORT_VIEW,
+                  url: 'admin-coupon',
+                },
+              ],
+            },
+          ],
+        },
+        {
           name: this.$local.vn_admin_menu.CONTENT_MANAGEMENT,
           function: [
             {

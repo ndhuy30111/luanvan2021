@@ -26,7 +26,7 @@ export default () => ({
   ],
   PRODUCT_HEADER: [
     {
-      text: 'Tên danh mục',
+      text: 'Tên sản phẩm',
       align: 'start',
       value: 'name',
     },

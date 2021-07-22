@@ -1,5 +1,5 @@
 export default () => ({
-  // CONTENT {
+  REPORT_MANAGEMENT: 'Quản lý Thông kế',
   CONTENT_MANAGEMENT: 'Quản lý nội dung',
   CATEGORY_MANAGEMENT: 'Quản lý danh mục',
   CATEGORY_VIEW: 'Xem danh mục',

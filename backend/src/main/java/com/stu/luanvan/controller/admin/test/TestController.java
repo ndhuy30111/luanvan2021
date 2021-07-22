@@ -4,11 +4,10 @@ import com.cloudinary.Cloudinary;
 import com.stu.luanvan.repository.CouponRepository;
 import com.stu.luanvan.repository.ProductRepository;
 import com.stu.luanvan.repository.SizeRepository;
-import com.stu.luanvan.request.CategoryRequest;
 import com.stu.luanvan.request.FileRequest;
 import com.stu.luanvan.service.category.CategoryService;
+import com.stu.luanvan.service.report.ReportService;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +31,8 @@ public class TestController {
     private CouponRepository couponRepository;
     @Autowired
     private SizeRepository sizeRepository;
+    @Autowired
+    ReportService reportService;
     @PostMapping
     public ResponseEntity<?> postSave(@Valid @RequestBody FileRequest productRequest) throws Exception {
         try {
@@ -43,9 +44,9 @@ public class TestController {
     }
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> getFindAll(@RequestBody CategoryRequest categoryRequest) {
-
-      return new ResponseEntity<>(StringUtils.containsAny(categoryRequest.getName(),"Địt"),HttpStatus.OK) ;
+    public ResponseEntity<?> getFindAll() {
+//        StringUtils.containsAny(categoryRequest.getName(),"con");
+      return new ResponseEntity<>(reportService.getCategory(),HttpStatus.OK) ;
     }
 
 }
