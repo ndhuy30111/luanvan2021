@@ -379,6 +379,7 @@ export default {
           amount: el.quantity,
           price: el.price,
           color: el.color,
+          sizeId: el.sizeId,
         }
         tam.push(item)
       })
@@ -390,7 +391,6 @@ export default {
           payment: this.select_checkout,
           invoiceDetailsRequests: tam,
         }
-        console.log(invoice)
         if (this.select_checkout === 'MoMo') {
           this.$store.dispatch(this.$constant.user.ACTION_INVOICE_SET, invoice)
           this.checkout.forEach((el) => {

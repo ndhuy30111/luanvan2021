@@ -42,6 +42,7 @@ export default {
   text-transform: uppercase;
   margin: 0.5rem 0;
   cursor: pointer;
+  font-size: 16px;
   transition: 0.5s;
 }
 .btn:nth-child(2) {

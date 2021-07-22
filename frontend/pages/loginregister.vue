@@ -4,9 +4,9 @@
     <b-row>
       <!-- Register -->
       <b-col cols="12" md="6">
-        <h3 class="d-flex justify-content-center">
+        <h4 class="d-flex justify-content-center">
           {{ $local.vn.register_title }}
-        </h3>
+        </h4>
         <b-form v-if="show" class="form" @submit.prevent="register(form)">
           <b-form-group>
             <b-form-input
@@ -103,9 +103,9 @@
       </b-col>
       <!-- Login -->
       <b-col cols="12" md="6">
-        <h3 class="d-flex justify-content-center">
+        <h4 class="d-flex justify-content-center">
           {{ $local.vn.login_title }}
-        </h3>
+        </h4>
         <b-form v-if="show" class="form" @submit="onSubmit" @reset="onReset">
           <b-form-group>
             <b-form-input

@@ -7,7 +7,7 @@ export default () => ({
   shopnow: 'Mua sắm ngay',
   title_carousel_woman: 'TRÃI NGHIỆM OUTFITS MỚI',
   title_carousel_man: 'NĂNG ĐỘNG VÀ THANH LỊCH',
-  menuoption: ['MÔ TẢ', 'BÌNH LUẬN'],
+  menuoption: ['MÔ TẢ', 'Đánh giá'],
   comments: 'Đăng',
   facebook_mes: 'Plugin bình luận trên facebook',
   same_product: 'Sản phẩm cùng loại',

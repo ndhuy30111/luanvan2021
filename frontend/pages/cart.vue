@@ -12,11 +12,11 @@
             :src="require('@/assets/logo/cart.png')"
           />
           <div class="d-flex justify-content-center">
-            <h1>Giỏ hàng của bạn đang trống</h1>
+            <h4>Giỏ hàng của bạn đang trống</h4>
           </div>
-          <div v-show="user === null">
+          <div v-show="user === false">
             <div class="d-flex justify-content-center">
-              <h5>Đăng nhập để xem giỏ hàng của bạn và tiếp tục mua sắm</h5>
+              <h4>Đăng nhập để xem giỏ hàng của bạn và tiếp tục mua sắm</h4>
             </div>
             <div class="d-flex justify-content-center">
               <router-link
@@ -153,9 +153,10 @@ export default {
   },
   watch: {
     user() {},
+    cart() {},
   },
   created() {
-    if (this.user !== null) {
+    if (this.user !== false) {
       this.$store.dispatch(this.$constant.user.ACTION_SHOW_CART_USER)
     }
   },
@@ -173,44 +174,44 @@ export default {
       })
     },
     removeProductCart(item, index) {
-      if (this.user !== null) {
+      if (this.user !== false) {
         this.$store.dispatch(
           this.$constant.user.ACTION_DELETE_PRODUCTCART_USER,
           item
         )
-      } else if (this.user === null) {
+      } else if (this.user === false) {
         this.$store.dispatch(this.$constant.user.ACTION_REMOVE_CART, index)
       }
     },
     plus(item, index) {
-      if (this.user !== null) {
+      if (this.user !== false) {
         this.$store.dispatch(
           this.$constant.user.ACTION_PLUS_ITEMCART_USER,
           item
         )
         this.$store.dispatch(this.$constant.user.ACTION_UPDATE_CART_USER, item)
-      } else if (this.user === null) {
+      } else if (this.user === false) {
         this.$store.dispatch(this.$constant.user.ACTION_PLUS_ITEMCART, index)
       }
     },
     minus(item, index) {
-      if (this.user !== null) {
+      if (this.user !== false) {
         this.$store.dispatch(
           this.$constant.user.ACTION_MINUS_ITEMCART_USER,
           item
         )
         this.$store.dispatch(this.$constant.user.ACTION_UPDATE_CART_USER, item)
-      } else if (this.user === null) {
+      } else if (this.user === false) {
         this.$store.dispatch(this.$constant.user.ACTION_MINUS_ITEMCART, index)
       }
     },
     setcheckout() {
-      if (this.user !== null) {
-        this.$router.push({ name: 'checkout' })
-        this.$store.dispatch(this.$constant.user.ACTION_CHECKOUT_SET, this.cart)
-      } else if (this.user === null) {
+      if (this.user === false) {
         this.$router.push({ name: 'loginregister' })
         this.$toast.global.login()
+      } else if (this.user !== false) {
+        this.$router.push({ name: 'checkout' })
+        this.$store.dispatch(this.$constant.user.ACTION_CHECKOUT_SET, this.cart)
       }
     },
   },
@@ -313,6 +314,7 @@ export default {
   text-transform: uppercase;
   margin: 0.5rem 0;
   cursor: pointer;
+  font-size: 16px;
   transition: 0.5s;
 }
 .btn:hover {

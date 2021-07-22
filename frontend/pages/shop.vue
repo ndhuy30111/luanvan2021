@@ -1,23 +1,12 @@
 <template>
   <v-container fluid>
-    <!-- <v-row class="menu">
-      <v-col class="collection">
-        <div class="collection_img">
-          <img
-            src="https://cdn.shopify.com/s/files/1/2598/7400/files/collection-large.jpg?v=1516250004"
-            style="width: 100%"
-          />
-        </div>
-      </v-col>
-    </v-row> -->
-
     <v-row>
       <v-col v-show="!mobileView" cols="12" sm="4" md="3">
         <FilterLeft />
       </v-col>
       <v-col v-show="!mobileView" cols="12" sm="8" md="9" class="list-product">
         <p class="d-flex justify-content-center">Tất cả sản phẩm</p>
-        <p v-show="search != ''" style="font-size: 20px; color: red">
+        <p v-show="search != ''" style="font-size: 18px; color: red">
           Kết quả tìm kiếm: <strong>{{ resultsSearch }}</strong>
         </p>
         <v-row>
@@ -40,7 +29,7 @@
       </v-col>
 
       <v-col v-show="mobileView" cols="12" class="list-product">
-        <p class="d-flex justify-content-center">Tất cả sản phẩm</p>
+        <p>Tất cả sản phẩm</p>
         <v-row>
           <v-col
             v-for="item in filteredList"
@@ -109,7 +98,7 @@ export default {
 }
 .list-product {
   p {
-    font-size: 30px;
+    font-size: 25px;
   }
 }
 @media screen and (max-width: 600px) {

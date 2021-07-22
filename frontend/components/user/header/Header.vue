@@ -96,7 +96,7 @@ ul li {
   margin-left: 20px;
   display: inline-block;
   a {
-    font-size: 25px;
+    font-size: 21px;
     color: black;
     text-decoration: none;
     transition: all 0.3s;

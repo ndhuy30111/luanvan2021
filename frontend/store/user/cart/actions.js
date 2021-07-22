@@ -6,7 +6,7 @@ export default {
       productID: cartItem.idProduct,
       quantity: cartItem.quantity,
       color: cartItem.color,
-      size: cartItem.size,
+      sizeId: cartItem.sizeId,
     }
     try {
       const res = await this.$repositories.cartRepostory.addcart(newCartitem)

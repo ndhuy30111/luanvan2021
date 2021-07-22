@@ -1,8 +1,8 @@
 <template>
   <v-container fluid>
-    <v-card flat>
-      <v-tabs v-show="!mobileView" vertical>
-        <v-tab>
+    <v-card elevation="2">
+      <v-tabs v-show="!mobileView" vertical touchless>
+        <v-tab style="margin-left: -55px">
           <b-icon icon="bookmark" style="margin-right: 10px"></b-icon>Chờ xác
           nhận
           <span>{{ not.length }}</span>
@@ -12,25 +12,24 @@
           Đang chuẩn bị hàng
           <span>{{ accuracy.length }}</span>
         </v-tab>
-        <v-tab>
+        <v-tab style="margin-left: -75px">
           <b-icon icon="truck" style="margin-right: 10px"></b-icon>Vận chuyển
           <span>{{ transport.length }}</span>
         </v-tab>
-        <v-tab>
+        <v-tab style="margin-left: -75px">
           <b-icon icon="clipboard-check" style="margin-right: 10px"></b-icon
           >Hoàn thành
           <span>{{ complete.length }}</span>
         </v-tab>
-        <v-tab>
+        <v-tab style="margin-left: -75px">
           <b-icon icon="clipboard-x" style="margin-right: 10px"></b-icon>Đơn đã
           hủy
           <span>{{ cancel.length }}</span>
         </v-tab>
-        <v-tab>
-          <b-icon icon="person"></b-icon>
+        <v-tab style="margin-left: -25px">
+          <b-icon icon="person" style="margin-right: 10px"></b-icon>
           {{ $local.vn.profile }}
         </v-tab>
-
         <v-tab-item>
           <InvoiceTable :invoice="not" :total="totalnot" />
         </v-tab-item>
@@ -137,7 +136,7 @@
           <b-icon icon="clipboard-x" style="margin-right: 10px"></b-icon>
           <span>{{ cancel.length }}</span>
         </v-tab>
-        <v-tab>
+        <v-tab style="margin-left: -35px">
           <b-icon icon="person"></b-icon>
         </v-tab>
 
@@ -243,7 +242,6 @@ export default {
       (v) => !!v || 'E-mail không được để trống',
       (v) => /.+@.+/.test(v) || 'Không phải email',
     ],
-    avatar: '',
     user: {
       email: '',
       name: '',
@@ -295,13 +293,6 @@ export default {
     this.editItem(item)
     this.$store.dispatch(this.$constant.user.ACTION_INVOICE_INIT)
   },
-  mounted() {
-    const splitName = this.$auth.user.name.split(' ')
-    this.avatar = this.$auth.user.name
-      .charAt(0)
-      .toUpperCase()
-      .concat(splitName[splitName.length - 1].charAt(0).toUpperCase())
-  },
   methods: {
     handleView() {
       this.mobileView = window.innerWidth <= 1050
@@ -338,6 +329,7 @@ export default {
   background-size: 200%;
   padding: 3px 9px;
   cursor: pointer;
+  font-size: 16px;
   transition: 0.5s;
 }
 .listmenu {
