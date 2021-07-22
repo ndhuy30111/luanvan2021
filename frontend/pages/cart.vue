@@ -14,7 +14,7 @@
           <div class="d-flex justify-content-center">
             <h4>Giỏ hàng của bạn đang trống</h4>
           </div>
-          <div v-show="user === false">
+          <div v-show="user === null">
             <div class="d-flex justify-content-center">
               <h4>Đăng nhập để xem giỏ hàng của bạn và tiếp tục mua sắm</h4>
             </div>
@@ -144,7 +144,7 @@ export default {
       return this.$store.state.user.cart.cart
     },
     user() {
-      return this.$auth.user
+      return this.$auth.user ? this.$auth.user : null
     },
     ...mapGetters({
       // map `this.doneCount` to `this.$store.getters.doneTodosCount`
@@ -156,7 +156,7 @@ export default {
     cart() {},
   },
   created() {
-    if (this.user !== false) {
+    if (this.user !== null) {
       this.$store.dispatch(this.$constant.user.ACTION_SHOW_CART_USER)
     }
   },
@@ -174,42 +174,42 @@ export default {
       })
     },
     removeProductCart(item, index) {
-      if (this.user !== false) {
+      if (this.user !== null) {
         this.$store.dispatch(
           this.$constant.user.ACTION_DELETE_PRODUCTCART_USER,
           item
         )
-      } else if (this.user === false) {
+      } else if (this.user === null) {
         this.$store.dispatch(this.$constant.user.ACTION_REMOVE_CART, index)
       }
     },
     plus(item, index) {
-      if (this.user !== false) {
+      if (this.user !== null) {
         this.$store.dispatch(
           this.$constant.user.ACTION_PLUS_ITEMCART_USER,
           item
         )
         this.$store.dispatch(this.$constant.user.ACTION_UPDATE_CART_USER, item)
-      } else if (this.user === false) {
+      } else if (this.user === null) {
         this.$store.dispatch(this.$constant.user.ACTION_PLUS_ITEMCART, index)
       }
     },
     minus(item, index) {
-      if (this.user !== false) {
+      if (this.user !== null) {
         this.$store.dispatch(
           this.$constant.user.ACTION_MINUS_ITEMCART_USER,
           item
         )
         this.$store.dispatch(this.$constant.user.ACTION_UPDATE_CART_USER, item)
-      } else if (this.user === false) {
+      } else if (this.user === null) {
         this.$store.dispatch(this.$constant.user.ACTION_MINUS_ITEMCART, index)
       }
     },
     setcheckout() {
-      if (this.user === false) {
+      if (this.user === null) {
         this.$router.push({ name: 'loginregister' })
         this.$toast.global.login()
-      } else if (this.user !== false) {
+      } else if (this.user !== null) {
         this.$router.push({ name: 'checkout' })
         this.$store.dispatch(this.$constant.user.ACTION_CHECKOUT_SET, this.cart)
       }
