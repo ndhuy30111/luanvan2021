@@ -404,7 +404,7 @@
               lazy-validation
               @submit.prevent="SubmitaddCoupons"
             >
-              <v-row>
+              <v-row sm="3" cols="12">
                 <v-col>
                   <v-select
                     v-model="activeColor"
@@ -415,7 +415,7 @@
                     outlined
                   />
                 </v-col>
-                <v-col
+                <v-col sm="3" cols="12"
                   ><v-select
                     v-model="addCoupon.id"
                     :items="activeColor"
@@ -424,7 +424,7 @@
                     :label="$local.vn_admin_product.SIZE"
                     outlined
                 /></v-col>
-                <v-col>
+                <v-col sm="3" cols="12">
                   <v-text-field
                     v-model="addCoupon.amount"
                     type="number"
@@ -433,7 +433,7 @@
                     clearable
                   ></v-text-field>
                 </v-col>
-                <v-col class="d-flex justify-content-end"
+                <v-col class="d-flex justify-content-end" sm="3" cols="12"
                   ><v-btn
                     type="submit"
                     color="orange"

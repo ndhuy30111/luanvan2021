@@ -4,7 +4,7 @@ export default {
       labels: state.labelCategory,
       datasets: [
         {
-          label: 'Dữ liệu đầu tiên',
+          label: 'Số lượng sản phẩm theo danh mục',
           data: state.valueCategory,
           backgroundColor: state.colorCategory,
           borderColor: state.colorCategory,
@@ -21,7 +21,7 @@ export default {
       labels: state.labelSumWeek,
       datasets: [
         {
-          label: 'Dữ liệu đầu tiên',
+          label: 'Tổng tiền trong 7 ngày',
           data: state.valueSumWeek,
           backgroundColor: state.colorSumWeek,
           borderColor: state.colorSumWeek,

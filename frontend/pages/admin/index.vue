@@ -4,9 +4,12 @@
       <v-col cols="12" sm="9">
         <v-container>
           <v-row>
-            <v-col
-              ><v-card color="red"
-                ><v-card-title>
+            <v-col>
+              <v-card
+                color="red"
+                @click="$router.push({ name: 'admin-invoice-not' })"
+              >
+                <v-card-title>
                   <span class="text">{{ notSize }}</span></v-card-title
                 >
                 <v-card-subtitle
@@ -14,10 +17,12 @@
                     >Đơn hàng chưa xử lý</span
                   ></v-card-subtitle
                 >
-              </v-card></v-col
-            >
+              </v-card>
+            </v-col>
             <v-col
-              ><v-card color="amber"
+              ><v-card
+                color="amber"
+                @click="$router.push({ name: 'admin-invoice-accuracy' })"
                 ><v-card-title
                   ><span class="text">{{ accuracySize }}</span></v-card-title
                 >
@@ -29,7 +34,9 @@
               </v-card></v-col
             >
             <v-col
-              ><v-card color="lime"
+              ><v-card
+                color="lime"
+                @click="$router.push({ name: 'admin-invoice-transport' })"
                 ><v-card-title
                   ><span class="text">{{ transportSize }}</span></v-card-title
                 >
@@ -53,7 +60,7 @@
           </v-row>
           <v-row>
             <v-col sm="6">
-              <Bar :chartdata="dataCategoryDoughnut" :options="options" />
+              <Bar :chartdata="sumCategory" :options="options" />
             </v-col>
             <v-col sm="6">
               <Bar :chartdata="sumWeek" :options="options" />
@@ -106,7 +113,7 @@ export default {
       accuracySize: 'admin/invoice/getAccuracySize',
       transportSize: 'admin/invoice/getTransportSize',
       completeSize: 'admin/invoice/getCompleteSize',
-      dataCategoryDoughnut: 'admin/report/getDataCategoryDoughnutChart',
+      sumCategory: 'admin/report/getDataCategoryDoughnutChart',
       sumDay: 'admin/report/getSumDay',
       sumWeek: 'admin/report/getSumWeek',
     }),
