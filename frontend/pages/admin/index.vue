@@ -118,7 +118,6 @@ export default {
       sumWeek: 'admin/report/getSumWeek',
     }),
   },
-
   created() {},
   methods: {},
 }
