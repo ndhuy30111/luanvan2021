@@ -104,7 +104,7 @@ export default {
 
 <style lang="scss" scoped>
 .menu {
-  margin-top: -30px;
+  margin-top: -50px;
 }
 .center {
   position: absolute;

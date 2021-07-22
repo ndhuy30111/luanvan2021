@@ -150,7 +150,7 @@
                         type="submit"
                         color="rgb(16, 120, 248)"
                         @click="validateComment"
-                        >Bình luận</v-btn
+                        >Đánh giá</v-btn
                       ></v-row
                     >
                   </v-form>
@@ -163,6 +163,16 @@
                 <div style="margin-left: 10px">
                   <strong class="usercomment">{{ usercomment.user }}</strong>
                   <div>
+                    <v-rating
+                      v-model="usercomment.rate"
+                      background-color="grey lighten-2"
+                      color="red"
+                      empty-icon="mdi-heart-outline"
+                      full-icon="mdi-heart"
+                      half-icon="mdi-heart"
+                      length="5"
+                      size="18"
+                    ></v-rating>
                     {{ usercomment.comment }}
                   </div>
                 </div>
@@ -318,6 +328,7 @@ export default {
       const cartItem = {
         idProduct: this.products.id,
         name: this.products.name,
+        sizeId: this.sizeActive.id,
         size: this.sizeActive.name,
         color: this.colorActive.name,
         image: this.imgActive,
