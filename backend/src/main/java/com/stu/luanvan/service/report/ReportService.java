@@ -46,14 +46,12 @@ public class ReportService {
     public Collection<Object> getCategory(){
         var listCategory = new LinkedHashMap<String,Object>();
         var invoice = invoiceRepository.findAll();
-        invoice.forEach(i->{
+        invoice.forEach(i->
             i.getInvoicedetals().forEach(id->{
                 CategoryModel category = (CategoryModel) id.getProduct().getCategory().toArray()[0];
-
                 if(listCategory.containsKey(category.getId()+"")){
                     var value= (CategoryReport) listCategory.get(category.getId()+"");
                     value.increasing();
-
                 }else{
                     var listCategoryProduct =id.getProduct().getCategory();
                     StringBuilder name = new StringBuilder();
@@ -68,8 +66,8 @@ public class ReportService {
                     var categoryReport = new CategoryReport(name.toString(),1);
                     listCategory.put(category.getId()+"",categoryReport);
                 }
-            });
-        });
+            })
+        );
 
         return listCategory.values();
     }
@@ -77,7 +75,7 @@ public class ReportService {
 
         long sum = 0;
         var end = "";
-        LocalDate date = null;
+        LocalDate date;
         try{
             date = LocalDate.parse(start).plusDays(1);
         }catch (Exception ex){
@@ -94,10 +92,10 @@ public class ReportService {
         return new SumInvoiceRepository(sum,start,end);
       }
     public Collection<SumInvoiceRepository> getInvoiceSumWeek(String start){
-        long sum = 0;
+        long sum;
         var end = "";
         var listSumInvoice = new ArrayList<SumInvoiceRepository>();
-        LocalDate date = null;
+        LocalDate date;
         try{
             date = LocalDate.parse(start).minusDays(7);
         }catch (Exception ex){

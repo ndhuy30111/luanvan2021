@@ -60,7 +60,7 @@
           </v-row>
           <v-row>
             <v-col sm="6">
-              <Bar :chartdata="sumCategory" :options="options" />
+              <DoughnutChart :chartdata="sumCategory" />
             </v-col>
             <v-col sm="6">
               <Bar :chartdata="sumWeek" :options="options" />
@@ -85,9 +85,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import Bar from '~/components/vue-chart/BarChart.js'
+import DoughnutChart from '~/components/vue-chart/DoughnutChart.js'
 export default {
   components: {
     Bar,
+    DoughnutChart,
   },
   layout: 'admin',
 
