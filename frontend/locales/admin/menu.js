@@ -1,8 +1,8 @@
 export default () => ({
   REPORT_MANAGEMENT: 'Quản lý Thông kế',
   CONTENT_MANAGEMENT: 'Quản lý nội dung',
-  CATEGORY_MANAGEMENT: 'Quản lý danh mục',
-  CATEGORY_VIEW: 'Xem danh mục',
+  CATEGORY_MANAGEMENT: 'Quản lý loại sản phẩm',
+  CATEGORY_VIEW: 'Xem loại sản phẩm',
   PRODUCT_MANAGEMENT: 'Quản lý sản phẩm',
   PRODUCT_VIEW: 'Xem sản phẩm',
   PRODUCT_ADD: 'Thêm sản phẩm',
