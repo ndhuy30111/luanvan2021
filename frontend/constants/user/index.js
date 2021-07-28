@@ -23,6 +23,7 @@ export default () => ({
   ACTIONS_USER_UPDATE: 'user/account/update',
 
   ACTIONS_PRODUCT_GETALL: 'user/product/getAll',
+  ACTIONS_PC_GET: 'user/product/getProductCategory',
 
   ACTIONS_SEARCH: 'user/search/getSearch',
 

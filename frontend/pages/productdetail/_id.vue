@@ -45,6 +45,14 @@
                   >{{ item.name }}</span
                 >
               </div>
+              <div class="size-wrap">
+                <h5>Kho:</h5>
+                <strong>
+                  <h5 class="size" style="color: red; margin-top: -5px">
+                    {{ sizeAmount }}
+                  </h5>
+                </strong>
+              </div>
 
               <div class="size-wrap">
                 <h5>{{ $local.vn.quantity }}:</h5>
@@ -72,15 +80,16 @@
               </div>
 
               <div class="button">
-                <span>
-                  <a href="#">
-                    {{ parseInt(products.price).toLocaleString() }}
-                    {{ $local.vn.currency }}</a
-                  >
-                  <a class="cart-btn" @click="addCart()">
-                    <b-icon icon="cart"></b-icon> {{ $local.vn.add_cart }}</a
-                  >
-                </span>
+                <a href="#">
+                  {{ parseInt(products.price).toLocaleString() }}
+                  {{ $local.vn.currency }}</a
+                >
+                <a v-show="sizeAmount === 0" id="cart-none">
+                  <b-icon icon="cart"></b-icon> {{ $local.vn.add_cart }}</a
+                >
+                <a v-show="sizeAmount !== 0" @click="addCart()">
+                  <b-icon icon="cart"></b-icon> {{ $local.vn.add_cart }}</a
+                >
               </div>
             </div>
           </div>
@@ -248,6 +257,7 @@ export default {
       colorActive: {},
       sizeActive: {},
       show: false,
+      sizeAmount: '',
     }
   },
 
@@ -296,6 +306,7 @@ export default {
       this.imgActive = item.image
       this.size = item.size
       this.sizeActive = this.size[0]
+      this.sizeAmount = this.size[0].amount
     },
     user() {},
     comment() {},
@@ -313,6 +324,7 @@ export default {
       this.colorActive = item.detailsProduct[0].color
       this.size = item.detailsProduct[0].size
       this.sizeActive = item.detailsProduct[0].size[0]
+      this.sizeAmount = item.detailsProduct[0].size[0].amount
       return this.$_.cloneDeep(item)
     },
     ColorActive(item) {
@@ -320,9 +332,11 @@ export default {
       this.imgActive = item.image
       this.size = item.size
       this.sizeActive = this.size[0]
+      this.sizeAmount = this.size[0].amount
     },
     SizeActive(item) {
       this.sizeActive = item
+      this.sizeAmount = item.amount
     },
     addCart() {
       const cartItem = {

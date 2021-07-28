@@ -393,6 +393,7 @@ export default {
         }
         if (this.select_checkout === 'MoMo') {
           this.$store.dispatch(this.$constant.user.ACTION_INVOICE_SET, invoice)
+
           this.checkout.forEach((el) => {
             this.$store.dispatch(
               this.$constant.user.ACTION_DELETE_PRODUCTCART_USER,
