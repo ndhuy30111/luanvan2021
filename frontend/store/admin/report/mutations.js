@@ -15,7 +15,6 @@ export default {
     })
   },
   MUTATION_ADMIN_REPORT_SUM_INIT(state, payload) {
-    state.sumWeek = payload
     state.sumDay = payload.slice(-1)[0]
     payload.forEach((el) => {
       const o = Math.round

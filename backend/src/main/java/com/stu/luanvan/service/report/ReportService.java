@@ -91,7 +91,7 @@ public class ReportService {
                 sum += invoicedetal.getAmount() * invoicedetal.getPrice();
             }
         }
-        return new SumInvoiceRepository(sum,start);
+        return new SumInvoiceRepository(sum,start,end);
       }
     public Collection<SumInvoiceRepository> getInvoiceSumWeek(String start){
         long sum = 0;
@@ -108,7 +108,7 @@ public class ReportService {
             sum = 0;
             start = date.toString();
             date = date.plusDays(1);
-            end = LocalDate.of(date.getYear(), date.getMonth(),date.getDayOfMonth()).toString();
+            end = date.toString();
 
             var invoice =invoiceRepository.findByLastModifiedDateAfter(start,end);
             for(InvoiceModel e : invoice){
@@ -116,7 +116,7 @@ public class ReportService {
                     sum += invoicedetal.getAmount() * invoicedetal.getPrice();
                 }
             }
-            listSumInvoice.add(new SumInvoiceRepository(sum,start));
+            listSumInvoice.add(new SumInvoiceRepository(sum,start,end));
 
 
         }

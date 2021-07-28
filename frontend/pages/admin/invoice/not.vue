@@ -120,22 +120,30 @@
               </v-row>
             </v-container>
             <v-card-actions>
-              <v-btn color="red darken-1" text @click="billDel"
-                >Hủy đơn hàng</v-btn
-              >
-              <v-spacer></v-spacer>
-              <v-btn color="green darken-1" text @click="billPaid"
-                >Xác nhận đã thanh toán</v-btn
-              >
-              <v-spacer></v-spacer>
-              <v-btn
-                color="blue darken-1"
-                type="submit"
-                text
-                @click="billSubmit"
-              >
-                Xác thực thành công
-              </v-btn>
+              <v-row>
+                <v-col sm="4" cols="12"
+                  ><v-btn color="red darken-1" text @click="billDel"
+                    >Hủy đơn hàng</v-btn
+                  ></v-col
+                >
+
+                <v-col sm="4" cols="12">
+                  <v-btn color="green darken-1" text @click="billPaid"
+                    >Xác nhận đã thanh toán</v-btn
+                  ></v-col
+                >
+
+                <v-col sm="4" cols="12" class="text-right">
+                  <v-btn
+                    color="blue darken-1"
+                    type="submit"
+                    text
+                    @click="billSubmit"
+                  >
+                    Xác thực thành công
+                  </v-btn>
+                </v-col>
+              </v-row>
             </v-card-actions>
           </v-card>
         </v-dialog>

@@ -8,4 +8,5 @@ import lombok.Data;
 public class SumInvoiceRepository {
     long sum;
     String dateStart;
+    String dateEnd;
 }

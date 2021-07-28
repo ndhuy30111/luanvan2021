@@ -38,6 +38,7 @@ export default {
       const { status } = res
       if (status === 200) {
         this.$toast.global.success()
+        await this.$auth.fetchUser()
       }
     } catch (error) {
       alert(error)
