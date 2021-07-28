@@ -2,13 +2,6 @@
   <div id="productFilter">
     <v-row>
       <v-col>
-        <h5>Danh mục</h5>
-        <hr />
-        <v-treeview selectable :items="categorys"></v-treeview>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
         <h5>Giá</h5>
         <hr />
         <v-row>

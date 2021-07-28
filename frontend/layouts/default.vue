@@ -67,7 +67,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 * {
-  font-family: Arial;
+  font-family: Arial, Helvetica, sans-serif !important;
 }
 .top-bar {
   display: flex;

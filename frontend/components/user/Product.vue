@@ -15,7 +15,13 @@
         </li>
       </ul>
       <p v-for="(value, index) in product.category" :key="index">
-        <span v-if="value == 'Sale'" class="product-new-label">Sale</span>
+        <span v-if="value == 'Sale'" class="product-new-label">SALE</span>
+      </p>
+      <p v-show="product.hot">
+        <span class="product-new-label">HOT</span>
+      </p>
+      <p v-show="product.fresh">
+        <span class="product-fresh">NEW</span>
       </p>
       <span class="product-discount-label"></span>
     </div>
@@ -31,9 +37,9 @@
         <a @click="productdetail(product)">{{ product.name }}</a>
       </h6>
       <div class="price">
-        {{ product.price.toLocaleString() }} {{ $local.vn.currency }}
+        {{ parseInt(product.price).toLocaleString() }} {{ $local.vn.currency }}
       </div>
-      <a class="add-to-cart">+ {{ $local.vn.add_cart }}</a>
+      <a class="add-to-cart" @click="productdetail(product)">Xem chi tiết</a>
     </div>
   </div>
 </template>
@@ -138,6 +144,17 @@ export default {
   .product-new-label {
     color: #fff;
     background-color: #ff0000;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 0;
+  }
+  .product-fresh {
+    color: #fff;
+    background-color: #29b6f6;
     font-size: 15px;
     text-transform: uppercase;
     padding: 2px 7px;

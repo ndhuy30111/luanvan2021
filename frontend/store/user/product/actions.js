@@ -8,4 +8,9 @@ export default {
     }
     commit(constants.MUTATIONS_PRODUCT_GETALL, payload)
   },
+
+  getProductCategory({ commit }, payload) {
+    this.$router.push({ name: 'category' })
+    commit(constants.MUTATIONS_PC_GET, payload)
+  },
 }
