@@ -35,7 +35,6 @@ public class CouponModel extends BaseModel {
     private String message;
     @JoinColumn
     private Boolean status = true;
-
     public CouponModel(SizeModel size, Integer amount) {
         this.size = size;
         this.amount = amount;

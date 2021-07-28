@@ -11,12 +11,10 @@ import com.stu.luanvan.request.BillRequest;
 import com.stu.luanvan.request.InvoiceRequest;
 import com.stu.luanvan.response.InvoiceDetailsResponse;
 import com.stu.luanvan.response.InvoiceResponse;
-import com.stu.luanvan.security.MyUserDetails;
 import com.stu.luanvan.service.product.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -135,6 +133,16 @@ public class InvoiceService implements InvoiceServiceInterface{
 
     }
 
+    @Override
+    public InvoiceModel saveReturn(Integer id) throws Exception {
+        var invoice = invoiceRepository.findById(id).orElse(null);
+        if(invoice == null){
+            throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
+        }
+        invoice.ReturnTo();
+        return invoiceRepository.save(invoice);
+
+    }
     @Override
     public InvoiceModel saveDel(Integer id) throws Exception {
         var invoice = invoiceRepository.findById(id).orElse(null);

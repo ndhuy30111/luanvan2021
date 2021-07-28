@@ -14,4 +14,5 @@ public interface InvoiceServiceInterface extends ServiceInterfaces<InvoiceModel,
     InvoiceModel saveStatus(Integer id) throws Exception;
     InvoiceModel savePaid(Integer id) throws Exception;
     InvoiceModel saveDel(Integer id) throws Exception;
+    InvoiceModel saveReturn(Integer id) throws Exception;
 }

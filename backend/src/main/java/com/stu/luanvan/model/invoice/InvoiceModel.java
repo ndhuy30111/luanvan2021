@@ -2,7 +2,6 @@ package com.stu.luanvan.model.invoice;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.stu.luanvan.model.BaseModel;
 import com.stu.luanvan.model.invoicedetails.InvoiceDetailsModel;
@@ -78,7 +77,12 @@ public class InvoiceModel extends BaseModel {
         ++this.status;
         this.statusPayment=true;
     }
+
     public void Del(){
         this.status=4;
+    }
+
+    public void ReturnTo(){
+        this.status=5;
     }
 }

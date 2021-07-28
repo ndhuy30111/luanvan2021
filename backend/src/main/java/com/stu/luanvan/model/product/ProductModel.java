@@ -46,11 +46,11 @@ public class ProductModel extends BaseModel {
 
     @Column(columnDefinition = "bit default 0 COMMENT 'Sản phẩm được bán chạy hay không, Nếu có là 1 hoặc không là 0'")
     @JsonView(BaseViews.Public.class)
-    private boolean hot;
+    private boolean hot = false;
 
     @Column(columnDefinition = "bit default 1 COMMENT 'Sản phẩm mới được bán, 1 là hàng mới hoặc 0 là hàng không còn mới'")
     @JsonView(BaseViews.Public.class)
-    private boolean fresh;
+    private boolean fresh = true;
 
     @Column(columnDefinition ="tinyint(1) default 0 COMMENT 'Đánh giá sản phẩm theo mức độ từ số 0 đến số 5 tính theo điểm sao ' " )
     @Min(value = 0,message = "Không có đánh giá mức thấp hơn 0")

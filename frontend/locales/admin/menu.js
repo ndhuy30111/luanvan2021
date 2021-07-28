@@ -20,4 +20,5 @@ export default () => ({
   INVOICE_TRANSPORT_RECEIVE: 'Đang vận chuyển',
   INVOICE_COMPLETE_RECEIVE: 'Hoàn thành',
   INVOICE_CANCEL_RECEIVE: 'Đơn bị hủy',
+  INVOICE_RETURN_RECEIVE: 'Hoàn trả đơn hàng',
 })
