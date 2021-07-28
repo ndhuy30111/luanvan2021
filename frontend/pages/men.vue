@@ -8,7 +8,7 @@
         <v-row>
           <v-col class="text">Thời trang Nam</v-col>
         </v-row>
-        <!-- <v-row>
+        <v-row>
           <v-col
             v-for="(value, indexcate) in category_men.children"
             :key="indexcate"
@@ -20,7 +20,7 @@
               value.name
             }}</v-card>
           </v-col>
-        </v-row> -->
+        </v-row>
         <p v-show="search != ''" style="font-size: 18px; color: red">
           Kết quả tìm kiếm: <strong>{{ resultsSearch }}</strong>
         </p>
@@ -47,7 +47,7 @@
         <v-row>
           <v-col cols="12" class="text">Thời trang Nam</v-col>
         </v-row>
-        <!-- <v-row>
+        <v-row>
           <v-col
             v-for="(value, indexcate) in category_men.children"
             :key="indexcate"
@@ -59,7 +59,7 @@
               value.name
             }}</v-card>
           </v-col>
-        </v-row> -->
+        </v-row>
         <p>Tất cả sản phẩm</p>
         <v-row>
           <v-col
@@ -93,7 +93,7 @@ export default {
     }
   },
   computed: {
-    category_women() {
+    category_men() {
       return this.$store.state.user.categorys.category_men
     },
     listproduct() {

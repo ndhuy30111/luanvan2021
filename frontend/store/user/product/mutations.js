@@ -5,19 +5,16 @@ export default {
     state.list_products.forEach((elm) => {
       if (elm.fresh === true) {
         state.fresh.push(elm)
-        elm.category.forEach((el) => {
-          if (el === 'Nam') {
-            state.men.push(elm)
-          } else if (el === 'Nữ') {
-            state.women.push(elm)
-          }
-        })
       }
       if (elm.hot === true) {
         state.hot.push(elm)
       }
       elm.category.forEach((el) => {
-        if (el === 'Sale') {
+        if (el === 'Nam') {
+          state.men.push(elm)
+        } else if (el === 'Nữ') {
+          state.women.push(elm)
+        } else if (el === 'Sale') {
           state.sale.push(elm)
         }
       })

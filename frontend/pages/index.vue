@@ -8,27 +8,29 @@
     <v-row>
       <v-col class="text">Mua theo thể loại</v-col>
     </v-row>
-    <v-row>
-      <v-col cols="6" md="4" sm="4">
-        <router-link :to="{ name: 'men' }" style="text-decoration: none">
-          <v-card id="caterogy" elevation="0"
-            >Thời trang nam</v-card
-          ></router-link
+    <v-container>
+      <v-row>
+        <v-col cols="6" md="4" sm="4">
+          <router-link :to="{ name: 'men' }" style="text-decoration: none">
+            <v-card id="caterogy" elevation="0"
+              >Thời trang nam</v-card
+            ></router-link
+          >
+        </v-col>
+        <v-col cols="6" md="4" sm="4"
+          ><router-link :to="{ name: 'women' }" style="text-decoration: none">
+            <v-card id="caterogy" elevation="0"
+              >Thời trang nữ</v-card
+            ></router-link
+          ></v-col
         >
-      </v-col>
-      <v-col cols="6" md="4" sm="4"
-        ><router-link :to="{ name: 'women' }" style="text-decoration: none">
-          <v-card id="caterogy" elevation="0"
-            >Thời trang nữ</v-card
-          ></router-link
-        ></v-col
-      >
-      <v-col cols="6" md="4" sm="4"
-        ><router-link :to="{ name: 'sale' }" style="text-decoration: none">
-          <v-card id="caterogy" elevation="0">Sale</v-card></router-link
-        ></v-col
-      >
-    </v-row>
+        <v-col cols="6" md="4" sm="4"
+          ><router-link :to="{ name: 'sale' }" style="text-decoration: none">
+            <v-card id="caterogy" elevation="0">Sale</v-card></router-link
+          ></v-col
+        >
+      </v-row>
+    </v-container>
     <v-row>
       <v-col class="text">Sản phẩm bán chạy</v-col>
     </v-row>

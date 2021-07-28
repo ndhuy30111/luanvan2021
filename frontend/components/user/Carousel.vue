@@ -4,7 +4,7 @@
       <b-carousel
         id="carousel"
         style="text-shadow: 0px 0px 2px #000"
-        :interval="1200"
+        :interval="2500"
         fade
         indicators
         img-width="1024"
@@ -16,6 +16,8 @@
         >
         </b-carousel-slide>
         <b-carousel-slide :img-src="require(`~/assets//category/banner1.jpg`)">
+        </b-carousel-slide>
+        <b-carousel-slide :img-src="require(`~/assets//category/banner5.jpg`)">
         </b-carousel-slide>
       </b-carousel>
     </div>
