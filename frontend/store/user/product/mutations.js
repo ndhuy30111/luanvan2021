@@ -1,13 +1,13 @@
 export default {
   MUTATIONS_PRODUCT_GETALL(state, payload) {
     state.list_products = payload.listproduct
-
+    payload.hot.forEach((el) => {
+      el.hot = true
+    })
+    state.hot = payload.hot
     state.list_products.forEach((elm) => {
       if (elm.fresh === true) {
         state.fresh.push(elm)
-      }
-      if (elm.hot === true) {
-        state.hot.push(elm)
       }
       elm.category.forEach((el) => {
         if (el === 'Nam') {

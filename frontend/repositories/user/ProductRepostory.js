@@ -6,4 +6,7 @@ export default ($axios) => ({
   show(id) {
     return $axios.get(`${resource}/${id}`)
   },
+  hot() {
+    return $axios.get(`${resource}/hot`)
+  },
 })

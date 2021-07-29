@@ -14,15 +14,16 @@
           ></router-link>
         </li>
       </ul>
+      <p v-show="product.fresh">
+        <span class="product-fresh">NEW</span>
+      </p>
       <p v-for="(value, index) in product.category" :key="index">
         <span v-if="value == 'Sale'" class="product-new-label">SALE</span>
       </p>
       <p v-show="product.hot">
         <span class="product-new-label">HOT</span>
       </p>
-      <p v-show="product.fresh">
-        <span class="product-fresh">NEW</span>
-      </p>
+
       <span class="product-discount-label"></span>
     </div>
     <ul class="rating">
