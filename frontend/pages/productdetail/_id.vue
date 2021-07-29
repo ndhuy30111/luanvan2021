@@ -165,54 +165,75 @@
                   </v-form>
                 </v-col>
               </v-row>
-              <v-row v-show="show">
-                <v-avatar color="primary" size="30"
-                  ><v-icon dark> mdi-account </v-icon></v-avatar
-                >
-                <div style="margin-left: 10px">
-                  <strong class="usercomment">{{ usercomment.user }}</strong>
-                  <div>
-                    <v-rating
-                      v-model="usercomment.rate"
-                      background-color="grey lighten-2"
-                      color="red"
-                      empty-icon="mdi-heart-outline"
-                      full-icon="mdi-heart"
-                      half-icon="mdi-heart"
-                      length="5"
-                      size="18"
-                    ></v-rating>
-                    {{ usercomment.comment }}
-                  </div>
-                </div>
-              </v-row>
-
-              <no-ssr v-if="comment != null">
-                <v-row v-for="(item, index) in comment" :key="index">
-                  <v-avatar color="primary" size="30">
-                    <v-icon dark> mdi-account </v-icon>
-                  </v-avatar>
-                  <div style="margin-left: 10px">
-                    <strong class="usercomment">{{ item.user }}</strong>
-                    <div>
-                      <v-rating
-                        v-model="item.rate"
-                        background-color="grey lighten-2"
-                        color="red"
-                        empty-icon="mdi-heart-outline"
-                        full-icon="mdi-heart"
-                        half-icon="mdi-heart"
-                        length="5"
-                        size="18"
-                      ></v-rating>
-                      <h6 class="usercomment">{{ item.comment }}</h6>
-                    </div>
-                  </div>
-                </v-row>
-              </no-ssr>
-
               <v-row>
-                <v-col> </v-col>
+                <v-col v-show="totalrate" cols="3">
+                  <v-card elevation="0">
+                    <v-row>
+                      <h2>{{ totalrate }}</h2>
+                      <div>
+                        <v-rating
+                          v-model="totalrate"
+                          background-color="grey lighten-2"
+                          color="red"
+                          empty-icon="mdi-heart-outline"
+                          full-icon="mdi-heart"
+                          length="5"
+                          size="20"
+                        ></v-rating>
+                        <h5>{{ totalcoment }} nhận xét</h5>
+                      </div>
+                    </v-row>
+                  </v-card>
+                </v-col>
+                <v-col cols="9">
+                  <v-row v-show="show">
+                    <v-avatar color="primary" size="30"
+                      ><v-icon dark> mdi-account </v-icon></v-avatar
+                    >
+                    <div style="margin-left: 10px">
+                      <strong class="usercomment">{{
+                        usercomment.user
+                      }}</strong>
+                      <div>
+                        <v-rating
+                          v-model="usercomment.rate"
+                          background-color="grey lighten-2"
+                          color="red"
+                          empty-icon="mdi-heart-outline"
+                          full-icon="mdi-heart"
+                          half-icon="mdi-heart"
+                          length="5"
+                          size="18"
+                        ></v-rating>
+                        {{ usercomment.comment }}
+                      </div>
+                    </div>
+                  </v-row>
+
+                  <no-ssr v-if="comment != null">
+                    <v-row v-for="(item, index) in comment" :key="index">
+                      <v-avatar color="primary" size="30">
+                        <v-icon dark> mdi-account </v-icon>
+                      </v-avatar>
+                      <div style="margin-left: 10px">
+                        <strong class="usercomment">{{ item.user }}</strong>
+                        <div>
+                          <v-rating
+                            v-model="item.rate"
+                            background-color="grey lighten-2"
+                            color="red"
+                            empty-icon="mdi-heart-outline"
+                            full-icon="mdi-heart"
+                            half-icon="mdi-heart"
+                            length="5"
+                            size="18"
+                          ></v-rating>
+                          <h6 class="usercomment">{{ item.comment }}</h6>
+                        </div>
+                      </div>
+                    </v-row>
+                  </no-ssr>
+                </v-col>
               </v-row>
             </v-container>
           </v-tab-item>
@@ -265,6 +286,8 @@ export default {
     ...mapGetters({
       // map `this.doneCount` to `this.$store.getters.doneTodosCount`
       product: 'user/product/getFindProduct',
+      totalrate: 'user/review/totalRate',
+      totalcoment: 'user/review/totalComment',
     }),
     listproduct() {
       return this.$store.state.user.product.list_products

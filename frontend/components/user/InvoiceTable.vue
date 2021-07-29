@@ -33,13 +33,16 @@
           </h5></v-col
         >
       </v-row>
-      <v-row v-for="(item, indexitem) in data.invoiceDetails" :key="indexitem">
-        <v-col cols="12" md="12">
-          <v-row>
-            <v-col cols="12" md="3" sm="3">
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-row
+            v-for="(item, indexitem) in data.invoiceDetails"
+            :key="indexitem"
+          >
+            <v-col cols="12" md="4" sm="3">
               <v-img
                 contain
-                max-height="150"
+                max-height="200"
                 width="100%"
                 :src="item.image"
                 position="left"
@@ -47,33 +50,28 @@
                 @click="productdetail(item)"
               />
             </v-col>
-            <v-col cols="12" md="9" sm="9">
-              <v-row>
-                <v-col cols="12" md="5">
-                  <h6>{{ item.name }}</h6>
-                </v-col>
-                <v-col cols="12" md="3">
-                  <h6>
-                    Giá:
-                    {{ parseInt(item.price).toLocaleString() }}
-                    {{ $local.vn.currency }}
-                  </h6>
-                </v-col>
-                <v-col cols="12" md="3">
-                  <h6>Số lượng: {{ item.amount }}</h6>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col class="d-flex">
-                  Số tiền:
-                  <h5 class="money">
-                    {{ parseInt(item.price * item.amount).toLocaleString() }}
-                    {{ $local.vn.currency }}
-                  </h5>
-                </v-col>
-              </v-row>
+            <v-col cols="12" md="8" sm="6">
+              <h6>{{ item.name }}</h6>
+              <v-col class="money">
+                {{ parseInt(item.price).toLocaleString() }}
+                x {{ item.amount }}
+              </v-col>
             </v-col>
           </v-row>
+        </v-col>
+        <v-col cols="12" md="3" sm="12">
+          <h6><strong>Địa chỉ nhận hàng: </strong></h6>
+          <p>{{ data.username }} - {{ data.numberPhone }}</p>
+          <p>{{ data.address }}</p>
+          <h6>
+            <strong>Phương thức thanh toán:</strong>
+          </h6>
+          <span v-show="data.payment === 'COD'">
+            Thanh toán khi nhận hàng
+          </span>
+          <span v-show="data.payment === 'MoMo'">
+            Thanh toán quét mã MoMo
+          </span>
         </v-col>
       </v-row>
       <div class="d-flex">
@@ -92,32 +90,31 @@
               style="margin-right: -12px"
             />
           </div>
-          <h5 v-show="index === indextotal">
-            Tổng tiền:
+          <h6 v-show="index === indextotal">
+            <strong>Thành tiền:</strong>
             <strong class="money"
               >{{ parseInt(t).toLocaleString() }}
               {{ $local.vn.currency }}</strong
             >
             <br />
-            <span v-show="data.payment === 'COD' && data.status <= 2">
-              Thanh toán khi nhận hàng
-            </span>
             <span v-show="data.status == 2">
               Đơn hàng đang được chuyển đến bạn.
             </span>
-            <br />
-            <router-link :to="{ name: 'contact' }">
-              <span v-show="data.status == 2">
-                Nếu bạn muốn hủy đơn vui lòng liên hệ trực tiếp
-              </span>
-            </router-link>
-          </h5>
+          </h6>
         </div>
       </div>
-      <div v-show="data.status <= 1">
+      <div v-show="data.status <= 1 && data.payment === 'COD'">
         <b-button class="btn" type="submit" @click="billDel"
           >Hủy đơn hàng
         </b-button>
+      </div>
+      <div
+        v-show="data.status <= 1 && data.payment === 'MoMo'"
+        style="margin-left: 10px"
+      >
+        <router-link :to="{ name: 'contact' }">
+          <h6>Nếu bạn muốn hủy đơn vui lòng liên hệ trực tiếp</h6>
+        </router-link>
       </div>
       <div
         v-show="data.status === 3"
@@ -189,14 +186,13 @@ export default {
 .btn {
   display: block;
   height: 35px;
-  width: 180px;
+  width: 130px;
   border-radius: 20px;
   outline: none;
   border: none;
   background: rgb(255, 0, 0);
   color: white;
   background-size: 200%;
-  text-transform: uppercase;
   cursor: pointer;
   transition: 0.5s;
   margin: -5px 0px 0px 20px;

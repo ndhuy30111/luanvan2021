@@ -30,7 +30,7 @@ export default {}
 
 <style lang="scss" scoped>
 #carousel {
-  margin-top: -7%;
+  margin-top: -6%;
 }
 @media screen and (max-width: 900px) {
   #carousel {

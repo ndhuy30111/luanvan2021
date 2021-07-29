@@ -84,7 +84,7 @@ export default {
 .content_default {
   position: absolute;
   width: calc(100%);
-  height: calc(50vh);
+  height: calc(80vh);
   padding: 20px;
   background-color: #fff;
   transition: 0.5s transform cubic-bezier(0, 0.12, 0.14, 1);

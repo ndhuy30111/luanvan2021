@@ -26,6 +26,7 @@
                           v-model="user.name"
                           :rules="userNameRules"
                           :label="$local.vn.full_name"
+                          readonly
                           required
                         ></v-text-field>
                       </v-col>

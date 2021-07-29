@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-card elevation="2">
+    <v-card elevation="0">
       <v-tabs v-show="!mobileView" vertical touchless>
         <v-tab style="margin-left: -55px">
           <b-icon icon="bookmark" style="margin-right: 10px"></b-icon>Chờ xác

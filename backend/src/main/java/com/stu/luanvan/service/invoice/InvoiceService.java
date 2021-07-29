@@ -152,6 +152,7 @@ public class InvoiceService implements InvoiceServiceInterface{
                 List<InvoiceDetailsResponse> data = new ArrayList<>();
                 var invoiceResponse = new InvoiceResponse();
                 invoiceResponse.setId(el.getId());
+                invoiceResponse.setUsername(el.getCreateBy().getName());
                 invoiceResponse.setCreateDate(el.getCreateDate());
                 invoiceResponse.setPayment(el.getMethodsPayment());
                 invoiceResponse.setAddress(el.getAddress());

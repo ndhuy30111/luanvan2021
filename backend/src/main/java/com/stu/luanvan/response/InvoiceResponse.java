@@ -23,5 +23,6 @@ public class InvoiceResponse {
 
     private String billCode;
     private String payment;
+    private String username;
     private List<InvoiceDetailsResponse> invoiceDetails;
 }
