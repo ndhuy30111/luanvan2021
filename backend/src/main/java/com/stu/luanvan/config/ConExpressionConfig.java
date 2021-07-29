@@ -59,9 +59,7 @@ public class ConExpressionConfig {
             var start = LocalDate.now().minusDays(1).toString();
             var end = LocalDate.now().toString();
             var invoice =invoiceRepository.findByLastModifiedDateAfter(start,end);
-
             var listHot = new LinkedHashMap<Integer,HotModel>();
-
             for(InvoiceModel e : invoice){
                 for (InvoiceDetailsModel invoicedetal : e.getInvoicedetals()) {
                     if(listHot.containsKey(invoicedetal.getProduct().getId())){
