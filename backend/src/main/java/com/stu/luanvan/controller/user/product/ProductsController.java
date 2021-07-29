@@ -35,4 +35,9 @@ public class ProductsController {
     public ResponseEntity<?> getFindById(@PathVariable int id) {
         return new ResponseEntity<>(productService.findById(id),HttpStatus.OK);
     }
+    @GetMapping("/hot")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> getFindByHot() {
+        return new ResponseEntity<>(productService.findByHot(),HttpStatus.OK);
+    }
 }

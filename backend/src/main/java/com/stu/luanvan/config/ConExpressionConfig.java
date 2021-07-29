@@ -5,6 +5,7 @@ import com.stu.luanvan.model.invoice.InvoiceModel;
 import com.stu.luanvan.model.invoicedetails.InvoiceDetailsModel;
 import com.stu.luanvan.repository.HotRepository;
 import com.stu.luanvan.repository.InvoiceRepository;
+import com.stu.luanvan.repository.ProductRepository;
 import com.stu.luanvan.repository.ReviewRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,6 +33,8 @@ public class ConExpressionConfig {
     private InvoiceRepository invoiceRepository;
     @Autowired
     private HotRepository hotRepository;
+    @Autowired
+    private ProductRepository productRepository;
     private final Logger logger = LogManager.getLogger(getClass());
     @Bean
     public TaskScheduler taskScheduler() {
@@ -84,5 +87,16 @@ public class ConExpressionConfig {
             logger.error(ex);
         }
     }
-
+    @Scheduled(cron="0 23 L * ?") //23h ngay cuoi cung cua thang
+    public void scheduledFreshProductCron() {
+        try{
+            var product = productRepository.findByFreshTrue();
+            product.forEach(e->{
+                e.setFresh(false);
+            });
+            productRepository.saveAll(product);
+        }catch(Exception ex){
+            logger.error(ex);
+        }
+    }
 }

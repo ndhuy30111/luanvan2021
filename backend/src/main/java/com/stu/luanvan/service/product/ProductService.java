@@ -42,6 +42,8 @@ public class ProductService implements ProductServiceInterface{
     @Autowired
     private FileRepository fileRepository;
     @Autowired
+    private HotRepository hotRepository;
+    @Autowired
     private DetailsProductReponsitory detailsProductReponsitory;
     @Override
     public Map<String, Object> findByAll(Integer page, Integer size, String nameSort) {
@@ -63,6 +65,14 @@ public class ProductService implements ProductServiceInterface{
     @Override
     public ProductModel findById(Integer id) {
         return productRepository.findById(id).orElse(null);
+    }
+    public Collection<ProductModel> findByHot() {
+        Collection<ProductModel> list = new ArrayList<>();
+        var hot = hotRepository.findAll();
+        hot.forEach(el->{
+            list.add(el.getProduct());
+        });
+        return list;
     }
 
     @Override

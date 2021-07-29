@@ -21,7 +21,6 @@ import javax.validation.Valid;
 public class InvoicesController {
     @Autowired
     private InvoiceService invoiceService;
-
     @GetMapping("/not")
     public ResponseEntity<?> getFindAllNot() {
         var user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserModel();
