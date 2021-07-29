@@ -9,15 +9,15 @@
     <v-app-bar-nav-icon @click="$emit('action')"></v-app-bar-nav-icon>
     <v-toolbar-title>{{ $local.vn_admin.admin }}</v-toolbar-title>
     <v-spacer></v-spacer>
-
-    <v-btn icon>
-      <v-icon>mdi-dots-vertical</v-icon>
-    </v-btn>
+    <MenuAccount></MenuAccount>
   </v-app-bar>
 </template>
 
 <script>
-export default {}
+import MenuAccount from '~/components/user/MenuAccount.vue'
+export default {
+  components: { MenuAccount },
+}
 </script>
 
 <style></style>

@@ -10,6 +10,8 @@ export default {
     commit(this.$constant.admin.MUTATION_ADMIN_INVOICE_TRANSPORT, allTransport)
     const complete = await this.$repositories.invoiceAdmin.allComplete()
     commit(this.$constant.admin.MUTATION_ADMIN_INVOICE_COMPLETE, complete)
+    const returns = await this.$repositories.invoiceAdmin.allReturn()
+    commit(this.$constant.admin.MUTATION_ADMIN_INVOICE_COMPLETE, returns)
   },
   async notData({ commit }) {
     const payload = await this.$repositories.invoiceAdmin.allNot()
@@ -35,6 +37,11 @@ export default {
   async cancelData({ commit }) {
     const payload = await this.$repositories.invoiceAdmin.allCancel()
     commit(this.$constant.admin.MUTATION_ADMIN_INVOICE_INIT, payload)
+    return payload.data
+  },
+  async returnData({ commit }) {
+    const payload = await this.$repositories.invoiceAdmin.allReturn()
+    commit(this.$constant.admin.MUTATION_ADMIN_INVOICE_RETURN, payload)
     return payload.data
   },
   async submit({ commit }, payload) {
@@ -67,6 +74,19 @@ export default {
     this.$toast.global.loading()
     try {
       const res = await this.$repositories.invoiceAdmin.paid(payload.id)
+      const { status } = res
+      if (status === 200) {
+        this.$toast.global.success()
+        return true
+      }
+    } catch (e) {
+      return false
+    }
+  },
+  async ret({ commit }, payload) {
+    this.$toast.global.loading()
+    try {
+      const res = await this.$repositories.invoiceAdmin.ret(payload.id)
       const { status } = res
       if (status === 200) {
         this.$toast.global.success()

@@ -20,6 +20,10 @@ export default ($axios) => ({
   allCancel() {
     return $axios.get(`${resource}/cancel`)
   },
+
+  allReturn() {
+    return $axios.get(`${resource}/return`)
+  },
   show(id) {
     return $axios.get(`${resource}/${id}`)
   },
@@ -41,5 +45,8 @@ export default ($axios) => ({
 
   paid(id) {
     return $axios.put(`${resource}/${id}/paid`)
+  },
+  ret(id) {
+    return $axios.put(`${resource}/${id}/return`)
   },
 })

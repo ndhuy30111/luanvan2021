@@ -1,13 +1,13 @@
 export default () => ({
   CATEGORY_HEADER: [
     {
-      text: 'Tên danh mục',
+      text: 'Tên loại sản phẩm',
       align: 'start',
       value: 'name',
     },
     { text: 'Đường dẫn', value: 'url' },
     { text: 'Độ ưu tiên', value: 'sort' },
-    { text: 'Danh mục Cha', value: 'category' },
+    { text: 'Loại sản phẩm Cha', value: 'category' },
     { text: 'Ngày tạo', value: 'createDate' },
     { text: 'Người tạo', value: 'createBy' },
     { text: 'Người cập nhập', value: 'lastModifiedBy' },
@@ -31,7 +31,7 @@ export default () => ({
       value: 'name',
     },
     { text: 'Đường dẫn', value: 'url' },
-    { text: 'Danh mục', value: 'category' },
+    { text: 'Loại sản phẩm', value: 'category' },
     { text: 'Ngày tạo', value: 'createDate' },
     { text: 'Người tạo', value: 'createBy' },
     { text: 'Người cập nhập', value: 'lastModifiedBy' },

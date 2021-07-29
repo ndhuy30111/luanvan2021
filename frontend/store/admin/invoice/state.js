@@ -5,4 +5,5 @@ export default () => ({
   transport: [],
   complete: [],
   cancel: [],
+  return: [],
 })

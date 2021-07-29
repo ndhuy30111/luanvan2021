@@ -53,6 +53,14 @@ public class InvoiceController {
     public ResponseEntity<?> getFindAllCancel() {
         return new ResponseEntity<>(invoiceService.findAllStatus(InvoiceStatus.CANCEL_INVOICED),HttpStatus.OK);
     }
+    @GetMapping("/return")
+    public ResponseEntity<?> getFindAllReturn() {
+        return new ResponseEntity<>(invoiceService.findAllStatus(InvoiceStatus.RETURN_INVOICED),HttpStatus.OK);
+    }
+    @PutMapping("/{id}/return")
+    public ResponseEntity<?> putSaveReturn(@PathVariable Integer id ) throws Exception {
+        return new ResponseEntity<>(invoiceService.saveReturn(id),HttpStatus.OK);
+    }
     @PutMapping("/{id}/status")
     public ResponseEntity<?> putSave(@PathVariable Integer id ) throws Exception {
         return new ResponseEntity<>(invoiceService.saveStatus(id),HttpStatus.OK);

@@ -115,6 +115,10 @@ export default {
                   name: this.$local.vn_admin_menu.INVOICE_CANCEL_RECEIVE,
                   url: 'admin-invoice-cancel',
                 },
+                {
+                  name: this.$local.vn_admin_menu.INVOICE_RETURN_RECEIVE,
+                  url: 'admin-invoice-return',
+                },
               ],
             },
           ],

@@ -17,4 +17,8 @@ export default {
   MUTATION_ADMIN_INVOICE_CANCEL(state, payload) {
     state.cancel = payload.data
   },
+
+  MUTATION_ADMIN_INVOICE_RETURN(state, payload) {
+    state.return = payload.data
+  },
 }

@@ -119,12 +119,6 @@
                 >
               </v-row>
             </v-container>
-            <v-card-actions>
-              <v-btn color="red darken-1" text @click="billReturn"
-                >Hủy đơn hàng</v-btn
-              >
-              <v-spacer></v-spacer>
-            </v-card-actions>
           </v-card>
         </v-dialog>
       </v-toolbar>
@@ -185,35 +179,15 @@ export default {
   methods: {
     async init() {
       this.coupons = await this.$store.dispatch(
-        this.$constant.admin.ACTION_ADMIN_INVOICE_INIT_COMPLETE
+        this.$constant.admin.ACTION_ADMIN_INVOICE_INIT_RETURN
       )
     },
 
-    detail(item) {
-      this.detailsDialog = true
-      this.editedItem = Object.assign({}, item)
-    },
     close() {
       this.detailsDialog = false
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
       })
-    },
-    billReturn() {
-      this.action = 'ret'
-      this.message = 'Bạn muốn hoàn lại đơn hàng ?'
-      this.detailsDialog = false
-      this.dialog = true
-    },
-    async save() {
-      if (this.action === 'ret') {
-        await this.$store.dispatch(
-          this.$constant.admin.ACTION_ADMIN_INVOICE_RETURN,
-          this.editedItem
-        )
-      }
-      this.init()
-      this.closeDialog()
     },
     closeDialog() {
       this.action = ''
@@ -222,6 +196,10 @@ export default {
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
       })
+    },
+    detail(item) {
+      this.detailsDialog = true
+      this.editedItem = Object.assign({}, item)
     },
   },
 }
