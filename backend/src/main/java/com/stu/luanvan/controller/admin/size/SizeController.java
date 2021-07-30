@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @RequestMapping(URlController.SIZE_ADMIN)
 @CrossOrigin
 @EnableTransactionManagement
-public class SizeController implements SizeInterfacaeController{
+public class SizeController implements SizeInterfacaController {
     @Autowired
     private SizeService sizeService;
     @Override

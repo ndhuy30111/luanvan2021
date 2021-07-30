@@ -42,7 +42,8 @@ public class ConExpressionConfig {
         scheduler.setPoolSize(10);
         return scheduler;
     }
-    @Scheduled(cron = "0 0 * * * *")
+
+    @Scheduled(fixedDelay = 1000 * 60 * 100)
     public void scheduleReviewCommentFixedDelayTask() throws InterruptedException{
         try{
             var review = reviewRepository.findByStatusFalse();
@@ -87,7 +88,7 @@ public class ConExpressionConfig {
             logger.error(ex);
         }
     }
-    @Scheduled(cron="0 23 L * ?") //23h ngay cuoi cung cua thang
+    @Scheduled(cron="0 23 1 * * ?") //23h ngay cuoi cung cua thang
     public void scheduledFreshProductCron() {
         try{
             var product = productRepository.findByFreshTrue();

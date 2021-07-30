@@ -10,6 +10,7 @@ import com.stu.luanvan.model.detailsproduct.DetailsProductModel;
 import com.stu.luanvan.model.file.FileModel;
 import com.stu.luanvan.model.invoicedetails.InvoiceDetailsModel;
 import com.stu.luanvan.model.review.ReviewModel;
+import com.stu.luanvan.model.supplier.SupplierModel;
 import com.stu.luanvan.request.product.ProductRequest;
 import com.stu.luanvan.service.slugify.SlugifyService;
 import lombok.AllArgsConstructor;
@@ -100,7 +101,9 @@ public class ProductModel extends BaseModel {
     @JsonView(BaseViews.Public.class)
     @JsonManagedReference
     private Collection<ReviewModel> review;
-
+    @ManyToOne
+    @JoinColumn(name="supplier_id")
+    private SupplierModel supplier;
     public void setName( String name) {
         this.name = name.trim();
         this.url = SlugifyService.Url(this.name);

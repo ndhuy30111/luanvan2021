@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 
-public interface SizeInterfacaeController {
+public interface SizeInterfacaController {
     ResponseEntity<?> postSave(@Valid @RequestBody SizeRequest sizeRequest) throws Exception;
 }
