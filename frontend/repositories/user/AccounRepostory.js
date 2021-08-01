@@ -14,4 +14,7 @@ export default ($axios) => ({
   facebook(payload) {
     return $axios.post('/facebook', payload)
   },
+  verification(payload) {
+    return $axios.get('/verification?token=' + payload)
+  },
 })

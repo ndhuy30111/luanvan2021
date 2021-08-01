@@ -12,6 +12,14 @@ export default {
       alert(error)
     }
   },
+  async verification({ commit }, token) {
+    const res = await this.$repositories.account.verification(token)
+    const { status } = res
+    if (status === 200) {
+      this.$toast.global.success()
+      this.$router.push({ name: 'loginregister' })
+    }
+  },
   async loginFacebook({ commit }, hash) {
     try {
       const stats = await hash.indexOf('=')

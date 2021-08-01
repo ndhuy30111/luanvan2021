@@ -1,7 +1,6 @@
 export default () => ({
   ACTIONS_CATEGORYS_GETALL: 'user/categorys/getAll',
 
-  // Cart has Account
   ACTION_CART_ADDTOCART_USER: 'user/cart/addCartUser',
   ACTION_SHOW_CART_USER: 'user/cart/showcartUser',
   ACTION_REMOVE_CART_USER: 'user/cart/removeCartUser',
@@ -10,7 +9,6 @@ export default () => ({
   ACTION_PLUS_ITEMCART_USER: 'user/cart/plusUser',
   ACTION_MINUS_ITEMCART_USER: 'user/cart/minusUser',
 
-  // Cart hasn't Account
   ACTION_CART_ADDTOCART: 'user/cart/addCart',
   ACTION_SHOW_CART: 'user/cart/render',
   ACTION_REMOVE_CART: 'user/cart/removeProductCart',
@@ -21,6 +19,7 @@ export default () => ({
   ACTIONS_USER_LOGINFACEBOOK: 'user/account/loginFacebook',
   ACTIONS_USER_REGISTERFACEBOOk: 'user/account/registerFacebook',
   ACTIONS_USER_UPDATE: 'user/account/update',
+  ACTIONS_USER_ACTIVE: 'user/account/verification',
 
   ACTIONS_PRODUCT_GETALL: 'user/product/getAll',
   ACTIONS_PC_GET: 'user/product/getProductCategory',

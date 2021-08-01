@@ -62,7 +62,7 @@ public class AuthenticatorController {
         mailMessage.setSubject("Complete Registration!");
         mailMessage.setFrom("myduyen06122910@gmail.com");
         mailMessage.setText("To confirm your account, please click here : "
-                +"https://localhost:8080/api/verification?token="+verificationUserEntity.getConfirmationToken());
+                +"https://localhost:3000/verification?token="+verificationUserEntity.getConfirmationToken());
         sendMailService.sendEmail(mailMessage);
         return user==null ? new ResponseEntity<>(HttpStatus.NOT_FOUND): new ResponseEntity<>(HttpStatus.CREATED);
     }
