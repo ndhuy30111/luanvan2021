@@ -263,6 +263,17 @@ export default {
           icon: 'check',
         },
       },
+      {
+        name: 'checkemail',
+        message: 'Đăng ký thành công. Kiểm tra email để kích hoạt tài khoản',
+        options: {
+          position: 'top-center',
+          type: 'success',
+          duration: 5000,
+          theme: 'outline',
+          icon: 'check',
+        },
+      },
     ],
   },
 }

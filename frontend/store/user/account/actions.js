@@ -6,7 +6,7 @@ export default {
       const res = await this.$repositories.account.register(user)
       const { status } = res
       if (status === 201) {
-        this.$toast.global.success()
+        this.$toast.global.checkemail()
       }
     } catch (error) {
       alert(error)
@@ -16,7 +16,6 @@ export default {
     const res = await this.$repositories.account.verification(token)
     const { status } = res
     if (status === 200) {
-      this.$toast.global.success()
       this.$router.push({ name: 'loginregister' })
     }
   },

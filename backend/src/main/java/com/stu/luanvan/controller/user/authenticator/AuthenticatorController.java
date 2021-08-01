@@ -92,10 +92,12 @@ public class AuthenticatorController {
             if(user.isEnabled() == false) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            var userDetails = myUserDetailsService.loadUserByUsername(loginRequest.getEmail());
-            var jwt =jwtUtil.generateToken(userDetails);
-            var date = jwtUtil.extractExpiration(jwt);
-            return new ResponseEntity<>(new JwtResponse(jwt,date),HttpStatus.OK);
+            else {
+                var userDetails = myUserDetailsService.loadUserByUsername(loginRequest.getEmail());
+                var jwt =jwtUtil.generateToken(userDetails);
+                var date = jwtUtil.extractExpiration(jwt);
+                return new ResponseEntity<>(new JwtResponse(jwt,date),HttpStatus.OK);
+            }
         }
     }
     @PutMapping("/user")

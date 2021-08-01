@@ -8,16 +8,7 @@
     <v-row>
       <v-col>
         <div class="d-flex justify-content-center">
-          <h2>Xác thực email</h2>
-        </div>
-        <div class="d-flex justify-content-center">
-          <b-button
-            id="shopnow"
-            class="btn"
-            type="submit"
-            @click="activeAccount"
-            >Active Account</b-button
-          >
+          <h2>Đã xác thực email</h2>
         </div>
       </v-col>
     </v-row>
@@ -35,11 +26,9 @@ import Bubble2 from '../components/Bubble2'
 export default {
   components: { Bubble1, Bubble2 },
   layout: 'enabled',
-  methods: {
-    activeAccount() {
-      const token = this.$route.query.token
-      this.$store.dispatch(this.$constant.user.ACTIONS_USER_ACTIVE, token)
-    },
+  mounted() {
+    const token = this.$route.query.token
+    this.$store.dispatch(this.$constant.user.ACTIONS_USER_ACTIVE, token)
   },
 }
 </script>
