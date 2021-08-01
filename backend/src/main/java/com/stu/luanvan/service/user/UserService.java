@@ -140,4 +140,9 @@ public class UserService implements UserServiceInterfaces {
     public UserModel findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    public UserModel isEnabled(UserModel user) {
+        user.setEnabled(true);
+        return userRepository.save(user);
+    }
 }

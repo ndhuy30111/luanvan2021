@@ -28,6 +28,5 @@ public class MyUserDetailsService implements UserDetailsService {
              throw new UsernameNotFoundException(email);
         }
         return new MyUserDetails(userModel);
-
     }
 }

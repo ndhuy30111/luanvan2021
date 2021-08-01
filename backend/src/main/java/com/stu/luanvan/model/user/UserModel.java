@@ -55,7 +55,7 @@ public class UserModel{
 
     @Column
     @JsonView(BaseViews.Public.class)
-    private boolean isEnabled;
+    private boolean isEnabled = false;
 
     @Column(columnDefinition = "VARCHAR(13) default 0  COMMENT 'Số điện thoại khách hàng' ",unique = true)
 //    @Pattern(regexp = PatternLocales.NUMBERPHONE_PATTERN,message = MessageLocales.NUMBERPHONE_PATTERN)
@@ -109,6 +109,7 @@ public class UserModel{
         this.name = name;
         this.email = email;
         this.accessToken = accessToken;
+        this.isEnabled = true;
     }
 
     public void edit(UserRequest ur){
