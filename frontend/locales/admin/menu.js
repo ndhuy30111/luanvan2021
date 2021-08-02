@@ -21,4 +21,6 @@ export default () => ({
   INVOICE_COMPLETE_RECEIVE: 'Hoàn thành',
   INVOICE_CANCEL_RECEIVE: 'Đơn bị hủy',
   INVOICE_RETURN_RECEIVE: 'Hoàn trả đơn hàng',
+  SUPPLIER_MANAGEMENT: 'Quản lý nhà cung cấp',
+  SUPPLIER_VIEW: 'Xem danh sách',
 })

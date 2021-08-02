@@ -1,5 +1,6 @@
 package com.stu.luanvan.service.email;
 
+import com.stu.luanvan.model.user.UserModel;
 import com.stu.luanvan.model.verification.VerificationModel;
 import com.stu.luanvan.repository.VerificationEmailReponsitory;
 import com.stu.luanvan.repository.VerificationEmailServiceImpl;
@@ -14,12 +15,15 @@ public class VerificationEmailService implements VerificationEmailServiceImpl {
     public VerificationModel getVerificationToken(String token) {
 
         try {
-            VerificationModel a = verificationEmailReponsitory.findOneByConfirmationToken(token);
-            return a;
+            return verificationEmailReponsitory.findOneByConfirmationToken(token);
         }catch(Exception ex)
         {
             return null;
         }
 
+    }
+    public VerificationModel save(UserModel user){
+        VerificationModel verificationUserEntity = new VerificationModel(user);
+        return verificationEmailReponsitory.save(verificationUserEntity);
     }
 }

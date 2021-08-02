@@ -2,11 +2,9 @@ package com.stu.luanvan.controller.user.authenticator;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.stu.luanvan.exception.NotFoundEx;
-import com.stu.luanvan.locales.ExceptionLocales;
 import com.stu.luanvan.model.BaseViews;
 import com.stu.luanvan.model.user.UserModel;
 import com.stu.luanvan.model.verification.VerificationModel;
-import com.stu.luanvan.repository.VerificationEmailReponsitory;
 import com.stu.luanvan.request.UserRequest;
 import com.stu.luanvan.request.auth.AccessTokenRequest;
 import com.stu.luanvan.request.auth.LoginRequest;
@@ -21,7 +19,6 @@ import com.stu.luanvan.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,7 +33,6 @@ import javax.validation.Valid;
 @RequestMapping("/api")
 @EnableTransactionManagement
 public class AuthenticatorController {
-
     @Autowired
     private UserService userService;
     @Autowired
@@ -46,25 +42,16 @@ public class AuthenticatorController {
     @Autowired
     private JwtUtil jwtUtil;
     @Autowired
-    private VerificationEmailReponsitory verificationEmailReponsitory;
-    @Autowired
     private SendMailService sendMailService;
     @Autowired
     private VerificationEmailService verificationEmailService;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest userRequest) throws Exception {
-         var user = userService.saveNew(userRequest);
-        VerificationModel verificationUserEntity = new VerificationModel(user);
-        verificationEmailReponsitory.save(verificationUserEntity);
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(user.getEmail());
-        mailMessage.setSubject("Complete Registration!");
-        mailMessage.setFrom("myduyen06122910@gmail.com");
-        mailMessage.setText("To confirm your account, please click here : "
-                +"https://localhost:3000/verification?token="+verificationUserEntity.getConfirmationToken());
-        sendMailService.sendEmail(mailMessage);
-        return user==null ? new ResponseEntity<>(HttpStatus.NOT_FOUND): new ResponseEntity<>(HttpStatus.CREATED);
+        var user = userService.saveNew(userRequest);
+        var verificationUserEntity = verificationEmailService.save(user);
+        sendMailService.sendEmail(verificationUserEntity);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
     @GetMapping("/verification")
     public ResponseEntity<?>verification(@RequestParam(value = "token") String token)
@@ -89,7 +76,7 @@ public class AuthenticatorController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         else {
-            if(user.isEnabled() == false) {
+            if(!user.isEnabled()) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
             else {

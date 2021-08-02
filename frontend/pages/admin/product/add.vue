@@ -46,7 +46,6 @@
                       outlined
                       suffix="₫"
                     />
-                    {{ form.price }}
                   </v-col>
                 </v-row>
                 <v-row>
@@ -100,6 +99,11 @@
                     <span v-if="info.valid" style="color: red">{{
                       info.msg
                     }}</span>
+                    <v-select
+                      item-text="name"
+                      item-value="id"
+                      outlined
+                    ></v-select>
                   </v-col>
                 </v-row>
                 <v-row>

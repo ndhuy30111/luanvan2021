@@ -86,6 +86,7 @@ public class UserService implements UserServiceInterfaces {
         }
         try{
                 UserModel user = new UserModel(userRequest);
+
                 return userRepository.save(user);
             }catch (Exception ex){
                 logger.error(ex.getMessage());

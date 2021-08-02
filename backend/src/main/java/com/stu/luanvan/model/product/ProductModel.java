@@ -101,9 +101,14 @@ public class ProductModel extends BaseModel {
     @JsonView(BaseViews.Public.class)
     @JsonManagedReference
     private Collection<ReviewModel> review;
+
     @ManyToOne
     @JoinColumn(name="supplier_id")
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="name")
+    @JsonIdentityReference(alwaysAsId = true)
     private SupplierModel supplier;
+
+
     public void setName( String name) {
         this.name = name.trim();
         this.url = SlugifyService.Url(this.name);

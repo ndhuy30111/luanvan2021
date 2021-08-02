@@ -31,12 +31,12 @@ public class SupplierModel  extends BaseModel {
         this.name = supplierRequest.getName();
         this.number = supplierRequest.getNumber();
         this.address = supplierRequest.getAddress();
-        this.website = supplierRequest.getAddress();
+        this.website = supplierRequest.getWebsite();
     }
     public void edit(SupplierRequest supplierRequest){
         this.name = supplierRequest.getName();
         this.number = supplierRequest.getNumber();
         this.address = supplierRequest.getAddress();
-        this.website = supplierRequest.getAddress();
+        this.website = supplierRequest.getWebsite();
     }
 }

@@ -15,6 +15,22 @@ export default () => ({
 
     { text: '', value: 'actions', sortable: false },
   ],
+  SUPPLIER_HEADER: [
+    {
+      text: 'Tên nhà cung cấp',
+      align: 'start',
+      value: 'name',
+    },
+    { text: 'Số điện thoại', value: 'number' },
+    { text: 'Địa chỉ', value: 'address' },
+    { text: 'Website', value: 'website' },
+    { text: 'Ngày tạo', value: 'createDate' },
+    { text: 'Người tạo', value: 'createBy' },
+    { text: 'Người cập nhập', value: 'lastModifiedBy' },
+    { text: 'Ngày cập nhập', value: 'lastModifiedDate' },
+
+    { text: '', value: 'actions', sortable: false },
+  ],
   COLOR_HEADER: [
     {
       text: 'Tên màu',

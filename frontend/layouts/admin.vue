@@ -44,6 +44,15 @@ export default {
               ],
             },
             {
+              name: this.$local.vn_admin_menu.SUPPLIER_MANAGEMENT,
+              function: [
+                {
+                  name: this.$local.vn_admin_menu.SUPPLIER_VIEW,
+                  url: 'admin-supplier',
+                },
+              ],
+            },
+            {
               name: this.$local.vn_admin_menu.PRODUCT_MANAGEMENT,
               function: [
                 {
@@ -134,6 +143,7 @@ export default {
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_COUPON_INIT)
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_INVOICE_INIT)
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_REVIEW_INIT)
+    this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_SUPPLIER_INIT)
   },
 }
 </script>

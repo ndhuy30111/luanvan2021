@@ -37,7 +37,7 @@ public class SupplierService implements SupplierServiceInterfaces{
     public SupplierModel saveNew(SupplierRequest supplierRequest) throws Exception {
         try{
             var supplier = new SupplierModel(supplierRequest);
-            return supplierRepository.saveAndFlush(supplier);
+            return supplierRepository.save(supplier);
         }catch(Exception ex) {
             logger.error("Save Supplier: ", ex);
             throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);

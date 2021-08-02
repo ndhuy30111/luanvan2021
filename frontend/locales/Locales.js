@@ -9,6 +9,7 @@ import AdminPorudct from '~/locales/admin/product'
 import ADMINGENERAL from '~/locales/admin/general'
 import ADMINCOLOR from '~/locales/admin/color'
 import ADMINREVIEW from '~/locales/admin/review'
+import ADMINSUPPLIER from '~/locales/admin/supplier'
 export default () => ({
   vn: UserMsg(),
 
@@ -20,4 +21,5 @@ export default () => ({
   vn_admin_general: ADMINGENERAL(),
   vn_admin_color: ADMINCOLOR(),
   vn_admin_review: ADMINREVIEW(),
+  vn_admin_supplier: ADMINSUPPLIER(),
 })
