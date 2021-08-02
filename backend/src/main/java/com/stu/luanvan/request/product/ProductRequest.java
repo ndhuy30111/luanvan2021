@@ -30,6 +30,7 @@ public class ProductRequest{
     private String infoSmall;
     private FileRequest file;
     private Integer category;
+    private Integer supplier;
     private Collection<DetailsProductRequest> detailsProduct;
 
 

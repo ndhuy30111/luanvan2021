@@ -100,6 +100,11 @@
                       info.msg
                     }}</span>
                     <v-select
+                      v-model="form.supplier"
+                      class="mt-2"
+                      :items="supplier"
+                      :rules="$rule.ADMIN_PRODUCT_SUPPLIER_NAME"
+                      :label="$local.vn_admin_product.SUPPLIER_NAME"
                       item-text="name"
                       item-value="id"
                       outlined
@@ -311,6 +316,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 export default {
@@ -358,11 +364,19 @@ export default {
     menu: false,
   }),
   computed: {
+    ...mapGetters({
+      categorys: 'admin/category/getFindAll',
+      colors: 'admin/color/getAll',
+      suppliers: 'admin/supplier/getFindAll',
+    }),
     category() {
-      return this.$store.state.admin.category.select
+      return this.categorys
     },
     color() {
-      return this.$store.state.admin.color.color
+      return this.colors
+    },
+    supplier() {
+      return this.suppliers
     },
   },
   created() {

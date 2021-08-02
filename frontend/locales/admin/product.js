@@ -28,4 +28,5 @@ export default () => ({
   ICON_ADD_PLUS: 'mdi-plus',
   ICON_DEL_MINUS: 'mdi-minus',
   BTN_EDIT_IMAGE: 'Thay đổi hình ảnh',
+  SUPPLIER_NAME: 'Nhà cung cấp',
 })

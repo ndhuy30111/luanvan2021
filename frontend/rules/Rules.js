@@ -32,4 +32,6 @@ export default () => ({
   ADMIN_PRODUCT_NAME_SIZE: [(v) => !!v || 'Bắt bược nhập tên sai'],
   ADMIN_PRODUCT_COLOR_IMAGE: [(v) => !!v || 'Bạn phải chọn màu'],
   ADMIN_PRODUCT_COLOR_NAME: [(v) => !!v || 'Bắt buộc nhập tên màu'],
+
+  ADMIN_PRODUCT_SUPPLIER_NAME: [(v) => !!v || 'Bắt buộc nhập nhà cung cấp'],
 })

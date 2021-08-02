@@ -119,29 +119,31 @@ public class ProductModel extends BaseModel {
     }
 
 
-    public ProductModel( String name, Long price, String info, String infoSmall, FileModel image) {
+    public ProductModel( String name, Long price, String info, String infoSmall, FileModel image,SupplierModel supplier) {
         setName(name);
         this.price = price;
         this.info = info;
         this.infoSmall = infoSmall;
         this.image = image;
+        this.supplier = supplier;
     }
 
-    public void edit(ProductRequest pr){
+    public void edit(ProductRequest pr,SupplierModel supplier){
         if(!StringUtils.isEmpty(pr.getName())){
             setName(pr.getName());
         }
-
-        if(pr.getPrice()>1000000){
+        if(pr.getPrice()>1000){
             this.price = pr.getPrice();
         }
-
         if(!StringUtils.isEmpty(pr.getInfo())){
             this.info = pr.getInfo();
         }
 
         if(!StringUtils.isEmpty(pr.getInfoSmall())){
             this.infoSmall = pr.getInfoSmall();
+        }
+        if(supplier!=null){
+            this.supplier = supplier;
         }
     }
 }

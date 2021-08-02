@@ -5,14 +5,16 @@ export default {
   },
   async addProduct({ commit }, item) {
     this.$toast.global.loading()
-    const res = await this.$repositories.productAdmin.create(item)
-    const { status, data } = res
-    if (status === 201) {
-      this.$toast.global.success()
-      commit(this.$constant.admin.MUTATION_ADMIN_PRODUCT_ADD, data)
-      return true
-    } else {
-      // Handle error here
+    let res = null
+    try {
+      res = await this.$repositories.productAdmin.create(item)
+      const { status, data } = res
+      if (status === 201) {
+        this.$toast.global.success()
+        commit(this.$constant.admin.MUTATION_ADMIN_PRODUCT_ADD, data)
+        return true
+      }
+    } catch (e) {
       this.$toast.global.error()
       return false
     }
@@ -25,6 +27,7 @@ export default {
         price: item.price,
         infoSmall: item.infoSmall,
         info: item.info,
+        supplier: item.supplier,
       }
       const res = await this.$repositories.productAdmin.update(item.id, product)
       const { status, data } = res

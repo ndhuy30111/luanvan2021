@@ -46,6 +46,7 @@ export default () => ({
       align: 'start',
       value: 'name',
     },
+    { text: 'Nhà cung cấp', value: 'supplier' },
     { text: 'Đường dẫn', value: 'url' },
     { text: 'Loại sản phẩm', value: 'category' },
     { text: 'Ngày tạo', value: 'createDate' },

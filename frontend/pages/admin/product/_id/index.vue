@@ -46,7 +46,7 @@
             ><v-divider></v-divider>
             <v-container>
               <v-row>
-                <v-col cols="12" sm="6">
+                <v-col cols="12" sm="4">
                   <v-text-field
                     v-model="products.name"
                     :label="$local.vn_admin_product.NAME"
@@ -55,7 +55,18 @@
                     required
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="6">
+                <v-col cols="12" sm="4">
+                  <v-select
+                    v-model="products.supplier"
+                    :items="supplier"
+                    :rules="$rule.ADMIN_PRODUCT_SUPPLIER_NAME"
+                    :label="$local.vn_admin_product.SUPPLIER_NAME"
+                    item-text="name"
+                    item-value="id"
+                    outlined
+                  ></v-select>
+                </v-col>
+                <v-col cols="12" sm="4">
                   <v-text-field
                     v-model="products.price"
                     v-mask="'#########'"
@@ -480,6 +491,8 @@ export default {
       // map `this.doneCount` to `this.$store.getters.doneTodosCount`
       product: 'admin/product/getFindProduct',
       color: 'admin/color/getAll',
+
+      suppliers: 'admin/supplier/getFindAll',
     }),
     products() {
       const item = this.product({ id: this.$route.params.id })
@@ -489,6 +502,9 @@ export default {
         return this.clone(item)
       }
       return { name: '' }
+    },
+    supplier() {
+      return this.suppliers
     },
     colors() {
       const item = this.products

@@ -7,6 +7,7 @@ import com.stu.luanvan.model.detailsproduct.DetailsProductModel;
 import com.stu.luanvan.model.file.FileModel;
 import com.stu.luanvan.model.product.ProductModel;
 import com.stu.luanvan.model.size.SizeModel;
+import com.stu.luanvan.model.supplier.SupplierModel;
 import com.stu.luanvan.repository.*;
 import com.stu.luanvan.request.product.ProductEditRequest;
 import com.stu.luanvan.request.product.ProductRequest;
@@ -45,6 +46,8 @@ public class ProductService implements ProductServiceInterface{
     private HotRepository hotRepository;
     @Autowired
     private DetailsProductReponsitory detailsProductReponsitory;
+    @Autowired
+    private SupplierRepository supplierRepository;
     @Override
     public Map<String, Object> findByAll(Integer page, Integer size, String nameSort) {
         Pageable pageable;
@@ -78,29 +81,36 @@ public class ProductService implements ProductServiceInterface{
     @Override
     @Transactional(rollbackFor = Throwable.class)
     public ProductModel saveNew(ProductRequest productRequest) throws Exception {
-        try{
             FileModel file;
             if(productRequest.getFile()==null){
                 file = cloudinaryService.uploadFile(productRequest.getImage(),productRequest.getName());
             }else{
                 file = fileRepository.findByName(productRequest.getFile().getPublicId());
             }
-
-            var product = new ProductModel(productRequest.getName(),productRequest.getPrice(),productRequest.getInfo(),productRequest.getInfoSmall(),file);
-            var category = categoryService.findById(productRequest.getCategory());
-            if(category!=null){
-                Collection<CategoryModel> listCategory = new ArrayList<>();
-                listCategory.add(category);
-                while(true){
-                    category = category.getCategory();
-                    if(category==null){
-                        break;
-                    }
-                    listCategory.add(category);
-                }
-                product.setCategory(listCategory);
+            var supplier = supplierRepository.findById(productRequest.getSupplier()).orElse(null);
+            if(supplier==null){
+                throw new NotFoundEx(ExceptionLocales.NOT_FOUND);
             }
-            productRepository.saveAndFlush(product);
+            var product = new ProductModel(productRequest.getName(),productRequest.getPrice(),productRequest.getInfo(),productRequest.getInfoSmall(),file,supplier);
+            var category = categoryService.findById(productRequest.getCategory());
+         try {
+             if (category != null) {
+                 Collection<CategoryModel> listCategory = new ArrayList<>();
+                 listCategory.add(category);
+                 while (true) {
+                     category = category.getCategory();
+                     if (category == null) {
+                         break;
+                     }
+                     listCategory.add(category);
+                 }
+                 product.setCategory(listCategory);
+             }
+         }catch (Exception ex){
+             logger.error("Save Product: ",ex);
+             throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);
+         }
+        try{   productRepository.saveAndFlush(product);
             productRequest.getDetailsProduct().forEach(c->{
                 FileModel filecolor;
 
@@ -127,12 +137,16 @@ public class ProductService implements ProductServiceInterface{
     @Override
     @Transactional(rollbackFor = Throwable.class)
     public ProductModel saveEdit(ProductRequest productRequest,int id) throws Exception {
-        try{
+        SupplierModel supplier = null;
             var product = findById(id);
             if(product==null){
                 throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
             }
-            product.edit(productRequest);
+            if(productRequest.getSupplier()!=null){
+                supplier = supplierRepository.findById(productRequest.getSupplier()).orElse(null);
+            }
+        try{
+            product.edit(productRequest,supplier);
             productRepository.save(product);
             return product;
         }catch(Exception ex){

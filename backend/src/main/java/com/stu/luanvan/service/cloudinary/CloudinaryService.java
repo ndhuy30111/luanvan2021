@@ -43,11 +43,11 @@ public class CloudinaryService {
      * @return
      */
     public FileModel uploadFile(String file, String name) {
-        try {
+
             if(StringUtils.isEmpty(name)){
                 throw new BadRequestEx("Không có tên hình");
             }
-
+        try {
             var uploadResult = cloudinaryConfig.uploader()
                     .upload(file, ObjectUtils.asMap(
                             "public_id",name,
