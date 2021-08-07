@@ -88,7 +88,7 @@ public class ConExpressionConfig {
             logger.error(ex);
         }
     }
-    @Scheduled(cron="0 23 1 * * ?") //23h ngay cuoi cung cua thang
+    @Scheduled(cron="0 1 1 * * ?") //23h ngay cuoi cung cua thang
     public void scheduledFreshProductCron() {
         try{
             var product = productRepository.findByFreshTrue();

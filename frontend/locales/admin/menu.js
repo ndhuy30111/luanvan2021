@@ -23,4 +23,6 @@ export default () => ({
   INVOICE_RETURN_RECEIVE: 'Hoàn trả đơn hàng',
   SUPPLIER_MANAGEMENT: 'Quản lý nhà cung cấp',
   SUPPLIER_VIEW: 'Xem danh sách',
+  INFOWEB_MANAGEMENT: 'Thông tin cửa hàng',
+  INFOWEB_VIEW: 'Xem thông tin',
 })

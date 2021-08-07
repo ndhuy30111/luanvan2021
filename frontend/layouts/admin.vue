@@ -83,6 +83,15 @@ export default {
                 },
               ],
             },
+            {
+              name: this.$local.vn_admin_menu.INFOWEB_MANAGEMENT,
+              function: [
+                {
+                  name: this.$local.vn_admin_menu.INFOWEB_VIEW,
+                  url: 'admin-info',
+                },
+              ],
+            },
           ],
         },
         {
@@ -144,6 +153,7 @@ export default {
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_INVOICE_INIT)
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_REVIEW_INIT)
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_SUPPLIER_INIT)
+    this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_INFOWEB_INIT)
   },
 }
 </script>

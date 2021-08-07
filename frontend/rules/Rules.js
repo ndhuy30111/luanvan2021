@@ -34,4 +34,7 @@ export default () => ({
   ADMIN_PRODUCT_COLOR_NAME: [(v) => !!v || 'Bắt buộc nhập tên màu'],
 
   ADMIN_PRODUCT_SUPPLIER_NAME: [(v) => !!v || 'Bắt buộc nhập nhà cung cấp'],
+
+  ADMIN_MAP: [(v) => !!v || 'Bắt buộc nhập'],
+  ADMIN_NUMBERPHONE: [(v) => !!v || 'Bắt buộc nhập số điện thoại'],
 })

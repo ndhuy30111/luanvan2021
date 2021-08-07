@@ -105,4 +105,8 @@ export default () => ({
   ACTION_ADMIN_SUPPLIER_ADD: 'admin/supplier/addSupplier',
   ACTION_ADMIN_SUPPLIER_UPDATA: 'admin/supplier/updataSupplier',
   ACTION_ADMIN_SUPPLIER_DELETE: 'admin/supplier/deleteSupplier',
+  // INFOWWEB
+  ACTION_ADMIN_INFOWEB_INIT: 'admin/infoweb/init',
+  ACTION_ADMIN_INFOWEB_ADD: 'admin/infoweb/addInfo',
+  MUTATION_ADMIN_INFOWEB_INIT: 'MUTATION_ADMIN_INFOWEB_INIT',
 })
