@@ -70,7 +70,7 @@
         <a href="/sale">
           <img
             class="banner"
-            :src="require(`~/assets//category/sale.gif`)"
+            :src="require(`~/assets//category/sale.jpg`)"
             alt="new banner"
             width="100%"
             style="cursor: pointer"

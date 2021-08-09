@@ -1,4 +1,4 @@
-package com.stu.luanvan.response;
+package com.stu.luanvan.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

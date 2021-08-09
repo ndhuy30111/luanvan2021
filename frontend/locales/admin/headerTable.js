@@ -102,4 +102,5 @@ export default () => ({
     { text: 'Trạng thái đơn hàng', value: 'status' },
     { text: '', value: 'actions', sortable: false },
   ],
+  BANNER_HEADER: [{ text: 'Độ ưu tiên' }, { text: 'Hình' }, { text: '' }],
 })

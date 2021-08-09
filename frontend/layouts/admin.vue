@@ -92,6 +92,15 @@ export default {
                 },
               ],
             },
+            {
+              name: this.$local.vn_admin_menu.BANNER_MANAGEMENT,
+              function: [
+                {
+                  name: this.$local.vn_admin_menu.BANNER_VIEW,
+                  url: 'admin-banner',
+                },
+              ],
+            },
           ],
         },
         {

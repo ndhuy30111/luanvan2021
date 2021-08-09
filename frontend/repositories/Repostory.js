@@ -11,6 +11,7 @@ import ReviewAdminRepository from '~/repositories/admin/ReviewRepostory'
 import ReportAdminRepository from '~/repositories/admin/ReportRepostory'
 import SupplierAdminRepository from '~/repositories/admin/SupplierRepostory'
 import InfoWebAdminRepository from '~/repositories/admin/InfowebRepostory'
+import BannerAdminRepository from '~/repositories/admin/BannerRepostory'
 // user
 import AccounRepostory from '~/repositories/user/AccounRepostory'
 import CategoryReponstory from '~/repositories/user/CategoryRepostory'
@@ -32,6 +33,7 @@ export default ($axios) => ({
   reportAdmin: ReportAdminRepository($axios),
   supplierAdmin: SupplierAdminRepository($axios),
   infowebAdmin: InfoWebAdminRepository($axios),
+  bannerAdmin: BannerAdminRepository($axios),
   // user
   account: AccounRepostory($axios),
   categoryUser: CategoryReponstory($axios),

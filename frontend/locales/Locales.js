@@ -11,6 +11,7 @@ import ADMINCOLOR from '~/locales/admin/color'
 import ADMINREVIEW from '~/locales/admin/review'
 import ADMINSUPPLIER from '~/locales/admin/supplier'
 import ADMININFOWWEB from '~/locales/admin/infoweb'
+import ADMINBANNER from '~/locales/admin/banner'
 export default () => ({
   vn: UserMsg(),
 
@@ -24,4 +25,5 @@ export default () => ({
   vn_admin_review: ADMINREVIEW(),
   vn_admin_supplier: ADMINSUPPLIER(),
   vn_admin_infoweb: ADMININFOWWEB(),
+  vn_admin_banner: ADMINBANNER(),
 })

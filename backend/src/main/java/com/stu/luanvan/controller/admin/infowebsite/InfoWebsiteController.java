@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin
-@RequestMapping(URlController.INFOWEBSITE_ADMIN) //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
+@CrossOrigin //Cho truy cập vào API từ các Trang web khác, Bảo Mật CRSF
+@RequestMapping(URlController.INFOWEBSITE_ADMIN)
 @EnableTransactionManagement
 public class InfoWebsiteController {
     @Autowired

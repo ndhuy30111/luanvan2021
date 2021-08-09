@@ -14,4 +14,5 @@ public class URlController {
     public final static String REPORT_ADMIN = ADMIN + "/report";
     public final static String SUPPLIER_ADMIN = ADMIN + "/supplier";
     public final static String INFOWEBSITE_ADMIN = ADMIN + "/infoweb";
+    public final static String BANNER_ADMIN = ADMIN + "/banner";
 }

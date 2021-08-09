@@ -25,4 +25,6 @@ export default () => ({
   SUPPLIER_VIEW: 'Xem danh sách',
   INFOWEB_MANAGEMENT: 'Thông tin cửa hàng',
   INFOWEB_VIEW: 'Xem thông tin',
+  BANNER_MANAGEMENT: 'Quản lý banner',
+  BANNER_VIEW: 'Xem banner',
 })
