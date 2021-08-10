@@ -53,12 +53,15 @@ public class InvoiceService implements InvoiceServiceInterface{
             var i = new InvoiceModel(invoiceRequest.getNumberPhone(), invoiceRequest.getAddress(),
                     invoiceRequest.getNote(), billCode, invoiceRequest.getPayment());
             var invoice = invoiceRepository.saveAndFlush(i);
+            List<InvoiceDetailsModel> data = new ArrayList<>();
             invoiceRequest.getInvoiceDetailsRequests().forEach(c->{
                 var product = productService.findById(c.getProductId());
                 var invoicedetails = new InvoiceDetailsModel(c.getName(), c.getAmount(), c.getPrice(), product,
                         invoice, c.getColor(), c.getSizeId());
                 invoiceDetailsRepository.saveAndFlush(invoicedetails);
+                data.add(invoicedetails);
             });
+            invoice.setInvoicedetals(data);
             return invoice;
         } catch (Exception ex){
             logger.error("Save New Invoice: ",ex);

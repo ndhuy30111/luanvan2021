@@ -265,6 +265,7 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'Checkout',
+  middleware: 'checkout',
   data() {
     return {
       valid: true,
