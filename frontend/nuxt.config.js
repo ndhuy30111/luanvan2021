@@ -4,6 +4,16 @@ export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        path: '*',
+        component: resolve(__dirname, 'pages/404.vue'),
+        name: '404',
+      })
+    },
+  },
+
   server: {
     https: {
       key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
