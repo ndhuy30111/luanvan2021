@@ -52,6 +52,7 @@ export default {
     this.$store.dispatch(this.$constant.user.ACTIONS_CATEGORYS_GETALL)
     this.$store.dispatch(this.$constant.user.ACTIONS_PRODUCT_GETALL)
     this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_INFOWEB_INIT)
+    this.$store.dispatch(this.$constant.admin.ACTION_ADMIN_BANNER_INIT)
     if (this.$auth.user) {
       this.$store.dispatch(this.$constant.user.ACTION_SHOW_CART_USER)
     } else {

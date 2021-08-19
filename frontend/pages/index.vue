@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row class="memu">
       <v-col cols="12">
-        <Carousel></Carousel>
+        <Carousel />
       </v-col>
     </v-row>
     <v-row>
@@ -67,10 +67,10 @@
     </v-row>
     <v-row class="mt-15">
       <v-col cols="12">
-        <a href="/sale">
+        <a v-for="(item, index) in bannerSale" :key="index" href="/sale">
           <img
             class="banner"
-            :src="require(`~/assets//category/sale.jpg`)"
+            :src="item.file.url"
             alt="new banner"
             width="100%"
             style="cursor: pointer"
@@ -113,10 +113,10 @@
     </v-row>
     <v-row class="mt-15">
       <v-col cols="12">
-        <a href="/shop">
+        <a v-for="(item, index) in bannerFresh" :key="index" href="/shop">
           <img
             class="banner"
-            :src="require(`~/assets//category/baner4.jpg`)"
+            :src="item.file.url"
             alt="new banner"
             width="100%"
             style="cursor: pointer"
@@ -180,6 +180,19 @@ export default {
     },
     hot() {
       return this.$store.state.user.product.hot
+    },
+    listbanner() {
+      return this.$store.state.admin.banner.banner
+    },
+    bannerSale() {
+      return this.listbanner.filter((item) => {
+        return item.sort === 2
+      })
+    },
+    bannerFresh() {
+      return this.listbanner.filter((item) => {
+        return item.sort === 5
+      })
     },
   },
   created() {
