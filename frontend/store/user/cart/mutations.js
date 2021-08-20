@@ -1,6 +1,13 @@
 export default {
   MUTATIONS_CART_ADDTOCART_USER(state, cartItem) {
-    state.cart.push(cartItem)
+    const cart = state.cart.find(
+      (content) => content.sizeId === cartItem.sizeId
+    )
+    if (!cart) {
+      state.cart.push(cartItem)
+    } else {
+      cart.quantity += cartItem.quantity
+    }
   },
   MUTATIONS_SHOW_CART_USER(state, payload) {
     state.cart = payload
@@ -41,10 +48,7 @@ export default {
 
   MUTATIONS_CART_ADDTOCART(state, cartItem) {
     const cart = state.cart.find(
-      (content) =>
-        content.id === parseInt(cartItem.id) &&
-        content.color === cartItem.color &&
-        content.size === cartItem.size
+      (content) => content.sizeId === cartItem.sizeId
     )
     this.$toast.global.cart()
     if (!cart) {

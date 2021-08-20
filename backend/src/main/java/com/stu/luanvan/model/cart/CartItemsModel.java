@@ -45,4 +45,7 @@ public class CartItemsModel {
     public void edit (CartRequest cart){
         this.quantity = cart.getQuantity();
     }
+    public void update (CartRequest cart){
+        this.quantity += cart.getQuantity();
+    }
 }

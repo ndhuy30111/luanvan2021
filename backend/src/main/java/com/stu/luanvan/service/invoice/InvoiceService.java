@@ -7,6 +7,7 @@ import com.stu.luanvan.model.invoicedetails.InvoiceDetailsModel;
 import com.stu.luanvan.model.user.UserModel;
 import com.stu.luanvan.repository.InvoiceDetailsRepository;
 import com.stu.luanvan.repository.InvoiceRepository;
+import com.stu.luanvan.repository.SizeRepository;
 import com.stu.luanvan.request.BillRequest;
 import com.stu.luanvan.request.InvoiceRequest;
 import com.stu.luanvan.response.InvoiceDetailsResponse;
@@ -30,6 +31,8 @@ public class InvoiceService implements InvoiceServiceInterface{
     private InvoiceDetailsRepository invoiceDetailsRepository;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private SizeRepository sizeRepository;
     @Override
     public Map<String, Object> findByAll(Integer page, Integer size, String nameSort) {
         return null;
@@ -122,6 +125,18 @@ public class InvoiceService implements InvoiceServiceInterface{
             throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
         }
         invoice.Status();
+        if(invoice.getStatus() == 1) {
+            invoice.getInvoicedetals().forEach(el ->{
+                var find = sizeRepository.findById(el.getSize()).orElse(null);
+                if(find != null) {
+                    try {
+                        find.xoaAmount(el.getAmount());
+                    } catch (Exception e) {
+                        logger.error(String.valueOf(e));
+                    }
+                }
+            });
+        }
         return invoiceRepository.save(invoice);
     }
 

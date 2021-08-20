@@ -77,8 +77,16 @@ public class CartService implements CartServiceInterfaces{
             throw new BadRequestEx(ExceptionLocales.NOT_FOUND_PRODUCT);
         }
         try{
-            CartItemsModel cart = new CartItemsModel(cartRequest,find, user);
-            return cartItemsRepository.save(cart);
+            var findCart = cartItemsRepository.findBySize(cartRequest.getSizeId());
+            if(findCart == null) {
+                CartItemsModel cart = new CartItemsModel(cartRequest,find, user);
+                return cartItemsRepository.save(cart);
+            }
+            else {
+                findCart.update(cartRequest);
+                var result= cartItemsRepository.save(findCart);
+                return cartItemsRepository.save(result);
+            }
         }catch (Exception ex){
             logger.error("Save New CartItems: ",ex);
             throw new Exception(ExceptionLocales.INTERNAL_SERVER_ERROR);

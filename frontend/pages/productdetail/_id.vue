@@ -70,7 +70,7 @@
                   type="number"
                   min="1"
                   class="count"
-                  readonly
+                  :state="quantity <= sizeAmount && quantity > 0"
                   style="background-color: white; border: none"
                   >{{ quantity }}</b-form-input
                 >
@@ -84,10 +84,20 @@
                   {{ parseInt(products.price).toLocaleString() }}
                   {{ $local.vn.currency }}</a
                 >
-                <a v-show="sizeAmount === 0" id="cart-none">
+                <a
+                  v-show="
+                    sizeAmount === 0 || quantity > sizeAmount || quantity <= 0
+                  "
+                  id="cart-none"
+                >
                   <b-icon icon="cart"></b-icon> {{ $local.vn.add_cart }}</a
                 >
-                <a v-show="sizeAmount !== 0" @click="addCart()">
+                <a
+                  v-show="
+                    sizeAmount !== 0 && quantity <= sizeAmount && quantity > 0
+                  "
+                  @click="addCart()"
+                >
                   <b-icon icon="cart"></b-icon> {{ $local.vn.add_cart }}</a
                 >
               </div>

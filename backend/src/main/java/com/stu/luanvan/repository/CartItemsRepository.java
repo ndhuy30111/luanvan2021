@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface CartItemsRepository extends JpaRepository<CartItemsModel, Integer> {
     List<CartItemsModel> findByUser(UserModel user);
+    CartItemsModel findBySize(Integer size);
 }
