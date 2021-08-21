@@ -284,6 +284,17 @@ export default {
           icon: 'check',
         },
       },
+      {
+        name: 'errorSubmitInvoice',
+        message: 'Số lượng có hạng vui lòng kiểm tra lại số lượng đặt mua',
+        options: {
+          position: 'top-center',
+          type: 'error',
+          duration: 5000,
+          theme: 'outline',
+          icon: 'error',
+        },
+      },
     ],
   },
 }

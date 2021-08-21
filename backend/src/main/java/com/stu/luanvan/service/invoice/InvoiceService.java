@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -119,6 +120,7 @@ public class InvoiceService implements InvoiceServiceInterface{
         }
     }
     @Override
+    @Transactional(rollbackFor = Throwable.class)
     public InvoiceModel saveStatus(Integer id) throws Exception {
         var invoice = invoiceRepository.findById(id).orElse(null);
         if(invoice == null){
@@ -129,11 +131,13 @@ public class InvoiceService implements InvoiceServiceInterface{
             invoice.getInvoicedetals().forEach(el ->{
                 var find = sizeRepository.findById(el.getSize()).orElse(null);
                 if(find != null) {
+
                     try {
                         find.xoaAmount(el.getAmount());
                     } catch (Exception e) {
-                        logger.error(String.valueOf(e));
+                        e.printStackTrace();
                     }
+
                 }
             });
         }
@@ -147,6 +151,17 @@ public class InvoiceService implements InvoiceServiceInterface{
             throw new NotFoundEx(ExceptionLocales.NOT_FOUND_PRODUCT);
         }
         invoice.Paid();
+        if(invoice.getStatus() == 1) {
+            invoice.getInvoicedetals().forEach(el ->{
+                var find = sizeRepository.findById(el.getSize()).orElse(null);
+                if(find != null) {
+                    try {
+                        find.xoaAmount(el.getAmount());
+                    } catch (Exception e) {
+                    }
+                }
+            });
+        }
         return invoiceRepository.save(invoice);
 
     }

@@ -108,6 +108,7 @@ export default {
       responsive: true,
     },
   }),
+
   computed: {
     ...mapGetters({
       // map `this.doneCount` to `this.$store.getters.doneTodosCount`

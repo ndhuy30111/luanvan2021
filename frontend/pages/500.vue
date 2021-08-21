@@ -55,7 +55,6 @@ a {
   text-decoration: none;
   opacity: 0.6;
 }
-
 .text {
   fill: none;
   stroke: white;

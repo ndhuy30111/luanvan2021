@@ -324,7 +324,8 @@ export default {
   width: 250px;
 }
 .count {
-  width: 30px;
+  text-align: center;
+  width: 60px;
 }
 .minus {
   font-size: 17px;

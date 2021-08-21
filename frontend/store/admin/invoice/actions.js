@@ -54,6 +54,7 @@ export default {
         return true
       }
     } catch (e) {
+      this.$toast.global.errorSubmitInvoice()
       return false
     }
   },
@@ -80,6 +81,7 @@ export default {
         return true
       }
     } catch (e) {
+      this.$toast.global.errorSubmitInvoice()
       return false
     }
   },

@@ -298,6 +298,7 @@ export default {
       product: 'user/product/getFindProduct',
       totalrate: 'user/review/totalRate',
       totalcoment: 'user/review/totalComment',
+      cart: 'user/cart/getData',
     }),
     listproduct() {
       return this.$store.state.user.product.list_products
@@ -372,6 +373,13 @@ export default {
       this.sizeAmount = item.amount
     },
     addCart() {
+      const findCart = this.cart.find((el) => el.sizeId === this.sizeActive.id)
+      if (findCart) {
+        const temp = parseInt(this.quantity) + parseInt(findCart.quantity)
+        if (this.sizeAmount < temp) {
+          return
+        }
+      }
       const cartItem = {
         idProduct: this.products.id,
         name: this.products.name,

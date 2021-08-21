@@ -13,4 +13,7 @@ export default {
     })
     return amount
   },
+  getData(state) {
+    return state.cart
+  },
 }
