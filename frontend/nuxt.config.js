@@ -169,7 +169,7 @@ export default {
         options: {
           position: 'top-center',
           type: 'error',
-          duration: 5000,
+          duration: 2000,
           theme: 'outline',
           icon: 'error',
         },
@@ -181,7 +181,7 @@ export default {
         options: {
           position: 'top-center',
           type: 'info',
-          duration: 5000,
+          duration: 1000,
           theme: 'outline',
           icon: 'hourglass_empty',
         },
@@ -192,7 +192,7 @@ export default {
         options: {
           position: 'top-center',
           type: 'success',
-          duration: 5000,
+          duration: 2000,
           theme: 'outline',
           icon: 'check',
         },
@@ -214,7 +214,7 @@ export default {
         options: {
           position: 'top-center',
           type: 'error',
-          duration: 5000,
+          duration: 2000,
           theme: 'outline',
           icon: 'error',
         },
@@ -225,7 +225,7 @@ export default {
         options: {
           position: 'top-center',
           type: 'error',
-          duration: 5000,
+          duration: 2000,
           theme: 'outline',
           icon: 'error',
         },
@@ -236,7 +236,7 @@ export default {
         options: {
           position: 'top-center',
           type: 'error',
-          duration: 5000,
+          duration: 2000,
           theme: 'outline',
           icon: 'error',
         },
@@ -257,7 +257,7 @@ export default {
         options: {
           position: 'top-center',
           type: 'success',
-          duration: 5000,
+          duration: 2000,
           theme: 'outline',
           icon: 'check',
         },
@@ -268,7 +268,7 @@ export default {
         options: {
           position: 'top-center',
           type: 'success',
-          duration: 5000,
+          duration: 2000,
           theme: 'outline',
           icon: 'check',
         },
@@ -279,7 +279,7 @@ export default {
         options: {
           position: 'top-center',
           type: 'success',
-          duration: 5000,
+          duration: 2000,
           theme: 'outline',
           icon: 'check',
         },
@@ -290,7 +290,7 @@ export default {
         options: {
           position: 'top-center',
           type: 'error',
-          duration: 5000,
+          duration: 2000,
           theme: 'outline',
           icon: 'error',
         },

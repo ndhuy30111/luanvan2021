@@ -83,7 +83,7 @@ export default () => ({
       align: 'start',
       value: 'product',
     },
-    { text: 'Tên người bình luận', value: 'user' },
+    { text: 'Tên người nhận xét', value: 'user' },
     { text: 'Đánh giá', value: 'rate' },
     { text: 'Lời bình luận', value: 'comment' },
     { text: 'Vào lúc mấy giờ', value: 'createDate' },
